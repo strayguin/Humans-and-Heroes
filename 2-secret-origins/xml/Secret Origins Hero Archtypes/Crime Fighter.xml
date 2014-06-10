@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Crime Fighter" transcendence="0" image="../images/TCP Hero 288fd.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="3" />
+       <Agility value="6" />
+       <Fighting value="12" />
+       <Awareness value="4" />
+       <Stamina value="3" />
+       <Dexterity value="6" />
+       <Intellect value="4" />
+       <Presence value="4" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+       <Row name="Feature" cost="1" text="Commlink" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Protection" text="Costume" action="None" range="Personal" duration="Permanent" rank="2" />
+       <Row name="Movement" text="Grapple Gun: Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
+      <Row name="Affliction" text="Flash-Bangs. Fortitude Dazzle (Impaired, Disabled, Unaware) Visual" action="Standard" range="Ranged" duration="Instant" rank="2">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
+          <Modifier name="Other Rank Extra" applications="1" text="Extra Condition: Fortitude Dazzle Auditory" />
+          <Modifier name="Area" applications="1" text="Burst" />
+      </Row>
+      <Row name="Affliction" text="Sleep Gas Pellets. Fortitude; Daze, Stun, Asleep" action="Standard" range="Ranged" duration="Instant" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Cloud" />
+      </Row>
+      <Row name="Damage" text="Boomerangs (Total Damage 4)" action="Standard" range="Ranged" duration="Instant" rank="1">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Free Modifier" text="Strength-Based" />
+      </Row>
+       <Row name="Feature" cost="1" text="Handcuffs" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="6" />
+       <Row name="Defensive Roll" rank="3" />
+       <Row name="Defensive Attack" />
+       <Row name="Jack of All Trades" />
+       <Row name="Power Attack" />
+       <!--
+       <Row name="Benefit" rank="1" text="(Option) (Choose One)" />
+       <Row name="Skill Mastery" text="(Option) Stealth" />
+       <Row name="Ultimate Effort" text="(Option) Investigation" />
+       -->
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="6" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="2" ability="Fighting" />
+       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="6" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="8" ability="Presence" />
+       <Row name="Investigation" subtype="" rank="8" ability="Intellect" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+       <Row name="Ranged Combat" subtype="Throw" rank="8" ability="Dexterity" />
+       <Row name="Sleight of Hand" subtype="" rank="4" ability="Dexterity" />
+       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+       <Row name="Technology" subtype="" rank="2" ability="Intellect" />
+       <Row name="Vehicles" subtype="" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="6" />
+       <Fortitude value="3" />
+       <Parry value="0" />
+       <Will value="6" />
+   </Defenses>
+</Document>

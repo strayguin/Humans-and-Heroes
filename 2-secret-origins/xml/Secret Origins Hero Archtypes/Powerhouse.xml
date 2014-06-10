@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Powerhouse" transcendence="0" image="../images/TCP Hero 1789a.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="12" />
+       <Agility value="1" />
+       <Fighting value="6" />
+       <Awareness value="1" />
+       <Stamina value="14" />
+       <Dexterity value="1" />
+       <Intellect value="0" />
+       <Presence value="1" />
+   </Abilities>
+   <Powers>
+      <Row name="Damage" text="Shockwave" action="Standard" range="Close" duration="Instant" rank="10">
+          <Modifier name="Area" applications="1" text="Burst" />
+          <Modifier name="Limited" applications="1" text="Both the Powerhouse and its targets must be in contact with the ground" />
+      </Row>
+      <Row name="Affliction" text="Groundstrike; Resisted by Fortitude; Vulnerable, Defenseless" action="Standard" range="Close" duration="Instant" rank="10">
+          <Modifier name="Area" applications="1" text="Burst" />
+          <Modifier name="Other Rank Flaw" applications="1" text="Limited Degree" />
+          <Modifier name="Other Rank Flaw" applications="1" text="Instant Recovery" />
+          <Modifier name="Limited" applications="1" text="Both the Powerhouse and its targets must be in contact with the ground" />
+          <Modifier name="Alternate Effect" applications="2" text="to Shockwave" />
+      </Row>
+       <Row name="Leaping" text="" action="Free" range="Personal" duration="Instant" rank="10" />
+       <Row name="Immunity" text="From natural cold, natural heat, and fatigue effects (5)" action="None" range="Personal" duration="Permanent" rank="7" />
+       <Row name="Feature" cost="2" text="Impervious Toughness 6" action="None" range="Personal" duration="Permanent" rank="6" />
+      <Row name="Enhanced Trait" cost="2" text="Power Lifting: Enhanced Trait 4. Lifting Str 16; 1,600 tons" action="Free" range="Personal" duration="Sustained" rank="4">
+          <Modifier name="Limited" applications="1" text="to Lifting" />
+      </Row>
+       <Row name="Resistance" text="High Pressure" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="All-out Attack" />
+       <Row name="Power Attack" />
+       <Row name="Ultimate Effort" text="Toughness checks" />
+   </Advantages>
+   <Skills>
+       <Row name="Close Combat" subtype="Unarmed" rank="2" ability="Fighting" />
+       <Row name="Expertise" subtype="(Choose One)" rank="6" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="5" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="7" ability="Presence" />
+       <Row name="Perception" rank="7" ability="Awareness" />
+       <Row name="Ranged Combat" subtype="Throwing" rank="7" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="5" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="5" />
+   </Defenses>
+</Document>

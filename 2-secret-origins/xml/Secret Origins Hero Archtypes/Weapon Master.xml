@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Weapon Master" transcendence="0" image="../images/TCP Armored 2236a.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="3" />
+       <Agility value="5" />
+       <Fighting value="7" />
+       <Awareness value="1" />
+       <Stamina value="2" />
+       <Dexterity value="7" />
+       <Intellect value="0" />
+       <Presence value="2" />
+   </Abilities>
+   <Powers>
+       <Row name="Quickness" text="Fast (Option)" action="Free" range="Personal" duration="Sustained" rank="3" />
+       <Row name="Movement" text="Fast (Option). Ground Speed: 8 MPH" action="Free" range="Personal" duration="Sustained" rank="2" />
+      <Row name="Variable" text="Gadgets (Option)" action="Full" range="Personal" duration="Sustained" rank="1">
+          <Modifier name="Easily Removable" applications="2" text="" />
+      </Row>
+      <!--
+      <Row name="Affliction" text="Crippling Strike (Option) Resisted by Fortitude; Stamina Impaired, Stamina Hindered, Incapacitated" action="Standard" range="Close" duration="Instant" rank="7">
+          <Modifier name="Easily Removable" applications="2" text="A Chosen Weapon that is not Equipment" />
+      </Row>
+      <Row name="Regeneration" text="Healing Factor (Option)" action="None" range="Personal" duration="Permanent" rank="2">
+          <Modifier name="Activation" applications="1" text="Move action" />
+      </Row>
+      -->
+      <!-- Super-Hearing Option
+       <Row name="Senses" cost="2" text="Accurate (2) Normal Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Danger Sense (Auditory)" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Extended Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Ultra-Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+      -->
+      <!-- Super-Vision Option
+       <Row name="Senses" cost="2" text="Darkvision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Extended Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Microscopic (Vision)" action="None" range="Personal" duration="Permanent" rank="2" />
+      -->
+      <!--
+       <Row name="Leaping" text="Urban Acrobat (Option)" action="Free" range="Personal" duration="Instant" rank="1" />
+       <Row name="Movement" text="Urban Acrobat (Option). Sure-Footed" action="Free" range="Personal" duration="Sustained" rank="1" />
+       <Row name="Movement" text="Urban Acrobat (Option). Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
+      -->
+   </Powers>
+   <Equipment>
+       <Row name="Feature" cost="1" text="Vehicle: Motorcycle" action="None" range="Personal" duration="Permanent" rank="10" />
+      <Row name="Damage" text="Bow (or Crossbow) or Gun (revolver or semi-automatic) (Option)" action="Standard" range="Ranged" duration="Instant" rank="5">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Multiattack" />
+      </Row>
+       <!--
+      <Row name="Damage" text="Sword (including Katana) (Option). Total Damage of 5 by default" action="Standard" range="Close" duration="Instant" rank="2">
+          <Modifier name="Other Free Modifier" text="Strength-based" />
+          <Modifier name="Multiattack" />
+          <Modifier name="Penetrating" applications="5" />
+          <Modifier name="Accurate" applications="1" />
+      </Row>
+       -->
+       <!--
+      <Row name="Damage" text="Whip (Option)" action="Standard" range="Close" duration="Instant" rank="4">
+          <Modifier name="Multiattack" />
+          <Modifier name="Reach" applications="3" text="" />
+      </Row>
+       <Row name="Enhanced Trait" cost="3" text="Improved Grab, Improved Hold, Improved Trip" action="Free" range="Personal" duration="Sustained" rank="1" />
+      <Row name="Movement" text="Swinging" action="Free" range="Personal" duration="Sustained" rank="1">
+          <Modifier name="Alternate Effect" applications="1" text="" />
+      </Row>
+       -->
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="5" />
+       <Row name="Defensive Roll" rank="5" />
+       <Row name="Evasion" rank="1" />
+       <Row name="Improved Critical" rank="1" text="Bow" />
+       <Row name="Accurate Attack" />
+       <Row name="Connected" />
+       <Row name="Defensive Attack" />
+       <Row name="Improved Defense" />
+       <Row name="Improved Disarm" />
+       <Row name="Improved Trip" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="8" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="8" ability="Strength" />
+       <Row name="Ranged Combat" subtype="Bow" rank="6" ability="Dexterity" />
+       <Row name="Deception" subtype="" rank="8" ability="Presence" />
+       <Row name="Expertise" subtype="(Choose One)" rank="6" ability="Intellect" />
+       <Row name="Expertise" subtype="Weapons" rank="8" ability="Intellect" />
+       <Row name="Intimidation" subtype="" rank="6" ability="Presence" />
+       <Row name="Investigation" subtype="" rank="6" ability="Intellect" />
+       <Row name="Perception" rank="8" ability="Awareness" />
+       <Row name="Sleight of Hand" subtype="" rank="6" ability="Dexterity" />
+       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+       <Row name="Vehicles" subtype="" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="6" />
+       <Parry value="7" />
+       <Will value="7" />
+   </Defenses>
+</Document>

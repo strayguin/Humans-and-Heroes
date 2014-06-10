@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Ape" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="1" />
+       <Agility value="3" />
+       <Fighting value="3" />
+       <Awareness value="1" />
+       <Stamina value="-1" />
+       <Dexterity value="1" />
+       <Intellect value="-2" />
+       <Presence value="-1" />
+   </Abilities>
+   <Powers>
+      <Row name="Growth" text="" action="None" range="Personal" duration="Permanent" rank="1">
+          <Modifier name="Permanent" />
+          <Modifier name="Innate" />
+      </Row>
+      <Row name="Enhanced Trait" cost="1" text="Defense: Toughness" action="None" range="Personal" duration="Permanent" rank="2">
+          <Modifier name="Permanent" />
+      </Row>
+       <Row name="Senses" cost="1" text="Low-light vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Acute Smell" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Athletics" subtype="" rank="6" ability="Strength" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="0" />
+       <Fortitude value="2" />
+       <Parry value="0" />
+       <Will value="3" />
+   </Defenses>
+</Document>

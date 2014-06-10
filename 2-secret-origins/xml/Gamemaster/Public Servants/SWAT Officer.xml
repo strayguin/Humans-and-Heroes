@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="SWAT Officer" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="2" />
+       <Agility value="2" />
+       <Fighting value="4" />
+       <Awareness value="1" />
+       <Stamina value="2" />
+       <Dexterity value="2" />
+       <Intellect value="0" />
+       <Presence value="1" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+      <Row name="Damage" text="Submachine gun" action="Standard" range="Ranged" duration="Instant" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Multiattack" />
+      </Row>
+       <Row name="Protection" text="Riot Gear" action="None" range="Personal" duration="Permanent" rank="4" />
+       <Row name="Damage" text="Police Baton" action="Standard" range="Close" duration="Instant" rank="2" />
+       <Row name="Feature" cost="1" text="cell phone, handcuffs" action="None" range="Personal" duration="Permanent" rank="2" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="4" />
+   </Advantages>
+   <Skills>
+       <Row name="Close Combat" subtype="Police Baton" rank="2" ability="Fighting" />
+       <Row name="Athletics" subtype="" rank="3" ability="Strength" />
+       <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
+       <Row name="Expertise" subtype="Streetwise" rank="4" ability="Intellect" />
+       <Row name="Expertise" subtype="Police Officer" rank="5" ability="Intellect" />
+       <Row name="Expertise" subtype="SWAT Officer" rank="5" ability="Intellect" />
+       <Row name="Intimidation" subtype="" rank="4" ability="Presence" />
+       <Row name="Perception" rank="2" ability="Awareness" />
+       <Row name="Ranged Combat" subtype="Submachine Gun" rank="4" ability="Dexterity" />
+       <Row name="Stealth" subtype="" rank="4" ability="Agility" />
+       <Row name="Treatment" subtype="" rank="3" ability="Intellect" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="4" />
+       <Parry value="0" />
+       <Will value="2" />
+   </Defenses>
+</Document>

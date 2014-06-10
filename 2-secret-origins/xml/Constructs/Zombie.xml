@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Zombie" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="2" />
+       <Agility value="-1" />
+       <Fighting value="1" />
+       <Awareness value="-1" />
+       <Stamina value="--" />
+       <Dexterity value="-1" />
+       <Intellect value="0" />
+       <Presence value="0" />
+   </Abilities>
+   <Powers>
+       <Row name="Protection" text="Undead" action="None" range="Personal" duration="Permanent" rank="3" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+    <Skills></Skills>
+   <Defenses>
+       <Dodge value="1" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="0" />
+   </Defenses>
+</Document>

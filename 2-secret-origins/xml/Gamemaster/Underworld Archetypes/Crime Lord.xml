@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Crime Lord" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="1" />
+       <Fighting value="2" />
+       <Awareness value="2" />
+       <Stamina value="1" />
+       <Dexterity value="0" />
+       <Intellect value="3" />
+       <Presence value="4" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+      <Row name="Protection" text="Bulletproof vest" action="None" range="Personal" duration="Permanent" rank="4">
+          <Modifier name="Limited" applications="1" text="vs. Ballistic" />
+          <Modifier name="Subtle" applications="1" text="" />
+      </Row>
+      <Row name="Damage" text="Heavy Pistol" action="Standard" range="Ranged" duration="Instant" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+       <Row name="Feature" cost="1" text="cell phone" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="3" />
+       <Row name="Benefit" rank="4" text="Multi-Millionaire" />
+       <Row name="Benefit" rank="1" text="Status: Crime Lord" />
+       <Row name="Connected" />
+   </Advantages>
+   <Skills>
+       <Row name="Expertise" subtype="Criminal" rank="8" ability="Intellect" />
+       <Row name="Expertise" subtype="Streetwise" rank="6" ability="Intellect" />
+       <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
+       <Row name="Intimidation" subtype="" rank="6" ability="Presence" />
+       <Row name="Perception" rank="2" ability="Awareness" />
+       <Row name="Persuasion" rank="4" ability="Presence" />
+       <Row name="Ranged Combat" subtype="Pistols" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="2" />
+       <Parry value="1" />
+       <Will value="1" />
+   </Defenses>
+</Document>

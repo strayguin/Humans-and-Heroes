@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Martial Artist" transcendence="0" image="../images/TCP Human 29bdf.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="4" />
+       <Agility value="6" />
+       <Fighting value="12" />
+       <Awareness value="5" />
+       <Stamina value="3" />
+       <Dexterity value="4" />
+       <Intellect value="0" />
+       <Presence value="5" />
+   </Abilities>
+   <Powers>
+       <Row name="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Accurate Attack" />
+       <Row name="All-out Attack" />
+       <Row name="Defensive Attack" />
+       <Row name="Defensive Roll" rank="4" />
+       <Row name="Evasion" rank="1" />
+       <Row name="Improved Critical" rank="1" text="Unarmed" />
+       <Row name="Improved Defense" />
+       <Row name="Improved Disarm" />
+       <Row name="Improved Grab" />
+       <Row name="Improved Initiative" rank="1" />
+       <Row name="Improved Trip" />
+       <Row name="Instant Up" />
+       <Row name="Move-by Action" />
+       <Row name="Power Attack" />
+       <Row name="Prone Fighting" />
+       <Row name="Seize Initiative" />
+       <Row name="Skill Mastery" text="Acrobatics" />
+       <Row name="Trance" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="10" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="10" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="3" ability="Fighting" />
+       <Row name="Expertise" subtype="Philosophy" rank="5" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="8" ability="Stamina" />
+       <Row name="Intimidation" subtype="" rank="8" ability="Presence" />
+       <Row name="Perception" rank="8" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="8" />
+       <Parry value="1" />
+       <Will value="4" />
+   </Defenses>
+</Document>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Whale" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="3" />
+       <Agility value="0" />
+       <Fighting value="2" />
+       <Awareness value="1" />
+       <Stamina value="3" />
+       <Dexterity value="0" />
+       <Intellect value="-3" />
+       <Presence value="-3" />
+   </Abilities>
+   <Powers>
+      <Row name="Growth" text="" action="None" range="Personal" duration="Permanent" rank="3">
+          <Modifier name="Permanent" />
+          <Modifier name="Innate" />
+      </Row>
+       <Row name="Protection" text="" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="4" text="Accurate (4) All Auditory" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Ultra-hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Movement" text="Swimming (16 MPH without growth)" action="Free" range="Personal" duration="Sustained" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Athletics" subtype="" rank="2" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="2" ability="Fighting" />
+       <Row name="Perception" rank="10" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="1" />
+       <Parry value="2" />
+       <Will value="7" />
+   </Defenses>
+</Document>

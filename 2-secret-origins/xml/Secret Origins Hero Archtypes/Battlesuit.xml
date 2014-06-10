@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Battlesuit" transcendence="0" image="../images/TCP Armored 4c52c.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="8" />
+       <Agility value="0" />
+       <Fighting value="6" />
+       <Awareness value="1" />
+       <Stamina value="0" />
+       <Dexterity value="2" />
+       <Intellect value="5" />
+       <Presence value="0" />
+   </Abilities>
+   <Powers>
+      <Row name="Protection" text="Armor" action="None" range="Personal" duration="Permanent" rank="11">
+          <Modifier name="Impervious" applications="6" />
+          <Modifier name="Other Flat Flaw" applications="22" text="Removable (for the whole group and Enhanced Traits)" />
+      </Row>
+      <Row name="Flight" text="Boot Jets: 500 MPH" action="Free" range="Personal" duration="Sustained" rank="8">
+          <Modifier name="Other Flat Flaw" applications="4" text="Removable (was split because the flat flaw was too big for Armor alone)" />
+      </Row>
+       <Row name="Communication" text="Radio" action="Free" range="Personal" duration="Sustained" rank="2" />
+       <Row name="Immunity" text="Life Support System" action="None" range="Personal" duration="Permanent" rank="7" />
+      <Row name="Senses" cost="1" text="Sensors: radar" action="None" range="Personal" duration="Permanent" rank="1">
+          <Modifier name="Other Flat Extra" applications="2" text="Accurate" />
+          <Modifier name="Other Flat Extra" applications="2" text="Extended" />
+      </Row>
+       <Row name="Senses" cost="2" text="Sensors: Darkvision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Sensors: Direction Sense" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Sensors: Distance Sense" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Sensors: Infravision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="2" text="Sensors: Time Sense" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Sensors: Ultra-Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+      <Row name="Damage" text="Force Beams" action="Standard" range="Ranged" duration="Instant" rank="12">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Accurate Attack" />
+       <Row name="Improvised Tools" />
+   </Advantages>
+   <Skills>
+       <Row name="Expertise" subtype="(Choose one of Business, Engineering, or Science)" rank="5" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="4" ability="Awareness" />
+       <Row name="Perception" rank="5" ability="Awareness" />
+       <Row name="Persuasion" rank="4" ability="Presence" />
+       <Row name="Technology" subtype="" rank="8" ability="Intellect" />
+       <Row name="Other" subtype="Inventor" rank="8" ability="Intellect" />
+       <Row name="Ranged Combat" subtype="Force Beams" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="5" />
+       <Parry value="0" />
+       <Will value="8" />
+   </Defenses>
+</Document>

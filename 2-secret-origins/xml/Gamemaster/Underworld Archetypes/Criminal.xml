@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Criminal" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="1" />
+       <Agility value="2" />
+       <Fighting value="1" />
+       <Awareness value="0" />
+       <Stamina value="0" />
+       <Dexterity value="1" />
+       <Intellect value="1" />
+       <Presence value="1" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+       <Row name="Protection" text="Leather jacket" action="None" range="Personal" duration="Permanent" rank="1" />
+      <Row name="Damage" text="Light Pistol" action="Standard" range="Ranged" duration="Instant" rank="3">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+      <Row name="Damage" text="Knife" action="Standard" range="Close" duration="Instant" rank="1">
+          <Modifier name="Other Flat Extra" applications="1" text="Enhanced Advantage: Improved Critical (of itself)" />
+      </Row>
+       <Row name="Feature" cost="1" text="cell phone" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="2" />
+   </Advantages>
+   <Skills>
+       <Row name="Athletics" subtype="" rank="4" ability="Strength" />
+       <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
+       <Row name="Expertise" subtype="Streetwise" rank="4" ability="Intellect" />
+       <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
+       <Row name="Perception" rank="4" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="6" ability="Agility" />
+       <Row name="Technology" subtype="" rank="4" ability="Intellect" />
+       <Row name="Vehicles" subtype="" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="1" />
+       <Fortitude value="2" />
+       <Parry value="2" />
+       <Will value="0" />
+   </Defenses>
+</Document>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Lion" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="3" />
+       <Agility value="3" />
+       <Fighting value="4" />
+       <Awareness value="1" />
+       <Stamina value="0" />
+       <Dexterity value="1" />
+       <Intellect value="-4" />
+       <Presence value="0" />
+   </Abilities>
+   <Powers>
+       <Row name="Enhanced Trait" cost="1" text="Defense: Toughness" action="Free" range="Personal" duration="Sustained" rank="4" />
+       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Acute (1) Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Close Combat" subtype="Unarmed" rank="3" ability="Fighting" />
+       <Row name="Perception" rank="5" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+   </Skills>
+   <Defenses>
+       <Dodge value="4" />
+       <Fortitude value="6" />
+       <Parry value="3" />
+       <Will value="3" />
+   </Defenses>
+</Document>

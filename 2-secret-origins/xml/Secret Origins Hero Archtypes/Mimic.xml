@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Mimic" transcendence="0" image="../images/TCP Manimal 909b3.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="1" />
+       <Agility value="1" />
+       <Fighting value="8" />
+       <Awareness value="1" />
+       <Stamina value="1" />
+       <Dexterity value="1" />
+       <Intellect value="1" />
+       <Presence value="1" />
+   </Abilities>
+   <Powers>
+      <Row name="Variable" text="Mimic: 50 variable points for duplicating a subject's traits" action="Move" range="Personal" duration="Continuous" rank="10">
+          <Modifier name="Increased Duration" applications="1" />
+          <Modifier name="Faster Action" applications="2" />
+          <Modifier name="Limited" applications="1" text="to One Subject at a time" />
+          <Modifier name="Resistible" text="Dodge, DC 20" />
+      </Row>
+      <Row name="Senses" cost="1" text="Power Sense: Detect Powers (Vision)" action="None" range="Personal" duration="Permanent" rank="1">
+          <Modifier name="Other Flat Extra" applications="2" text="Accurate" />
+          <Modifier name="Other Flat Extra" applications="2" text="Analytical (this includes Acute (1))" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Jack of All Trades" />
+       <Row name="Seize Initiative" />
+       <Row name="Defensive Roll" rank="1" />
+   </Advantages>
+   <Skills>
+       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="8" ability="Awareness" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="7" />
+       <Parry value="0" />
+       <Will value="6" />
+   </Defenses>
+</Document>

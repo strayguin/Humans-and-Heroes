@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Warrior" transcendence="0" image="../images/TCP Hero 1789a.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="10" />
+       <Agility value="6" />
+       <Fighting value="10" />
+       <Awareness value="4" />
+       <Stamina value="8" />
+       <Dexterity value="4" />
+       <Intellect value="1" />
+       <Presence value="4" />
+   </Abilities>
+   <Powers>
+      <Row name="Enhanced Trait" cost="2" text="Power Lifting: Enhanced Strength. Lifting Str 12; 100 tons" action="Free" range="Personal" duration="Sustained" rank="2">
+          <Modifier name="Limited" applications="1" text="to Lifting" />
+      </Row>
+       <Row name="Resistance" text="Fearless. Resistance to fear" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Flight" text="Wind Riding" action="Free" range="Personal" duration="Sustained" rank="5" />
+       <!-- Aquatic Option
+       <Row name="Immunity" text="Drowning" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Movement" text="Swimming" action="Free" range="Personal" duration="Sustained" rank="6" />
+       <Row name="Movement" text="Environmental Adaptation, Aquatic" action="Free" range="Personal" duration="Sustained" rank="1" />
+       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       -->
+       <!--
+       <Row name="Quickness" text="(Fast Option)" action="Free" range="Personal" duration="Sustained" rank="5" />
+       <Row name="Movement" text="(Fast Option) Ground Speed" action="Free" range="Personal" duration="Sustained" rank="5" />
+       <Row name="Leaping" text="(Option)" action="Free" range="Personal" duration="Instant" rank="10" />
+       -->
+       <!-- Super-Senses Option
+       <Row name="Senses" cost="3" text="Accurate (2) and Analytical (1) Normal Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Danger Sense" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Extended Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Extended Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="2" text="Hearing Counters Illusion 1" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row name="Senses" cost="1" text="Ultra-Hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+       -->
+       <!--I don't really have any way of expressing the Strong Warrior option but it does add up-->
+       <!-- Weapon Warrior Option with -3 Strength comes out even
+      <Row name="Damage" text="" action="Standard" range="Close" duration="Instant" rank="4">
+          <Modifier name="Penetrating" applications="3" />
+          <Modifier name="Easily Removable" applications="4" text="" />
+          <Modifier name="Other Free Modifier" text="Strength-based" />
+      </Row>
+       -->
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Defensive Roll" rank="2" />
+       <Row name="Move-by Action" />
+       <Row name="Power Attack" />
+       <Row name="Accurate Attack" />
+       <Row name="All-out Attack" />
+       <Row name="Benefit" rank="1" text="(Choose One)" />
+       <Row name="Defensive Attack" />
+       <Row name="Improved Disarm" />
+       <Row name="Languages" rank="1" text="(Choose One)" />
+       <Row name="Skill Mastery" text="(Choose One)" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="5" ability="Strength" />
+       <Row name="Expertise" subtype="(Choose one of History, Mythology, or Tactics)" rank="4" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="6" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="5" ability="Presence" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="4" ability="Agility" />
+   </Skills>
+   <Defenses>
+       <Dodge value="4" />
+       <Fortitude value="2" />
+       <Parry value="0" />
+       <Will value="6" />
+   </Defenses>
+</Document>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Gadgeteer" transcendence="0" image="../images/TCP Human 917ef.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="1" />
+       <Fighting value="4" />
+       <Awareness value="5" />
+       <Stamina value="0" />
+       <Dexterity value="3" />
+       <Intellect value="8" />
+       <Presence value="0" />
+   </Abilities>
+   <Powers>
+      <Row name="Damage" text="Blaster" action="Standard" range="Ranged" duration="Instant" rank="12">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Flat Flaw" applications="12" text="Easily Removable since it includes the following alternate effect" />
+      </Row>
+      <Row name="Affliction" text="Fortitude Visual Dazzle (Impaired, Disabled, Unaware)" action="Standard" range="Ranged" duration="Instant" rank="7">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Alternate Effect" applications="7" text="to Blaster" />
+      </Row>
+      <Row name="Protection" text="Force Shield Belt" action="Free" range="Personal" duration="Sustained" rank="10">
+          <Modifier name="Impervious" applications="5" />
+          <Modifier name="Sustained" />
+          <Modifier name="Precise" />
+          <Modifier name="Removable" applications="4" text="Belt" />
+      </Row>
+      <Row name="Flight" text="Jet-Pack. 60 MPH" action="Free" range="Personal" duration="Sustained" rank="5">
+          <Modifier name="Removable" applications="2" text="Like a Back-back" />
+      </Row>
+      <Row name="Quickness" text="Quick-Thinking" action="Free" range="Personal" duration="Sustained" rank="4">
+          <Modifier name="Limited" applications="1" text="only for Mental Tasks" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Beginner's Luck" />
+       <Row name="Defensive Roll" rank="2" />
+       <Row name="Improved Initiative" rank="1" />
+       <Row name="Improvised Tools" />
+       <Row name="Inspire" rank="2" />
+       <Row name="Lucky" rank="1" />
+       <Row name="Skill Mastery" text="Technology" />
+   </Advantages>
+   <Skills>
+       <Row name="Expertise" subtype="Engineering" rank="5" ability="Intellect" />
+       <Row name="Expertise" subtype="Science" rank="10" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="5" ability="Awareness" />
+       <Row name="Investigation" subtype="" rank="4" ability="Intellect" />
+       <Row name="Perception" rank="5" ability="Awareness" />
+       <Row name="Technology" subtype="" rank="10" ability="Intellect" />
+       <Row name="Vehicles" subtype="" rank="5" ability="Dexterity" />
+       <Row name="Memory" rank="3" ability="Intellect" />
+       <Row name="Other" subtype="Inventor" rank="3" ability="Intellect" />
+       <Row name="Ranged Combat" subtype="Blaster" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="6" />
+       <Fortitude value="6" />
+       <Parry value="3" />
+       <Will value="7" />
+   </Defenses>
+</Document>

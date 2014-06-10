@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Bystander" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="0" />
+       <Fighting value="0" />
+       <Awareness value="0" />
+       <Stamina value="0" />
+       <Dexterity value="0" />
+       <Intellect value="0" />
+       <Presence value="0" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+       <Row name="Feature" cost="1" text="Cell Phone" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="1" />
+   </Advantages>
+   <Skills>
+       <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
+       <Row name="Knowledge" subtype="Pop Culture" rank="2" ability="Intellect" />
+       <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
+   </Skills>
+   <Defenses>
+       <Dodge value="0" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="0" />
+   </Defenses>
+</Document>

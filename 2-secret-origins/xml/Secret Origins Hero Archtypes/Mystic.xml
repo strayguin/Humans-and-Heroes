@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Mystic" transcendence="0" image="../images/TCP Vampire 53750.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="1" />
+       <Fighting value="4" />
+       <Awareness value="6" />
+       <Stamina value="0" />
+       <Dexterity value="3" />
+       <Intellect value="3" />
+       <Presence value="4" />
+   </Abilities>
+   <Powers>
+      <Row name="Remote Sensing" cost="3" text="Astral Projection: visual, auditory, mental. up to 2 miles away" action="Free" range="Personal" duration="Sustained" rank="10">
+          <Modifier name="Limited" applications="1" text="physical body is defenseless during the use of this power" />
+          <Modifier name="Subtle" applications="2" text="" />
+      </Row>
+       <Row name="Flight" text="Levitation: 30 MPH" action="Free" range="Personal" duration="Sustained" rank="4" />
+      <Row name="Protection" text="Mystic Shield" action="Free" range="Personal" duration="Sustained" rank="6">
+          <Modifier name="Impervious" applications="3" />
+          <Modifier name="Sustained" />
+      </Row>
+      <Row name="Senses" cost="1" text="Magical Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">
+          <Modifier name="Other Flat Extra" applications="1" text="Radius" />
+      </Row>
+      <Row name="Damage" text="Spellcasting" action="Standard" range="Ranged" duration="Instant" rank="10">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+       <Row name="Resistance" text="Fearless. Resist fear" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Trance" />
+   </Advantages>
+   <Skills>
+       <Row name="Expertise" subtype="Wizardry" rank="10" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="6" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="4" ability="Presence" />
+       <Row name="Perception" rank="4" ability="Awareness" />
+       <Row name="Sleight of Hand" subtype="" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Spellcasting" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="6" />
+       <Parry value="2" />
+       <Will value="9" />
+   </Defenses>
+</Document>

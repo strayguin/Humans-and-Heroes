@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<Document>
+    <Hero name="Police Officer" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="2" />
+       <Agility value="1" />
+       <Fighting value="3" />
+       <Awareness value="1" />
+       <Stamina value="2" />
+       <Dexterity value="1" />
+       <Intellect value="0" />
+       <Presence value="1" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+      <Row name="Protection" text="Bulletproof Vest" action="None" range="Personal" duration="Permanent" rank="4">
+          <Modifier name="Limited" applications="1" text="vs. Ballistic" />
+          <Modifier name="Subtle" applications="1" text="" />
+      </Row>
+      <Row name="Damage" text="Light Pistol" action="Standard" range="Ranged" duration="Instant" rank="3">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+       <Row name="Damage" text="Police Baton. bludgeoning" action="Standard" range="Close" duration="Instant" rank="2" />
+       <Row name="Feature" cost="1" text="cell phone, handcuffs" action="None" range="Personal" duration="Permanent" rank="2" />
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="3" />
+   </Advantages>
+   <Skills>
+       <Row name="Athletics" subtype="" rank="3" ability="Strength" />
+       <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
+       <Row name="Expertise" subtype="Streetwise" rank="3" ability="Intellect" />
+       <Row name="Expertise" subtype="Police Officer" rank="4" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="4" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="2" ability="Presence" />
+       <Row name="Investigation" subtype="" rank="2" ability="Intellect" />
+       <Row name="Perception" rank="4" ability="Awareness" />
+       <Row name="Ranged Combat" subtype="Pistols" rank="4" ability="Dexterity" />
+       <Row name="Treatment" subtype="" rank="2" ability="Intellect" />
+       <Row name="Vehicles" subtype="" rank="4" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="1" />
+       <Fortitude value="2" />
+       <Parry value="1" />
+       <Will value="1" />
+   </Defenses>
+</Document>
