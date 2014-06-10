@@ -1,294 +1,333 @@
-if(!Array.prototype.indexOf){  //just like native version
-   Array.prototype.indexOf = function (obj, fromIndex) {  //overrides not overloads
-       if(fromIndex == null) fromIndex = 0;  //if none provided
-       else if(fromIndex < 0) fromIndex = Math.max(0, this.length + fromIndex);  //can index from end
-      for(var i = fromIndex; i < this.length; i++){
+//TODO: js doc all. I guess
+if(String.prototype.trim == undefined){String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};}
+if(String.prototype.endsWith == undefined){String.prototype.endsWith=function(suffix) {
+    return (this.indexOf(suffix, this.length - suffix.length) !== -1);
+};}
+if(String.prototype.startsWith == undefined){String.prototype.startsWith=function(prefix) {
+    return (this.indexOf(prefix) === 0);
+};}
+if(Array.prototype.indexOf == undefined){  //just like native version
+   Array.prototype.indexOf=function (obj, fromIndex) {  //overrides not overloads
+       if(fromIndex == undefined) fromIndex=0;  //if none provided
+       else if(fromIndex < 0) fromIndex=Math.max(0, this.length + fromIndex);  //can index from end
+      for(var i=fromIndex; i < this.length; i++){
           if(this[i] === obj) return i;
       }
        return -1;
    };
 }
-if(!String.prototype.trim){String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};}
-if(!String.prototype.endsWith){String.prototype.endsWith = function(suffix) {
-    return (this.indexOf(suffix, this.length - suffix.length) !== -1);
-};}
-if(!String.prototype.startsWith){String.prototype.startsWith = function(prefix) {
-    return (this.indexOf(prefix) === 0);
-};}
-//if(!Array.prototype.contains){  //always do this so I can override contains
-   Array.prototype.contains=function(obj){
-      for(var i = 0; i < this.length; i++){
-          if(this[i] == obj) return true;
-      }
-       return false;
-   };
-   /*Array.prototype.containsExact=function(obj){  //I just don't need exact
-      for(var i = 0; i < this.length; i++){
-          if(this[i] === obj) return true;
-      }
-       return false;
-   };*/
-//}
-//TODO: put all non-objects in a ToolBox object
-function convertToHash(arrayGiven, defaultValue){
-    var myHash = new Hash({}, defaultValue);  //empty
-   for (var i=0; i < arrayGiven.length; i++) {
-       myHash.add(arrayGiven[i][0], arrayGiven[i][1]);
-       //constructor example: var myHash = new Hash([["One", "Two"], ["Blue", true], ["Protection", 0]], "Not Found");
-       //empty hash example: var myHash = new Hash([], "Not Found"); or var myHash = new Hash(new Array(), "Not Found");
+if(Array.prototype.contains == undefined){Array.prototype.contains=function(obj){
+   for(var i=0; i < this.length; i++){
+       if(this[i] === obj) return true;
    }
-    return myHash;
-};
+    return false;
+};}
+Array.prototype.last=function(){return this[this.length-1];};
+Array.prototype.isEmpty=function(){return (this.length === 0);};
+Array.prototype.copy=function(){return this.slice(0);};  //shallow copy
+Array.prototype.remove=function(index){return this.splice(index, 1);};
+Array.prototype.removeByValue=function(value){return this.remove(this.indexOf(value));};
+if(window.$ == undefined){function $(name){return document.getElementById(name.substring(1));};}
+//I could use $('#transcendence') over document.getElementById('transcendence'); but why bother
+
+//thanks to hasOwnProperty the hash is safe from Object.prototype tampering. assuming Object.hasOwnProperty hasn't been changed
 function Hash(obj, defaultValue){  //based on http://www.mojavelinux.com/articles/javascript_hashes.html
-    var length = 0;
-    this.items = {};  //new object (built in hash)
+    var items={};  //new object (built in hash)
    //constructor:
     for (var p in obj) {
         if (obj.hasOwnProperty(p)) {
-            this.items[p]=obj[p];
-            length++;
+            items[p]=obj[p];  //overrides if repeated key
         }
     }
-    //constructor example: var myHash = new Hash({"One": "Two", "Blue": true, "Protection": 0}, "Not Found");
-    //empty hash example: var myHash = new Hash({}, "Not Found");
+    //constructor example: var myHash=new Hash({'One': 'Two', 'Blue': true, 'Protection': 0}, 'Not Found');
+    //empty hash example: var myHash=new Hash({}, 'Not Found');
 
-    this.add = function(key, value)
+    this.add=function(key, value)
     {
         if(this.containsKey(key)) return false;
-        length++;
-        this.items[key] = value;  //isn't push since this needs to be by name
+        items[key]=value;  //isn't push since this needs to be by name
         return true;
-    }
+    };
 
-    this.set = function(key, value)
+    this.set=function(key, value)
     {
         if(!this.containsKey(key)) return false;
-        this.items[key] = value;
+        items[key]=value;
         return true;
-    }
+    };
 
-    this.get = function(key) {
-        if(this.containsKey(key)) return this.items[key];
+    this.get=function(key) {
+        if(this.containsKey(key)) return items[key];
         return defaultValue;  //might be undefined
-    }
+    };
 
-    this.containsKey = function(key)
+    this.containsKey=function(key){return items.hasOwnProperty(key);};
+
+    this.remove=function(key)
     {
-        return this.items.hasOwnProperty(key);
-    }
-   
-    this.remove = function(key)
-    {
-        if(!this.containsKey(key)) return false;
-         length--;
-         delete this.items[key];
+         if(!this.containsKey(key)) return false;
+         delete items[key];
          return true;
-    }
+    };
 
-    this.getAllKeys = function()
+    this.getAllKeys=function()
     {
-        var keys = [];
-        for (var k in this.items) {
+        var keys=[];
+        for (var k in items) {
             if (this.containsKey(k)) {
                 keys.push(k);
             }
         }
         return keys;
-    }
+    };
 
-    this.getAllValues = function()
+    this.getAllValues=function()
     {
-        var values = [];
-        for (var k in this.items) {
+        var values=[];
+        for (var k in items) {
             if (this.containsKey(k)) {
-                values.push(this.items[k]);
+                values.push(items[k]);
             }
         }
         return values;
-    }
+    };
 
-    this.applyFunctionToEach = function(fn) {
-        for (var k in this.items) {
-            if (this.containsKey(k)) {
-                fn(k, this.items[k]);  //key, value
-            }
-        }
-    }
+    this.clear=function(){items={};};
 
-    this.clear = function()
-    {
-        this.items = {}
-        length = 0;
-    }
+   this.toSource=function()  //shows code to create it
+   {
+       var output='Hash.makeFromArray([';
+       var keys=this.getAllKeys().sort();
+      for (var i=0; i < keys.length; i++)
+      {
+          output+='[';
+          if(typeof(keys[i]) === 'string') output+='"';
+          output+=keys[i];
+          if(typeof(keys[i]) === 'string') output+='"';
+          output+=', ';
+
+          var value=items[keys[i]];
+          if(typeof(value) === 'string') output+='"';
+          output+=value;
+          if(typeof(value) === 'string') output+='"';
+          output+=']';
+          if(i+1 < keys.length) output+=', ';  //if not last add a comma
+      }
+       output+='], ';
+       if(typeof(defaultValue) === 'string') output+='"';
+       output+=defaultValue;
+       if(typeof(defaultValue) === 'string') output+='"';
+       output+=')';
+       return output;
+   };
 };
-function LoggerObject(autoDumpPassed, enabledPassed){
+Hash.makeFromArray=function (arrayGiven, defaultValue){
+    var myHash=new Hash({}, defaultValue);  //empty
+   for (var i=0; i < arrayGiven.length; i++) {
+       myHash.add(arrayGiven[i][0], arrayGiven[i][1]);
+       //constructor example: var myHash=Hash.makeFromArray([['One', 'Two'], ['Blue', true], ['Protection', 0]], 'Not Found');
+       //empty hash example: var myHash=Hash.makeFromArray([], 'Not Found');
+   }
+    return myHash;
+};
+
+//note: chrome does not make this pointless because this allows me to see how I got here and is easily scrollable
+function LoggerObject(enabledPassed){
     //based on web file: www.wired.com/wired/webmonkey/stuff/simpledebug.js
     //from web page: http://www.webmonkey.com/2010/02/javascript_debugging_for_beginners/
     //Simple Debug, written by Chris Klimas licensed under the GNU LGPL. http://www.gnu.org/licenses/lgpl.txt
 
-    var enabled = enabledPassed;
-    var depth = 0;
-    var autoDump = autoDumpPassed;
-    var log_timeout;
-    var log_messages = new Array();
+    var enabled=enabledPassed;
+    if(enabled == undefined) enabled=true;
+    var depth=0;
+    var log_messages=new Array();
 
-   this.setAutoDump = function(){autoDump=true;};
-   this.clearAutoDump = function(){autoDump=false; log_timeout = null;};
-   this.clear = function(){depth = 0; log_timeout = null; log_messages = new Array();};
-   this.on = function(){enabled=true;};
-   this.off = function(){enabled=false;};
-   this.up = function(){depth--;};
-   this.down = function(){depth++;};
-   this.logOnly = function(thisObject, functionName, parameterArray){
-       enabled=true;  //turn on
+   this.clear=function(){depth=0; log_messages=new Array();};
+   this.on=function(){enabled=true;};
+   this.off=function(){enabled=false;};
+   this.up=function(){depth--;};
+   this.down=function(){depth++;};
+   this.forceLogFunction=function(thisObject, functionName, parameterArray){
+       var enabledOld=enabled;
+       enabled=true;  //force on
        var returnValue=functionName.apply(thisObject, parameterArray);
-       enabled=false;  //turn off
+       enabled=enabledOld;  //reset back
        return returnValue;
    };
-   this.trace = function(thisObject, functionName, parameterArray){
+   this.forceLogText=function(textToLog){
+       var enabledOld=enabled;
+       enabled=true;  //force on
+       this.log(textToLog);
+       enabled=enabledOld;  //reset back
+   };
+   this.trace=function(thisObject, functionName, parameterArray){
        depth++;
        var returnValue=functionName.apply(thisObject, parameterArray);
        depth--;
        return returnValue;
    };
-   this.log_same = function(message){if(enabled) log_messages[log_messages.length-1]+=message;};
-    //no idea if anything will recognize this as javaDoc
+   this.log_same=function(message){if(enabled) log_messages[log_messages.length-1]+=message;};
    /** Logs a message. Every second, all logged messages are displayed
     in an alert box. This saves you from having to hit Return a ton
     of times as your script executes.*/
-   this.log = function(message)
+   this.log=function(message)
    {
        if(!enabled) return;  //all other log functions come here
-       if(!log_timeout && autoDump) log_timeout = window.setTimeout(auto_dump_log, 1000);
-       var whiteSpace="";
-       for(var i=0; i < depth; i++){whiteSpace+="   ";}
+       var whiteSpace='';
+       for(var i=0; i < depth; i++){whiteSpace+='   ';}
        log_messages.push(whiteSpace+message);
-       function auto_dump_log(){alert(this.dump_log());};
-   }
-   this.dump_log = function()
+   };
+   this.dump_log=function()
    {
-       var message = this.print();
+       var message=this.print();
        this.clear();
        return message;
-   }
-   this.print = function()
+   };
+   this.print=function()
    {
-       var message = '';
-       for(var i = 0; i < log_messages.length; i++){message += log_messages[i]+"\n";}
+       var message='';
+       for(var i=0; i < log_messages.length; i++){message +=log_messages[i]+'\n';}
        return message;
-   }
+   };
    /** Logs the interesting properties an object possesses. Skips functions*/
-   this.log_all_properties = function(obj)
+   this.log_all_properties=function(obj)
    {
-       if(!obj){this.log('Object is null'); return;}
-       var message = 'Object possesses these properties:\n';
+       if(!obj){this.log('Object is undefined'); return;}
+       var message='Object possesses these properties:\n';
       for (var i in obj)
       {
-          if(!(obj[i] instanceof Function) && obj[i] != null) message += i + ', ';
+          if(!(obj[i] instanceof Function) && obj[i] != undefined) message +=i + ', ';
       }
-       message = message.substr(0, message.length - 2);  //remove the last ", "
+       message=message.substr(0, message.length - 2);  //remove the last ', '
        this.log(message);
-   }
+   };
    /** Like log_all_properties(), but displays values for the properties. The output
     for this can get very large -- for example, if you are inspecting
     a DOM element.*/
-   this.log_all_property_values = function(obj)
+   this.log_all_property_values=function(obj)
    {
-       if(!obj){this.log('Object is null'); return;}
-       var message = '';
+       if(!obj){this.log('Object is undefined'); return;}
+       var message='';
       for (var i in obj)
       {
-          if(!(obj[i] instanceof Function) && obj[i]!=null && obj[i]!="") message += i + '=' + obj[i] + '\n';
+          if(!(obj[i] instanceof Function) && obj[i] != undefined && obj[i] != '') message +=i + '=' + obj[i] + '\n';
       }
        this.log(message);
-   }
-   this.log_all_functions = function(obj)
+   };
+   this.log_all_functions=function(obj)
    {
-       if(!obj){this.log('Object is null'); return;}
-       var message = 'Object possesses these functions:\n';
+       if(!obj){this.log('Object is undefined'); return;}
+       var message='Object possesses these functions:\n';
       for (var i in obj)
       {
-          if(obj[i] instanceof Function && obj[i] != null) message += i + ', ';
+          if(obj[i] instanceof Function && obj[i] != undefined) message +=i + ', ';
       }
-       message = message.substr(0, message.length - 2);  //remove the last ", "
+       message=message.substr(0, message.length - 2);  //remove the last ', '
        this.log(message);
-   }
+   };
 };
-function sanitizeNumber(numberGiven, minimum, defaultValue){
-    var value=numberGiven+'';  //convert the type in case it is something that isn't int or string
-    if(value=="") return defaultValue;
-    if(isNaN(value)) return defaultValue;
-    value=parseInt(value);  //int includes Math.floor()
-    if(minimum=="None") return value;
-    if(value < minimum) return minimum;
-    return value;
-}
-function generateRow(rowArray, rowNumber){
-    var returnValue="";
-   for (var i=0; i < rowArray.length; i++)
-   {
-       returnValue+=rowArray[i];
-       if(i+1 != rowArray.length) returnValue+=rowNumber;
-   }
-    return returnValue;
-}
-function getOption(optionID, property){
+var SelectUtil={};
+SelectUtil.getOptionById=function(optionID){
     var element=document.getElementById(optionID);
-    if(element==undefined) return undefined;  //this line is why you shouldn't just getOption(id)["text"]
-    element=element.options[element.selectedIndex];
-    if(property==undefined) return element;
-    return element[property];
+    if(element == undefined) return;  //this line is why you shouldn't just SelectUtil.getOptionById(id).text
+    return element.options[element.selectedIndex];
 };
-function addOptionArray(optionID, optionNameArray){
+SelectUtil.getTextById=function(optionID){
+    var element=SelectUtil.getOptionById(optionID);
+    if(element == undefined) return;  //this line is why you shouldn't just SelectUtil.getOptionById(id).text
+    return element.text;
+};
+SelectUtil.addAllOptions=function(optionID, optionTextArray){
     var element=document.getElementById(optionID);
-   for (var i=0; i < optionNameArray.length; i++){
-       element.add(new Option(optionNameArray[i]), null);  //added to the end
+   for (var i=0; i < optionTextArray.length; i++){
+       element.add(new Option(optionTextArray[i]));  //added to the end
    }
 };
-function removeOptionByName(optionID, textToRemove){
+SelectUtil.removeByText=function(optionID, textToRemove){
     var element=document.getElementById(optionID);
    for (var i=0; i < element.options.length; i++)
    {
-       if(element.options[i].text==textToRemove){element.remove(i); return true;}  //found
+       if(element.options[i].text === textToRemove){element.remove(i); return true;}  //found
    }
     return false;  //not found
 };
-function removeOptionArray(optionID, optionNameArray){
-   for (var i=0; i < optionNameArray.length; i++){
-       removeOptionByName(optionID, optionNameArray[i]);
+SelectUtil.removeAllByText=function(optionID, optionTextArray){
+   for (var i=0; i < optionTextArray.length; i++){
+       SelectUtil.removeByText(optionID, optionTextArray[i]);
    }
 };
-function sortOptionByName(optionID){
+SelectUtil.sortByOptionText=function(optionID){
     var element=document.getElementById(optionID);
     var nameArray=[];
+   while (element.options.length > 0)
+   {
+       nameArray.push(element.options[0].text);  //populate names
+       element.remove(0);  //remove all options
+   }
+    nameArray.sort();  //alphabetical ascending is default
+    SelectUtil.addAllOptions(optionID, nameArray);  //add them all back
+};
+SelectUtil.containsText=function(optionID, textToFind){
+    var element=document.getElementById(optionID);
    for (var i=0; i < element.options.length; i++)
    {
-       nameArray.push(element.options[i].text);  //populate names
-       element.remove(i);  //remove all options
-       i--;  //lol i will never get to 1
+       if(element.options[i].text === textToFind) return true;
    }
-    nameArray.sort(function(a,b){if(a > b) return 1; if(a < b) return -1; return 0;});  //A comes first (alphabetical ascending) also works for numbers since all are strings
-   for (var i=0; i < nameArray.length; i++){  //same as calling addOptionArray(optionID, nameArray)
-       element.add(new Option(nameArray[i]), null);  //added to the end
+    return false;
+};
+/**This searches each option text of the select id given for the text given, when found the select is set to that index*/
+SelectUtil.setText=function(optionID, textToSet){
+    var element=document.getElementById(optionID);
+    if(element == undefined) return;
+   for (var i=0; i < element.options.length; i++)
+   {
+       if(element.options[i].text === textToSet){element.selectedIndex=i; return;}
+       //onChange doesn't auto trigger when set like this
    }
 };
+/**Simply calls SelectUtil.setText then onchange() for that element*/
+SelectUtil.changeText=function(optionID, textToSet){
+    var element=document.getElementById(optionID);
+    if(element == undefined) return;
+    var oldIndex=element.selectedIndex;
+    SelectUtil.setText(optionID, textToSet);
+    if(element.selectedIndex !== oldIndex) element.onchange();
+};
+
+function sanitizeNumber(numberGiven, minimum, defaultValue){
+    var value=numberGiven+'';  //convert the type in case it is something that isn't int or string
+    if(value === '') return defaultValue;
+    if(isNaN(value)) return defaultValue;
+    value=parseInt(value);  //int includes Math.floor()
+    if(value < minimum) return minimum;  //make minimum -Infinity to skip this
+    return value;
+};
+function remakeArray(commonArray, newElements){
+    var result=commonArray.copy();  //shallow
+   for(var i=0; i < newElements.length; i++)
+       {result.push(newElements[i]);}
+    return result.sort();  //alphabetical ascending is default
+};
+//no one allows this by default so use: C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --allow-file-access-from-files
+//must first close all chrome
 function readXMLAsString(xmlLocation){
-    if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}  //code for IE7+, Firefox, Chrome, Opera, Safari
-    else{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}// code for IE6, IE5
-    xmlhttp.open("GET", xmlLocation, false);
+    var xmlhttp;
+    if(window.XMLHttpRequest){xmlhttp=new XMLHttpRequest();}  //code for IE7+, Chrome, Firefox, Opera, Safari
+    else{xmlhttp=new ActiveXObject('Microsoft.XMLHTTP');}// code for IE6, IE5
+    xmlhttp.open('GET', xmlLocation, false);
     xmlhttp.send();
     xmlDoc=xmlhttp.responseXML;
-    var xmlText = new XMLSerializer().serializeToString(xmlDoc);
+    var xmlText=new XMLSerializer().serializeToString(xmlDoc);
     return xmlText;
 };
 function stringDiffIndex(stringA, stringB){
     for(var i=1; i < stringA.length; i++)
-       {if(stringA.substring(i-1, i)!=stringB.substring(i-1, i)) return (i-1);}
+       {if(stringA.substring(i-1, i) !== stringB.substring(i-1, i)) return (i-1);}
     if(stringB.length > stringA.length) return stringA.length;
     return -1;  //same string
 };
-function strinDiffDisplay(stringA, stringB){
+function stringDiffDisplay(stringA, stringB){
     var diffIndex=stringDiffIndex(stringA, stringB);
-    if(diffIndex == -1) return "Matches";
-    return ("|"+stringA.charCodeAt(diffIndex)+"| vs |"+stringB.charCodeAt(diffIndex)+"|");
-}
+    if(diffIndex === -1) return 'Matches';
+    return ('|'+stringA.charCodeAt(diffIndex)+'| vs |'+stringB.charCodeAt(diffIndex)+'|');
+};
