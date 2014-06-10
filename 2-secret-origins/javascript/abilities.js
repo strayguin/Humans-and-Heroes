@@ -1,69 +1,113 @@
-/*Call List onChange
-Ability: change(abilityIndex);
+/**Call List onChange
+Ability: change();
+
+Also updates:
+Main.skillSection.calculateValues();
+Main.skillSection.generate();
+Main.updateInitiative();
+Main.updateOffense();
+Main.defenseSection.calculateValues();
 */
-function AbilityList(){
-   //static:
-    AbilityList.allAbilityNames=["Strength", "Agility", "Fighting", "Awareness", "Stamina", "Dexterity", "Intellect", "Presence"];
-   //public:
-    this.total=0;
-   //private:
-    var rowArray = new Array();
-   this.clear = function(){
-       for(var i=0; i < AbilityList.allAbilityNames.length; i++){rowArray[i].set(0);}
-       this.update();
-   };
-   this.change = function(abilityIndex){
-       rowArray[abilityIndex].set(document.getElementById(AbilityList.allAbilityNames[abilityIndex]).value);
-       this.update();
-   };
-   this.get = function(nameOfAbility){return rowArray[AbilityList.allAbilityNames.indexOf(nameOfAbility)].get();};
-   this.getZero = function(nameOfAbility){return rowArray[AbilityList.allAbilityNames.indexOf(nameOfAbility)].getZero();};
-   this.resetMaxSkillRanks = function(){
-      for (var i=0; i < AbilityList.allAbilityNames.length; i++)
+function AbilityList()
+{
+   //private variable section:
+    var total=0;
+    const abilityArray=[];
+
+   //Single line function section
+    //getByName is not validated because I want an error thrown so I can debug
+    /**Get the ability row based on its name. Will return undefined if not found so that an error will occur.*/
+    this.getByName=function(nameOfAbility){return abilityArray[AbilityData.names.indexOf(nameOfAbility)];};
+    this.getTotal=function(){return total;};
+
+   //public functions section
+   /**Counts totals etc. All values that are not user set or final are created by this method*/
+   this.calculateValues=function()
+   {
+       total=0;
+      for (var i=0; i < abilityArray.length; i++)
       {
-          Main.skillSection.maxSkillRanks[i]=rowArray[i].getZero();  //since this is for power level it can't be blank
+          var abilityValue=abilityArray[i].getValue();  //not getZero for below
+          if(!Main.isOldRules() && abilityValue === '--' && AbilityData.names[i] === 'Stamina') total+=30;
+          else if(abilityValue === '--') total-=10;  //old rules no Stamina costs the same as other missing ones
+          else total+=(abilityValue*2);
       }
    };
-   this.update = function(){
-       this.total=0;
-      for (var i=0; i < rowArray.length; i++)
+   /**Resets all values then updates*/
+   this.clear=function()
+   {
+       for(var i=0; i < abilityArray.length; i++){abilityArray[i].set(0);}
+       this.update();
+   };
+   /**Sets data from an xml object given then updates*/
+   this.load=function(xmlDoc)
+   {
+      for (var i=0; i < abilityArray.length; i++)
       {
-          var abilityValue = rowArray[i].get();  //not getZero for below
-          if(!Main.useOldRules && abilityValue=="--" && AbilityList.allAbilityNames[i]=="Stamina") this.total+=30;
-          else if(abilityValue=="--") this.total-=10;
-          else this.total+=(abilityValue*2);
+          abilityArray[i].set(xmlDoc.getElementsByTagName(AbilityData.names[i])[0].getAttribute('value'));
       }
+       this.update();
+   };
+   /**Creates a hash of the zeroed abilities. This is used to reset the max skill rank hash.*/
+   this.createAbilityHash=function()
+   {
+       var abilityHash = new Hash({}, 0);
+       abilityHash.clear();
+      for (var i=0; i < AbilityData.names.length; i++)
+      {
+          abilityHash.add(AbilityData.names[i], abilityArray[i].getZeroedValue());
+          //zeroed: because this is for power level, it can't be blank
+      }
+       return abilityHash;
+   };
+   /**Returns an xml string of this section's data*/
+   this.save=function()
+   {
+       var fileString='   <Abilities>\n';
+      for (var i=0; i < abilityArray.length; i++)
+      {
+          fileString+='       <'+AbilityData.names[i]+' value="'+abilityArray[i].getValue()+'" />\n';
+      }
+       fileString+='   </Abilities>\n';
+       return fileString;
+   };
+   /**Does each step for an onChange*/
+   this.update=function()
+   {
+       this.calculateValues();
        Main.skillSection.calculateValues();
+       Main.skillSection.generate();
+       Main.updateInitiative();
        Main.updateOffense();
        Main.defenseSection.calculateValues();
        Main.update();  //updates totals and power level
-   }
-   this.save = function(){
-       var fileString="   <Abilities>\n";
-      for (var i=0; i < rowArray.length; i++)
-      {
-          fileString+="       <"+AbilityList.allAbilityNames[i]+" value=\""+rowArray[i].get()+"\" />\n";
-      }
-       fileString+="   </Abilities>\n";
-       return fileString;
-   };
-   this.load = function(xmlDoc){
-      for (var i=0; i < rowArray.length; i++)
-      {
-          rowArray[i].set(xmlDoc.getElementsByTagName(AbilityList.allAbilityNames[i])[0].getAttribute("value"));
-      }
-       this.update();
    };
    //constructor:
-    for(var i=0; i < AbilityList.allAbilityNames.length; i++){rowArray.push(new AbilityObject(AbilityList.allAbilityNames[i]));}
+    for(var i=0; i < AbilityData.names.length; i++){abilityArray.push(new AbilityObject(AbilityData.names[i]));}
+    Object.freeze(abilityArray);
 }
-function AbilityObject(abilityName){
+function AbilityObject(abilityName)
+{
     var abilityValue=0;
-   this.get = function(){return abilityValue;}
-   this.getZero = function(){if(abilityValue=="--"){return 0;} return abilityValue;}
-   this.set = function(givenValue){
-       abilityValue = (givenValue+'').trim();
-       if(abilityValue=="--") document.getElementById(abilityName).value=abilityValue;
-       else document.getElementById(abilityName).value=abilityValue=sanitizeNumber(abilityValue, -5, 0);
+   /**Onchange function for changing the ability value*/
+   this.change=function()
+   {
+       this.set(document.getElementById(abilityName).value);
+       Main.abilitySection.update();
+   };
+    /**Get the value of the ability. Will return either a number or '--'*/
+    this.getValue=function(){return abilityValue;};
+   /**Get the value of the ability. If its value is '--' then 0 is returned instead so that a number is always returned.*/
+   this.getZeroedValue=function()
+   {
+       if(abilityValue === '--') return 0;
+       return abilityValue;
+   };
+   /**Validates and sets this ability to the value given. Because there is no generate the document's value must also be set here.*/
+   this.set=function(givenValue)
+   {
+       abilityValue=(givenValue+'').trim();  //null-safe version of toString
+       if(abilityValue !== '--') abilityValue = sanitizeNumber(abilityValue, -5, 0);  //sanitize if not missing
+       document.getElementById(abilityName).value = abilityValue;
    };
 }
