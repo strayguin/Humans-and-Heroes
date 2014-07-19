@@ -18,11 +18,15 @@ Um was I allowed to copy this? Because I did then stripped most of it out.*/
     height: 11px;
     padding: 0 2px;
     margin: 1px 0 0 4px;
-    background: url(../images/tree_ltr.gif) no-repeat -194px -27px
+    background: url(../images/arrow_down.gif) no-repeat
 }
 
+/*If you want to replace the arrows with unicode:
+http://stackoverflow.com/questions/2701192/ascii-character-for-up-down-triangle-arrow-to-display-in-html/6325076#6325076
+but you'd have to mess with font size and getting them to fit on one line*/
+
 .sites-sidebar-nav li.closed .expander {
-    background-position: -192px -3px
+    background: url(../images/arrow_left.gif) no-repeat
 }
 
 .sites-sidebar-nav .current-bg {
@@ -476,16 +480,13 @@ td {
     padding: 1px 4px
 }
 
-#sites-chrome-everything a {
+#sites-chrome-everything a:link, #sites-chrome-everything a:visited {
+    /*Need to also have :visited so that the browser won't blue shift the color*/
     color: #a90707;
     text-decoration: underline;
     background: url(bg_link.gif) repeat-x;
     font-weight: bold;
     padding: 2px
-}
-
-#sites-chrome-everything a:visited {
-    color: #666
 }
 
 #sites-chrome-everything a:hover,#sites-chrome-everything a:active {
@@ -677,10 +678,6 @@ div.goog-toc p {
 
 #sites-chrome-sidebar-left {
     width: 170px!important
-}
-
-#sites-chrome-everything a:visited {
-    color: #0089c9!important
 }
 
 #sites-chrome-everything,#sites-chrome-everything h1,#sites-chrome-everything h2,#sites-chrome-everything h3,#sites-chrome-everything h4,#sites-chrome-everything h5,#sites-chrome-everything h6,#sites-chrome-everything input {

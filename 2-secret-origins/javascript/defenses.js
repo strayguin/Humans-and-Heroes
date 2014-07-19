@@ -4,10 +4,10 @@ Defense: change();
 function DefenseList()
 {
    //private variable section:
-    const defenseArray=[];
-    var toughnessMaxValue=0;  //for power level
-    var toughnessWithoutDefensiveRoll=0;  //for unit testing
-    var total=0;
+    const defenseArray = [];
+    var toughnessMaxValue = 0;  //for power level
+    var toughnessWithoutDefensiveRoll = 0;  //for unit testing
+    var total = 0;
 
    //Single line function section
     //getByName is not validated because I want an error thrown so I can debug
@@ -23,11 +23,11 @@ function DefenseList()
    /**Calculates and sets the initial and final values of each defense and calculates the total cost.*/
    this.calculateValues=function()
    {
-       total=0;
-      for (var i=0; i < defenseArray.length; i++)  //the array doesn't include toughness
+       total = 0;
+      for (var i = 0; i < defenseArray.length; i++)  //the array doesn't include toughness
       {
-          document.getElementById(DefenseData.names[i]+' start').innerHTML = Main.abilitySection.getByName(DefenseData.abilityUsed[i]).getZeroedValue();
-          //Zeroed because you can't lack defense scores
+          document.getElementById(DefenseData.names[i]+' start').innerHTML = defenseArray[i].getAbilityValue();
+          //input is set by user and is never out of date
           document.getElementById(DefenseData.names[i]+' final').innerHTML = defenseArray[i].getTotalBonus();
           total+=defenseArray[i].getRank();  //cost is 1:1
       }
@@ -36,25 +36,27 @@ function DefenseList()
    /**Resets all values then updates*/
    this.clear=function()
    {
-      for(var i=0; i < defenseArray.length; i++)
-          {defenseArray[i].set(0);}
+       for(var i=0; i < defenseArray.length; i++){defenseArray[i].set(0);}
        this.update();
    };
-   /**Sets data from an xml object given then updates*/
-   this.load=function(xmlDoc)
+   /**Sets data from a json object given then updates*/
+   this.load=function(jsonSection)
    {
-       for(var i=0; i < defenseArray.length; i++)
-          {defenseArray[i].set(xmlDoc.getElementsByTagName(DefenseData.names[i])[0].getAttribute('value'));}
+      for (var i=0; i < defenseArray.length; i++)
+      {
+          defenseArray[i].set(jsonSection[DefenseData.names[i]]);
+      }
        this.update();
    };
-   /**Returns an xml string of this section's data*/
+   /**Returns a json object of this section's data*/
    this.save=function()
    {
-       var fileString='   <Defenses>\n';
-       for(var i=0; i < defenseArray.length; i++)
-          {fileString+='       <'+DefenseData.names[i]+' value="'+defenseArray[i].getRank()+'" />\n';}
-       fileString+='   </Defenses>\n';
-       return fileString;
+       var json = {};
+      for (var i=0; i < defenseArray.length; i++)
+      {
+          json[DefenseData.names[i]] = defenseArray[i].getRank();
+      }
+       return json;
    };
    /**Does each step for an onChange*/
    this.update=function()
@@ -71,7 +73,7 @@ function DefenseList()
        //make Main.getEnhancedToughness which adds both sections and stamina
        var staminaValue = Main.abilitySection.getByName('Stamina').getZeroedValue();  //Zeroed because you can't lack toughness
        var protectionValue = Main.getProtectionTotal();
-       var defensiveRollValue = Main.advantageSection.getRankHash().get('Defensive Roll');
+       var defensiveRollValue = Main.advantageSection.getRankMap().get('Defensive Roll');
 
        if(Main.isOldRules()) toughnessWithoutDefensiveRoll = protectionValue + staminaValue;  //in old rules stamina stacked but nothing else
        //TODO: actually in old everything stacked
@@ -94,22 +96,22 @@ function DefenseList()
 }
 function DefenseObject(defenseName)
 {
-    var defenseValue=0;
-    const abilityNameUsed = DefenseData.abilityUsed[DefenseData.names.indexOf(defenseName)];
-   /**Onchange function for changing the defense input*/
-   this.change=function()
-   {
-       this.set(document.getElementById(defenseName+' input').value);
-       Main.defenseSection.update();
-   };
+    var defenseValue = 0;
+    /**Onchange function for changing the defense input*/
+    this.change=function(){CommonsLibrary.change.call(this, this.set, (defenseName+' input'), Main.defenseSection, false);};
     this.getRank=function(){return defenseValue;};
-   /**Call this to get the final defense value. The ability score is not saved and asks abilitySection for the value each time*/
-   this.getTotalBonus=function()
+   /**Call this to get the initial defense value. The ability name and zeroed value is not saved.
+   It asks DefenseData for name and abilitySection for the value each time.
+   The ability value is not saved so that it will never be out of date.
+   The ability name is not saved so that it is possible to change between old and new rules (again never out of date).
+   The ability value is zeroed because you can't lack defense scores*/
+   this.getAbilityValue=function()
    {
-       return (defenseValue + Main.abilitySection.getByName(abilityNameUsed).getZeroedValue());
-       //Zeroed because you can't lack defense scores
-       //ability value is not saved so that it will never be out of date
+       var abilityNameUsed = DefenseData.abilityUsed[DefenseData.names.indexOf(defenseName)];
+       return Main.abilitySection.getByName(abilityNameUsed).getZeroedValue();
    };
+    /**Call this to get the final defense value. The ability value used is from this.getAbilityValue()*/
+    this.getTotalBonus=function(){return (defenseValue + this.getAbilityValue());};
    /**Validates and sets this defense to the value given. Because there is no generate the document's value must also be set here.*/
    this.set=function(valueGiven)
    {

@@ -58,71 +58,32 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
     /**If true then getAutoTotal must be called*/
     this.hasAutoTotal=function(){return modifierSection.hasAutoTotal();};
     /**True if this row has no data*/
-    this.isBlank=function(){return (effect == undefined);};
+    this.isBlank=function(){return (effect === undefined);};
     this.setRowIndex=function(indexGiven){rowIndex=indexGiven; modifierSection.setSectionRowIndex(rowIndex);};
 
    //Onchange section
-   /**Onchange function for selecting a power*/
-   this.select=function()
-   {
-       this.setPower(SelectUtil.getTextById(sectionName+'Choices'+rowIndex));
-       powerListParent.update();
-   };
-   /**Onchange function for changing the base cost (if possible)*/
-   this.changeBaseCost=function()  //won't be called if you can't set base cost
-   {
-       this.setBaseCost(document.getElementById(sectionName+'BaseCost'+rowIndex).value);
-       //document doesn't need to be reset because setAll will do that
-       powerListParent.update();
-   };
-   /**Onchange function for changing the text*/
-   this.changeText=function()
-   {
-       this.setText(document.getElementById(sectionName+'Text'+rowIndex).value);
-       powerListParent.update();
-   };
-   /**Onchange function for changing the action*/
-   this.selectAction=function()  //can only be called if SelectAction exists
-   {
-       this.setAction(SelectUtil.getTextById(sectionName+'SelectAction'+rowIndex));
-       //document doesn't need to be reset because setAll will do that
-       powerListParent.update();
-   };
-   /**Onchange function for changing the range*/
-   this.selectRange=function()
-   {
-       this.setRange(SelectUtil.getTextById(sectionName+'SelectRange'+rowIndex));
-       //document doesn't need to be reset because setAll will do that
-       powerListParent.update();
-   };
-   /**Onchange function for changing the duration*/
-   this.selectDuration=function()
-   {
-       this.setDuration(SelectUtil.getTextById(sectionName+'SelectDuration'+rowIndex));
-       //document doesn't need to be reset because setAll will do that
-       powerListParent.update();
-   };
-   /**Onchange function for changing the user's name for the power*/
-   this.changeName=function()
-   {
-       this.setName(document.getElementById(sectionName+'Name'+rowIndex).value);
-       powerListParent.update();
-   };
-   /**Onchange function for changing the skill name used for the power's attack*/
-   this.changeSkill=function()
-   {
-       this.setSkill(document.getElementById(sectionName+'Skill'+rowIndex).value);
-       powerListParent.update();
-   };
+    /**Onchange function for selecting a power*/
+    this.select=function(){CommonsLibrary.select.call(this, this.setPower, (sectionName+'Choices'+rowIndex), powerListParent);};
+    /**Onchange function for changing the base cost (if possible)*/
+    this.changeBaseCost=function(){CommonsLibrary.change.call(this, this.setBaseCost, (sectionName+'BaseCost'+rowIndex), powerListParent);};
+       //won't be called if you can't set base cost
+    /**Onchange function for changing the text*/
+    this.changeText=function(){CommonsLibrary.change.call(this, this.setText, (sectionName+'Text'+rowIndex), powerListParent);};
+    /**Onchange function for changing the action*/
+    this.selectAction=function(){CommonsLibrary.select.call(this, this.setAction, (sectionName+'SelectAction'+rowIndex), powerListParent);};
+       //won't be called if SelectAction doesn't exists
+    /**Onchange function for changing the range*/
+    this.selectRange=function(){CommonsLibrary.select.call(this, this.setRange, (sectionName+'SelectRange'+rowIndex), powerListParent);};
+    /**Onchange function for changing the duration*/
+    this.selectDuration=function(){CommonsLibrary.select.call(this, this.setDuration, (sectionName+'SelectDuration'+rowIndex), powerListParent);};
+    /**Onchange function for changing the user's name for the power*/
+    this.changeName=function(){CommonsLibrary.change.call(this, this.setName, (sectionName+'Name'+rowIndex), powerListParent);};
+    /**Onchange function for changing the skill name used for the power's attack*/
+    this.changeSkill=function(){CommonsLibrary.change.call(this, this.setSkill, (sectionName+'Skill'+rowIndex), powerListParent);};
     /**Getter is used for onChange events and for other information gathering*/
     this.getModifierList=function(){return modifierSection;};  //listed here instead of getter section to match its document location
-   /**Onchange function for changing the rank*/
-   this.changeRank=function()
-   {
-       this.setRank(document.getElementById(sectionName+'Rank'+rowIndex).value);
-       //document doesn't need to be reset because setAll will do that
-       powerListParent.update();
-   };
+    /**Onchange function for changing the rank*/
+    this.changeRank=function(){CommonsLibrary.change.call(this, this.setRank, (sectionName+'Rank'+rowIndex), powerListParent);};
 
    //Value setting section
    /**Populates data of the power by using the name (which is validated).
@@ -131,7 +92,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    this.setPower=function(effectNameGiven)
    {
        modifierSection.clear();  //always clear them out on select
-       if(!PowerData.names.contains(effectNameGiven)){this.constructor(); return;}  //reset values
+       if(!PowerData.names.contains(effectNameGiven) && !PowerData.godhoodNames.contains(effectNameGiven)){this.constructor(); return;}  //reset values
+          //this is only reachable if you select the default value in the drop down
 
        effect = effectNameGiven;
        canSetBaseCost = PowerData.hasInputBaseCost.contains(effect);
@@ -143,11 +105,11 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        rank = 1;
       if (PowerData.isAttack.contains(effect))
       {
-          name = ((rowIndex+1) +' '+effect);
+          name = ((rowIndex+1) +' '+effect);  //for example: "1 Damage" row index is used for uniqueness
           if(range === 'Perception') skillUsed = undefined;
           else skillUsed = 'Skill used for attack';
       }
-       else name = undefined;
+       else name = skillUsed = undefined;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setBaseCost=function(baseGiven)
@@ -166,21 +128,22 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    {
        if(this.isBlank()) return;
        if(action === actionGiven) return;  //nothing has changed
-       if(effect === 'Feature'){action = actionGiven; return;}  //Feature doesn't change modifiers and is always valid
        var baseActionName = PowerData.defaultAction.get(effect);
        if(baseActionName === 'None' && actionGiven !== 'None') baseActionName = 'Free';  //calculate distance from free
        var baseActionIndex = PowerData.actions.indexOf(baseActionName);
        var newIndex = PowerData.actions.indexOf(actionGiven);
-       if(newIndex === -1){action = baseActionName; return;}  //if not found (only possible when loading bad data)
+       if(newIndex === -1) return;  //if not found (only possible when loading bad data)
+
+       action = actionGiven;  //must be here to work for None
        if(actionGiven === 'None') return;  //don't change modifiers
        if(actionGiven === 'Triggered') modifierSection.createByNameRank('Selective', 1);
           //new rules only. Triggered must also be selective so it auto adds but doesn't remove
+       if(effect === 'Feature') return;  //Feature doesn't change any other modifiers
 
        //remove both if possible
        modifierSection.removeByName('Slower Action');
        modifierSection.removeByName('Faster Action');
 
-       action = actionGiven;
        var actionDifference = (newIndex-baseActionIndex);
        if(actionDifference > 0) modifierSection.createByNameRank('Faster Action', actionDifference);
        else if(actionDifference < 0) modifierSection.createByNameRank('Slower Action', -actionDifference);
@@ -196,10 +159,10 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        if(duration === 'Permanent' && rangeGiven !== 'Personal') return;  //can only be Personal
        var baseRangeIndex = PowerData.ranges.indexOf(baseRangeName);
        var newIndex = PowerData.ranges.indexOf(rangeGiven);
-       if(newIndex === -1){range = baseRangeName; return;}  //if not found (only possible when loading bad data)
+       if(newIndex === -1) return;  //if not found (only possible when loading bad data)
        if(baseRangeName === 'Personal') baseRangeIndex = PowerData.ranges.indexOf('Close');  //calculate distance from close
        if(rangeGiven === 'Personal') return;  //only possible when a modifier is removed
-      if (name != undefined)
+      if (name !== undefined)
       {
           if(rangeGiven === 'Perception') skillUsed = undefined;
           else skillUsed = 'Skill used for attack';
@@ -219,28 +182,35 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    {
        if(this.isBlank()) return;
        if(duration === durationGiven) return;  //nothing has changed
-       if(effect === 'Feature'){duration = durationGiven; return;}  //Feature doesn't change modifiers and is always valid
        var baseDurationName = PowerData.defaultDuration.get(effect);
-       if(durationGiven === 'Instant' || baseDurationName === 'Instant') return;  //only possible when loading bad data
+       if(effect !== 'Feature' && (durationGiven === 'Instant' || baseDurationName === 'Instant')) return;
+          //only Feature can set to and from instant. other attempts are only possible when loading bad data
        if(range !== 'Personal' && durationGiven === 'Permanent') return;  //only personal range can have Permanent duration
 
-       if(baseDurationName === 'Permanent') this.setAction('Free');  //reset action. will be set to none later if durationGiven is Permanent
-       else if(durationGiven === 'Permanent') this.setAction(PowerData.defaultAction.get(effect));  //reset action (set to none later)
+      if (durationGiven === 'Permanent' || duration === 'Permanent')  //if changing to or from Permanent
+      {
+          //then reset action
+          if(baseDurationName === 'Permanent') this.setAction('Free');  //default action is None, Free is used when an action exists
+          else this.setAction(PowerData.defaultAction.get(effect));
+          //action will be set to none later if durationGiven is Permanent
+      }
        //else do not set action
 
        var baseDurationIndex = PowerData.durations.indexOf(baseDurationName);
        var newIndex = PowerData.durations.indexOf(durationGiven);
-       if(newIndex === -1){duration = baseDurationName; return;}  //if not found (only possible when loading bad data)
-
-       //remove both if possible
-       modifierSection.removeByName('Increased Duration');
-       modifierSection.removeByName('Decreased Duration');
+       if(newIndex === -1) return;  //if not found (only possible when loading bad data)
 
        duration = durationGiven;
-       var durationDifference = (newIndex-baseDurationIndex);
-       if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
-       else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
+      if (effect !== 'Feature')  //Feature doesn't change modifiers
+      {
+          //remove both if possible
+          modifierSection.removeByName('Increased Duration');
+          modifierSection.removeByName('Decreased Duration');
 
+          var durationDifference = (newIndex-baseDurationIndex);
+          if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
+          else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
+      }
        if(durationGiven === 'Permanent') this.setAction('None');
    };
    /**Used to set data independent of the document and without calling update*/
@@ -286,17 +256,17 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    /**This creates the page's html (for the row). called by power section only*/
    this.generate=function()
    {
-       var htmlString='';
+       var htmlString = '', i;
        htmlString+='<select id="'+sectionName+'Choices'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').select();">\n';
        htmlString+='    <option>Select One</option>\n';
-      for (var i=0; i < PowerData.names.length; i++)
+      for (i=0; i < PowerData.names.length; i++)
       {
           htmlString+='    <option>'+PowerData.names[i]+'</option>\n';
       }
-      if (Main != undefined && powerListParent !== Main.equipmentSection && (Main.powerSection.isUsingGodhoodPowers() || Main.canUseGodHood()))
+      if (Main !== undefined && powerListParent !== Main.equipmentSection && (Main.powerSection.isUsingGodhoodPowers() || Main.canUseGodHood()))
       //equipment can't be god-like so I only need to check power section's switch
          //must check both hasGodhoodAdvantages and canUseGodHood since they are not yet in sync
-         for (var i=0; i < PowerData.godhoodNames.length; i++)
+         for (i=0; i < PowerData.godhoodNames.length; i++)
          {
              htmlString+='    <option>'+PowerData.godhoodNames[i]+'</option>\n';
          }
@@ -319,7 +289,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       else
       {
           htmlString+='         <select id="'+sectionName+'SelectAction'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectAction();">\n';
-         for (var i=0; i < PowerData.actions.length-1; i++)  //-1 to avoid 'None'
+         for (i=0; i < PowerData.actions.length-1; i++)  //-1 to avoid 'None'
              {htmlString+='             <option>'+PowerData.actions[i]+'</option>\n';}
           htmlString+='         </select>\n';
       }
@@ -375,22 +345,21 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        htmlString+='<br /><br />\n\n';
        return htmlString;
    };
-   /**Returns an xml string of this row's data*/
+   /**Returns a json object of this row's data*/
    this.save=function()
    {
-       var fileString='      <Row effect="'+effect+'" ';
-       if(canSetBaseCost) fileString+='cost="'+baseCost+'" ';
-       fileString+='text="'+text+'" ';
-       fileString+='action="'+action+'" ';
-       fileString+='range="'+range+'" ';
-       fileString+='duration="'+duration+'" ';
-       if(name != undefined) fileString+='name="'+name+'" ';
-       if(skillUsed != undefined) fileString+='skill="'+skillUsed+'" ';
-       fileString+='rank="'+rank+'"';  //must be before modifiers
-       fileString+=modifierSection.save();  //with self close if there are no modifiers
-       if(modifierSection.getRow(0).isBlank()) fileString=' '+fileString;  //no modifiers
-       else fileString+='      </Row>\n';
-       return fileString;
+       var json={};
+       json.effect=effect;
+       if(canSetBaseCost) json.cost=baseCost;
+       json.text=text;
+       json.action=action;
+       json.range=range;
+       json.duration=duration;
+       if(name !== undefined) json.name=name;
+       if(skillUsed !== undefined) json.skill=skillUsed;  //if no name then there is also no skill but can have name without skill
+       json.Modifiers=modifierSection.save();
+       json.rank=rank;
+       return json;
    };
    /**This sets the page's data. called only by section generate*/
    this.setValues=function setValues()
@@ -417,9 +386,9 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           if(duration === 'Instant') document.getElementById(sectionName+'SelectDuration'+rowIndex).innerHTML = '<b>Instant</b>';
           else SelectUtil.setText((sectionName+'SelectDuration'+rowIndex), duration);
       }
-       if(document.getElementById(sectionName+'Name'+rowIndex) != undefined)  //might have been defined by power or modifier
+       if(document.getElementById(sectionName+'Name'+rowIndex) !== null)  //might have been defined by power or modifier
           document.getElementById(sectionName+'Name'+rowIndex).value = name;
-       if(document.getElementById(sectionName+'Skill'+rowIndex) != undefined)
+       if(document.getElementById(sectionName+'Skill'+rowIndex) !== null)
           document.getElementById(sectionName+'Skill'+rowIndex).value = skillUsed;
        document.getElementById(sectionName+'Rank'+rowIndex).value=rank;  //must come before modifiers
        modifierSection.setAll();

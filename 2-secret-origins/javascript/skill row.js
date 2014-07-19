@@ -18,7 +18,7 @@ function SkillObject(rowIndex)
     this.getTotalBonus=function(){return totalBonus;};
 
    //Single line function section (ignoring isBlank check)
-    this.isBlank=function(){return (name == undefined);};
+    this.isBlank=function(){return (name === undefined);};
    /**Simple setter for totalBonus which is the sum of the ability value and skill rank. Or a string indicator if the ability is --.*/
    this.setTotalBonus=function(bonusGiven)
    {
@@ -28,30 +28,14 @@ function SkillObject(rowIndex)
     this.setRowIndex=function(indexGiven){rowIndex=indexGiven;};
 
    //Onchange section
-   /**Onchange function for selecting a skill*/
-   this.select=function()
-   {
-       this.setSkill(SelectUtil.getTextById('skillChoices'+rowIndex));
-       Main.skillSection.update();
-   };
-   /**Onchange function for changing the text*/
-   this.changeText=function()
-   {
-       this.setText(document.getElementById('skillText'+rowIndex).value);
-       Main.skillSection.update();
-   };
-   /**Onchange function for changing the rank*/
-   this.changeRank=function()
-   {
-       this.setRank(document.getElementById('skillRank'+rowIndex).value);
-       Main.skillSection.update();
-   };
-   /**Onchange function for selecting an ability*/
-   this.selectAbility=function()
-   {
-       this.setAbility(SelectUtil.getTextById('skillAbility'+rowIndex));
-       Main.skillSection.update();
-   };
+    /**Onchange function for selecting a skill*/
+    this.select=function(){CommonsLibrary.select.call(this, this.setSkill, ('skillChoices'+rowIndex), Main.skillSection);};
+    /**Onchange function for changing the text*/
+    this.changeText=function(){CommonsLibrary.change.call(this, this.setText, ('skillText'+rowIndex), Main.skillSection);};
+    /**Onchange function for changing the rank*/
+    this.changeRank=function(){CommonsLibrary.change.call(this, this.setRank, ('skillRank'+rowIndex), Main.skillSection);};
+    /**Onchange function for selecting an ability*/
+    this.selectAbility=function(){CommonsLibrary.select.call(this, this.setAbility, ('skillAbility'+rowIndex), Main.skillSection);};
 
    //Value setting section
    /**Populates data of the skill by using the name (which is validated).
@@ -62,7 +46,7 @@ function SkillObject(rowIndex)
        if(!SkillData.names.contains(nameGiven)){this.constructor(); return;}
        name = nameGiven;
        rank = 1;
-       abilityName = SkillData.abilityHash.get(name);
+       abilityName = SkillData.abilityMap.get(name);
        hasText = SkillData.hasText.contains(name);
        if(name === 'Other') text = 'Skill Name and Subtype';  //doesn't exist in old rules
        else if(hasText) text = 'Skill Subtype';
@@ -93,7 +77,7 @@ function SkillObject(rowIndex)
    /**This creates the page's html (for the row). called by skill section only*/
    this.generate=function()
    {
-       var htmlString='';
+       var htmlString = '';
        htmlString+='<select id="skillChoices'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').select();">\n';
        htmlString+='    <option>Select One</option>\n';
       for (var i=0; i < SkillData.names.length; i++)
@@ -107,7 +91,7 @@ function SkillObject(rowIndex)
        htmlString+='Ranks <input type="text" size="1" id="skillRank'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').changeRank();" />\n';
        htmlString+='+\n';
        htmlString+='<select id="skillAbility'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').selectAbility();">\n';
-       htmlString+='    <option>Strength</option>\n';
+       htmlString+='    <option>Strength</option>\n';  //hard coding made more sense then using AbilityData.names (because loop unrolling)
        htmlString+='    <option>Agility</option>\n';
        htmlString+='    <option>Fighting</option>\n';
        htmlString+='    <option>Awareness</option>\n';
@@ -128,15 +112,15 @@ function SkillObject(rowIndex)
        if(hasText) return (name+': '+text);
        return name;
    };
-   /**Returns an xml string of this row's data*/
+   /**Returns a json object of this row's data*/
    this.save=function()
    {
-       var fileString='       <Row name="'+name+'"';
-       if(hasText) fileString+=' subtype="'+text+'"';
-       fileString+=' rank="'+rank+'"';
-       fileString+=' ability="'+abilityName+'"';
-       fileString+=' />\n';
-       return fileString;
+       var json={};
+       json.name=name;
+       if(hasText) json.subtype=text;
+       json.rank=rank;
+       json.ability=abilityName;
+       return json;
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object
@@ -161,4 +145,4 @@ function SkillObject(rowIndex)
    };
    //constructor:
     this.constructor();
-};
+}

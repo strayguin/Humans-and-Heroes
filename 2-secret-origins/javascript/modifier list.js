@@ -1,8 +1,8 @@
 function ModifierList(powerRowParent, sectionRowIndex, sectionName)
 {
    //private variable section:
-    var autoModifierNameToRowIndex=new Hash({}, undefined);
-    var rowArray=[];
+    var autoModifierNameToRowIndex = new MapDefault({}, undefined);
+    var rowArray = [];
     var rankTotal, flatTotal;  //undefined by default
 
    //Single line function section
@@ -12,19 +12,35 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
     this.getRankTotal=function(){return rankTotal;};
     this.getParent=function(){return powerRowParent;};
 
+   //public common section
+    /**Removes all rows then updates*/
+    this.clear=function(){CommonsLibrary.clear.call(this, rowArray);};
+    /**Returns the row object or nothing if the index is out of range. Used in order to call each onChange*/
+    this.getRow=function(rowIndex){return CommonsLibrary.getRow(rowArray, rowIndex);};
+    /**Returns an array of json objects for this section's data*/
+    this.save=function(){return CommonsLibrary.saveRows(rowArray);};
+    //don't use CommonsLibrary.update.call(this); because update is very different
+
+   //'private' commons section. Although all public none of these should be called from outside of this object
+    //don't use CommonsLibrary.generate.call(this, rowArray, 'modifier'); because this isn't a section and the generate must return a string
+    //don't use CommonsLibrary.removeRow(rowArray, rowIndex); because the way index is updated is different
+    //don't use CommonsLibrary.sanitizeRows.call(this, rowArray); because getUniqueName takes a boolean
+    /**This set the page's data. called only by power row generate*/
+    this.setAll=function(){CommonsLibrary.setAll(rowArray);};
+
    //public functions section
    /**Takes raw total of the power row, sets the auto ranks, and returns the power row grand total.*/
    this.calculateGrandTotal=function(powerRowRawTotal)
    {
-       if(autoModifierNameToRowIndex.get('Dynamic Alternate Effect') != undefined)
+       if(autoModifierNameToRowIndex.get('Dynamic Alternate Effect') !== undefined)
           powerRowRawTotal=rowArray[autoModifierNameToRowIndex.get('Dynamic Alternate Effect')].setAutoRank(powerRowRawTotal);
-       else if(autoModifierNameToRowIndex.get('Alternate Effect') != undefined)
+       else if(autoModifierNameToRowIndex.get('Alternate Effect') !== undefined)
           powerRowRawTotal=rowArray[autoModifierNameToRowIndex.get('Alternate Effect')].setAutoRank(powerRowRawTotal);
 
        //removable is applied secondly after alt effect
-       if(autoModifierNameToRowIndex.get('Easily Removable') != undefined)
+       if(autoModifierNameToRowIndex.get('Easily Removable') !== undefined)
           powerRowRawTotal=rowArray[autoModifierNameToRowIndex.get('Easily Removable')].setAutoRank(powerRowRawTotal);
-       else if(autoModifierNameToRowIndex.get('Removable') != undefined)
+       else if(autoModifierNameToRowIndex.get('Removable') !== undefined)
           powerRowRawTotal=rowArray[autoModifierNameToRowIndex.get('Removable')].setAutoRank(powerRowRawTotal);
 
        return powerRowRawTotal;
@@ -42,18 +58,11 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
           else flatTotal+=rowArray[i].getRawTotal();  //could be flat or free. if free the total will be 0
       }
    };
-   /**Removes all rows then updates*/
-   this.clear=function()
-   {
-       rowArray=[];
-       this.addRow();
-       this.update();
-   };
    /**This will set a row (by name) to the rank given. If the row doesn't exist it will be created*/
    this.createByNameRank=function(rowName, rowRank)
    {
        var rowIndex=this.findRowByName(rowName);
-      if (rowIndex == undefined)
+      if (rowIndex === undefined)
       {
           rowIndex=rowArray.length-1;  //becomes the last row if doesn't exist yet
           rowArray[rowIndex].setModifier(rowName);  //set the last row (which is blank) to become the new modifier
@@ -78,12 +87,6 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
           {allModifierRows+=rowArray[i].generate();}
        return allModifierRows;
    };
-   /**Returns the row object or nothing if the index is out of range. in order to call each onChange*/
-   this.getRow=function(rowIndex)
-   {
-       if(rowIndex >= rowArray.length) return;
-       return rowArray[rowIndex];
-   };
    /**Return the unique name of the section. In this case it returns a sorted array of modifier unique names*/
    this.getUniqueName=function()
    {
@@ -102,20 +105,20 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
           {if(rowArray[i].doesHaveAutoTotal()) return true;}
        return false;
    };
-   /**Sets data from an xml object given then updates. The row array is not cleared by this function*/
-   this.load=function(xmlSection)
+   /**Sets data from a json object given then updates. The row array is not cleared by this function*/
+   this.load=function(jsonSection)
    {
        if(powerRowParent.isBlank()) return;
        //the row array isn't cleared in case some have been auto set
        //Main.clear() is called at the start of Main.load()
-      for (var i=0; i < xmlSection.length; i++)
+      for (var i=0; i < jsonSection.length; i++)
       {
-          var newName=xmlSection[i].getAttribute('name');
+          var newName=jsonSection[i].name;
           if(!ModifierData.names.contains(newName))
-             {alert('Load Error: '+newName+' is not a modifier name. Did you mean "Other" with text?'); continue;}  //not found
+             {Main.messageUser('Load Error: '+newName+' is not a modifier name. Did you mean "Other" with text?'); continue;}  //not found
           rowArray.last().setModifier(newName);
-          if(xmlSection[i].hasAttribute('applications')) rowArray.last().setRank(xmlSection[i].getAttribute('applications'));
-          if(xmlSection[i].hasAttribute('text')) rowArray.last().setText(xmlSection[i].getAttribute('text'));
+          if(jsonSection[i].applications !== undefined) rowArray.last().setRank(jsonSection[i].applications);
+          if(jsonSection[i].text !== undefined) rowArray.last().setText(jsonSection[i].text);
           this.addRow();
       }
       //doesn't call update. Power must do that
@@ -124,22 +127,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    this.removeByName=function(rowName)
    {
        var rowIndex=this.findRowByName(rowName);
-       if(rowIndex != undefined) this.removeRow(rowIndex);
-   };
-   /**Returns an xml string of this section's data*/
-   this.save=function()
-   {
-       if(rowArray.length === 1) return ' />\n';  //self closing because it is empty
-       var fileString='>\n';
-      for(var i=0; i < rowArray.length-1; i++)  //the last row is always blank
-          {fileString+=rowArray[i].save();}
-       return fileString;
-   };
-   /**This set the page's data. called only by power row generate*/
-   this.setAll=function()
-   {
-      for(var i=0; i < rowArray.length-1; i++)  //the last row is always blank
-         {rowArray[i].setValues();}
+       if(rowIndex !== undefined) this.removeRow(rowIndex);
    };
    /**Needs to be updated for document reasons. This will update all dependant indexing*/
    this.setSectionRowIndex=function(sectionRowIndexGiven)
@@ -161,6 +149,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    /**Section level validation. Such as remove blank and redundant rows and add a final blank row*/
    this.sanitizeRows=function()
    {
+       //don't call CommonsLibrary.sanitizeRows.call(this, rowArray); because getUniqueName takes a boolean
        var namesSoFar=[];
        var canHaveAttack=true;
        if(powerRowParent.getDefaultRange() !== 'Personal') canHaveAttack=false;
@@ -191,10 +180,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        rowArray.remove(rowIndexToRemove);
        this.setSectionRowIndex(sectionRowIndex);  //used to correct all indexing
    };
-   this.constructor=function()
-   {
-       this.addRow();
-   };
    //constructor:
-    this.constructor();
-};
+    this.addRow();
+    //don't use CommonsLibrary.initializeRows because the constructor doesn't need to call generate (which would do nothing)
+}
