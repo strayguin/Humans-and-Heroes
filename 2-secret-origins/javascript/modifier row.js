@@ -28,7 +28,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    //Single line function section
     this.getPower=function(){return modifierListParent.getParent();};
     /**True if this row has no data*/
-    this.isBlank=function(){return (name == undefined);};
+    this.isBlank=function(){return (name === undefined);};
     /**True if this modifier increases the total power cost in any way*/
     this.isExtra=function(){return (costPerRank > 0);};
     /**True if this modifier changes the total power cost but not cost per rank*/
@@ -42,27 +42,12 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
     this.setTotalIndex=function(indexGiven){totalIndex=indexGiven;};
 
    //Onchange section
-   /**Onchange function for selecting a modifier*/
-   this.select=function()
-   {
-       this.setModifier(SelectUtil.getTextById(sectionName+'ModifierChoices'+totalIndex));
-       //document.getElementById(sectionName+'ModifierChoices'+totalIndex).selectedIndex=;
-       //document doesn't need to be reset because setAll will do that
-       modifierListParent.update();
-   };
-   /**Onchange function for changing the rank*/
-   this.changeRank=function()
-   {
-       this.setRank(document.getElementById(sectionName+'ModifierRank'+totalIndex).value);
-       //document doesn't need to be reset because setAll will do that
-       modifierListParent.update();
-   };
-   /**Onchange function for changing the text*/
-   this.changeText=function()
-   {
-       this.setText(document.getElementById(sectionName+'ModifierText'+totalIndex).value);
-       modifierListParent.update();  //called because the text might make a row redundant
-   };
+    /**Onchange function for selecting a modifier*/
+    this.select=function(){CommonsLibrary.select.call(this, this.setModifier, (sectionName+'ModifierChoices'+totalIndex), modifierListParent);};
+    /**Onchange function for changing the rank*/
+    this.changeRank=function(){CommonsLibrary.change.call(this, this.setRank, (sectionName+'ModifierRank'+totalIndex), modifierListParent);};
+    /**Onchange function for changing the text*/
+    this.changeText=function(){CommonsLibrary.change.call(this, this.setText, (sectionName+'ModifierText'+totalIndex), modifierListParent);};
 
    //Value setting section
    /**Populates data of the modifier by using the name (which is validated).
@@ -95,9 +80,9 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
       //if (ModifierData.hasAutoRank.contains(name))  //ModifierList.allAutoModifierCanCreate are span so that this isn't called (can't change them anyway)
           //return;  //can't change the rank since it is auto
        if(!hasRank) return;  //can only happen when loading bad data
-       if(name === 'Fragile') rank=sanitizeNumber(rankGiven, 0, 0);  //the only modifier than can have 0 ranks
-       else rank=sanitizeNumber(rankGiven, 1, 1);  //all others must have at least 1 rank
-       if(rank > maxRank) rank=maxRank;
+       if(name === 'Fragile') rank = sanitizeNumber(rankGiven, 0, 0);  //the only modifier than can have 0 ranks
+       else rank = sanitizeNumber(rankGiven, 1, 1);  //all others must have at least 1 rank
+       if(rank > maxRank) rank = maxRank;
        this.calculateTotal();
    };
    /**Used to set data independent of the document and without calling update*/
@@ -182,21 +167,23 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
        else if(name === 'Alternate Resistance (Free)' || name === 'Alternate Resistance (Cost)') nameToUse='Alternate Resistance';
        else if(name === 'Easily Removable') nameToUse='Removable';
        else if(name === 'Dynamic Alternate Effect') nameToUse='Alternate Effect';
+       else if(name === 'Inaccurate') nameToUse='Accurate';
        else if(name === 'Extended Range' || name === 'Diminished Range') nameToUse='Extended/Diminished Range';
+       //TODO: is uncontrolable entirely a unique modifer?
        else nameToUse=name;
        //TODO: so I noticed that text should not be used most of the time for uniqueness (check required is only maybe)
 
        if(includeText && hasText) return (nameToUse+' ('+text+')');
        return nameToUse;
    };
-   /**Returns an xml string of this row's data*/
+   /**Returns a json object of this row's data*/
    this.save=function()
    {
-       var rowString='          <Modifier name="'+name+'" ';
-       if(hasRank) rowString+='applications="'+rank+'" ';
-       if(hasText) rowString+='text="'+text+'" ';
-       rowString+='/>\n';
-       return rowString;
+       var json={};
+       json.name=name;
+       if(hasRank) json.applications=rank;
+       if(hasText) json.text=text;
+       return json;
    };
    /**Takes the power row raw total, sets the auto ranks, and returns the power row grand total.*/
    this.setAutoRank=function(powerRowRawTotal)
@@ -218,16 +205,16 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    this.setValues=function()
    {
        if(this.isBlank()) return;  //already set (to default)
-       if (document.getElementById(sectionName+'ModifierChoices'+totalIndex) != undefined)
+       if (document.getElementById(sectionName+'ModifierChoices'+totalIndex) !== null)
           SelectUtil.setText((sectionName+'ModifierChoices'+totalIndex), name);
        else document.getElementById(sectionName+'ModifierName'+totalIndex).innerHTML = name;
-       if(document.getElementById(sectionName+'ModifierRankSpan'+totalIndex) != undefined)
+       if(document.getElementById(sectionName+'ModifierRankSpan'+totalIndex) !== null)
           document.getElementById(sectionName+'ModifierRankSpan'+totalIndex).innerHTML = rank;
        else if(hasRank) document.getElementById(sectionName+'ModifierRank'+totalIndex).value = rank;  //input
        if(hasText) document.getElementById(sectionName+'ModifierText'+totalIndex).value = text;
-       if(document.getElementById(sectionName+'ModifierRowTotal'+totalIndex) != undefined && hasAutoTotal)
+       if(document.getElementById(sectionName+'ModifierRowTotal'+totalIndex) !== null && hasAutoTotal)
           document.getElementById(sectionName+'ModifierRowTotal'+totalIndex).innerHTML = autoTotal;
-       else if(document.getElementById(sectionName+'ModifierRowTotal'+totalIndex) != undefined)
+       else if(document.getElementById(sectionName+'ModifierRowTotal'+totalIndex) !== null)
           document.getElementById(sectionName+'ModifierRowTotal'+totalIndex).innerHTML = rawTotal;
           //all hasAutoTotal are -1 but will still set this
    };
@@ -235,18 +222,18 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    //'private' functions section. Although all public none of these should be called from outside of this object
    this.constructor=function()
    {
-       name=undefined;
-       modifierType=undefined;
-       costPerRank=undefined;
-       maxRank=undefined;
-       hasRank=undefined;
-       rank=undefined;
-       hasText=undefined;
-       text=undefined;
-       hasAutoTotal=false;
-       rawTotal=0;
-       autoTotal=undefined;
+       name = undefined;
+       modifierType = undefined;
+       costPerRank = undefined;
+       maxRank = undefined;
+       hasRank = undefined;
+       rank = undefined;
+       hasText = undefined;
+       text = undefined;
+       hasAutoTotal = false;
+       rawTotal = 0;
+       autoTotal = undefined;
    };
    //constructor:
     this.constructor();
-};
+}

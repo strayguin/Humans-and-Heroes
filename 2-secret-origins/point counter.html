@@ -319,8 +319,8 @@ GROUP
 <div style="display:block;text-align:center;margin-right:auto;margin-left:auto;border-style:solid;border-color:rgb(56,118,29);border-width:5px">
 <img border="0" src="../images/SiroccoLoRese461.jpg" id="characterImage" height="270" />
 <br />
-<span>Image Path:</span><input type="text" value="../images/SiroccoLoRese461.jpg" id='imgFilePath' /><input type="button" value="Load Image From Path" onClick='Main.loadImageFromPath();' /><br />
-<input type="file" id='imgFileChooser' /><input type="button" value="Load Image From File" onClick='Main.loadImageFromFile();' />
+<span>Image Path:</span><input type="text" value="../images/SiroccoLoRese461.jpg" id="imgFilePath" /><input type="button" value="Load Image From Path" onClick="Main.loadImageFromPath();" /><br />
+<input type="file" accept="image/*" id="imgFileChooser" /><input type="button" value="Load Image From File" onClick="Main.loadImageFromFile();" />
 </div>
 </td>
 </tr>
@@ -351,7 +351,7 @@ GROUP
 </tr>
 <tr>
 <td colspan="4" style="padding:5px;background-color:rgb(217,234,211)">
-<span id="power section"></span>
+<div id="power section"></div>
 </td>
 </tr>
 <tr>
@@ -362,7 +362,7 @@ GROUP
 </tr>
 <tr>
 <td colspan="4" style="padding:5px;background-color:rgb(217,234,211)">
-<span id="equipment section"></span>
+<div id="equipment section"></div>
 </td>
 </tr>
 <tr>
@@ -370,7 +370,7 @@ GROUP
 </tr>
 <tr>
 <td colspan="4" style="padding:5px;background-color:rgb(217,234,211)">
-<div style="padding:5px"><span id="advantage section"></span></div>
+<div style="padding:5px"><div id="advantage section"></div></div>
 </td>
 </tr>
 <tr>
@@ -378,7 +378,7 @@ GROUP
 </tr>
 <tr>
 <td colspan="4" style="padding:5px;background-color:rgb(217,234,211)">
-<div style="padding:5px"><span id="skill section"></span></div>
+<div style="padding:5px"><div id="skill section"></div></div>
 </td>
 </tr>
 <tr>
@@ -388,7 +388,7 @@ GROUP
 <td colspan="4" style="padding:5px 0px;text-align:center;font-weight:bold;background-color:rgb(217,234,211);font-size:20px">INITIATIVE <span id="initiative">+0</span></td>
 </tr>
 <tr>
-<td colspan="4"><span id="offensive span"></span></td>
+<td colspan="4"><div id="offensive section"></div></td>
 </tr>
 <tr>
 <td colspan="4" style="background-color:rgb(56,118,29);color:rgb(255,255,255);font-weight:bold;padding:10px;font-size:18px">DEFENSE <input type="button" value="Clear Defenses" onClick="Main.defenseSection.clear();" /></td>
@@ -416,7 +416,18 @@ GROUP
 </div>
 <div style="text-align:center;border-style:solid;border-width:thin;border-color:rgb(56,118,29);font-size:20px;font-weight:bolder;background-color:rgb(56,118,29);padding:10px;margin:0px 0px 30px 0px;color:rgb(255,255,255);border-bottom-left-radius:20px;border-bottom-right-radius:20px;clear:both">CHARACTER POINT TOTALS: ABILITIES <span id="ability total">0</span> &#8226; POWERS <span id="power total">0</span> &#8226; ADVANTAGES <span id="advantage total">0</span> &#8226; SKILLS <span id="skill total">0</span> &#8226; DEFENSES <span id="defense total">0</span> = <span id="grand total used">0</span> / <span id="grand total max">0</span></div>
 <textarea id="bio box" rows="10" cols="100">Complications, background and other information</textarea>
-<span id="rule span">The calculator is currently using the modified 3e rules: </span><input type="button" value="Change to Original 3e Rules" onClick="Main.ruleToggle();" id="rule button" />
+<br /><br />
+<table width="100%"><tr>
+   <td style="text-align: left; width: 20%;">
+       <input type="button" value="Change to Original 3e Rules" onClick="Main.ruleToggle();" id="to old rules button" />
+       <span id="to old rules span" style="display: none;">Change to Original 3e Rules</span>
+   </td>
+    <td style="text-align: center; width: 60%;" id="rule description td">The calculator is currently using the modified 3e rules</td>
+   <td style="text-align: right; width: 20%;">
+       <input type="button" value="Change to Modified 3e Rules" onClick="Main.ruleToggle();" id="to new rules button" style="display: none;" />
+       <span id="to new rules span">Change to Modified 3e Rules</span>
+   </td>
+</tr></table>
 
 <!--
 <br />
@@ -448,20 +459,33 @@ This currently can't track how much damage effects deal which is therefore not c
 <br />
 <span onClick="Main.saveToFile();"><a href="data:" download="" id="saveToFileLink">Save to File</a></span>
 <!--<span onClick="Main.saveToFile();"><a href="data:" download="" id="saveToFileLink"><input type="button" value="Save to File" /></a></span>-->
-<input type="button" value="Save To Text Area" onClick="Main.saveToText();" /><br />
-<input type="file" value="upload" id='xmlFileChooser' /><br />
+<input type="button" value="Save To Text Area" onClick="Main.saveToText();" />
+<label>Save as:
+<select id="saveType">
+    <option>XML</option>
+    <option>JSON</option>
+</select>
+</label>
+
+<br /><!--accept=".xml,.js,.json" isn't completely supported by any browser right now: http://www.w3.org/TR/html5/forms.html#attr-input-accept
+despite what https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Browser_compatibility
+says. My attribute is valid (as far as I can tell) but it isn't being recognized by anything except IE10 (which can't load anything else and also has wrong choices)
+If I use semi-colons between them (which is wrong) chrome will recognize only the first. In any case it won't prevent using the wrong extension.-->
+<input type="file" id="fileChooser" /><br />
 <input type="button" value="Load from File" onClick="Main.loadFile();" />
 <input type="button" value="Load from Text Area" onClick="Main.loadText();" /><br />
 <br />
-<textarea id="xml box" rows="30" cols="120">This text may be overwritten.</textarea>
+<textarea id="code box" rows="30" cols="120">This text may be overwritten.</textarea>
 <br /><br />
 <!---->
-<div>Admin Powers:</div>
-<input type="text" value='Tester.testAll();' id="commandText" /><input type="button" value="Execute" onClick='eval(document.getElementById("commandText").value);' /><br /><br />
+<span>Admin Powers:</span><br />
+<input type="text" value="Tester.skillRow.setSkill();" id="commandText" /><input type="button" value="Execute" onClick="eval(document.getElementById('commandText').value);" /><br />
+<a href="javascript:Tester.testAll();">Test All</a> and <a href="javascript:eval(document.getElementById('code box').value);">Eval Code Box</a><br />
+<a href="file:///C:/Users/Ryan/Documents/My%20Code/Javascript/tabletop%20dice.html" target="_new">My Sandbox</a> and <a href="http://jsfiddle.net/" target="_new">jsfiddle</a><br /><br />
 <!---->
-<span id="test results"></span><br /><br />
 </div></td>
 <td class="sites-canvas-sidebar"></td></tr></tbody></table>
+<div id="test results"></div><br /><br />
 </div>
 </div>
 </div>
@@ -481,9 +505,9 @@ This currently can't track how much damage effects deal which is therefore not c
 
 <script type="text/javascript1.3" src="javascript/main.js"></script>
 <script type="text/javascript1.3">
-var Main = new MainObject();
-var Tester = new TestObject();
-var Logger = new LoggerObject(false);
+//Main must be after all functions have been defined
+const Main = new MainObject();
+Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
 </script>
 </body>
