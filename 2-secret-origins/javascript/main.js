@@ -1,7 +1,9 @@
 //include everything else because I'm cool like that
-var jsFileNamesUsed = ['tools', 'MapDefault', 'data', 'abilities', 'advantage list', 'advantage row', 'CommonsLibrary', 'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'SelectUtil', 'skill list', 'skill row'];
+var jsFileNamesUsed = ['tools', 'MapDefault', 'data', 'abilities', 'advantage list', 'advantage row', 'CommonsLibrary',
+    'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'SelectUtil', 'skill list', 'skill row'];
 //the first 3 are first because everything depends on data which depends on MapDefault which depends on tools. everything else is alphabetical
-jsFileNamesUsed = jsFileNamesUsed.concat(['simple tester', 'test suite', 'Logger']);  //comment this out in production (if I feel like it) to save memory (test suite is the largest file)
+jsFileNamesUsed = jsFileNamesUsed.concat(['simple tester', 'test suite', 'Logger']);  //comment this out in production to save memory
+    //if I feel like it that is. although test suite is the largest file
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)
 {
@@ -41,8 +43,8 @@ function MainObject()
    {
        if(useOldRules){transcendence = 0; return;}
        transcendence = sanitizeNumber(document.getElementById('transcendence').value, -1, 0);
-       if((this.powerSection.isUsingGodhoodPowers() || this.advantageSection.hasGodhoodAdvantages()) && transcendence <= 0) transcendence=1;
-          //must raise the minimum due to currently using god-like powers
+       if((this.powerSection.isUsingGodhoodPowers() || this.advantageSection.hasGodhoodAdvantages()) && transcendence <= 0)
+          transcendence = 1;  //must raise the minimum due to currently using god-like powers
        document.getElementById('transcendence').value = transcendence;
        if(previousGodHood === this.canUseGodHood()) return;  //same transcendence so don't need to regenerate
        previousGodHood = this.canUseGodHood();
@@ -343,8 +345,8 @@ function MainObject()
 
        var loadedDoc, transcendenceMinimum = -1;
        try{
-       if(fileString[0] !== '{') loadedDoc = xmlToJson(fileString);  //if the first character is an open brace then assume JSON
-       else loadedDoc = JSON.parse(fileString);  //else assume XML
+       if(fileString[0] !== '{') loadedDoc = xmlToJson(fileString);  //if the first character is not an open brace then assume XML
+       else loadedDoc = JSON.parse(fileString);  //else assume JSON
        }
        catch(e){Main.messageUser('A loading error has occured. The document you provided might not be valid.\n\n'+e); throw e;}
           //yeah I know the error message is completely unhelpful but there's nothing more I can do
