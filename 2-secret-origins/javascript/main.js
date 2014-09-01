@@ -32,7 +32,7 @@ function MainObject()
     this.saveToText=function(){document.getElementById('code box').value = this.save();};
     /**This loads the text text within the code box.*/
     this.loadText=function(){this.loadFromString(document.getElementById('code box').value);};
-    /**Set a replacement function that is called in place of the normal user messager.*/
+    /**Set a replacement function that is called in place of the normal user messenger.*/
     this.setMockMessenger=function(mockedFun){mockMessenger = mockedFun;};
     /**Restores the default function for messaging the user*/
     this.clearMockMessenger=function(){mockMessenger = undefined;};
@@ -345,7 +345,7 @@ function MainObject()
 
        var loadedDoc, transcendenceMinimum = -1;
        try{
-       if(fileString[0] !== '{') loadedDoc = xmlToJson(fileString);  //if the first character is not an open brace then assume XML
+       if(fileString[0] === '<') loadedDoc = xmlToJson(fileString);  //if the first character is less than then assume XML
        else loadedDoc = JSON.parse(fileString);  //else assume JSON
        }
        catch(e){Main.messageUser('A loading error has occured. The document you provided might not be valid.\n\n'+e); throw e;}

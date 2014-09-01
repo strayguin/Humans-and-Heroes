@@ -66,10 +66,6 @@ div.goog-toc>ul,.sites-embed>ul {
     margin: 1em 0
 }
 
-#sites-chrome-header .sites-header-secondary-row td {
-    padding: 0px 4px!important
-}
-
 #sites-chrome-sidebar-left.collapsed {
     display: none
 }
@@ -164,11 +160,6 @@ code {
 #sites-canvas-main .sites-tile-name-content-1 {
     padding-top: 10px;
     padding-bottom: 10px
-}
-
-#sites-chrome-everything #sites-chrome-header img {
-    padding: 0;
-    border: 0
 }
 
 .editing {
@@ -373,79 +364,6 @@ input[type=text][disabled],input[type=text][disabled]:hover,textarea[disabled],t
     -webkit-box-shadow: none
 }
 
-input[type=checkbox],input[type=radio] {
-    border: 1px solid #dcdcdc;
-    border-radius: 1px;
-    box-sizing: border-box;
-    cursor: pointer;
-    height: 13px;
-    margin: 0 6px -1px 0;
-    position: relative;
-    width: 13px;
-    -webkit-appearance: none;
-    -webkit-border-radius: 1px;
-    -webkit-box-sizing: border-box;
-    -moz-border-radius: 1px;
-    -moz-box-sizing: border-box
-}
-
-input[type=checkbox]:active,input[type=radio]:active {
-    background: #ebebeb;
-    border-color: #c6c6c6
-}
-
-input[type=checkbox]:hover,input[type=radio]:hover {
-    border-color: #c6c6c6;
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.1);
-    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.1);
-    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.1)
-}
-
-input[type=radio] {
-    border-radius: 50%;
-    height: 15px;
-    width: 15px
-}
-
-input[type=radio]:checked:after {
-    background: #666;
-    border-radius: 50%;
-    content: '';
-    display: block;
-    height: 9px;
-    left: 2px;
-    position: relative;
-    top: 2px;
-    width: 9px
-}
-
-input[type=checkbox]:checked:after {
-    content: url('../../images/check_no_box.png');
-    display: block;
-    left: -5px;
-    position: absolute;
-    top: -6px
-}
-
-input[type=checkbox]:focus {
-    border-color: #4d90fe;
-    outline: none
-}
-
-input[type=checkbox][disabled],input[type=checkbox][disabled]:hover,input[type=radio][disabled],input[type=radio][disabled]:hover {
-    background-color: #f5f5f5;
-    border: 1px solid #dcdcdc;
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    cursor: default
-}
-
-input[type=checkbox][disabled]:checked:after,input[type=radio][disabled]:checked:after {
-    filter: alpha(opacity=50);
-    opacity: 0.5
-}
-
 .sites-embed-content-sidebar-textbox {
     padding: 5px
 }
@@ -532,15 +450,11 @@ blockquote p {
     line-height: 1.5
 }
 
-#sites-chrome-header-wrapper {
-    padding-top: 50px
-}
-
 #sites-chrome-main-wrapper {
     padding: 15px 0 0
 }
 
-#sites-chrome-header,#sites-chrome-main {
+#sites-chrome-main {
     width: 90%;
     margin: auto
 }
@@ -549,14 +463,6 @@ blockquote p {
     text-align: left;
     padding: 0;
     margin-bottom: 10px
-}
-
-#sites-chrome-header {
-    background: url(bg_mast.gif) top repeat-x
-}
-
-.sites-header-primary-row td {
-    vertical-align: top
 }
 
 body #sites-chrome-everything #sites-chrome-sidebar-left {
@@ -668,7 +574,7 @@ div.goog-toc p {
     border-bottom: 1px dotted #999
 }
 
-#sites-chrome-header,#sites-chrome-main {
+#sites-chrome-main {
     width: 90%!important
 }
 
@@ -702,10 +608,6 @@ div.goog-toc p {
 
 .sites-sidebar-nav .current-bg {
     background-color: #8b0000!important
-}
-
-#sites-chrome-header-wrapper {
-    border-bottom: 0px!important
 }
 
 .sites-sidebar-nav li.topLevel {
