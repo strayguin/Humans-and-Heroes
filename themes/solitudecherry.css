@@ -450,10 +450,6 @@ blockquote p {
     line-height: 1.5
 }
 
-#sites-chrome-main-wrapper {
-    padding: 15px 0 0
-}
-
 #sites-chrome-main {
     width: 90%;
     margin: auto
@@ -628,6 +624,10 @@ div.goog-toc p {
 .sites-sidebar-nav li.nav-first {
     border-top-width: 0px;
     margin-top: 0px
+}
+
+#sites-chrome-everything {
+    padding: 15px 0 0
 }
 
 .alt tr {
