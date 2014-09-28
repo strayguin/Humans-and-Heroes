@@ -70,19 +70,6 @@ div.goog-toc>ul,.sites-embed>ul {
     display: none
 }
 
-.sites-layout-hbox {
-    width: 100%;
-    table-layout: fixed
-}
-
-.sites-layout-hbox td.sites-layout-tile {
-    vertical-align: top
-}
-
-.sites-layout-tile {
-    padding: 3px
-}
-
 x:-moz-any-link,x:-moz-any-link {
     border-left: none;
     margin-left: 0
@@ -450,17 +437,6 @@ blockquote p {
     line-height: 1.5
 }
 
-#sites-chrome-main {
-    width: 90%;
-    margin: auto
-}
-
-#sites-chrome-main {
-    text-align: left;
-    padding: 0;
-    margin-bottom: 10px
-}
-
 body #sites-chrome-everything #sites-chrome-sidebar-left {
     padding: 5px 0;
     width: 150px;
@@ -568,10 +544,6 @@ div.goog-toc p {
     vertical-align: top;
     padding: 3px 5px 5px;
     border-bottom: 1px dotted #999
-}
-
-#sites-chrome-main {
-    width: 90%!important
 }
 
 #sites-chrome-everything {
