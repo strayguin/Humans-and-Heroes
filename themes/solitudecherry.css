@@ -1,7 +1,7 @@
 /* Copyright 2012 Google Inc. All Rights Reserved.
 Um was I allowed to copy this? Because I did then stripped most of it out.*/
 
-#sites-chrome-everything .sites-layout-sidebar-left {
+.sites-layout-sidebar-left {
     padding-left: 5px
 }
 
@@ -119,7 +119,7 @@ code {
     color: #666
 }
 
-#sites-chrome-everything {
+body {
     margin: 0 auto
 }
 
@@ -279,13 +279,13 @@ div.nav-toc-content {
     margin: 5px 0
 }
 
-#sites-chrome-everything .goog-toc h4,div.goog-toc p {
+.goog-toc h4,div.goog-toc p {
     padding: 4px 5px 0;
     margin: 0;
     font-weight: bold
 }
 
-#sites-chrome-everything {
+body {
     width: 100%
 }
 
@@ -293,7 +293,7 @@ div.nav-toc-content {
     width: 150px
 }
 
-body #sites-chrome-everything a[imageanchor] {
+body a[imageanchor] {
     background: none;
     border-bottom: none
 }
@@ -359,7 +359,7 @@ body {
     background-color: #fff
 }
 
-#sites-chrome-everything h2 {
+h2 {
     margin: .9em 0 .5em;
     font-family: "Palatino","Palatino Linotype",serif;
     font-size: 1.8em;
@@ -367,7 +367,7 @@ body {
     color: #a90707
 }
 
-#sites-chrome-everything h3 {
+h3 {
     font-family: "Palatino","Palatino Linotype",serif;
     font-size: 1.5em;
     font-weight: normal;
@@ -375,7 +375,7 @@ body {
     color: #a90707
 }
 
-#sites-chrome-everything h4 {
+h4 {
     font-size: 1.1em;
     color: #a90707
 }
@@ -385,7 +385,7 @@ td {
     padding: 1px 4px
 }
 
-#sites-chrome-everything a:link, #sites-chrome-everything a:visited {
+a:link, a:visited {
     /*Need to also have :visited so that the browser won't blue shift the color*/
     color: #a90707;
     text-decoration: underline;
@@ -394,12 +394,12 @@ td {
     padding: 2px
 }
 
-#sites-chrome-everything a:hover,#sites-chrome-everything a:active {
+a:hover,a:active {
     color: #333;
     background: #e7e7e7
 }
 
-#sites-chrome-everything hr {
+hr {
     border: 0;
     background: url(bg_mast.gif) repeat-x;
     height: 3px
@@ -423,13 +423,13 @@ blockquote p {
     line-height: 1.2
 }
 
-#sites-chrome-everything caption {
+caption {
     font-style: italic;
     border: 1px dotted #ccc;
     padding: 10px
 }
 
-#sites-chrome-everything {
+body {
     background: url(bg_top.gif) top repeat-x;
     color: #333;
     padding: 0;
@@ -437,7 +437,7 @@ blockquote p {
     line-height: 1.5
 }
 
-body #sites-chrome-everything #sites-chrome-sidebar-left {
+body #sites-chrome-sidebar-left {
     padding: 5px 0;
     width: 150px;
     margin: 10px 25px 10px 0;
@@ -502,7 +502,7 @@ body #sites-chrome-sidebar-left .sites-embed-title {
     background-color: transparent
 }
 
-#sites-chrome-everything .sites-canvas-main .sites-embed-title {
+.sites-canvas-main .sites-embed-title {
     color: #a90707;
     font-family: "Palatino","Palatino Linotype",serif;
     font-size: 1.4em;
@@ -511,7 +511,7 @@ body #sites-chrome-sidebar-left .sites-embed-title {
     margin-top: 2px
 }
 
-#sites-chrome-everything .sites-canvas-main .sites-embed-title {
+.sites-canvas-main .sites-embed-title {
     padding: 5px
 }
 
@@ -521,7 +521,7 @@ div.goog-toc {
     border: 1px solid #efefef
 }
 
-#sites-chrome-everything div.goog-toc a,div.goog-toc a:visited {
+div.goog-toc a,div.goog-toc a:visited {
     color: #a90707;
     background-image: none
 }
@@ -533,11 +533,11 @@ div.goog-toc p {
     font-size: 1.1em
 }
 
-#sites-chrome-everything .goog-toc h4 {
+.goog-toc h4 {
     color: #333
 }
 
-#sites-chrome-everything th {
+th {
     background: url(bg_pattern.gif) repeat;
     color: #333;
     text-align: left;
@@ -546,7 +546,7 @@ div.goog-toc p {
     border-bottom: 1px dotted #999
 }
 
-#sites-chrome-everything {
+body {
     min-width: 90%!important
 }
 
@@ -554,7 +554,7 @@ div.goog-toc p {
     width: 170px!important
 }
 
-#sites-chrome-everything,#sites-chrome-everything h1,#sites-chrome-everything h2,#sites-chrome-everything h3,#sites-chrome-everything h4,#sites-chrome-everything h5,#sites-chrome-everything h6,#sites-chrome-everything input {
+body,h1,h2,h3,h4,h5,h6,input {
     font-family: Antic,serif!important
 }
 
@@ -598,7 +598,7 @@ div.goog-toc p {
     margin-top: 0px
 }
 
-#sites-chrome-everything {
+body {
     padding: 15px 0 0
 }
 
