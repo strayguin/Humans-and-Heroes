@@ -282,13 +282,8 @@ GROUP
 </div>
 
 </td>
-<td id="sites-canvas-wrapper">
-<div id="sites-canvas">
-
-<div id="sites-canvas-main" class="sites-canvas-main">
-<div id="sites-canvas-main-content">
-<div class="sites-layout-name-right-sidebar-hf sites-layout-vbox"><div class="sites-layout-tile sites-tile-name-header"><div><div class="sites-embed-align-left-wrapping-off"><div class="sites-embed-border-off sites-embed" style="width:728px;"><div class="sites-embed-content sites-embed-type-ggs-gadget"><div></div></div></div></div></div></div><table cellspacing="0" class="sites-layout-hbox"><tbody><tr><td class="sites-layout-tile sites-tile-name-content-1"><div>
-
+<td>
+<div id="sites-canvas" style="margin-left: 10px;">
 <div style="font-size:16px">
 <table border="0" cellspacing="0" style="width:100%;margin:0px 0px 10px 0px">
 <tbody>
@@ -404,7 +399,7 @@ GROUP
 </tr>
 </tbody>
 </table>
-</div>
+
 <div style="text-align:center;border-style:solid;border-width:thin;border-color:rgb(56,118,29);font-size:20px;font-weight:bolder;background-color:rgb(56,118,29);padding:10px;margin:0px 0px 30px 0px;color:rgb(255,255,255);border-bottom-left-radius:20px;border-bottom-right-radius:20px;clear:both">CHARACTER POINT TOTALS: ABILITIES <span id="ability total">0</span> &#8226; POWERS <span id="power total">0</span> &#8226; ADVANTAGES <span id="advantage total">0</span> &#8226; SKILLS <span id="skill total">0</span> &#8226; DEFENSES <span id="defense total">0</span> = <span id="grand total used">0</span> / <span id="grand total max">0</span></div>
 <textarea id="bio box" rows="10" cols="100">Complications, background and other information</textarea>
 <br /><br />
@@ -468,13 +463,9 @@ If I use semi-colons between them (which is wrong) chrome will recognize only th
 <a href="javascript:Tester.testAll();">Test All</a> and <a href="javascript:eval(document.getElementById('code box').value);">Eval Code Box</a><br />
 <a href="file:///C:/Users/Ryan/Documents/My%20Code/Javascript/tabletop%20dice.html" target="_new">My Sandbox</a> and <a href="http://jsfiddle.net/" target="_new">jsfiddle</a><br /><br />
 <!---->
-</div></td>
-</tr></tbody></table>
 <div id="test results"></div><br /><br />
-</div>
-</div>
-</div>
 
+</div>
 </div>
 </td>
 </tr>
@@ -483,7 +474,7 @@ If I use semi-colons between them (which is wrong) chrome will recognize only th
 
 <script type="text/javascript1.3" src="javascript/main.js"></script>
 <script type="text/javascript1.3">
-//Main must be after all functions have been defined
+//Main must be created after all functions have been defined
 const Main = new MainObject();
 Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
