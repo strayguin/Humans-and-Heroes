@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Document>
-    <Hero name="Street Informant" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+    <Hero name="Street Informant" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="0" />
