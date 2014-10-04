@@ -569,14 +569,89 @@ body,h1,h2,h3,h4,h5,h6,input {
     margin-top: 0px
 }
 
+/*Can't remember if I added this*/
 body {
     padding: 15px 0 0
 }
 
+/*Stuff I added*/
 .alt tr {
     text-align: center;
 }
 
 .alt tr:nth-child(even) {
     background-color: rgb(207, 226, 243);
+}
+
+.page-header-blue {
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(11,83,148);
+    font-size: 32px;
+    font-weight: bolder;
+    background-color: rgb(11,83,148);
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    color: rgb(255,255,255);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+
+.page-header-red {
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(153,0,0);
+    font-size: 32px;
+    font-weight: bolder;
+    background-color: rgb(153,0,0);
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    color: rgb(255,255,255);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+
+.sample-character-point-totals {
+    text-align: center;
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(56,118,29);
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: rgb(56,118,29);
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    color: rgb(255,255,255);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+
+.blue-box-header {
+    border-style: solid;
+    border-width: thin;
+    border-color: rgb(11,83,148);
+    font-size: 26px;
+    font-weight: bolder;
+    background-color: rgb(11,83,148);
+    padding: 5px;
+    margin: 30px 0px;
+    color: rgb(255,255,255);
+    border-radius: 10px 10px 10px 10px;
+    clear: both;
+}
+
+.stamp-red-top {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-style: solid;
+    width: 150px;
+    border-width: 5px 5px 0px 5px;
+    border-color: rgb(0,0,0);
+    background-color: rgb(153,0,0);
+    color: rgb(255,255,255);
+    margin-top: 15px;
 }
