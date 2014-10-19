@@ -202,7 +202,9 @@ function MainObject(){
        this.changeTranscendence();
        document.getElementById("imgFilePath").value=xmlDoc.getElementsByTagName("Hero")[0].getAttribute("image");
        this.loadImage();
-       document.getElementById("bio box").value=xmlDoc.getElementsByTagName("Information")[0].childNodes[0].nodeValue;
+       var informationNode = xmlDoc.getElementsByTagName("Information")[0].childNodes;
+       if(informationNode.length === 0) document.getElementById("bio box").value = "";  //if <Information></Information>
+       else document.getElementById("bio box").value = informationNode[0].nodeValue;  //if <Information>Any text</Information>
        this.abilitySection.load(xmlDoc);  //at the end of each load it updates and generates
        this.powerSection.load(xmlDoc.getElementsByTagName("Powers")[0].getElementsByTagName("Row"));
        this.equipmentSection.load(xmlDoc.getElementsByTagName("Equipment")[0].getElementsByTagName("Row"));
