@@ -802,7 +802,8 @@ objects (anything without HP) is explained below (see DAMAGING OBJECTS).</div>
 <div style="padding:5px">There are certain conditions imposed by HP that are gained when entering the HP range and
 removed when leaving. The conditions can't be removed by any other means. Having HP greater than 1 imposes no
 conditions. If you have 1 or less HP you are subject to minion rules with an exception that if you maximum HP is greater
-than 1 then you are still able to score critical hits against non-minions. If you have exactly 0 HP then you are
+than 1 then you are still able to score critical hits against non-minions and failure doesn't automatically result in the worst degree.
+If you have exactly 0 HP then you are
 staggered; this does not replace any other kind of staggered because removal is different. At HP -10 or less you are
 dead (which removes all other conditions). While in the HP range of less than 0 but not dead you have either the Dying
 or Stabilized conditions both are removed when leaving this HP range (see Conditions for more details). When first
@@ -1029,14 +1030,16 @@ behind total cover also gains a +1 to Dodge checks against area effects.</div>
 <div style="padding:5px"><b>Minions</b> are minor characters subject to special rules in combat, and generally easier to
 defeat than normal characters. Villains often employ hordes of minions against heroes. The following rules apply to
 minions:</div>
-<div style="padding:5px">Minions cannot score critical hits against non-minions.</div>
+<div style="padding:5px">Minions cannot score critical hits against non-minions. This only applies to actual minions, not
+characters with 1 HP.</div>
 <div style="padding:5px">Non-minions can make attack checks against minions as routine checks (only against active
 defenses not passive).</div>
 <div style="padding:5px">If a minion uses <b>Nullify</b> or <b>Weaken</b> against a Non-minion they are considered to
 have rolled a rolled a -3 instead of rolling but this is not considered a critical failure.</div>
 <div style="padding:5px">If a Non-minion uses <b>Nullify</b> (but not <b>Weaken</b>) against a minion they are
 considered to have rolled a +3 instead of rolling but this is not considered a critical success.</div>
-<div style="padding:5px">If a minion fails a resistance check, the minion suffers the worst degree of the effect.</div>
+<div style="padding:5px">If a minion fails a resistance check, the minion suffers the worst degree of the effect.
+This only applies to actual minions, not characters with 1 HP.</div>
 <h3 class="generated-class-8"><a name="TOC-RESISTANCE"></a>RESISTANCE</h3>
 <div style="padding:5px">A successful attack has some <b>effect</b> on the target. Typically this is an effect from the
 <a href="6-powers.html">Powers</a>, such as <b>damage</b> or <b>Affliction</b>. The effect has a rank, used to determine
