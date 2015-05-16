@@ -150,8 +150,12 @@ TesterUtility.displayGrandTotal=function(isFirst)
     document.getElementById('test results').innerHTML+='<br />Time taken: ' + minutes + ' minutes, ' + seconds +' seconds, and ' + milliseconds + ' milliseconds\n';
     //yes I know that it would display "1 seconds" etc so change it if you care so much
     document.getElementById('test results').innerHTML+='<br /><a href="#test results">Go to top of tests</a>\n';
-    document.getElementById('test results').innerHTML+='<br /><a href="#First Failed Test">Go to first failed test</a> ';
-    document.getElementById('test results').innerHTML+='<a href="#First Failed Suite">Go to containing suite</a>\n';
+   if ((Tester.data.failCount+Tester.data.errorCount) !== 0)
+   {
+       //only show these links if there are any failures
+       document.getElementById('test results').innerHTML+='<br /><a href="#First Failed Test">Go to first failed test</a> ';
+       document.getElementById('test results').innerHTML+='<a href="#First Failed Suite">Go to containing suite</a>\n';
+   }
     window.location.hash = '#test results grand totals';  //scroll to the grand totals
 };
 /**This function creates the table used to display the test results of a section.

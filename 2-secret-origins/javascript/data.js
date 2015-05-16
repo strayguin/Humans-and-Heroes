@@ -181,7 +181,7 @@ function changeData()
 
        DefenseData.abilityUsed[DefenseData.names.indexOf('Will')] = 'Awareness';
    }
-   else
+   else  //if(Main === undefined || !Main.isOldRules())
    {
        AdvantageData.costPerRank.set('Sidekick', 2);
        AdvantageData.maxRanks.set('Improved Initiative', 5);

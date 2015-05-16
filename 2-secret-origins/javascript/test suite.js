@@ -2034,19 +2034,34 @@ isNaN(null) === false
 numberConstructorNaN() === true but numberConstructorNaN(undefined) === false
     which is only possible if it checks the number of parameters even though it only uses the first
 NaN !== NaN
-(new Number(1)) !== 1
-(new Number(1)) !== (new Number(1))
-    They are the same type and value so WTF?
+    there used to be a reason for this. javascript being old obeyed it by convention.
+    currently the rational behind it is obsolete and some modern languages have fixed this logical contradiction
+(new Number(1)) !== 1 and (new Number(1)) !== (new Number(1))
+    They are the same type and value
     This makes sense in Java where == compares if they are pointing to the same object but that's not what === does in js
-    unless they are both objects (or functions) in which case that's exactly how they behave (=== and == are the same in such cases)
+    unless they are both objects in which case that's exactly how they behave (=== and == are the same in such cases)
     ({}) !== ({}) so comparing objects is never possible yet Object.prototype.equals (or even Object.equals) doesn't exist
 (new Number(1)) < (new Number(2))
-    wait that contradicts the previous. Actually it probably just calls valueOf but then why doesn't it do that for equality?
+    so it probably just calls valueOf but then why doesn't it do that for equality?
     but 'as' < 'asd' compares by ascii despite valueOf returning the same thing as toString (both return itself)
 typeof(new Number(1)) !== typeof(Number(1))
     returns: 'object' and 'number'
 typeof(new String(1)) === 'object' but typeof('1') === 'string'
     Why is there a primitive string? That doesn't even make sense. The reason for it is so that strings can be compared with any numeric comparison
+    here's something confusing: since there is no character class all strings are arrays of strings, with string length 1 containing only itself
 typeof(/a/) === 'object' despite being first class it has no primitive value and is considered an object
     the same is true for functions partially: typeof(function(){}) === 'function' but also has a wrapper object and primitive function compares like objects
+function outerFun()
+{
+   console.log('outerFun '+(this === window || this === undefined));  //prints false
+   innerFun();
+   function innerFun()
+   {
+       console.log('innerFun '+(this === window || this === undefined));  //prints true
+   }
+}; new outerFun();
+    innerFun is a private function that only exists within outerFun and can only be called from within outerFun.
+    outerFun is constructed and exists as an object yet innerFun has global scope?
+    global: { outerFun:{ innerFun:{} } } in definition and scope, yet this pointer does: global: { outerFun:{}, innerFun:{} }
+    this is the reason why I made all my functions public
 */
