@@ -635,6 +635,16 @@ body {
     border-bottom-right-radius: 20px;
     clear: both;
 }
+.character-sheet-ability-value {
+    width: 100px;
+    height: 80px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: #D9EAD3; /*my-light-green*/
+    text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
+}
 
 
 .generated-class-0 {
@@ -984,17 +994,6 @@ body {
     border-style: solid;
     border-color: #38761D;
     border-width: 5px;
-}
-
-.generated-class-49 {
-    width: 100px;
-    height: 80px;
-    vertical-align: middle;
-    padding: 10px;
-    background-color: #D9EAD3; /*my-light-green*/
-    text-align: center;
-    font-weight: bolder;
-    font-size: 24px;
 }
 
 .generated-class-51 {
