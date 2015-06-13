@@ -607,8 +607,7 @@ body {
     padding: 5px;
     text-align: center;
 }
-/**Rename this to .character-sheet-initiative*/
-.generated-class-33 {
+.character-sheet-initiative {
     padding: 5px 0px;
     text-align: center;
     font-weight: bold;
