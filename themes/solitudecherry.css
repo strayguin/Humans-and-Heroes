@@ -300,7 +300,6 @@ a:link, a:visited {
     /*Need to also have :visited so that the browser won't blue shift the color*/
     color: #a90707;
     text-decoration: underline;
-    background: url(bg_link.gif) repeat-x;
     font-weight: bold;
     padding: 2px;
 }
