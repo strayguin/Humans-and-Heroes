@@ -591,10 +591,10 @@ body {
     padding-top: 3px;
 }
 
-/*These replace .generated-class-50, 52, and 54. Also some inline style.*/
 .character-sheet-defense-white > td, .character-sheet-defense-green > td {
     padding: 10px;
     text-align: center;
+    width: 25%;
 }
 .character-sheet-defense-green > td {
     background-color: #D9EAD3; /*my-light-green*/
@@ -602,6 +602,24 @@ body {
 .character-sheet-defense-green > td:nth-child(odd), .character-sheet-defense-white > td:nth-child(odd){
     font-weight: bold;
 }
+.character-sheet-offense-row {
+    width: 50%;
+    padding: 5px;
+    text-align: center;
+}
+/**Rename this to .character-sheet-initiative*/
+.generated-class-33 {
+    padding: 5px 0px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #D9EAD3; /*my-light-green*/
+    font-size: 20px;
+}
+.character-sheet-light-green {
+    padding: 5px;
+    background-color: #D9EAD3; /*my-light-green*/
+}
+
 
 .generated-class-0 {
     border-style: solid;
@@ -848,14 +866,6 @@ body {
     width: 100%;
 }
 
-.generated-class-33 {
-    padding: 5px 0px;
-    text-align: center;
-    font-weight: bold;
-    background-color: #D9EAD3; /*my-light-green*/
-    font-size: 20px;
-}
-
 .generated-class-34 {
     background-color: #38761D;
     color: white;
@@ -998,15 +1008,6 @@ body {
     font-size: 24px;
 }
 
-.generated-class-50 {
-    background-color: #D9EAD3; /*my-light-green*/
-    padding: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: #38761D;
-    font-size: 12px;
-}
-
 .generated-class-51 {
     background-color: #D9EAD3; /*my-light-green*/
     font-weight: bold;
@@ -1014,24 +1015,6 @@ body {
     border-bottom-style: solid;
     border-bottom-width: 5px;
     border-bottom-color: #FF9900;
-}
-
-.generated-class-52 {
-    background-color: #D9EAD3; /*my-light-green*/
-    font-weight: bold;
-    padding: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: #38761D;
-}
-
-.generated-class-54 {
-    background-color: #D9EAD3; /*my-light-green*/
-    padding: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: #38761D;
-    text-align: center;
 }
 
 .generated-class-55 {
