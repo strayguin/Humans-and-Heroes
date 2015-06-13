@@ -632,7 +632,6 @@ body {
     clear: both;
 }
 
-/*These should replace .stamp-red-top, .generated-class-39, .generated-class-53. I've confirmed they are only for stamps.*/
 .stamp-top, .stamp-middle, .stamp-bottom {
     text-align: center;
     font-weight: bold;
@@ -654,40 +653,6 @@ body {
 .stamp-bottom {
     font-size: 16px;
     border-top-width: 0;
-    padding-top: 3px;
-}
-
-.stamp-red-top {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    border-style: solid;
-    width: 150px;
-    border-width: 5px 5px 0px 5px;
-    border-color: black;
-    background-color: rgb(153,0,0); /*hero-red*/
-    color: white;
-    margin-top: 15px;
-}
-/**stamp middle*/
-.generated-class-39 {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    border-style: solid;
-    width: 150px;
-    border-width: 5px 5px 5px 5px;
-    border-color: black;
-}
-/**stamp bottom*/
-.generated-class-53 {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    border-style: solid;
-    width: 150px;
-    border-width: 0px 5px 5px 5px;
-    border-color: black;
     padding-top: 3px;
 }
 
