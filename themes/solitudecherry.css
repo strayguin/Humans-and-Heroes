@@ -537,22 +537,6 @@ body {
     clear: both;
 }
 
-.sample-character-point-totals {
-    text-align: center;
-    border-style: solid;
-    border-width: thin;
-    border-color: #38761D;
-    font-size: 20px;
-    font-weight: bolder;
-    background-color: #38761D;
-    padding: 10px;
-    margin: 0px 0px 30px 0px;
-    color: white;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    clear: both;
-}
-
 .blue-box-header {
     border-style: solid;
     border-width: thin;
@@ -617,6 +601,39 @@ body {
 .character-sheet-light-green {
     padding: 5px;
     background-color: #D9EAD3; /*my-light-green*/
+}
+
+.character-sheet-hero-name, .character-sheet-power-level, .character-sheet-ability-label, .character-sheet-section-label, .character-sheet-point-totals {
+    background-color: #38761D;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+.character-sheet-hero-name {
+    width: 85%;
+    font-size: 24px;
+}
+.character-sheet-power-level {
+    width: 15%;
+    text-align: center;
+    font-size: 24px;
+}
+.character-sheet-ability-label {
+    width: 100px;
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 16px;
+}
+.character-sheet-section-label {
+    font-size: 18px;
+}
+.character-sheet-point-totals {
+    text-align: center;
+    font-size: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
 }
 
 
@@ -865,14 +882,6 @@ body {
     width: 100%;
 }
 
-.generated-class-34 {
-    background-color: #38761D;
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    font-size: 18px;
-}
-
 .generated-class-35 {
     border-style: solid;
     border-width: thin;
@@ -902,15 +911,6 @@ body {
 .generated-class-38 {
     width: 85%;
     background-color: #FF9900;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 24px;
-}
-
-.generated-class-40 {
-    width: 85%;
-    background-color: #38761D;
     color: white;
     padding: 10px;
     font-weight: bold;
@@ -976,16 +976,6 @@ body {
     font-size: 24px;
 }
 
-.generated-class-47 {
-    width: 15%;
-    background-color: #38761D;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-    font-size: 24px;
-}
-
 .generated-class-48 {
     display: block;
     text-align: center;
@@ -1033,18 +1023,6 @@ body {
     border-top-style: solid;
     border-top-width: thin;
     border-top-color: #990000; /*hero-red*/
-}
-
-.generated-class-57 {
-    width: 100px;
-    height: 50px;
-    vertical-align: middle;
-    padding: 10px;
-    background-color: #38761D;
-    color: white;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 16px;
 }
 
 .generated-class-58 {
