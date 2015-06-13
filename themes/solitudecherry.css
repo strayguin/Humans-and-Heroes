@@ -1,6 +1,12 @@
 /* Copyright 2012 Google Inc. All Rights Reserved.
 Um was I allowed to copy this? Because I did then stripped most of it out.*/
 
+/* ========Color reference========
+      hero-red   rgb(153,0,0);
+my-light-green   rgb(217,234,211);
+official colors: http://dev.w3.org/csswg/css-color-3/#svg-color
+*/
+
 .sites-layout-sidebar-left {
     padding-left: 5px;
 }
@@ -75,15 +81,6 @@ x:-moz-any-link,x:-moz-any-link {
     margin-left: 0;
 }
 
-body .sat {
-    background: #fcc;
-}
-
-body .sun {
-    background: #fcc;
-    color: red;
-}
-
 html,body {
     padding: 0;
     margin: 0;
@@ -91,10 +88,6 @@ html,body {
 
 body {
     font: normal 10pt Arial,sans-serif;
-}
-
-body.ar {
-    font-size: 14px;
 }
 
 a img {
@@ -110,13 +103,9 @@ td {
     vertical-align: top;
 }
 
-code {
-    color: #006000;
-}
-
 .disabled {
     text-decoration: none;
-    color: #666;
+    color: #000666;
 }
 
 body {
@@ -284,11 +273,11 @@ textarea {
 }
 
 input[type=text],textarea {
-    background-color: #fff;
+    background-color: #000fff;
     border: 1px solid #d9d9d9;
     border-top: 1px solid #c0c0c0;
     box-sizing: border-box;
-    color: #333;
+    color: #000333;
     display: inline-block;
     vertical-align: top;
     -webkit-border-radius: 1px;
@@ -327,7 +316,7 @@ input[type=text][disabled],input[type=text][disabled]:hover,textarea[disabled],t
 }
 
 body {
-    background-color: #fff;
+    background-color: #000fff;
 }
 
 h2 {
@@ -366,7 +355,7 @@ a:link, a:visited {
 }
 
 a:hover,a:active {
-    color: #333;
+    color: #000333;
     background: #e7e7e7;
 }
 
@@ -387,7 +376,7 @@ ul li {
 
 blockquote {
     margin: 1em 2em;
-    color: #666;
+    color: #000666;
 }
 
 blockquote p {
@@ -402,7 +391,7 @@ caption {
 
 body {
     background: url(bg_top.gif) top repeat-x;
-    color: #333;
+    color: #000333;
     padding: 0;
     font: 1em "Lucida Grande","Lucida Sans",Verdana,Arial,sans-serif;
     line-height: 1.5;
@@ -434,7 +423,7 @@ body #sites-chrome-sidebar-left .sites-embed-title {
 }
 
 #sites-chrome-sidebar-left .sites-sidebar-nav a,#sites-chrome-sidebar-left .sites-sidebar-nav a:visited {
-    color: #666;
+    color: #000666;
     border-bottom: 1px dotted #eee;
     text-decoration: none;
     background-image: none;
@@ -451,7 +440,7 @@ body #sites-chrome-sidebar-left .sites-embed-title {
 }
 
 .sites-sidebar-nav .current-bg {
-    color: #fff;
+    color: #000fff;
     background: #a90707;
     font-weight: bold;
     padding-left: 202px;
@@ -505,12 +494,12 @@ div.goog-toc p {
 }
 
 .goog-toc h4 {
-    color: #333;
+    color: #000333;
 }
 
 th {
     background: url(bg_pattern.gif) repeat;
-    color: #333;
+    color: #000333;
     text-align: left;
     vertical-align: top;
     padding: 3px 5px 5px;
@@ -569,7 +558,7 @@ body,h1,h2,h3,h4,h5,h6,input {
     margin-top: 0px;
 }
 
-/*I can't remember if I added this*/
+/**I can't remember if I added this*/
 body {
     padding: 15px 0 0;
 }
@@ -592,7 +581,7 @@ body {
     background-color: rgb(11,83,148);
     padding: 10px;
     margin: 0px 0px 30px 0px;
-    color: rgb(255,255,255);
+    color: white;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     clear: both;
@@ -601,13 +590,13 @@ body {
 .page-header-red {
     border-style: solid;
     border-width: thin;
-    border-color: rgb(153,0,0);
+    border-color: rgb(153,0,0); /*hero-red*/
     font-size: 32px;
     font-weight: bolder;
-    background-color: rgb(153,0,0);
+    background-color: rgb(153,0,0); /*hero-red*/
     padding: 10px;
     margin: 0px 0px 30px 0px;
-    color: rgb(255,255,255);
+    color: white;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     clear: both;
@@ -623,7 +612,7 @@ body {
     background-color: rgb(56,118,29);
     padding: 10px;
     margin: 0px 0px 30px 0px;
-    color: rgb(255,255,255);
+    color: white;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     clear: both;
@@ -638,9 +627,34 @@ body {
     background-color: rgb(11,83,148);
     padding: 5px;
     margin: 30px 0px;
-    color: rgb(255,255,255);
+    color: white;
     border-radius: 10px 10px 10px 10px;
     clear: both;
+}
+
+/*These should replace .stamp-red-top, .generated-class-39, .generated-class-53. I've confirmed they are only for stamps.*/
+.stamp-top, .stamp-middle, .stamp-bottom {
+    text-align: center;
+    font-weight: bold;
+    border-style: solid;
+    width: 150px;
+    border-color: black;
+    border-width: 5px;
+}
+.stamp-top {
+    font-size: 14px;
+    border-bottom-width: 0;
+    background-color: rgb(153,0,0); /*hero-red*/
+    color: white;
+    margin-top: 15px;
+}
+.stamp-middle {
+    font-size: 36px;
+}
+.stamp-bottom {
+    font-size: 16px;
+    border-top-width: 0;
+    padding-top: 3px;
 }
 
 .stamp-red-top {
@@ -650,10 +664,43 @@ body {
     border-style: solid;
     width: 150px;
     border-width: 5px 5px 0px 5px;
-    border-color: rgb(0,0,0);
-    background-color: rgb(153,0,0);
-    color: rgb(255,255,255);
+    border-color: black;
+    background-color: rgb(153,0,0); /*hero-red*/
+    color: white;
     margin-top: 15px;
+}
+/**stamp middle*/
+.generated-class-39 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    border-style: solid;
+    width: 150px;
+    border-width: 5px 5px 5px 5px;
+    border-color: black;
+}
+/**stamp bottom*/
+.generated-class-53 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-style: solid;
+    width: 150px;
+    border-width: 0px 5px 5px 5px;
+    border-color: black;
+    padding-top: 3px;
+}
+
+/*These replace .generated-class-50, 52, and 54. Also some inline style.*/
+.character-sheet-defense-white > td, .character-sheet-defense-green > td {
+    padding: 10px;
+    text-align: center;
+}
+.character-sheet-defense-green > td {
+    background-color: rgb(217,234,211); /*my-light-green*/
+}
+.character-sheet-defense-green > td:nth-child(odd), .character-sheet-defense-white > td:nth-child(odd){
+    font-weight: bold;
 }
 
 .generated-class-0 {
@@ -665,9 +712,9 @@ body {
 
 .generated-class-1 {
     font-weight: bold;
-    background-color: rgb(153,0,0);
+    background-color: rgb(153,0,0); /*hero-red*/
     padding: 5px;
-    color: rgb(255,255,255);
+    color: white;
 }
 
 .generated-class-2 {
@@ -679,7 +726,7 @@ body {
 
 .generated-class-3 {
     font-size: 16px;
-    color: rgb(0,0,0);
+    color: black;
     border-bottom-style: solid;
     border-bottom-width: thin;
 }
@@ -696,34 +743,34 @@ body {
     text-align: center;
     font-weight: bolder;
     font-size: 20px;
-    color: rgb(153,0,0);
+    color: rgb(153,0,0); /*hero-red*/
 }
 
 .generated-class-6 {
     font-weight: bold;
     background-color: rgb(39,78,19);
     padding: 5px;
-    color: rgb(255,255,255);
+    color: white;
 }
 
 .generated-class-7 {
     float: right;
     width: 425px;
-    background-color: rgb(255,255,255);
+    background-color: white;
     margin: 20px 0px 20px 20px;
 }
 
 .generated-class-8 {
     border-bottom-style: solid;
     border-bottom-width: thin;
-    border-bottom-color: rgb(153,0,0);
+    border-bottom-color: rgb(153,0,0); /*hero-red*/
 }
 
 .generated-class-9 {
     font-weight: bold;
     background-color: rgb(11,83,148);
     padding: 5px;
-    color: rgb(255,255,255);
+    color: white;
 }
 
 .generated-class-10 {
@@ -734,7 +781,7 @@ body {
 }
 
 .generated-class-11 {
-    color: rgb(0,0,0);
+    color: black;
     border-bottom-style: solid;
     border-bottom-width: thin;
     margin-left: 40px;
@@ -744,14 +791,14 @@ body {
     font-weight: bold;
     background-color: rgb(230,145,56);
     padding: 5px;
-    color: rgb(255,255,255);
+    color: white;
 }
 
 .generated-class-13 {
     padding: 5px 0px;
     text-align: center;
     font-weight: bold;
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
 }
 
 .generated-class-14 {
@@ -814,12 +861,12 @@ body {
     float: right;
     margin: 0px 0px 10px 10px;
     clear: both;
-    background-color: rgb(255,255,255);
+    background-color: white;
 }
 
 .generated-class-22 {
     font-size: 16px;
-    color: rgb(0,0,0);
+    color: black;
     border-bottom-style: solid;
     border-bottom-width: thin;
     clear: both;
@@ -828,7 +875,7 @@ body {
 .generated-class-23 {
     border-bottom-style: solid;
     border-bottom-width: thin;
-    border-bottom-color: rgb(153,0,0);
+    border-bottom-color: rgb(153,0,0); /*hero-red*/
     clear: both;
 }
 
@@ -837,7 +884,7 @@ body {
     width: 510px;
     margin: 20px 0px 20px 20px;
     padding: 5px;
-    background-color: rgb(255,255,255);
+    background-color: white;
 }
 
 .generated-class-25 {
@@ -845,7 +892,7 @@ body {
     width: 300px;
     margin: 20px 0px 20px 20px;
     padding: 10px;
-    background-color: rgb(255,255,255);
+    background-color: white;
 }
 
 .generated-class-26 {
@@ -905,13 +952,13 @@ body {
     padding: 5px 0px;
     text-align: center;
     font-weight: bold;
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     font-size: 20px;
 }
 
 .generated-class-34 {
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     font-weight: bold;
     padding: 10px;
     font-size: 18px;
@@ -937,7 +984,7 @@ body {
 
 .generated-class-37 {
     background-color: rgb(255,153,0);
-    color: rgb(255,255,255);
+    color: white;
     padding: 5px;
     margin: 30px 0px 5px 0px;
     font-weight: bold;
@@ -946,25 +993,16 @@ body {
 .generated-class-38 {
     width: 85%;
     background-color: rgb(255,153,0);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     font-size: 24px;
 }
 
-.generated-class-39 {
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    border-style: solid;
-    width: 150px;
-    border-width: 5px 5px 5px 5px;
-}
-
 .generated-class-40 {
     width: 85%;
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     font-size: 24px;
@@ -973,7 +1011,7 @@ body {
 .generated-class-41 {
     width: 40%;
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     font-size: 24px;
@@ -1003,7 +1041,7 @@ body {
     padding: 5px;
     float: left;
     width: 50px;
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     margin-right: 5px;
     text-align: center;
     font-weight: bold;
@@ -1012,7 +1050,7 @@ body {
 .generated-class-45 {
     width: 15%;
     background-color: rgb(255,153,0);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     text-align: center;
@@ -1022,7 +1060,7 @@ body {
 .generated-class-46 {
     width: 45%;
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     text-align: center;
@@ -1032,7 +1070,7 @@ body {
 .generated-class-47 {
     width: 15%;
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     padding: 10px;
     font-weight: bold;
     text-align: center;
@@ -1054,14 +1092,14 @@ body {
     height: 80px;
     vertical-align: middle;
     padding: 10px;
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     text-align: center;
     font-weight: bolder;
     font-size: 24px;
 }
 
 .generated-class-50 {
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     padding: 10px;
     border-bottom-style: solid;
     border-bottom-width: 5px;
@@ -1070,7 +1108,7 @@ body {
 }
 
 .generated-class-51 {
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     font-weight: bold;
     padding: 10px;
     border-bottom-style: solid;
@@ -1079,7 +1117,7 @@ body {
 }
 
 .generated-class-52 {
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     font-weight: bold;
     padding: 10px;
     border-bottom-style: solid;
@@ -1087,19 +1125,8 @@ body {
     border-bottom-color: rgb(56,118,29);
 }
 
-.generated-class-53 {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    border-style: solid;
-    width: 150px;
-    border-width: 0px 5px 5px 5px;
-    border-color: rgb(0,0,0);
-    padding-top: 3px;
-}
-
 .generated-class-54 {
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     padding: 10px;
     border-bottom-style: solid;
     border-bottom-width: 5px;
@@ -1113,17 +1140,17 @@ body {
     border-style: solid;
     border-width: medium;
     padding: 10px 10px 5px 5px;
-    border-color: rgb(153,0,0);
-    background-color: rgb(255,255,255);
+    border-color: rgb(153,0,0); /*hero-red*/
+    background-color: white;
 }
 
 .generated-class-56 {
     border-bottom-style: solid;
     border-bottom-width: thin;
-    border-bottom-color: rgb(153,0,0);
+    border-bottom-color: rgb(153,0,0); /*hero-red*/
     border-top-style: solid;
     border-top-width: thin;
-    border-top-color: rgb(153,0,0);
+    border-top-color: rgb(153,0,0); /*hero-red*/
 }
 
 .generated-class-57 {
@@ -1132,14 +1159,14 @@ body {
     vertical-align: middle;
     padding: 10px;
     background-color: rgb(56,118,29);
-    color: rgb(255,255,255);
+    color: white;
     text-align: center;
     font-weight: bolder;
     font-size: 16px;
 }
 
 .generated-class-58 {
-    background-color: rgb(217,234,211);
+    background-color: rgb(217,234,211); /*my-light-green*/
     font-weight: bold;
     text-align: center;
     padding: 10px;
