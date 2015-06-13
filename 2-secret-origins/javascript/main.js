@@ -379,9 +379,9 @@ function MainObject()
    /**This is a simple generator called by updateOffense to create a row of offense information.*/
    this.makeOffenseRow=function(skillName, attackBonus, range, effect, damage)
    {
-       var thisOffensiveRow = '<tr><td style="width:50%;padding:5px;text-align:center">' + skillName + ' ';
+       var thisOffensiveRow = '<tr><td class="character-sheet-offense-row">' + skillName + ' ';
        if(attackBonus !== '--' && attackBonus >= 0) thisOffensiveRow+='+';  //add leading plus. checking for '--' is unneeded but more clear
-       thisOffensiveRow+=attackBonus+'</td><td style="width:50%;padding:5px;text-align:center">' + range + ', ' + effect + ', ' + damage;
+       thisOffensiveRow+=attackBonus+'</td><td class="character-sheet-offense-row">' + range + ', ' + effect + ', ' + damage;
 
        var minCritNum = (20 - this.advantageSection.getRankMap().get('Improved Critical: '+skillName));
        if(minCritNum < 20) thisOffensiveRow+=', Crit. '+minCritNum+'-20';  //the '-20' is a range through 20
