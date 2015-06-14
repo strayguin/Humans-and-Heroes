@@ -428,12 +428,11 @@ body,h1,h2,h3,h4,h5,h6,input {
     margin-top: 0px;
 }
 
-/**I can't remember if I added this*/
+/*Stuff I added*/
 body {
     padding: 15px 0 0;
 }
 
-/*Stuff I added*/
 .alt tr {
     text-align: center;
 }
@@ -1008,11 +1007,11 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 20px;
-    color: rgb(153,0,0);
+    color: #990000; /*hero-red*/
 }
 
 .generated-class-65 {
-    color: rgb(7,55,99);
+    color: #073763;
     font-size: 20px;
     font-weight: bolder;
     padding: 10px 5px;
@@ -1022,12 +1021,12 @@ body {
     width: 450px;
     float: right;
     margin: 10px;
-    background-color: rgb(255,255,255);
+    background-color: white;
 }
 
 .generated-class-67 {
     margin: 10px;
-    background-color: rgb(255,255,255);
+    background-color: white;
     width: 450px;
     float: right;
 }
@@ -1041,21 +1040,21 @@ body {
 
 .generated-class-69 {
     width: 30%;
-    background-color: rgb(217,234,211);
+    background-color: #D9EAD3; /*my-light-green*/
     font-weight: bold;
     padding: 10px;
 }
 
 .generated-class-70 {
     padding: 5px;
-    background-color: rgb(249,203,156);
+    background-color: #F9CB9C;
     font-style: italic;
     clear: both;
 }
 
 .generated-class-71 {
     width: 20%;
-    background-color: rgb(217,234,211);
+    background-color: #D9EAD3; /*my-light-green*/
     text-align: center;
     padding: 10px;
 }
@@ -1063,12 +1062,12 @@ body {
 .generated-class-72 {
     font-size: 18px;
     font-weight: bold;
-    color: rgb(11,83,148);
+    color: #0B5394;
     margin: 10px 0px 5px 0px;
 }
 
 .generated-class-73 {
-    background-color: rgb(255,153,0);
+    background-color: #FF9900;
     font-weight: bold;
     padding: 10px;
     font-size: 18px;
@@ -1077,7 +1076,7 @@ body {
 .generated-class-74 {
     border-style: solid;
     border-width: thin;
-    border-color: rgb(153,153,153);
+    border-color: #999999;
     width: 100%;
 }
 
@@ -1085,12 +1084,12 @@ body {
     font-weight: bold;
     background-color: #CC23D3;
     padding: 5px;
-    color: rgb(255,255,255);
+    color: white;
 }
 
 .generated-class-76 {
     border-style: solid;
     border-width: thin;
-    border-color: rgb(153,153,153);
+    border-color: #999999;
     width: 450px;
 }
