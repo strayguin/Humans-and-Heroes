@@ -442,9 +442,6 @@ body {
 }
 
 .page-header-blue {
-    border-style: solid;
-    border-width: thin;
-    border-color: #0B5394;
     font-size: 32px;
     font-weight: bolder;
     background-color: #0B5394;
@@ -457,9 +454,6 @@ body {
 }
 
 .page-header-red {
-    border-style: solid;
-    border-width: thin;
-    border-color: #990000; /*hero-red*/
     font-size: 32px;
     font-weight: bolder;
     background-color: #990000; /*hero-red*/
@@ -472,9 +466,6 @@ body {
 }
 
 .blue-box-header {
-    border-style: solid;
-    border-width: thin;
-    border-color: #0B5394;
     font-size: 26px;
     font-weight: bolder;
     background-color: #0B5394;
@@ -488,10 +479,8 @@ body {
 .stamp-top, .stamp-middle, .stamp-bottom {
     text-align: center;
     font-weight: bold;
-    border-style: solid;
     width: 150px;
-    border-color: black;
-    border-width: 5px;
+    border: solid black 5px;
 }
 .stamp-top {
     font-size: 14px;
@@ -580,11 +569,16 @@ body {
     font-size: 24px;
 }
 
+/* TODO: more css clean up
+generated-classes: 0, 16, 17, 18, 20, 35, 42, 74, 76
+All have border: solid thin #999999;
+I doubt the need for clear: both; and text-align: left;
+Look into fixing up the constructs like I did the example characters
+Write a script to inline classes that are only used once
+*/
 
 .generated-class-0 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     margin: 5px 0px;
 }
 
@@ -639,9 +633,7 @@ body {
 }
 
 .generated-class-8 {
-    border-bottom-style: solid;
-    border-bottom-width: thin;
-    border-bottom-color: #990000; /*hero-red*/
+    border-bottom: solid thin #990000; /*hero-red*/
 }
 
 .generated-class-9 {
@@ -695,25 +687,18 @@ body {
 }
 
 .generated-class-16 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     margin: 10px;
     width: 100%;
 }
 
 .generated-class-17 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
-    margin: 10px;
+    border: solid thin #999999;
     margin: 10px;
 }
 
 .generated-class-18 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     margin: 10px;
     width: 450px;
 }
@@ -727,9 +712,7 @@ body {
 }
 
 .generated-class-20 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     width: 100%;
     margin: 10px 0px;
 }
@@ -751,9 +734,7 @@ body {
 }
 
 .generated-class-23 {
-    border-bottom-style: solid;
-    border-bottom-width: thin;
-    border-bottom-color: #990000; /*hero-red*/
+    border-bottom: solid thin #990000; /*hero-red*/
     clear: both;
 }
 
@@ -827,9 +808,7 @@ body {
 }
 
 .generated-class-35 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     width: 450px;
     margin: 10px;
     float: right;
@@ -871,9 +850,7 @@ body {
 }
 
 .generated-class-42 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     margin: 10px;
     width: 450px;
     float: right;
@@ -925,37 +902,27 @@ body {
     text-align: center;
     margin-right: auto;
     margin-left: auto;
-    border-style: solid;
-    border-color: #38761D;
-    border-width: 5px;
+    border: solid 5px #38761D;
 }
 
 .generated-class-51 {
     background-color: #D9EAD3; /*my-light-green*/
     font-weight: bold;
     padding: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: #FF9900;
+    border-bottom: solid 5px #FF9900;
 }
 
 .generated-class-55 {
     width: 361px;
     margin: 0px auto;
-    border-style: solid;
-    border-width: medium;
+    border: solid medium #990000; /*hero-red*/
     padding: 10px 10px 5px 5px;
-    border-color: #990000; /*hero-red*/
     background-color: white;
 }
 
 .generated-class-56 {
-    border-bottom-style: solid;
-    border-bottom-width: thin;
-    border-bottom-color: #990000; /*hero-red*/
-    border-top-style: solid;
-    border-top-width: thin;
-    border-top-color: #990000; /*hero-red*/
+    border-bottom: solid thin #990000; /*hero-red*/
+    border-top: solid thin #990000; /*hero-red*/
 }
 
 .generated-class-58 {
@@ -963,9 +930,7 @@ body {
     font-weight: bold;
     text-align: center;
     padding: 10px;
-    border-bottom-style: solid;
-    border-bottom-width: 5px;
-    border-bottom-color: #FF9900;
+    border-bottom: solid 5px #FF9900;
 }
 
 .generated-class-59 {
@@ -1074,9 +1039,7 @@ body {
 }
 
 .generated-class-74 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     width: 100%;
 }
 
@@ -1088,8 +1051,6 @@ body {
 }
 
 .generated-class-76 {
-    border-style: solid;
-    border-width: thin;
-    border-color: #999999;
+    border: solid thin #999999;
     width: 450px;
 }
