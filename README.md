@@ -19,7 +19,7 @@ The minor version numbers originally represented the number of times I distribut
 Minor version numbers now count the number of commits. The commit hash could also be used as reference.
 Version 3 is still in alpha until the rules are fully converted at which point it will gain a minor version number.
 
-As stated in the first paragraph of 1: The Basics (home.html):
+As stated in the first paragraph of 1: The Basics (1-the-basics.html):
 This code was copied from [The d20 Hero SRD](www.d20herosrd.com) using the tool [HTTrack](http://www.httrack.com/).
 The original site is owned by John Reyst and the modifications were done by Ryan Worcester.
 I wasn't granted permission to use the css or the images.
