@@ -7,7 +7,7 @@ jsFileNamesUsed = jsFileNamesUsed.concat(['simple tester', 'test suite', 'Logger
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)
 {
-    document.write('<script type="text/javascript1.3" src="javascript/'+jsName+'.js"></script>'); return;
+    document.write('<script type="text/javascript1.3" src="javascript/'+jsName+'.js"></script>');
     //document write is not a problem since this is ran only once
 }
 
@@ -348,7 +348,7 @@ function MainObject()
        if(fileString[0] === '<') loadedDoc = xmlToJson(fileString);  //if the first character is less than then assume XML
        else loadedDoc = JSON.parse(fileString);  //else assume JSON
        }
-       catch(e){Main.messageUser('A loading error has occured. The document you provided might not be valid.\n\n'+e); throw e;}
+       catch(e){Main.messageUser('A parsing error has occured. The document you provided is not legal XML or JSON.\n\n'+e); throw e;}
           //yeah I know the error message is completely unhelpful but there's nothing more I can do
 
        this.determineCompatibilityIssues(loadedDoc);
