@@ -1,7 +1,7 @@
 Humans & Heroes
 ===============
-This repository is a tabletop game forked from Mutants and Masterminds 3rd edition.
-Which is legal due to their Open Game License.
+This repository is a tabletop game forked from the Open Game Content portions of Mutants and Masterminds 3rd edition.
+Which is legal (see open-game-license.html for details).
 
 The master branch has stable rules (and is not being updated) the wip branch is converting from d20 to 3dF.
 But the conversion is not yet finished so some pages are still d20 thus the rules are unstable and unusable.
@@ -24,31 +24,3 @@ This code was copied from [The d20 Hero SRD](www.d20herosrd.com) using the tool 
 The original site is owned by John Reyst and the modifications were done by Ryan Worcester.
 I wasn't granted permission to use the css or the images.
 Note that the original website has since changed so that it now contains other free information not just the M&M core rules.
-
-So I recently discovered a big problem with how I was converting from d20 to 3dF.
-Because of this I'll need to fix each page (making the rules very unstable).
-
-##d20 Pages
-+ the example list in 9-gamemastering.html
-+ parts of 8-action-adventure.html: AID - STANDARD ACTION, DEMORALIZE, TEAM ATTACK, Impaired/Disabled, degrees of failure/win
-+ all in 2-secret-origins folder
-+ all in 7-gadgets-gear folder (and sub-folder)
-+ top of 6-powers.html
-+ all in 6-powers/godhood folder
-+ all in 6-powers/samples folder (and sub-folder)
-+ all in 6-powers/effect-descriptions folder
-+ 6-powers/modifiers.html
-
-##Wrongly 3dF converted Pages
-+ 2-secret-origins.html
-+ 3-abilities.html
-+ most of 6-powers.html
-+ most of 8-action-adventure.html
-+ most of 9-gamemastering.html
-+ 6-powers/effects.html
-+ home/conditions.html
-
-##Correctly 3dF converted Pages
-+ home/ranks-and-measures.html
-+ 6-powers/descriptors.html
-+ There are more pages that don't have errors but I don't know which ones.
