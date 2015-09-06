@@ -1,5 +1,5 @@
 /* Copyright 2012 Google Inc. All Rights Reserved.
-Um was I allowed to copy this? Because I did then stripped most of it out.*/
+Um was I allowed to copy this? Because I did then stripped most of it out (like 90%).*/
 
 /* ========Color reference========
       hero-red   #990000;
@@ -24,7 +24,7 @@ official colors: http://dev.w3.org/csswg/css-color-3/#svg-color
     height: 11px;
     padding: 0 2px;
     margin: 1px 0 0 4px;
-    background: url(../images/arrow_down.gif) no-repeat;
+    background: url(../images/arrow-down.gif) no-repeat;
 }
 
 /*If you want to replace the arrows with unicode:
@@ -32,7 +32,7 @@ http://stackoverflow.com/questions/2701192/ascii-character-for-up-down-triangle-
 but you'd have to mess with font size and getting them to fit on one line*/
 
 .sites-sidebar-nav li.closed .expander {
-    background: url(../images/arrow_left.gif) no-repeat;
+    background: url(../images/arrow-left.gif) no-repeat;
 }
 
 .sites-sidebar-nav .current-bg {
@@ -293,7 +293,7 @@ ul li {
 }
 
 body {
-    background: url(bg_top.gif) top repeat-x;
+    background: url(bg-top.gif) top repeat-x;
     color: #333333;
     padding: 0;
     font: 1em "Lucida Grande","Lucida Sans",Verdana,Arial,sans-serif;
@@ -304,7 +304,7 @@ body #sites-chrome-sidebar-left {
     padding: 5px 0;
     width: 150px;
     margin: 10px 25px 10px 0;
-    background: url(bg_pattern.gif) repeat;
+    background: url(bg-pattern.gif) repeat;
 }
 
 #sites-chrome-sidebar-left .sites-embed {
@@ -350,7 +350,7 @@ body #sites-chrome-sidebar-left .sites-embed-title {
 }
 
 div.goog-toc {
-    background: url(bg_pattern.gif) repeat;
+    background: url(bg-pattern.gif) repeat;
     padding: 2px;
     border: 1px solid #efefef;
 }
@@ -372,7 +372,7 @@ div.goog-toc p {
 }
 
 th {
-    background: url(bg_pattern.gif) repeat;
+    background: url(bg-pattern.gif) repeat;
     color: #333333;
     text-align: left;
     vertical-align: top;
