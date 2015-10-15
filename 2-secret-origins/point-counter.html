@@ -441,7 +441,7 @@ are some cases were the power level is slightly off.<br />
 <br />
 <span onClick="Main.saveToFile();"><a href="data:" download="" id="saveToFileLink">Save to File</a></span>
 <!--<span onClick="Main.saveToFile();"><a href="data:" download="" id="saveToFileLink"><input type="button" value="Save to File" /></a></span>-->
-<input type="button" value="Save To Text Area" onClick="Main.saveToText();" />
+<input type="button" value="Save To Text Area" onClick="Main.saveToText();" id="save text button" />
 <label>Save as:
 <select id="saveType">
     <option>XML</option>
@@ -455,17 +455,18 @@ says. My attribute is valid (as far as I can tell) but it isn't being recognized
 If I use semi-colons between them (which is wrong) chrome will recognize only the first. In any case it won't prevent using the wrong extension.-->
 <input type="file" id="fileChooser" /><br />
 <input type="button" value="Load from File" onClick="Main.loadFile();" />
-<input type="button" value="Load from Text Area" onClick="Main.loadText();" /><br />
+<input type="button" value="Load from Text Area" onClick="Main.loadText();" id="load text button" /><br />
 <br />
 <textarea id="code box" rows="30" cols="120">This text may be overwritten.</textarea>
 <br /><br />
 <!----
 <span>Admin Powers:</span><br />
-<input type="text" value="Tester.skillRow.setSkill();" id="commandText" /><input type="button" value="Execute" onClick="eval(document.getElementById('commandText').value);" /><br />
+<input type="text" value="Tester.main.convertDocument();" id="commandText" /><input type="button" value="Execute" onClick="eval(document.getElementById('commandText').value);" /><br />
 <a href="javascript:Tester.testAll();">Test All</a>, <a href="javascript:eval(document.getElementById('code box').value);">Eval Code Box</a>, and <a href="http://jsfiddle.net/" target="_new">jsfiddle</a><br /><br />
+<div id="test results"></div>
 <!---->
-<div id="test results"></div><br /><br />
 
+<br /><br />
 </div>
 </div>
 </td>

@@ -105,8 +105,10 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        rank = 1;
       if (PowerData.isAttack.contains(effect))
       {
-          name = ((rowIndex+1) +' '+effect);  //for example: "1 Damage" row index is used for uniqueness
-          if(range === 'Perception') skillUsed = undefined;
+          name = ((rowIndex+1) + ' ' + effect);
+          if(powerListParent === Main.powerSection) name = 'Power ' + name;
+          else name = 'Equipment ' + name;  //for example: "Equipment 1 Damage" the "Equipment 1" is used for uniqueness
+          if(range === 'Perception') skillUsed = undefined;  //needs to be explicitly set because it might have been defined before
           else skillUsed = 'Skill used for attack';
       }
        else name = skillUsed = undefined;

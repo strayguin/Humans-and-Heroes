@@ -657,6 +657,125 @@ Tester.main.calculateTotal=function(isFirst)
 
     TesterUtility.displayResults('Tester.main.calculateTotal', testResults, isFirst);
 };
+Tester.main.convertDocument=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[];
+    var actionTaken, input, expected;
+
+    /**this value must match the result of Main.clear(); Main.save();
+    It is a string so that it is completely immutable and easy to copy.*/
+   const blankDoc = JSON.stringify
+   ({
+         "Hero":
+         {
+              "name": "Hero Name",
+              "transcendence": 0,
+              "image": "../images/Sirocco.jpg"
+         },
+         "Abilities":
+         {
+              "Strength": 0,
+              "Agility": 0,
+              "Fighting": 0,
+              "Awareness": 0,
+              "Stamina": 0,
+              "Dexterity": 0,
+              "Intellect": 0,
+              "Presence": 0
+         },
+          "Powers": [],
+          "Equipment": [],
+          "Advantages": [],
+          "Skills": [],
+         "Defenses":
+         {
+              "Dodge": 0,
+              "Fortitude": 0,
+              "Parry": 0,
+              "Will": 0
+         },
+          "ruleset": 3,
+          "version": 2,
+          "Information": "Complications, background and other information"
+   });
+    SelectUtil.setText('saveType', 'JSON');
+   function useLoadButton(input)
+   {
+       document.getElementById('code box').value = input;
+       document.getElementById('load text button').onclick();
+   }
+   function useSaveButton()
+   {
+       document.getElementById('save text button').onclick();
+       return document.getElementById('code box').value;
+   }
+
+    try{
+    input = JSON.parse(blankDoc);
+    input.version = 1;
+    input.Powers = [{"name":"Damage","text":"Energy Aura","action":"Standard","range":"Close","duration":"Instant",
+       "Modifiers":[{"name":"Selective"}],"rank":3}];
+    actionTaken = 'Simple';
+    useLoadButton(JSON.stringify(input));
+    expected = JSON.parse(blankDoc);
+    expected.Powers = [{"effect":"Damage","text":"Energy Aura","action":"Standard","range":"Close","duration":"Instant",
+       "name":"Power 1 Damage","skill":"Skill used for attack","Modifiers":[{"name":"Selective"}],"rank":3}];
+    testResults.push({Expected: JSON.stringify(expected), Actual: useSaveButton(), Action: actionTaken, Description: 'Convert a Power'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    input = JSON.parse(blankDoc);
+    input.version = 1;
+    actionTaken = 'N/A';
+    useLoadButton(JSON.stringify(input));
+    testResults.push({Expected: blankDoc, Actual: useSaveButton(), Action: actionTaken, Description: 'Convert old nothing'});
+    useLoadButton(blankDoc);
+    testResults.push({Expected: blankDoc, Actual: useSaveButton(), Action: actionTaken, Description: 'Convert new nothing'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    input = JSON.parse(blankDoc);
+    input.version = 1;
+    input.Powers = [{"name":"Damage","text":"Energy Aura","action":"Standard","range":"Close","duration":"Instant","Modifiers":[],"rank":3},
+       {"name":"Damage","text":"Damage 2","action":"Standard","range":"Close","duration":"Instant","Modifiers":[],"rank":2}];
+    input.Equipment = [{"name":"Affliction","text":"a","action":"Standard","range":"Close","duration":"Instant","Modifiers":[],"rank":1},
+       {"name":"Damage","text":"b","action":"Standard","range":"Close","duration":"Instant","Modifiers":[],"rank":1}];
+    input.Advantages = [{"name":"Equipment","rank":1}];
+    actionTaken = '2 Each';
+    useLoadButton(JSON.stringify(input));
+    expected = JSON.parse(blankDoc);
+   expected.Powers = [
+      {
+          "effect":"Damage","text":"Energy Aura","action":"Standard","range":"Close","duration":"Instant",
+          "name":"Power 1 Damage","skill":"Skill used for attack","Modifiers":[],"rank":3
+      },
+      {
+          "effect":"Damage","text":"Damage 2","action":"Standard","range":"Close","duration":"Instant",
+          "name":"Power 2 Damage","skill":"Skill used for attack","Modifiers":[],"rank":2
+      }
+   ];
+   expected.Equipment = [
+      {
+          "effect":"Affliction","text":"a","action":"Standard","range":"Close","duration":"Instant",
+          "name":"Equipment 1 Affliction","skill":"Skill used for attack","Modifiers":[],"rank":1
+      },
+      {
+          "effect":"Damage","text":"b","action":"Standard","range":"Close","duration":"Instant",
+          "name":"Equipment 2 Damage","skill":"Skill used for attack","Modifiers":[],"rank":1
+      }
+   ];
+    expected.Advantages = [{"name":"Equipment","rank":1}];
+    testResults.push({Expected: JSON.stringify(expected), Actual: useSaveButton(), Action: actionTaken, Description: 'Convert 2 Powers and 2 equipments'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    //minor clean up:
+    document.getElementById('code box').value = '';
+
+    TesterUtility.displayResults('Tester.main.convertDocument', testResults, isFirst);
+};
+//Main.determineCompatibilityIssues didn't have anything worth testing
 Tester.main.loadFromString=function(isFirst)
 {
     return;  //remove this when actual tests exist. ADD TESTS
@@ -1903,7 +2022,7 @@ function allDataInfoToCodeBox(dataSource)
     document.getElementById('code box').value = JSON.stringify(allDataInfo(SkillData));
 }
 /**This is NOT a normal bling! It only allows getting an element by id (starting with '#'). Nothing is returned in any other case (undefined not null).*/
-if(window.$ === undefined){window.$=function(name){if(name[0] === '#') return document.getElementById(name.substring(1));};}
+//if(window.$ === undefined){window.$=function(name){if(name[0] === '#') return document.getElementById(name.substring(1));};}
 //I could use $('#transcendence') over document.getElementById('transcendence'); etc but why bother: the latter is more clear
 //I only use this for debugging
 

@@ -118,6 +118,7 @@ const SharedHtmlData =
 Object.freeze(AbilityData);
 Object.freeze(SharedHtmlData);
 
+//TODO: rename all of this file to be Data.blah
 /**This method changes all of the data based on if the rules are old or not. The constructor of Main also calls this to initialize the rule dependant data.*/
 function changeData()
 {

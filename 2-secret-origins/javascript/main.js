@@ -313,67 +313,101 @@ function MainObject()
        characterPointsSpent+=this.defenseSection.getTotal();
        document.getElementById('grand total used').innerHTML=characterPointsSpent;
    };
-   /**Given the json, this compares the version and rule set then alerts the user a message if necessary.*/
+   /**Given an older json document, this function converts it to the newest document format.*/
+   this.convertDocument=function(jsonDoc)
+   {
+      if (1 === jsonDoc.version)
+      {
+          var powerSections = [jsonDoc.Powers, jsonDoc.Equipment];
+         for (var sectionIndex = 0; sectionIndex < powerSections.length; ++sectionIndex)
+         {
+            for (var rowIndex = 0; rowIndex < powerSections[sectionIndex].length; ++rowIndex)
+            {
+                   var thisRow = powerSections[sectionIndex][rowIndex];
+                   thisRow.effect = thisRow.name;  //was renamed
+                   thisRow.name = undefined;
+                   //don't need to default name and skill since they will be auto-defaulted if not populated
+            }
+         }
+          //also some images were renamed like: ../images/TCP Elf 11611.jpg => ../images/Energy-Controller.jpg
+          //but I don't care about converting those
+          ++jsonDoc.version;
+      }
+       //if(2 ===) convert it; ++; repeat until it is the most recent version
+   };
+   /**Given the json, this compares the version and rule set then alerts the user with a message if necessary.*/
    this.determineCompatibilityIssues=function(jsonDoc)
    {
        //the ruleset is used to determine if using original rules. The version is to inform the user of possible incompatibility
        var version, ruleset;
 
-       if(jsonDoc.ruleset !== undefined) ruleset = parseInt(jsonDoc.ruleset);  //will ignore everything after the decimal point
-       if(jsonDoc.version !== undefined) version = parseInt(jsonDoc.version);
+       //Number.parseInt(undefined) => NaN
+       ruleset = Number.parseInt(jsonDoc.ruleset);  //will ignore everything after the decimal point
+       version = Number.parseInt(jsonDoc.version);
        //version will always be an int (user shouldn't mess with that) but users might mess with ruleset
 
-       //isNaN(undefined) => false. they can only be real numbers or NaN at this point
-       if(isNaN(version)) version = 1;  //only version 1 doesn't have a version number so that's default
-       if(isNaN(ruleset)) ruleset = defaultRuleSet;  //ruleset is fairly compatible so the most recent is default
+       //typeof version and ruleset can only be number at this point
+       if(Number.isNaN(version)) version = 1;  //only version 1 doesn't have a version number so that's default
+       if(Number.isNaN(ruleset)) ruleset = defaultRuleSet;  //ruleset is fairly compatible so the most recent is default
 
        //set old rules flag accordingly
        if(ruleset < 2) this.setOldRules(true);
        else this.setOldRules(false);
 
        //inform user as needed:
-       if(ruleset === 1 && version < defaultVersion) Main.messageUser('The document uses original rules but is saved in an old format. It might not load correctly.');
-       else if(ruleset === 1 && version > defaultVersion) Main.messageUser('The document uses original rules but is saved in a format more recent than this code. It might not load correctly.');
-       else if(ruleset < defaultRuleSet || version < defaultVersion) Main.messageUser('The document is old and no longer supported. It might not load correctly.');
-       else if(ruleset > defaultRuleSet || version > defaultVersion) Main.messageUser('The document is more recent than this code. It might not load correctly.');
+      if (ruleset > defaultRuleSet)
+      {
+          Main.messageUser('The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
+          ruleset = defaultRuleSet;  //default so that things can possibly load
+      }
+      if (version > defaultVersion)
+      {
+          Main.messageUser('The requested document was saved in a format newer than what is supported by this code. It might not load correctly.');
+          version = defaultVersion;
+      }
+
+       //(re)set these so they can be used later
+       jsonDoc.ruleset = ruleset;
+       jsonDoc.version = version;
    };
    /**This function loads the document according to the text string given.*/
    this.loadFromString=function(fileString)
    {
-       fileString=fileString.trim();
+       fileString = fileString.trim();
        if(fileString === '') return;  //done
 
-       var loadedDoc, transcendenceMinimum = -1;
+       var jsonDoc, transcendenceMinimum = -1, docType;
        try{
-       if(fileString[0] === '<') loadedDoc = xmlToJson(fileString);  //if the first character is less than then assume XML
-       else loadedDoc = JSON.parse(fileString);  //else assume JSON
+       if(fileString[0] === '<'){docType = 'XML'; jsonDoc = xmlToJson(fileString);}  //if the first character is less than then assume XML
+       else{docType = 'JSON'; jsonDoc = JSON.parse(fileString);}  //else assume JSON
        }
-       catch(e){Main.messageUser('A parsing error has occured. The document you provided is not legal XML or JSON.\n\n'+e); throw e;}
+       catch(e){Main.messageUser('A parsing error has occured. The document you provided is not legal '+docType+'.\n\n'+e); throw e;}
           //yeah I know the error message is completely unhelpful but there's nothing more I can do
 
-       this.determineCompatibilityIssues(loadedDoc);
-       //TODO: if(this.determineValidity(loadedDoc)) return;  //which will return true if valid. checks for the things I assume exist below (Hero etc)
+       this.determineCompatibilityIssues(jsonDoc);
+       if(jsonDoc.version < defaultVersion) this.convertDocument(jsonDoc);
+       //TODO: if(this.determineValidity(jsonDoc)) return;  //which will return true if valid. checks for the things I assume exist below (Hero etc)
 
        //useOldRules has already been set in determineCompatibilityIssues (clear does not change it)
        this.clear();  //must clear out all other data first so not to have any remain
-       document.getElementById('HeroName').value = loadedDoc.Hero.name;
-      if (loadedDoc.Hero.transcendence !== undefined && !useOldRules)
+       document.getElementById('HeroName').value = jsonDoc.Hero.name;
+      if (jsonDoc.Hero.transcendence !== undefined && !useOldRules)
       {
-          transcendenceMinimum = sanitizeNumber(loadedDoc.Hero.transcendence, -1, 0);
+          transcendenceMinimum = sanitizeNumber(jsonDoc.Hero.transcendence, -1, 0);
       }
-       document.getElementById('imgFilePath').value = loadedDoc.Hero.image;
+       document.getElementById('imgFilePath').value = jsonDoc.Hero.image;
        this.loadImageFromPath();  //can't set the file chooser for obvious security reasons
-       document.getElementById('bio box').value = loadedDoc.Information;
-       this.abilitySection.load(loadedDoc.Abilities);  //at the end of each load it updates and generates
+       document.getElementById('bio box').value = jsonDoc.Information;
+       this.abilitySection.load(jsonDoc.Abilities);  //at the end of each load it updates and generates
 
        if(transcendenceMinimum > transcendence) transcendence = transcendenceMinimum;  //so that godhood powers can be loaded
-       this.powerSection.load(loadedDoc.Powers);
-       this.equipmentSection.load(loadedDoc.Equipment);  //equipment can't have godhood
+       this.powerSection.load(jsonDoc.Powers);
+       this.equipmentSection.load(jsonDoc.Equipment);  //equipment can't have godhood
 
        if(transcendenceMinimum > transcendence) transcendence = transcendenceMinimum;  //so that godhood advantages can be loaded
-       this.advantageSection.load(loadedDoc.Advantages);
-       this.skillSection.load(loadedDoc.Skills);
-       this.defenseSection.load(loadedDoc.Defenses);
+       this.advantageSection.load(jsonDoc.Advantages);
+       this.skillSection.load(jsonDoc.Skills);
+       this.defenseSection.load(jsonDoc.Defenses);
        window.scrollTo(0,0);  //jump to top left of page after loading so the user can see the loaded hero
    };
    /**This is a simple generator called by updateOffense to create a row of offense information.*/
@@ -436,7 +470,7 @@ function MainObject()
 
 /*xml version list:
 1: original from rule set 2.5
-2: (added version and ruleset) name and skill attributes were added to both powers
+2: (added version and ruleset) name and skill attributes were added to both powers. old "name" was renamed to "effect"
 */
 /*Map of objects that update others:
 everything (except modifier) calls Main.update();  //updates totals and power level
