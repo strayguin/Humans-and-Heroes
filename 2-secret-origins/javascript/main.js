@@ -159,7 +159,7 @@ function MainObject()
           document.getElementById('to new rules button').style.display = 'none';
           document.getElementById('to new rules span').style.display = 'inline';
       }
-       changeData();
+       Data.change();
        this.clear();  //needed to regenerate abilities etc
    };
    /**This counts character points and power level and sets the document. It needs to be called by every section's update.*/
@@ -258,9 +258,9 @@ function MainObject()
        var compareTo;
        //Skills and Abilities
        //TODO: old rules has advantages I need to include: Close Attack etc (Improvised Weapon, Ranged Attack, Throwing Mastery), Eidetic Memory, Great Endurance
-      for (var i=0; i < AbilityData.names.length; i++)
+      for (var i=0; i < Data.Ability.names.length; i++)
       {
-          compareTo = this.skillSection.getMaxSkillRanks().get(AbilityData.names[i]);
+          compareTo = this.skillSection.getMaxSkillRanks().get(Data.Ability.names[i]);
           compareTo-=10;
           if(compareTo > powerLevel) powerLevel = compareTo;  //won't replace if compareTo is negative
       }
@@ -454,10 +454,10 @@ function MainObject()
    };
    this.constructor=function()
    {
-       changeData();  //needed to initialize some data
+       Data.change();  //needed to initialize some data
        this.abilitySection = new AbilityList();
        this.powerSection = new PowerListAgnostic('power');
-       //Object.freeze(this.powerSection);  //TODO: what should and shouldn't be frozen? Main and data only (and commons etc?)
+       //Object.freeze(this.powerSection);  //TODO: what should and shouldn't be frozen? Main and data only (and commons etc?). freeze isn't deep. maybe screw it because tests
        this.equipmentSection = new PowerListAgnostic('equipment');  //give it the section name and the rest is the same
        this.advantageSection = new AdvantageList();
        this.skillSection = new SkillList();

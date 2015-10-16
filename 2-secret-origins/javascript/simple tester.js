@@ -188,6 +188,7 @@ TesterUtility.displayResults=function(tableName, testResults, isFirst)
       }
        if(!testPassed) output+=' style="background-color: red;"';
        //else: default white
+       //TODO: there's no meaningful difference between Action and Description. Remove Action
        output+='>\n<td>'+testResults[i].Action+'</td>\n<td>'+testResults[i].Description+'</td>\n<td style="text-align: right;">';
 
        if(typeof(testResults[i].Expected) === 'string' && testResults[i].Expected.length > 80) output+='<pre>(Too Long)</pre>';  //string.length to see if too long to display

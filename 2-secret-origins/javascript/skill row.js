@@ -43,11 +43,11 @@ function SkillObject(rowIndex)
    The data set is independent of the document and doesn't call update.*/
    this.setSkill=function(nameGiven)
    {
-       if(!SkillData.names.contains(nameGiven)){this.constructor(); return;}
+       if(!Data.Skill.names.contains(nameGiven)){this.constructor(); return;}
        name = nameGiven;
        rank = 1;
-       abilityName = SkillData.abilityMap.get(name);
-       hasText = SkillData.hasText.contains(name);
+       abilityName = Data.Skill.abilityMap.get(name);
+       hasText = Data.Skill.hasText.contains(name);
        if(name === 'Other') text = 'Skill Name and Subtype';  //doesn't exist in old rules
        else if(hasText) text = 'Skill Subtype';
        else text = undefined;
@@ -69,7 +69,7 @@ function SkillObject(rowIndex)
    this.setAbility=function(abilityNameGiven)
    {
        if(this.isBlank()) return;
-       if(!AbilityData.names.contains(abilityNameGiven)) return;  //only happens when loading bad data
+       if(!Data.Ability.names.contains(abilityNameGiven)) return;  //only happens when loading bad data
        abilityName = abilityNameGiven;
    };
 
@@ -80,9 +80,9 @@ function SkillObject(rowIndex)
        var htmlString = '';
        htmlString+='<select id="skillChoices'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').select();">\n';
        htmlString+='    <option>Select One</option>\n';
-      for (var i=0; i < SkillData.names.length; i++)
+      for (var i=0; i < Data.Skill.names.length; i++)
       {
-          htmlString+='    <option>'+SkillData.names[i]+'</option>\n';
+          htmlString+='    <option>'+Data.Skill.names[i]+'</option>\n';
       }
        htmlString+='</select>\n';
        if(this.isBlank()) return htmlString;  //done
@@ -91,7 +91,7 @@ function SkillObject(rowIndex)
        htmlString+='Ranks <input type="text" size="1" id="skillRank'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').changeRank();" />\n';
        htmlString+='+\n';
        htmlString+='<select id="skillAbility'+rowIndex+'" onChange="Main.skillSection.getRow('+rowIndex+').selectAbility();">\n';
-       htmlString+='    <option>Strength</option>\n';  //hard coding made more sense then using AbilityData.names (because loop unrolling)
+       htmlString+='    <option>Strength</option>\n';  //hard coding made more sense then using Data.Ability.names (because loop unrolling)
        htmlString+='    <option>Agility</option>\n';
        htmlString+='    <option>Fighting</option>\n';
        htmlString+='    <option>Awareness</option>\n';

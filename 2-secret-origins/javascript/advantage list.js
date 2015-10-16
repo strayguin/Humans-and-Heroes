@@ -52,11 +52,11 @@ function AdvantageList()
       for (var i=0; i < rowArray.length-1; i++)  //last row is blank
       {
           var advantageName = rowArray[i].getName();
-          if(AdvantageData.godhoodNames.contains(advantageName)) usingGodhoodAdvantages = true;
+          if(Data.Advantage.godhoodNames.contains(advantageName)) usingGodhoodAdvantages = true;
           //do not connected with else since Petty Rules are godhood
           if(advantageName === 'Your Petty Rules Don\'t Apply to Me') pettyRulesApply = false;
              //this needs to be tracked because it changes minimum possible power level
-          if(AdvantageData.mapThese.contains(advantageName)) rankMap.add(rowArray[i].getUniqueName(), rowArray[i].getRank());
+          if(Data.Advantage.mapThese.contains(advantageName)) rankMap.add(rowArray[i].getUniqueName(), rowArray[i].getRank());
              //add instead of set these since map is empty and there are no redundant rows (using unique name)
           total+=rowArray[i].getTotal();
       }
@@ -68,9 +68,9 @@ function AdvantageList()
       for (var i=0; i < jsonSection.length; i++)
       {
           var nameToLoad = jsonSection[i].name;
-          if(!AdvantageData.names.contains(nameToLoad) && !AdvantageData.godhoodNames.contains(nameToLoad))
+          if(!Data.Advantage.names.contains(nameToLoad) && !Data.Advantage.godhoodNames.contains(nameToLoad))
              {Main.messageUser('Load Error: '+nameToLoad+' is not an advantage name.'); continue;}  //not found
-          if(AdvantageData.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
+          if(Data.Advantage.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
              {Main.messageUser('Load Error: '+nameToLoad+' is the advantage listed without transcendence (='+Main.getTranscendence()+')'); continue;}
           rowArray.last().setAdvantage(nameToLoad);  //load in the data
           if(jsonSection[i].rank !== undefined) rowArray.last().setRank(jsonSection[i].rank);

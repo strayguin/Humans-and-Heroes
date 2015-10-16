@@ -36,17 +36,17 @@ function AdvantageObject(rowIndex)
    The data set is independent of the document and doesn't call update.*/
    this.setAdvantage=function(nameGiven)
    {
-       if(!AdvantageData.names.contains(nameGiven) && !AdvantageData.godhoodNames.contains(nameGiven)){this.constructor(); return;}  //reset values
+       if(!Data.Advantage.names.contains(nameGiven) && !Data.Advantage.godhoodNames.contains(nameGiven)){this.constructor(); return;}  //reset values
        var useNewData = !((name === 'Minion' && nameGiven === 'Sidekick') || (name === 'Sidekick' && nameGiven === 'Minion'));
           //if switching between 'Minion' and 'Sidekick' then keep the data, otherwise clear it out
        name = nameGiven;
-       maxRanks = AdvantageData.maxRanks.get(name);
+       maxRanks = Data.Advantage.maxRanks.get(name);
        hasRank = (maxRanks !== 1);  //if max ranks is 1 then there are no ranks
        if(useNewData) rank = 1;
-       costPerRank = AdvantageData.costPerRank.get(name);
+       costPerRank = Data.Advantage.costPerRank.get(name);
        total = costPerRank*rank;  //since it's rank 1
-       hasText = AdvantageData.hasText.contains(name);
-       if(hasText && useNewData) text = AdvantageData.defaultText.get(name);
+       hasText = Data.Advantage.hasText.contains(name);
+       if(hasText && useNewData) text = Data.Advantage.defaultText.get(name);
        else if(useNewData) text = undefined;  //needs to be explicit so that the previous data is destroyed
        //else keep using the current text
    };
@@ -77,16 +77,16 @@ function AdvantageObject(rowIndex)
       {
           htmlString+='<select id="advantageChoices'+rowIndex+'" onChange="Main.advantageSection.getRow('+rowIndex+').select();">\n';
           htmlString+='    <option>Select One</option>\n';
-         for (i=0; i < AdvantageData.names.length; i++)
+         for (i=0; i < Data.Advantage.names.length; i++)
          {
-             if(AdvantageData.names[i] !== 'Equipment')
-                htmlString+='    <option>'+AdvantageData.names[i]+'</option>\n';
+             if(Data.Advantage.names[i] !== 'Equipment')
+                htmlString+='    <option>'+Data.Advantage.names[i]+'</option>\n';
          }
          if (Main !== undefined && (Main.advantageSection.hasGodhoodAdvantages() || Main.canUseGodHood()))
          //must check both hasGodhoodAdvantages and canUseGodHood since they are not yet in sync
-            for (i=0; i < AdvantageData.godhoodNames.length; i++)
+            for (i=0; i < Data.Advantage.godhoodNames.length; i++)
             {
-                htmlString+='    <option>'+AdvantageData.godhoodNames[i]+'</option>\n';
+                htmlString+='    <option>'+Data.Advantage.godhoodNames[i]+'</option>\n';
             }
           htmlString+='</select>\n';
       }

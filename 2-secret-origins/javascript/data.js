@@ -1,5 +1,6 @@
-const AbilityData = {names: ['Strength', 'Agility', 'Fighting', 'Awareness', 'Stamina', 'Dexterity', 'Intellect', 'Presence']};
-const AdvantageData =
+const Data = {};
+Data.Ability = {names: ['Strength', 'Agility', 'Fighting', 'Awareness', 'Stamina', 'Dexterity', 'Intellect', 'Presence']};
+Data.Advantage =
    {
        costPerRank: MapDefault.makeFromArray([['Beyond Mortal', 50], ['Let There Be', 40], ['Luck of the Gods', 5], ['Lucky', 5],
           ['Omnipresent', 5], ['Omniscient', 5], ['Sidekick', 2], ['Stay Like That', 15], ['Variable Modifier', 35],
@@ -15,15 +16,15 @@ const AdvantageData =
           ['Lucky', 3], ['Minion', Infinity], ['Omnipresent', 3], ['Omniscient', 5], ['Precise Attack', 4],
           ['Ranged Attack', Infinity], ['Second Chance', Infinity], ['Set-up', Infinity], ['Sidekick', Infinity],
           ['Supreme', Infinity], ['Takedown', 2], ['Throwing Mastery', Infinity]], 1)
-       //names is defined in changeData
+       //names is defined in Data.change
    };
-AdvantageData.hasText=AdvantageData.defaultText.getAllKeys().concat(['Benefit', 'Improved Critical', 'Precise Attack', 'Second Chance', 'Skill Mastery', 'Ultimate Effort']);
-const DefenseData =
+Data.Advantage.hasText=Data.Advantage.defaultText.getAllKeys().concat(['Benefit', 'Improved Critical', 'Precise Attack', 'Second Chance', 'Skill Mastery', 'Ultimate Effort']);
+Data.Defense =
    {
        names:       [  'Dodge', 'Fortitude',    'Parry',     'Will', 'Toughness'],  //Toughness (Stamina) is listed for completeness (it isn't used)
        abilityUsed: ['Agility',   'Stamina', 'Fighting', 'Presence',   'Stamina']   //this could be a map but it is only used in 1 place so I didn't bother
    };
-const ModifierData =
+Data.Modifier =
    {
        actionRangeDuration: ['Decreased Duration', 'Faster Action', 'Increased Duration', 'Increased Range', 'Reduced Range', 'Slower Action'],
        cost: MapDefault.makeFromArray([['Activation', -1], ['Affects Objects Only', 0], ['Affects Others Only', 0], ['Alternate Effect', -1],
@@ -51,7 +52,7 @@ const ModifierData =
           ['Other Flat Flaw', Infinity], ['Other Rank Extra', Infinity], ['Other Rank Flaw', Infinity], ['Penetrating', Infinity],
           ['Reach', Infinity], ['Reduced Range', 4], ['Ricochet', Infinity], ['Side Effect', 2], ['Slower Action', 6],
           ['Split', Infinity], ['Subtle', 2], ['Triggered', Infinity], ['Variable Descriptor', 2]], 1),
-       //names is defined in changeData
+       //names is defined in Data.change
        type: MapDefault.makeFromArray([['Accurate', 'Flat'], ['Activation', 'Flat'], ['Affects Corporeal', 'Flat'],
           ['Affects Insubstantial', 'Flat'], ['Affects Objects Only', 'Free'], ['Affects Others Only', 'Free'], ['Alternate Effect', 'Flat'],
           ['Alternate Resistance (Free)', 'Free'], ['Attack', 'Rank'], ['Check Required', 'Flat'], ['Dimensional', 'Flat'],
@@ -63,12 +64,12 @@ const ModifierData =
           ['Removable', 'Flat'], ['Reversible', 'Flat'], ['Ricochet', 'Flat'], ['Sleep', 'Free'], ['Split', 'Flat'], ['Subtle', 'Flat'],
           ['System Dependent', 'Flat'], ['Triggered', 'Flat'], ['Variable Descriptor', 'Flat']], 'Rank')
    };
-ModifierData.hasAutoRank = ModifierData.hasAutoTotal.concat(ModifierData.actionRangeDuration);
-ModifierData.hasText=ModifierData.defaultText.getAllKeys().concat(['Feature', 'Limited', 'Noticeable', 'Quirk', 'Side Effect', 'Subtle', 'Triggered']);
-  //the commonModifierOtherNames are added to hasText at the bottom of changeData
-const PowerData =
+Data.Modifier.hasAutoRank = Data.Modifier.hasAutoTotal.concat(Data.Modifier.actionRangeDuration);
+Data.Modifier.hasText=Data.Modifier.defaultText.getAllKeys().concat(['Feature', 'Limited', 'Noticeable', 'Quirk', 'Side Effect', 'Subtle', 'Triggered']);
+  //the commonModifierOtherNames are added to hasText at the bottom of Data.change
+Data.Power =
    {
-       //actions is defined in changeData
+       //actions is defined in Data.change
        baseCost: MapDefault.makeFromArray([['A God I Am', 5], ['Attain Knowledge', 2], ['Communication', 4], ['Comprehend', 2],
           ['Concealment', 2], ['Create', 2], ['Enhanced Trait', 2], ['Flight', 2], ['Growth', 6], ['Healing', 2], ['Immortality', 5],
           ['Insubstantial', 5], ['Luck Control', 3], ['Mental Transform', 2], ['Mind Reading', 2], ['Mind Switch', 8], ['Morph', 5],
@@ -97,30 +98,30 @@ const PowerData =
        godhoodNames: ['A God I Am', 'Reality Warp'],
        hasInputBaseCost: ['Attain Knowledge', 'Concealment', 'Enhanced Trait', 'Environment', 'Feature', 'Illusion', 'Remote Sensing', 'Senses', 'Transform'],
        isAttack: ['Affliction', 'Damage', 'Illusion', 'Mental Transform', 'Mind Reading', 'Mind Switch', 'Move Object', 'Nullify', 'Weaken'],
-       //names is defined in changeData
+       //names is defined in Data.change
        ranges: ['Close', 'Ranged', 'Perception', 'Personal']  //Personal isn't a choice
    };
-const SkillData = {abilityMap: MapDefault.makeFromArray([['Acrobatics', 'Agility'], ['Close Combat', 'Fighting'], ['Common Knowledge', 'Intellect'],
+Data.Skill = {abilityMap: MapDefault.makeFromArray([['Acrobatics', 'Agility'], ['Close Combat', 'Fighting'], ['Common Knowledge', 'Intellect'],
     ['Deception', 'Presence'], ['Expertise', 'Intellect'], ['Insight', 'Awareness'], ['Intimidation', 'Presence'], ['Investigation', 'Intellect'],
     ['Knowledge', 'Intellect'], ['Memory', 'Intellect'], ['Perception', 'Awareness'], ['Persuasion', 'Presence'], ['Ranged Combat', 'Dexterity'],
     ['Sleight of Hand', 'Dexterity'], ['Stealth', 'Agility'], ['Strategy', 'Intellect'], ['Technology', 'Intellect'], ['Tracking', 'Awareness'],
     ['Treatment', 'Intellect'], ['Vehicles', 'Dexterity']], 'Strength')};
-//SkillData.hasText is defined in changeData
-//SkillData.names is defined in changeData
-const SharedHtmlData =
+//Data.Skill.hasText is defined in Data.change
+//Data.Skill.names is defined in Data.change
+Data.SharedHtml =
    {
        powerName: function(sectionName, rowIndex){  return '          Name <input type="text" size="20" id="'+sectionName+ 'Name'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex +').changeName();" />\n';},
        powerSkill: function(sectionName, rowIndex){return '          Skill <input type="text" size="20" id="'+sectionName+'Skill'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').changeSkill();" />\n';}
    };
 //they are all const so that they can't be assigned
 
-//freeze the only 2 that are never changed so that I don't accidentally change them
-Object.freeze(AbilityData);
-Object.freeze(SharedHtmlData);
+//freeze the only ones that are never changed so that I don't accidentally change them
+Object.freeze(Data.Ability);
+Object.freeze(Data.SharedHtml);
 
-//TODO: rename all of this file to be Data.blah
+//TODO: have Data.change take a ruleSet number
 /**This method changes all of the data based on if the rules are old or not. The constructor of Main also calls this to initialize the rule dependant data.*/
-function changeData()
+Data.change = function()
 {
     var commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attractive', 'Beginner\'s Luck', 'Benefit', 'Connected',
        'Defensive Attack', 'Defensive Roll', 'Diehard', 'Equipment', 'Evasion', 'Extraordinary Effort', 'Fast Grab', 'Improved Aim',
@@ -145,87 +146,88 @@ function changeData()
 
    if (Main !== undefined && Main.isOldRules())  //this does not execute during the constructor of Main because old rules are false by default
    {
-       AdvantageData.costPerRank.set('Sidekick', 1);  //only one that needs to be changed (since the rest were removed)
-       AdvantageData.maxRanks.set('Improved Initiative', Infinity);
-       AdvantageData.names = commonAdvantageNames.concat(['Agile Feint', 'Animal Empathy', 'Artificer', 'Assessment', 'Chokehold',
+       Data.Advantage.costPerRank.set('Sidekick', 1);  //only one that needs to be changed (since the rest were removed)
+       Data.Advantage.maxRanks.set('Improved Initiative', Infinity);
+       Data.Advantage.names = commonAdvantageNames.concat(['Agile Feint', 'Animal Empathy', 'Artificer', 'Assessment', 'Chokehold',
           'Close Attack', 'Contacts', 'Daze', 'Eidetic Memory', 'Fascinate', 'Favored Environment', 'Favored Foe', 'Fearless',
           'Grabbing Finesse', 'Great Endurance', 'Hide in Plain Sight', 'Improved Smash', 'Improvised Weapon', 'Inventor',
           'Leadership', 'Luck', 'Precise Attack', 'Ranged Attack', 'Redirect', 'Ritualist', 'Second Chance', 'Set-up', 'Startle',
           'Takedown', 'Taunt', 'Throwing Mastery', 'Tracking', 'Uncanny Dodge', 'Weapon Bind', 'Weapon Break', 'Well-informed']).sort();
 
-       SkillData.hasText = ['Close Combat', 'Expertise', 'Ranged Combat'];
-       SkillData.names = commonSkillNames;
+       Data.Skill.hasText = ['Close Combat', 'Expertise', 'Ranged Combat'];
+       Data.Skill.names = commonSkillNames;
 
-       PowerData.actions = ['Standard', 'Move', 'Free', 'Reaction', 'None'];  //None isn't a choice
-       PowerData.defaultAction.set('Variable', 'Standard');
-       PowerData.baseCost.set('Growth', 2);
-       PowerData.baseCost.set('Immortality', 2);
-       PowerData.baseCost.set('Morph', 5);
-       PowerData.baseCost.set('Nullify', 1);
-       PowerData.baseCost.set('Regeneration', 1);
-       PowerData.baseCost.set('Shrinking', 2);
-       PowerData.names = commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed', 'Summon', 'Swimming']).sort();
+       Data.Power.actions = ['Standard', 'Move', 'Free', 'Reaction', 'None'];  //None isn't a choice
+       Data.Power.defaultAction.set('Variable', 'Standard');
+       Data.Power.baseCost.set('Growth', 2);
+       Data.Power.baseCost.set('Immortality', 2);
+       Data.Power.baseCost.set('Morph', 5);
+       Data.Power.baseCost.set('Nullify', 1);
+       Data.Power.baseCost.set('Regeneration', 1);
+       Data.Power.baseCost.set('Shrinking', 2);
+       Data.Power.names = commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed', 'Summon', 'Swimming']).sort();
 
        var oldExtraNames = commonModifierExtraNames.concat(['Affects Insubstantial', 'Dynamic Alternate Effect', 'Incurable', 'Sleep', 'Triggered']).sort();
        var oldFlawNames = commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
-       ModifierData.names = oldExtraNames.concat(oldFlawNames);  //commonModifierOtherNames are added at the bottom of changeData
+       Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //commonModifierOtherNames are added at the bottom of Data.change
 
-       ModifierData.cost.set('Attack', 0);
-       ModifierData.type.set('Attack', 'Free');
-       ModifierData.maxRank.set('Diminished Range', 3);
-       ModifierData.cost.set('Impervious', 1);
-       ModifierData.maxRank.set('Impervious', 1);
-       ModifierData.type.set('Impervious', 'Rank');
-       ModifierData.cost.set('Increased Mass', 1);
-       ModifierData.type.set('Innate', 'Flat');
-       ModifierData.cost.set('Penetrating', 1);
+       Data.Modifier.cost.set('Attack', 0);
+       Data.Modifier.type.set('Attack', 'Free');
+       Data.Modifier.maxRank.set('Diminished Range', 3);
+       Data.Modifier.cost.set('Impervious', 1);
+       Data.Modifier.maxRank.set('Impervious', 1);
+       Data.Modifier.type.set('Impervious', 'Rank');
+       Data.Modifier.cost.set('Increased Mass', 1);
+       Data.Modifier.type.set('Innate', 'Flat');
+       Data.Modifier.cost.set('Penetrating', 1);
 
-       DefenseData.abilityUsed[DefenseData.names.indexOf('Will')] = 'Awareness';
+       Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Awareness';
    }
    else  //if(Main === undefined || !Main.isOldRules())
    {
-       AdvantageData.costPerRank.set('Sidekick', 2);
-       AdvantageData.maxRanks.set('Improved Initiative', 5);
-       AdvantageData.names = commonAdvantageNames.concat(['Lucky', 'Meekness']).sort();
+       Data.Advantage.costPerRank.set('Sidekick', 2);
+       Data.Advantage.maxRanks.set('Improved Initiative', 5);
+       Data.Advantage.names = commonAdvantageNames.concat(['Lucky', 'Meekness']).sort();
 
-       SkillData.names = commonSkillNames.concat(['Common Knowledge', 'Knowledge', 'Memory', 'Strategy', 'Tracking']).sort();
-       SkillData.names.push('Other');  //must be last instead of sorted
-       SkillData.hasText = SkillData.names.copy();
+       Data.Skill.names = commonSkillNames.concat(['Common Knowledge', 'Knowledge', 'Memory', 'Strategy', 'Tracking']).sort();
+       Data.Skill.names.push('Other');  //must be last instead of sorted
+       Data.Skill.hasText = Data.Skill.names.copy();
        //in new rules most of them have text except the following:
-       SkillData.hasText.removeByValue('Memory');
-       SkillData.hasText.removeByValue('Perception');
-       SkillData.hasText.removeByValue('Persuasion');
-       SkillData.hasText.removeByValue('Tracking');
+       Data.Skill.hasText.removeByValue('Memory');
+       Data.Skill.hasText.removeByValue('Perception');
+       Data.Skill.hasText.removeByValue('Persuasion');
+       Data.Skill.hasText.removeByValue('Tracking');
 
-       PowerData.actions = ['Slow', 'Full', 'Standard', 'Move', 'Free', 'Reaction', 'Triggered', 'None'];  //None isn't a choice
-       PowerData.defaultAction.set('Variable', 'Full');
-       PowerData.baseCost.set('Growth', 6);
-       PowerData.baseCost.set('Immortality', 5);
-       PowerData.baseCost.set('Morph', 1);  //I could add/remove morph but this is nicer
-       PowerData.baseCost.set('Nullify', 3);
-       PowerData.baseCost.set('Regeneration', 3);
-       PowerData.baseCost.set('Shrinking', 3);
-       PowerData.names = commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch', 'Permeate', 'Phantom Ranks',
+       Data.Power.actions = ['Slow', 'Full', 'Standard', 'Move', 'Free', 'Reaction', 'Triggered', 'None'];  //None isn't a choice
+       Data.Power.defaultAction.set('Variable', 'Full');
+       Data.Power.baseCost.set('Growth', 6);
+       Data.Power.baseCost.set('Immortality', 5);
+       Data.Power.baseCost.set('Morph', 1);  //I could add/remove morph but this is nicer
+       Data.Power.baseCost.set('Nullify', 3);
+       Data.Power.baseCost.set('Regeneration', 3);
+       Data.Power.baseCost.set('Shrinking', 3);
+       Data.Power.names = commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch', 'Permeate', 'Phantom Ranks',
           'Resistance', 'Summon Minion', 'Summon Object']).sort();
 
        var newExtraNames = commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
        var newFlawNames = commonModifierFlawNames.concat(['Ammunition', 'Fragile', 'System Dependent', 'Uncontrollable Entirely',
           'Uncontrollable Result', 'Uncontrollable Target']).sort();
-       ModifierData.names = newExtraNames.concat(newFlawNames);  //commonModifierOtherNames are added at the bottom of changeData
+       Data.Modifier.names = newExtraNames.concat(newFlawNames);  //commonModifierOtherNames are added at the bottom of Data.change
 
-       ModifierData.cost.set('Attack', 1);
-       ModifierData.type.set('Attack', 'Rank');
-       ModifierData.maxRank.set('Diminished Range', 1);
-       ModifierData.cost.set('Impervious', 2);
-       ModifierData.maxRank.set('Impervious', -1);
-       ModifierData.type.set('Impervious', 'Flat');
-       ModifierData.cost.set('Increased Mass', 3);
-       ModifierData.type.set('Innate', 'Rank');
-       ModifierData.cost.set('Penetrating', 2);
+       Data.Modifier.cost.set('Attack', 1);
+       Data.Modifier.type.set('Attack', 'Rank');
+       Data.Modifier.maxRank.set('Diminished Range', 1);
+       Data.Modifier.cost.set('Impervious', 2);
+       Data.Modifier.maxRank.set('Impervious', -1);
+       Data.Modifier.type.set('Impervious', 'Flat');
+       Data.Modifier.cost.set('Increased Mass', 3);
+       Data.Modifier.type.set('Innate', 'Rank');
+       Data.Modifier.cost.set('Penetrating', 2);
 
-       DefenseData.abilityUsed[DefenseData.names.indexOf('Will')] = 'Presence';
+       Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Presence';
    }
-    ModifierData.names = ModifierData.names.concat(commonModifierOtherNames);  //both rule sets end with these
-    if(Main === undefined) ModifierData.hasText = ModifierData.hasText.concat(commonModifierOtherNames);  //only do this once on page creation
-       //it's inside changeData instead of outside in order to have access to commonModifierOtherNames
+    Data.Modifier.names = Data.Modifier.names.concat(commonModifierOtherNames);  //both rule sets end with these
+    if(Main === undefined) Data.Modifier.hasText = Data.Modifier.hasText.concat(commonModifierOtherNames);  //only do this once on page creation
+       //it's inside Data.change instead of outside in order to have access to commonModifierOtherNames
 }
+Object.freeze(Data);

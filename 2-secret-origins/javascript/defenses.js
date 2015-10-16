@@ -12,7 +12,7 @@ function DefenseList()
    //Single line function section
     //getByName is not validated because I want an error thrown so I can debug
     /**Get the defense row based on its name. Will return undefined if not found so that an error will occur.*/
-    this.getByName=function(defenseName){return defenseArray[DefenseData.names.indexOf(defenseName)];};
+    this.getByName=function(defenseName){return defenseArray[Data.Defense.names.indexOf(defenseName)];};
     /**Get the total toughness including defensive roll*/
     this.getMaxToughness=function(){return toughnessMaxValue;};
     this.getTotal=function(){return total;};
@@ -26,9 +26,9 @@ function DefenseList()
        total = 0;
       for (var i = 0; i < defenseArray.length; i++)  //the array doesn't include toughness
       {
-          document.getElementById(DefenseData.names[i]+' start').innerHTML = defenseArray[i].getAbilityValue();
+          document.getElementById(Data.Defense.names[i]+' start').innerHTML = defenseArray[i].getAbilityValue();
           //input is set by user and is never out of date
-          document.getElementById(DefenseData.names[i]+' final').innerHTML = defenseArray[i].getTotalBonus();
+          document.getElementById(Data.Defense.names[i]+' final').innerHTML = defenseArray[i].getTotalBonus();
           total+=defenseArray[i].getRank();  //cost is 1:1
       }
        this.calculateToughness();  //split off because it is involved
@@ -44,7 +44,7 @@ function DefenseList()
    {
       for (var i=0; i < defenseArray.length; i++)
       {
-          defenseArray[i].set(jsonSection[DefenseData.names[i]]);
+          defenseArray[i].set(jsonSection[Data.Defense.names[i]]);
       }
        this.update();
    };
@@ -54,7 +54,7 @@ function DefenseList()
        var json = {};
       for (var i=0; i < defenseArray.length; i++)
       {
-          json[DefenseData.names[i]] = defenseArray[i].getRank();
+          json[Data.Defense.names[i]] = defenseArray[i].getRank();
       }
        return json;
    };
@@ -87,8 +87,8 @@ function DefenseList()
    };
    this.constructor=function()
    {
-       for(var i=0; i < DefenseData.names.length-1; i++)  //-1 to avoid toughness
-          {defenseArray.push(new DefenseObject(DefenseData.names[i]));}
+       for(var i=0; i < Data.Defense.names.length-1; i++)  //-1 to avoid toughness
+          {defenseArray.push(new DefenseObject(Data.Defense.names[i]));}
        Object.freeze(defenseArray);
    };
    //constructor:
@@ -101,13 +101,13 @@ function DefenseObject(defenseName)
     this.change=function(){CommonsLibrary.change.call(this, this.set, (defenseName+' input'), Main.defenseSection, false);};
     this.getRank=function(){return defenseValue;};
    /**Call this to get the initial defense value. The ability name and zeroed value is not saved.
-   It asks DefenseData for name and abilitySection for the value each time.
+   It asks Data.Defense for name and abilitySection for the value each time.
    The ability value is not saved so that it will never be out of date.
    The ability name is not saved so that it is possible to change between old and new rules (again never out of date).
    The ability value is zeroed because you can't lack defense scores*/
    this.getAbilityValue=function()
    {
-       var abilityNameUsed = DefenseData.abilityUsed[DefenseData.names.indexOf(defenseName)];
+       var abilityNameUsed = Data.Defense.abilityUsed[Data.Defense.names.indexOf(defenseName)];
        return Main.abilitySection.getByName(abilityNameUsed).getZeroedValue();
    };
     /**Call this to get the final defense value. The ability value used is from this.getAbilityValue()*/

@@ -17,7 +17,7 @@ function AbilityList()
    //Single line function section
     //getByName is not validated because I want an error thrown so I can debug
     /**Get the ability row based on its name. Will return undefined if not found so that an error will occur.*/
-    this.getByName=function(nameOfAbility){return abilityArray[AbilityData.names.indexOf(nameOfAbility)];};
+    this.getByName=function(nameOfAbility){return abilityArray[Data.Ability.names.indexOf(nameOfAbility)];};
     this.getTotal=function(){return total;};
 
    //public functions section
@@ -27,7 +27,7 @@ function AbilityList()
        total = 0;
       for (var i=0; i < abilityArray.length; i++)
       {
-          if(!Main.isOldRules() && abilityArray[i].isMissing() && AbilityData.names[i] === 'Stamina') total+=30;
+          if(!Main.isOldRules() && abilityArray[i].isMissing() && Data.Ability.names[i] === 'Stamina') total+=30;
           else if(abilityArray[i].isMissing()) total-=10;  //old rules no Stamina costs the same as other missing ones
           else total+=(abilityArray[i].getValue()*2);
       }
@@ -43,7 +43,7 @@ function AbilityList()
    {
       for (var i=0; i < abilityArray.length; i++)
       {
-          abilityArray[i].set(jsonSection[AbilityData.names[i]]);
+          abilityArray[i].set(jsonSection[Data.Ability.names[i]]);
       }
        this.update();
    };
@@ -51,9 +51,9 @@ function AbilityList()
    this.createAbilityMap=function()
    {
        var abilityMap = new MapDefault({}, 0);
-      for (var i=0; i < AbilityData.names.length; i++)
+      for (var i=0; i < Data.Ability.names.length; i++)
       {
-          abilityMap.add(AbilityData.names[i], abilityArray[i].getZeroedValue());
+          abilityMap.add(Data.Ability.names[i], abilityArray[i].getZeroedValue());
           //zeroed: because this is for power level, it can't be blank
       }
        return abilityMap;
@@ -64,7 +64,7 @@ function AbilityList()
        var json = {};
       for (var i=0; i < abilityArray.length; i++)
       {
-          json[AbilityData.names[i]] = abilityArray[i].getValue();
+          json[Data.Ability.names[i]] = abilityArray[i].getValue();
       }
        return json;
    };
@@ -80,7 +80,7 @@ function AbilityList()
        Main.update();  //updates totals and power level
    };
    //constructor:
-    for(var i=0; i < AbilityData.names.length; i++){abilityArray.push(new AbilityObject(AbilityData.names[i]));}
+    for(var i=0; i < Data.Ability.names.length; i++){abilityArray.push(new AbilityObject(Data.Ability.names[i]));}
     Object.freeze(abilityArray);
 }
 function AbilityObject(abilityName)

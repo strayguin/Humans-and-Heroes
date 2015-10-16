@@ -91,9 +91,9 @@ function xmlToJson(xmlString)
     if(informationNode.length === 0) json.Information = '';  //if <Information></Information>
     else json.Information = informationNode[0].nodeValue;  //if <Information>Any text</Information>
 
-   for (i=0; i < AbilityData.names.length; i++)
+   for (i=0; i < Data.Ability.names.length; i++)
    {
-       json.Abilities[AbilityData.names[i]] = xmlDoc.getElementsByTagName(AbilityData.names[i])[0].getAttribute('value');
+       json.Abilities[Data.Ability.names[i]] = xmlDoc.getElementsByTagName(Data.Ability.names[i])[0].getAttribute('value');
    }
 
     json.Powers = convertXmlPowersBothToJson(xmlDoc.getElementsByTagName('Powers')[0].getElementsByTagName('Row'));
@@ -120,9 +120,9 @@ function xmlToJson(xmlString)
        json.Skills.push(thisRow);
    }
 
-   for (i=0; i < DefenseData.names.length-1; i++)  //-1 to avoid toughness
+   for (i=0; i < Data.Defense.names.length-1; i++)  //-1 to avoid toughness
    {
-       json.Defenses[DefenseData.names[i]] = xmlDoc.getElementsByTagName(DefenseData.names[i])[0].getAttribute('value');
+       json.Defenses[Data.Defense.names[i]] = xmlDoc.getElementsByTagName(Data.Defense.names[i])[0].getAttribute('value');
    }
 
     return json;
@@ -172,9 +172,9 @@ function jsonToXml(jsonDoc)
     xmlString+='    <Information>'+jsonDoc.Information+'</Information>\n';
 
     xmlString+='   <Abilities>\n';  //always has this spacing because it is never empty
-   for (i=0; i < AbilityData.names.length; i++)
+   for (i=0; i < Data.Ability.names.length; i++)
    {
-       xmlString+='       <'+AbilityData.names[i]+' value="'+jsonDoc.Abilities[AbilityData.names[i]]+'" />\n';
+       xmlString+='       <'+Data.Ability.names[i]+' value="'+jsonDoc.Abilities[Data.Ability.names[i]]+'" />\n';
    }
     xmlString+='   </Abilities>\n';
 
@@ -215,9 +215,9 @@ function jsonToXml(jsonDoc)
    }
 
     xmlString+='   <Defenses>\n';  //also never empty
-   for (i=0; i < DefenseData.names.length-1; i++)  //-1 to avoid toughness
+   for (i=0; i < Data.Defense.names.length-1; i++)  //-1 to avoid toughness
    {
-       xmlString+='       <'+DefenseData.names[i]+' value="'+jsonDoc.Defenses[DefenseData.names[i]]+'" />\n';
+       xmlString+='       <'+Data.Defense.names[i]+' value="'+jsonDoc.Defenses[Data.Defense.names[i]]+'" />\n';
    }
     xmlString+='   </Defenses>\n';
 

@@ -57,7 +57,7 @@ function PowerListAgnostic(sectionName)
           rowArray[i].calculateValues();  //will calculate rank and total
           var powerEffect = rowArray[i].getEffect();
           var rank = rowArray[i].getRank();
-          if(PowerData.godhoodNames.contains(powerEffect)) usingGodhoodPowers=true;
+          if(Data.Power.godhoodNames.contains(powerEffect)) usingGodhoodPowers=true;
           else if(powerEffect === 'Protection' && rank > protectionRankTotal) protectionRankTotal = rank;
              //protection doesn't stack and may have more than 1
           if(rowArray[i].getName() !== undefined) attackEffectRanks.add(rowArray[i].getSkillUsed(), i);
@@ -78,9 +78,9 @@ function PowerListAgnostic(sectionName)
       for (var i=0; i < jsonSection.length; i++)
       {
           var nameToLoad=jsonSection[i].effect;
-          if(!PowerData.names.contains(nameToLoad) && !PowerData.godhoodNames.contains(nameToLoad))
+          if(!Data.Power.names.contains(nameToLoad) && !Data.Power.godhoodNames.contains(nameToLoad))
              {Main.messageUser('Load Error: '+nameToLoad+' is not a power name.'); continue;}  //not found
-          if(PowerData.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
+          if(Data.Power.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
              {Main.messageUser('Load Error: '+nameToLoad+' is the power listed without transcendence (='+Main.getTranscendence()+')'); continue;}
           var rowPointer=rowArray.last();
           rowPointer.setPower(nameToLoad);  //must be done before all others

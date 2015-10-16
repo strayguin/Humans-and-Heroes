@@ -287,7 +287,7 @@ Tester.advantageList.load=function(isFirst)
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Benefit has rank'});
     testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'of default rank'});
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Benefit has text'});
-    testResults.push({Expected: AdvantageData.defaultText.get('Benefit'), Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'of default text'});
+    testResults.push({Expected: Data.Advantage.defaultText.get('Benefit'), Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'of default text'});
     testResults.push({Expected: false, Actual: Main.advantageSection.getRow(1).doesHaveRank(), Action: actionTaken, Description: 'Beyond Mortal doesn\'t have rank'});
     testResults.push({Expected: false, Actual: Main.advantageSection.getRow(1).doesHaveText(), Action: actionTaken, Description: 'or text'});
     testResults.push({Expected: false, Actual: Main.advantageSection.getRow(2).doesHaveRank(), Action: actionTaken, Description: 'Stay Like That doesn\'t have rank'});
@@ -295,7 +295,7 @@ Tester.advantageList.load=function(isFirst)
     testResults.push({Expected: 'yoyo text', Actual: Main.advantageSection.getRow(2).getText(), Action: actionTaken, Description: 'as specified'});
     testResults.push({Expected: false, Actual: Main.advantageSection.getRow(3).doesHaveText(), Action: actionTaken, Description: 'Omniscient no text'});
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(3).doesHaveRank(), Action: actionTaken, Description: 'Omniscient has rank'});
-    testResults.push({Expected: AdvantageData.maxRanks.get('Omniscient'), Actual: Main.advantageSection.getRow(3).getRank(), Action: actionTaken, Description: 'as max'});
+    testResults.push({Expected: Data.Advantage.maxRanks.get('Omniscient'), Actual: Main.advantageSection.getRow(3).getRank(), Action: actionTaken, Description: 'as max'});
 
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(4).doesHaveRank(), Action: actionTaken, Description: 'Supreme has rank'});
     testResults.push({Expected: 5, Actual: Main.advantageSection.getRow(4).getRank(), Action: actionTaken, Description: 'as specified'});
@@ -334,22 +334,22 @@ Tester.advantageRow.generate=function(isFirst)
     var testResults=[];
     var actionTaken='Initial';
     testResults.push({Expected: false, Actual: SelectUtil.containsText('advantageChoices0', 'Equipment'), Action: actionTaken, Description: 'Advantage Row exists but doesn\'t have Equipment'});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', AdvantageData.names.last()), Action: actionTaken, Description: 'Advantage Row has (last) '+AdvantageData.names.last()});
-    testResults.push({Expected: false, Actual: SelectUtil.containsText('advantageChoices0', AdvantageData.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row doesn\'t have (first Godhood) '+AdvantageData.godhoodNames[0]});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', Data.Advantage.names.last()), Action: actionTaken, Description: 'Advantage Row has (last) '+Data.Advantage.names.last()});
+    testResults.push({Expected: false, Actual: SelectUtil.containsText('advantageChoices0', Data.Advantage.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row doesn\'t have (first Godhood) '+Data.Advantage.godhoodNames[0]});
 
     try{
     actionTaken='Set Godhood'; TesterUtility.changeValue('Strength', 100);
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', AdvantageData.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row now has (first) '+AdvantageData.godhoodNames[0]});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', AdvantageData.godhoodNames.last()), Action: actionTaken, Description: 'And has (last) '+AdvantageData.godhoodNames.last()});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', Data.Advantage.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row now has (first) '+Data.Advantage.godhoodNames[0]});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('advantageChoices0', Data.Advantage.godhoodNames.last()), Action: actionTaken, Description: 'And has (last) '+Data.Advantage.godhoodNames.last()});
     actionTaken='Clear Godhood'; TesterUtility.changeValue('Strength', 0);
-    testResults.push({Expected: false, Actual: SelectUtil.containsText('advantageChoices0', AdvantageData.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row Godhood removed'});
+    testResults.push({Expected: false, Actual: SelectUtil.containsText('advantageChoices0', Data.Advantage.godhoodNames[0]), Action: actionTaken, Description: 'Advantage Row Godhood removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    actionTaken='Padded Equipment Row Test'; SelectUtil.changeText('advantageChoices0', AdvantageData.names.last()); SelectUtil.changeText('equipmentChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 10); SelectUtil.changeText('advantageChoices2', AdvantageData.names[0]);
-    testResults.push({Expected: AdvantageData.names.last(), Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is '+AdvantageData.names.last()});
+    actionTaken='Padded Equipment Row Test'; SelectUtil.changeText('advantageChoices0', Data.Advantage.names.last()); SelectUtil.changeText('equipmentChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 10); SelectUtil.changeText('advantageChoices2', Data.Advantage.names[0]);
+    testResults.push({Expected: Data.Advantage.names.last(), Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is '+Data.Advantage.names.last()});
     testResults.push({Expected: 'Equipment', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Then Equipment'});
-    testResults.push({Expected: AdvantageData.names[0], Actual: Main.advantageSection.getRow(2).getName(), Action: actionTaken, Description: 'Then '+AdvantageData.names[0]});
+    testResults.push({Expected: Data.Advantage.names[0], Actual: Main.advantageSection.getRow(2).getName(), Action: actionTaken, Description: 'Then '+Data.Advantage.names[0]});
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(3).isBlank(), Action: actionTaken, Description: 'Then blank'});
 
     testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices0'), Action: actionTaken, Description: 'First row is a select'});
@@ -362,8 +362,8 @@ Tester.advantageRow.generate=function(isFirst)
     testResults.push({Expected: null, Actual: document.getElementById('advantageRank2'), Action: actionTaken, Description: 'Equipment rank input doesn\'t exist'});
 
     actionTaken='Cleared Equipment'; Main.equipmentSection.clear();
-    testResults.push({Expected: AdvantageData.names.last(), Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is '+AdvantageData.names.last()});
-    testResults.push({Expected: AdvantageData.names[0], Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Then '+AdvantageData.names[0]});
+    testResults.push({Expected: Data.Advantage.names.last(), Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is '+Data.Advantage.names.last()});
+    testResults.push({Expected: Data.Advantage.names[0], Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Then '+Data.Advantage.names[0]});
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(2).isBlank(), Action: actionTaken, Description: 'Then blank'});
 
     testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices0'), Action: actionTaken, Description: 'First row is a select'});
@@ -388,7 +388,7 @@ Tester.advantageRow.generate=function(isFirst)
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Advantage section is blank'});
 
     actionTaken='Set Languages'; SelectUtil.changeText('advantageChoices0', 'Languages');
-    testResults.push({Expected: AdvantageData.defaultText.get('Languages'), Actual: document.getElementById('advantageText0').value, Action: actionTaken, Description: 'Advantage text was created with default text'});
+    testResults.push({Expected: Data.Advantage.defaultText.get('Languages'), Actual: document.getElementById('advantageText0').value, Action: actionTaken, Description: 'Advantage text was created with default text'});
     actionTaken='Set Diehard'; SelectUtil.changeText('advantageChoices0', 'Diehard');
     testResults.push({Expected: null, Actual: document.getElementById('advantageText0'), Action: actionTaken, Description: 'Advantage text was removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
@@ -399,7 +399,7 @@ Tester.advantageRow.generate=function(isFirst)
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Advantage section is blank'});
 
     actionTaken='Set Lucky'; SelectUtil.changeText('advantageChoices0', 'Lucky');
-    testResults.push({Expected: AdvantageData.costPerRank.get('Lucky').toString(), Actual: document.getElementById('advantageRowTotal0').innerHTML, Action: actionTaken, Description: 'Advantage row total was created with default value'});
+    testResults.push({Expected: Data.Advantage.costPerRank.get('Lucky').toString(), Actual: document.getElementById('advantageRowTotal0').innerHTML, Action: actionTaken, Description: 'Advantage row total was created with default value'});
     actionTaken='Set Diehard'; SelectUtil.changeText('advantageChoices0', 'Diehard');
     testResults.push({Expected: null, Actual: document.getElementById('advantageRowTotal0'), Action: actionTaken, Description: 'Advantage row total was removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
@@ -1515,8 +1515,8 @@ Tester.skillRow.generate=function(isFirst)
     var actionTaken='Initial';
     var firstRow = Main.skillSection.getRow(0);  //short hand
     testResults.push({Expected: true, Actual: firstRow.isBlank(), Action: actionTaken, Description: 'First Row is blank'});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names[0]), Action: actionTaken, Description: ('Has first skill: ' + SkillData.names[0])});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names.last()), Action: actionTaken, Description: ('Has last skill: ' + SkillData.names.last())});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names[0]), Action: actionTaken, Description: ('Has first skill: ' + Data.Skill.names[0])});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names.last()), Action: actionTaken, Description: ('Has last skill: ' + Data.Skill.names.last())});
     testResults.push({Expected: null, Actual: document.getElementById('skillText0'), Action: actionTaken, Description: 'Text doesn\'t exist'});
     testResults.push({Expected: null, Actual: document.getElementById('skillRank0'), Action: actionTaken, Description: 'Rank doesn\'t exist'});
     testResults.push({Expected: null, Actual: document.getElementById('skillAbility0'), Action: actionTaken, Description: 'Ability doesn\'t exist'});
@@ -1525,20 +1525,20 @@ Tester.skillRow.generate=function(isFirst)
     try{
     actionTaken='Set Acrobatics'; SelectUtil.changeText('skillChoices0', 'Acrobatics');
     testResults.push({Expected: false, Actual: firstRow.isBlank(), Action: actionTaken, Description: 'First Row is not blank'});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names[0]), Action: actionTaken, Description: ('Has first skill: ' + SkillData.names[0])});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names.last()), Action: actionTaken, Description: ('Has last skill: ' + SkillData.names.last())});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names[0]), Action: actionTaken, Description: ('Has first skill: ' + Data.Skill.names[0])});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names.last()), Action: actionTaken, Description: ('Has last skill: ' + Data.Skill.names.last())});
     testResults.push({Expected: 'Skill Subtype', Actual: document.getElementById('skillText0').value, Action: actionTaken, Description: 'Text exists'});
     testResults.push({Expected: '1', Actual: document.getElementById('skillRank0').value, Action: actionTaken, Description: 'Rank exists'});
     testResults.push({Expected: 'Agility', Actual: document.getElementById('skillAbility0').value, Action: actionTaken, Description: 'Ability exists'});
     testResults.push({Expected: '1', Actual: document.getElementById('skill bonus 0').innerHTML, Action: actionTaken, Description: 'Bonus exists'});
 
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillAbility0', AbilityData.names[0]), Action: actionTaken, Description: ('Has first ability: ' + AbilityData.names[0])});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillAbility0', AbilityData.names.last()), Action: actionTaken, Description: ('Has last ability: ' + AbilityData.names.last())});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillAbility0', Data.Ability.names[0]), Action: actionTaken, Description: ('Has first ability: ' + Data.Ability.names[0])});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillAbility0', Data.Ability.names.last()), Action: actionTaken, Description: ('Has last ability: ' + Data.Ability.names.last())});
 
     actionTaken='Unset'; SelectUtil.changeText('skillChoices0', 'Select One');
     testResults.push({Expected: true, Actual: firstRow.isBlank(), Action: actionTaken, Description: 'First Row is blank'});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names[0]), Action: actionTaken, Description: ('Has first skill: ' + SkillData.names[0])});
-    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', SkillData.names.last()), Action: actionTaken, Description: ('Has last skill: ' + SkillData.names.last())});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names[0]), Action: actionTaken, Description: ('Has first skill: ' + Data.Skill.names[0])});
+    testResults.push({Expected: true, Actual: SelectUtil.containsText('skillChoices0', Data.Skill.names.last()), Action: actionTaken, Description: ('Has last skill: ' + Data.Skill.names.last())});
     testResults.push({Expected: null, Actual: document.getElementById('skillText0'), Action: actionTaken, Description: 'Text doesn\'t exist'});
     testResults.push({Expected: null, Actual: document.getElementById('skillRank0'), Action: actionTaken, Description: 'Rank doesn\'t exist'});
     testResults.push({Expected: null, Actual: document.getElementById('skillAbility0'), Action: actionTaken, Description: 'Ability doesn\'t exist'});
@@ -2019,7 +2019,7 @@ function allDataInfo(dataSource)
 See allDataInfo for more info*/
 function allDataInfoToCodeBox(dataSource)
 {
-    document.getElementById('code box').value = JSON.stringify(allDataInfo(SkillData));
+    document.getElementById('code box').value = JSON.stringify(allDataInfo(Data.Skill));
 }
 /**This is NOT a normal bling! It only allows getting an element by id (starting with '#'). Nothing is returned in any other case (undefined not null).*/
 //if(window.$ === undefined){window.$=function(name){if(name[0] === '#') return document.getElementById(name.substring(1));};}

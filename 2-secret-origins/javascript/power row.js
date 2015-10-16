@@ -39,19 +39,19 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    this.getDefaultAction=function()
    {
        if(this.isBlank()) return;
-       return PowerData.defaultAction.get(effect);
+       return Data.Power.defaultAction.get(effect);
    };
    /**Returns the default duration for this power or nothing if this row is blank.*/
    this.getDefaultDuration=function()
    {
        if(this.isBlank()) return;
-       return PowerData.defaultDuration.get(effect);
+       return Data.Power.defaultDuration.get(effect);
    };
    /**Returns the default range or nothing if this row is blank.*/
    this.getDefaultRange=function()
    {
        if(this.isBlank()) return;
-       return PowerData.defaultRange.get(effect);
+       return Data.Power.defaultRange.get(effect);
    };
     /**Get the name of the power appended with text and modifiers to determine redundancy*/
     this.getUniqueName=function(){return effect+': '+text+'; '+modifierSection.getUniqueName();};  //text might be empty
@@ -92,18 +92,18 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    this.setPower=function(effectNameGiven)
    {
        modifierSection.clear();  //always clear them out on select
-       if(!PowerData.names.contains(effectNameGiven) && !PowerData.godhoodNames.contains(effectNameGiven)){this.constructor(); return;}  //reset values
+       if(!Data.Power.names.contains(effectNameGiven) && !Data.Power.godhoodNames.contains(effectNameGiven)){this.constructor(); return;}  //reset values
           //this is only reachable if you select the default value in the drop down
 
        effect = effectNameGiven;
-       canSetBaseCost = PowerData.hasInputBaseCost.contains(effect);
-       baseCost = PowerData.baseCost.get(effect);
+       canSetBaseCost = Data.Power.hasInputBaseCost.contains(effect);
+       baseCost = Data.Power.baseCost.get(effect);
        text = 'Descriptors and other text';
-       action = PowerData.defaultAction.get(effect);
-       range = PowerData.defaultRange.get(effect);
-       duration = PowerData.defaultDuration.get(effect);
+       action = Data.Power.defaultAction.get(effect);
+       range = Data.Power.defaultRange.get(effect);
+       duration = Data.Power.defaultDuration.get(effect);
        rank = 1;
-      if (PowerData.isAttack.contains(effect))
+      if (Data.Power.isAttack.contains(effect))
       {
           name = ((rowIndex+1) + ' ' + effect);
           if(powerListParent === Main.powerSection) name = 'Power ' + name;
@@ -117,7 +117,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    this.setBaseCost=function(baseGiven)
    {
        if(!canSetBaseCost || this.isBlank()) return;  //only possible when loading bad data
-       baseCost = sanitizeNumber(baseGiven, 1, PowerData.baseCost.get(effect));  //unique defaults
+       baseCost = sanitizeNumber(baseGiven, 1, Data.Power.baseCost.get(effect));  //unique defaults
    };
    /**Used to set data independent of the document and without calling update*/
    this.setText=function(textGiven)
@@ -130,10 +130,10 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    {
        if(this.isBlank()) return;
        if(action === actionGiven) return;  //nothing has changed
-       var baseActionName = PowerData.defaultAction.get(effect);
+       var baseActionName = Data.Power.defaultAction.get(effect);
        if(baseActionName === 'None' && actionGiven !== 'None') baseActionName = 'Free';  //calculate distance from free
-       var baseActionIndex = PowerData.actions.indexOf(baseActionName);
-       var newIndex = PowerData.actions.indexOf(actionGiven);
+       var baseActionIndex = Data.Power.actions.indexOf(baseActionName);
+       var newIndex = Data.Power.actions.indexOf(actionGiven);
        if(newIndex === -1) return;  //if not found (only possible when loading bad data)
 
        action = actionGiven;  //must be here to work for None
@@ -156,13 +156,13 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        if(this.isBlank()) return;
        if(range === rangeGiven) return;  //nothing has changed (only possible when loading)
        if(effect === 'Feature'){range = rangeGiven; return;}  //Feature doesn't change modifiers and is always valid
-       var baseRangeName = PowerData.defaultRange.get(effect);
+       var baseRangeName = Data.Power.defaultRange.get(effect);
        if(rangeGiven === 'Personal' && baseRangeName !== 'Personal') return;  //when loading bad data. only Feature can change duration to Personal
        if(duration === 'Permanent' && rangeGiven !== 'Personal') return;  //can only be Personal
-       var baseRangeIndex = PowerData.ranges.indexOf(baseRangeName);
-       var newIndex = PowerData.ranges.indexOf(rangeGiven);
+       var baseRangeIndex = Data.Power.ranges.indexOf(baseRangeName);
+       var newIndex = Data.Power.ranges.indexOf(rangeGiven);
        if(newIndex === -1) return;  //if not found (only possible when loading bad data)
-       if(baseRangeName === 'Personal') baseRangeIndex = PowerData.ranges.indexOf('Close');  //calculate distance from close
+       if(baseRangeName === 'Personal') baseRangeIndex = Data.Power.ranges.indexOf('Close');  //calculate distance from close
        if(rangeGiven === 'Personal') return;  //only possible when a modifier is removed
       if (name !== undefined)
       {
@@ -184,7 +184,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
    {
        if(this.isBlank()) return;
        if(duration === durationGiven) return;  //nothing has changed
-       var baseDurationName = PowerData.defaultDuration.get(effect);
+       var baseDurationName = Data.Power.defaultDuration.get(effect);
        if(effect !== 'Feature' && (durationGiven === 'Instant' || baseDurationName === 'Instant')) return;
           //only Feature can set to and from instant. other attempts are only possible when loading bad data
        if(range !== 'Personal' && durationGiven === 'Permanent') return;  //only personal range can have Permanent duration
@@ -193,13 +193,13 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       {
           //then reset action
           if(baseDurationName === 'Permanent') this.setAction('Free');  //default action is None, Free is used when an action exists
-          else this.setAction(PowerData.defaultAction.get(effect));
+          else this.setAction(Data.Power.defaultAction.get(effect));
           //action will be set to none later if durationGiven is Permanent
       }
        //else do not set action
 
-       var baseDurationIndex = PowerData.durations.indexOf(baseDurationName);
-       var newIndex = PowerData.durations.indexOf(durationGiven);
+       var baseDurationIndex = Data.Power.durations.indexOf(baseDurationName);
+       var newIndex = Data.Power.durations.indexOf(durationGiven);
        if(newIndex === -1) return;  //if not found (only possible when loading bad data)
 
        duration = durationGiven;
@@ -261,16 +261,16 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        var htmlString = '', i;
        htmlString+='<select id="'+sectionName+'Choices'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').select();">\n';
        htmlString+='    <option>Select One</option>\n';
-      for (i=0; i < PowerData.names.length; i++)
+      for (i=0; i < Data.Power.names.length; i++)
       {
-          htmlString+='    <option>'+PowerData.names[i]+'</option>\n';
+          htmlString+='    <option>'+Data.Power.names[i]+'</option>\n';
       }
       if (Main !== undefined && powerListParent !== Main.equipmentSection && (Main.powerSection.isUsingGodhoodPowers() || Main.canUseGodHood()))
       //equipment can't be god-like so I only need to check power section's switch
          //must check both hasGodhoodAdvantages and canUseGodHood since they are not yet in sync
-         for (i=0; i < PowerData.godhoodNames.length; i++)
+         for (i=0; i < Data.Power.godhoodNames.length; i++)
          {
-             htmlString+='    <option>'+PowerData.godhoodNames[i]+'</option>\n';
+             htmlString+='    <option>'+Data.Power.godhoodNames[i]+'</option>\n';
          }
        htmlString+='</select>\n';
        if(this.isBlank()) return htmlString;  //done
@@ -291,8 +291,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       else
       {
           htmlString+='         <select id="'+sectionName+'SelectAction'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectAction();">\n';
-         for (i=0; i < PowerData.actions.length-1; i++)  //-1 to avoid 'None'
-             {htmlString+='             <option>'+PowerData.actions[i]+'</option>\n';}
+         for (i=0; i < Data.Power.actions.length-1; i++)  //-1 to avoid 'None'
+             {htmlString+='             <option>'+Data.Power.actions[i]+'</option>\n';}
           htmlString+='         </select>\n';
       }
        htmlString+='      </td>\n';
@@ -322,13 +322,13 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       }
        htmlString+='      </td>\n';
        htmlString+='   </tr>\n';
-      if (PowerData.isAttack.contains(effect))
+      if (Data.Power.isAttack.contains(effect))
       {
           htmlString+='   <tr>\n';
           htmlString+='       <td width="34%" style="text-align:right;"></td>\n';
           htmlString+='      <td colspan="2" width="66%">\n';
-          htmlString+=SharedHtmlData.powerName(sectionName, rowIndex);
-          if(range !== 'Perception') htmlString+=SharedHtmlData.powerSkill(sectionName, rowIndex);
+          htmlString+=Data.SharedHtml.powerName(sectionName, rowIndex);
+          if(range !== 'Perception') htmlString+=Data.SharedHtml.powerSkill(sectionName, rowIndex);
           htmlString+='      </td>\n';
           htmlString+='   </tr>\n';
       }

@@ -53,7 +53,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        rankTotal=0; flatTotal=0;
       for (var i=0; i < rowArray.length-1; i++)  //the last row is always blank
       {
-          if(ModifierData.hasAutoTotal.contains(rowArray[i].getName())) autoModifierNameToRowIndex.add(rowArray[i].getName(), i);
+          if(Data.Modifier.hasAutoTotal.contains(rowArray[i].getName())) autoModifierNameToRowIndex.add(rowArray[i].getName(), i);
           if(rowArray[i].isRank()) rankTotal+=rowArray[i].getRawTotal();
           else flatTotal+=rowArray[i].getRawTotal();  //could be flat or free. if free the total will be 0
       }
@@ -114,7 +114,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
       for (var i=0; i < jsonSection.length; i++)
       {
           var newName=jsonSection[i].name;
-          if(!ModifierData.names.contains(newName))
+          if(!Data.Modifier.names.contains(newName))
              {Main.messageUser('Load Error: '+newName+' is not a modifier name. Did you mean "Other" with text?'); continue;}  //not found
           rowArray.last().setModifier(newName);
           if(jsonSection[i].applications !== undefined) rowArray.last().setRank(jsonSection[i].applications);

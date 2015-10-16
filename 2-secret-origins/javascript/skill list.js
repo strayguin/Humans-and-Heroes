@@ -72,7 +72,7 @@ function SkillList()
        //rowArray=[new SkillObject(0)];
       for (var i=0; i < jsonSection.length; i++)
       {
-         if (!SkillData.names.contains(jsonSection[i].name))
+         if (!Data.Skill.names.contains(jsonSection[i].name))
          {
              if(Main.isOldRules()) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In the original rules no other skills exist.');
              else Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. Did you mean "Other" with a subtype?');
