@@ -75,8 +75,8 @@ function DefenseList()
        var protectionValue = Main.getProtectionTotal();
        var defensiveRollValue = Main.advantageSection.getRankMap().get('Defensive Roll');
 
-       if(Main.isOldRules()) toughnessWithoutDefensiveRoll = protectionValue + staminaValue;  //in old rules stamina stacked but nothing else
-       //TODO: actually in old everything stacked
+       if(1 === Main.getActiveRuleset().major) toughnessWithoutDefensiveRoll = protectionValue + staminaValue;  //in ruleset 1.x stamina stacked but nothing else
+       //TODO: actually in v1.x everything stacked
        else if(protectionValue > staminaValue) toughnessWithoutDefensiveRoll = protectionValue;
        else toughnessWithoutDefensiveRoll = staminaValue;
        toughnessMaxValue = toughnessWithoutDefensiveRoll + defensiveRollValue;  //defensive Roll stacks

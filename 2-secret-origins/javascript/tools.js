@@ -53,6 +53,18 @@ Array.prototype.removeByValue=function(value)
     this.remove(index);
 };
 
+const VersionCompare = {};
+/**return (left > right);
+Both parameters must be objects with properties of major and minor (each being an integer)
+*/
+VersionCompare.isGreaterThan = function(left, right)
+{
+    if(left.major > right.major) return true;
+    if(left.major < right.major) return false;
+    return (left.minor > right.minor);
+};
+//create VersionCompare only as needed
+
 /**This function is designed to sanitize numbers given by user input and to validate the number (if it is one).
 More simply: it returns a valid integer based on the given input.
 numberGiven: null safe converted into an integer if possible, if not possible defaultValue is returned
@@ -61,10 +73,11 @@ Note that the entire numberGiven is validated as a float then truncated meaning 
 */
 function sanitizeNumber(numberGiven, minimum, defaultValue)
 {
+    //Number.isFinite can't simplify this because I need to pass in a string and fail on trailing text
     var value = (numberGiven+'').trim();  //null safe. convert the type to string in case it is something that isn't number or string
     if(value === '' || !isFinite(value)) return defaultValue;  //empty string is checked because isFinite('') === true
        //isFinite(NaN) === false && isFinite(-Infinity) === false
-    value = Math.floor(parseFloat(value));  //trailing text is caught by isFinite
+    value = Math.floor(Number.parseFloat(value));  //trailing text is caught by isFinite
     if(value < 0) value++;  //I want to truncate (round to 0) instead of floor (round to -Infinity)
     if(value < minimum) return minimum;  //make minimum -Infinity to skip this (no one skips this step)
     //there are only 2 places that have a maximum: modifier and advantage

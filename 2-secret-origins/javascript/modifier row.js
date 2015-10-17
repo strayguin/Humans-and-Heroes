@@ -190,9 +190,9 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    {
        if(this.isBlank() || !hasAutoTotal) return powerRowRawTotal;
 
-       if(name === 'Dynamic Alternate Effect'){autoTotal=2-powerRowRawTotal; return 2;}  //only exists in old rules
-       if(name === 'Alternate Effect' && Main.isOldRules()){autoTotal=1-powerRowRawTotal; return 1;}
-       //Alternate Effect in old rules forced the power to be worth a total of 1 (or 2 for Dynamic). the the flaw is all but 1
+       if(name === 'Dynamic Alternate Effect'){autoTotal=2-powerRowRawTotal; return 2;}  //only exists in ruleset 1.x
+       if(name === 'Alternate Effect' && 1 === Main.getActiveRuleset().major){autoTotal=1-powerRowRawTotal; return 1;}
+       //Alternate Effect in ruleset 1.x forced the power to be worth a total of 1 (or 2 for Dynamic). the the flaw is all but 1
 
        //name can't be both alt and removable
        if(name === 'Alternate Effect') autoTotal=Math.floor(powerRowRawTotal/2);

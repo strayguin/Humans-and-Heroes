@@ -51,8 +51,8 @@ function SkillList()
           var abilityValue = Main.abilitySection.getByName(abilityNameUsed).getValue();  //non-zeroed for below
           var bonusValue;
 
-          if(abilityValue === '--' && abilityNameUsed === 'Stamina' && !Main.isOldRules()) bonusValue = 'Always Pass';
-          else if(abilityValue === '--') bonusValue = 'Always Fail';  //in old rules having no stamina means always fails
+          if(abilityValue === '--' && abilityNameUsed === 'Stamina' && Main.getActiveRuleset().major > 1) bonusValue = 'Always Pass';
+          else if(abilityValue === '--') bonusValue = 'Always Fail';  //in ruleset 1.x having no stamina means always fails
           else bonusValue = rowArray[i].getRank() + abilityValue;
           rowArray[i].setTotalBonus(bonusValue);
           //neither -- affects power levels so it isn't added to max skill map
@@ -74,7 +74,7 @@ function SkillList()
       {
          if (!Data.Skill.names.contains(jsonSection[i].name))
          {
-             if(Main.isOldRules()) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In the original rules no other skills exist.');
+             if(1 === Main.getActiveRuleset().major) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In the original rules no other skills exist.');
              else Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. Did you mean "Other" with a subtype?');
              continue;
          }

@@ -119,13 +119,10 @@ Data.SharedHtml =
 Object.freeze(Data.Ability);
 Object.freeze(Data.SharedHtml);
 
-/**This method changes all of the data to the newRuleset passed in. The constructor of Main also calls this to initialize the rule dependant data.*/
-Data.change = function(newRuleset)
+/**This method changes all of the data to the major, minor ruleset passed in. The constructor of Main also calls this to initialize the rule dependant data.*/
+Data.change = function(major, minor)
 {
-    if(true === newRuleset) newRuleset = 1.1;
-    if(false === newRuleset) newRuleset = 2.7;  //remove these when Main tracks version numbers instead of a boolean
-
-   if (newRuleset < 2)
+   if (1 === major)
    {
        Data.Advantage.costPerRank.set('Sidekick', 1);  //only one that needs to be changed (since the rest were removed)
        Data.Advantage.maxRanks.set('Improved Initiative', Infinity);
@@ -164,7 +161,7 @@ Data.change = function(newRuleset)
 
        Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Awareness';
    }
-   else  //if(newRuleset >= 2)
+   else  //if(major >= 2)
    {
        Data.Advantage.costPerRank.set('Sidekick', 2);
        Data.Advantage.maxRanks.set('Improved Initiative', 5);

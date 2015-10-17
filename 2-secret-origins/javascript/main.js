@@ -19,17 +19,20 @@ bio box: nothing: same as hero name
 function MainObject()
 {
    //private variable section:
-    var latestRuleset = 3.0, latestVersion = 2;  //see bottom of this document for a version list
+    var latestRuleset = {major: 2, minor: 7}, latestVersion = 2;  //see bottom of this file for a version list
     var characterPointsSpent = 0, transcendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
-    var useOldRules = false, mockMessenger;
-    //TODO: have Main track ruleset #
-    //TODO: have Main track ruleset major and minor
+   var activeRuleset =
+      {
+          major: latestRuleset.major, minor: latestRuleset.minor,
+          toString: function(){return (this.major + '.' + this.minor);}
+      };
+    var mockMessenger;  //used for testing
 
    //Single line function section
     this.canUseGodHood=function(){return (transcendence > 0);};
     this.getTranscendence=function(){return transcendence;};
-    this.isOldRules=function(){return useOldRules;};
+    this.getActiveRuleset=function(){return activeRuleset;};
     /**This sets the code box with the saved text.*/
     this.saveToText=function(){document.getElementById('code box').value = this.save();};
     /**This loads the text text within the code box.*/
@@ -40,10 +43,25 @@ function MainObject()
     this.clearMockMessenger=function(){mockMessenger = undefined;};
 
    //Onchange section
+   /**Onchange function for changing the ruleset. Sets the document values as needed*/
+   this.changeRuleset=function()
+   {
+       var ruleset = document.getElementById('ruleset').value.trim();
+      if ('' !== ruleset)
+      {
+          ruleset = ruleset.split('.');
+          //major needs special treatment so only use Number.parseInt
+          ruleset = {major: Number.parseInt(ruleset[0]), minor: sanitizeNumber(ruleset[1], 0, 0)};
+          if(Number.isNaN(ruleset.major) || ruleset.major < 1){}  //ignore
+          else if(VersionCompare.isGreaterThan(ruleset, latestRuleset)){}
+          else this.setRuleset(ruleset.major, ruleset.minor);
+      }
+       document.getElementById('ruleset').value = activeRuleset.toString();
+   };
    /**Onchange function for changing the transcendence. Sets the document values as needed*/
    this.changeTranscendence=function()
    {
-       if(useOldRules){transcendence = 0; return;}
+       if(1 === activeRuleset.major){transcendence = 0; return;}  //1.x doesn't have transcendence
        transcendence = sanitizeNumber(document.getElementById('transcendence').value, -1, 0);
        if((this.powerSection.isUsingGodhoodPowers() || this.advantageSection.hasGodhoodAdvantages()) && transcendence <= 0)
           transcendence = 1;  //must raise the minimum due to currently using god-like powers
@@ -70,7 +88,7 @@ function MainObject()
        this.skillSection.clear();
        this.defenseSection.clear();
        document.getElementById('bio box').value = 'Complications, background and other information';
-       //do not change old rules and do not change the code box (just in case the user needed that)
+       //do not change ruleset and do not change the code box (just in case the user needed that)
        //I also decided not to touch either file chooser so that the user can easily select from same folder again
    };
    /**Loads the file's data*/
@@ -99,8 +117,8 @@ function MainObject()
    /**Gets the total protection value of the sections power and equipment.*/
    this.getProtectionTotal=function()
    {
-       if(useOldRules) return (this.powerSection.getProtectionRankTotal() + this.equipmentSection.getProtectionRankTotal());
-       //protection stacks only in old rules
+       if(1 === activeRuleset.major) return (this.powerSection.getProtectionRankTotal() + this.equipmentSection.getProtectionRankTotal());
+       //protection stacks only in v1.x
        if(this.powerSection.getProtectionRankTotal() > this.equipmentSection.getProtectionRankTotal()) return this.powerSection.getProtectionRankTotal();
        return this.equipmentSection.getProtectionRankTotal();
    };
@@ -110,12 +128,6 @@ function MainObject()
    {
        if(mockMessenger !== undefined){mockMessenger(messsageSent); return;}
        alert(messsageSent);
-   };
-   /**Used to toggle between old and new rules. Will set useOldRules to the opposite of what it currently is.*/
-   this.ruleToggle=function()
-   {
-       if(useOldRules) this.setOldRules(false);
-       else this.setOldRules(true);
    };
    /**Onclick event for the saveToFileLink anchor link only.
    It changes the a tag so that the link downloads the document as a saved file.*/
@@ -138,30 +150,13 @@ function MainObject()
        //an iframe form submit might work but this is better
    };
    /**This function handles all changes needed when switching between rules. Main.clear() is called unless no change is needed.*/
-   this.setOldRules=function(valueGiven)
+   this.setRuleset=function(major, minor)
    {
-       if(useOldRules === valueGiven) return;  //done. don't clear out everything
-       useOldRules = valueGiven;
+       if(activeRuleset.major === major && activeRuleset.minor === minor) return;  //done. don't clear out everything
+       activeRuleset.major = major;
+       activeRuleset.minor = minor;
 
-      if (useOldRules)  //switched to old rules
-      {
-          document.getElementById('rule description td').innerHTML = 'The calculator is currently using the original 3e rules';
-          document.getElementById('Transcendence span').style.visibility = 'hidden';  //still takes up space so that the formatting is still good
-          document.getElementById('to new rules button').style.display = 'inline';
-          document.getElementById('to new rules span').style.display = 'none';
-          document.getElementById('to old rules button').style.display = 'none';
-          document.getElementById('to old rules span').style.display = 'inline';
-      }
-      else  //switched to new rules
-      {
-          document.getElementById('rule description td').innerHTML = 'The calculator is currently using the modified 3e rules';
-          document.getElementById('Transcendence span').style.visibility = 'visible';
-          document.getElementById('to old rules button').style.display = 'inline';
-          document.getElementById('to old rules span').style.display = 'none';
-          document.getElementById('to new rules button').style.display = 'none';
-          document.getElementById('to new rules span').style.display = 'inline';
-      }
-       Data.change(useOldRules);
+       Data.change(major, minor);
        this.clear();  //needed to regenerate advantages etc
    };
    /**This counts character points and power level and sets the document. It needs to be called by every section's update.*/
@@ -179,7 +174,7 @@ function MainObject()
 
        document.getElementById('power level').innerHTML = powerLevel;
        document.getElementById('grand total max').innerHTML = (powerLevel*15);
-      if (!useOldRules)
+      if (activeRuleset.major > 1)
       {
           if(powerLevel >= 20) transcendence = Math.floor(powerLevel/20);  //gain a transcendence every 20 PL
           else if(transcendence !== -1) transcendence = 0;  //if PL < 20 then set to minimum (which is 0 unless -1 is specified)
@@ -192,7 +187,7 @@ function MainObject()
    this.updateInitiative=function()
    {
        var agilityScore = this.abilitySection.getByName('Agility').getZeroedValue();  //used zeroed because even -- agility has initiative
-       if(useOldRules) agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*4);
+       if(1 === activeRuleset.major) agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*4);
        else agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*2);  //change in effectiveness
 
        var stringUsed;
@@ -209,7 +204,7 @@ function MainObject()
        var allOffensiveRows = '<table width="100%">';
        var closeSkillMap = this.skillSection.getCloseCombatMap();
        var rangeSkillMap = this.skillSection.getRangedCombatMap();
-       var closeAttackBonus = this.advantageSection.getRankMap().get('Close Attack');  //only exists in old rules. will be 0 otherwise
+       var closeAttackBonus = this.advantageSection.getRankMap().get('Close Attack');  //only exists in ruleset 1.x. will be 0 otherwise
        var rangedAttackBonus = this.advantageSection.getRankMap().get('Ranged Attack');
 
        //if Unarmed is possible then it will be the first row
@@ -247,7 +242,7 @@ function MainObject()
       }
 
        //TODO: doesn't include skills like Swords
-       //TODO: (old) if Improvised Weapon advantage then use Unarmed damage
+       //TODO: (v1.x) if Improvised Weapon advantage then use Unarmed damage
        allOffensiveRows+='</table>';
        document.getElementById('offensive section').innerHTML = allOffensiveRows;
        //offense example: Close, Weaken 4, Crit. 19-20 |or| Perception, Flight 3, Crit. 16-20
@@ -259,7 +254,7 @@ function MainObject()
    {
        var compareTo;
        //Skills and Abilities
-       //TODO: old rules has advantages I need to include: Close Attack etc (Improvised Weapon, Ranged Attack, Throwing Mastery), Eidetic Memory, Great Endurance
+       //TODO: ruleset 1.x has advantages I need to include: Close Attack etc (Improvised Weapon, Ranged Attack, Throwing Mastery), Eidetic Memory, Great Endurance
       for (var i=0; i < Data.Ability.names.length; i++)
       {
           compareTo = this.skillSection.getMaxSkillRanks().get(Data.Ability.names[i]);
@@ -340,26 +335,28 @@ function MainObject()
    /**Given the json, this compares the version and rule set then alerts the user with a message if necessary.*/
    this.determineCompatibilityIssues=function(jsonDoc)
    {
-       //the ruleset is used to determine if using original rules. The version is to inform the user of possible incompatibility
+       //the ruleset is for game rules. The version is to inform the user of possible incompatibility
        var version, ruleset;
 
-       //Number.parseInt(undefined) => NaN
-       ruleset = Number.parseInt(jsonDoc.ruleset);  //will ignore everything after the decimal point
-       version = Number.parseInt(jsonDoc.version);
-       //version will always be an int (user shouldn't mess with that) but users might mess with ruleset
+       version = sanitizeNumber(jsonDoc.version, 1, 1);  //only version 1 doesn't have a version number so that's default
+       //user shouldn't mess with the version but users might mess with ruleset
 
-       //typeof version and ruleset can only be number at this point
-       if(Number.isNaN(version)) version = 1;  //only version 1 doesn't have a version number so that's default
-       if(Number.isNaN(ruleset)) ruleset = 2.7;  //there's no way to know if the document is for 1.x or 2.x so guess the more common 2.x
-          //2.x ruleset is fairly compatible so the most recent is default
-          //3.x should always have a ruleset defined but user tampering may cause it to default to 2.x
+       if (undefined === jsonDoc.ruleset)
+       {
+          jsonDoc.ruleset = '2.7';  //there's no way to know if the document is for 1.x or 2.x so guess the more common 2.x
+             //2.x ruleset is fairly compatible so the most recent is default
+             //3.x should always have a ruleset defined but user tampering may cause it to default to 2.x
+          Main.messageUser('The requested document doesn\'t have the version for the game rules defined. It might not load correctly.\n'+
+             'Version 2.7 has been assumed, if this is incorrect add ruleset to the root element with value "1.1" (save a blank document for an example but don\'t add "version").');
+       }
+       jsonDoc.ruleset = jsonDoc.ruleset.split('.');
+       //major needs special treatment so only use Number.parseInt
+       ruleset = {major: Number.parseInt(jsonDoc.ruleset[0]), minor: sanitizeNumber(jsonDoc.ruleset[1], 0, 0)};
 
-       //set old rules flag accordingly
-       if(ruleset < 2) this.setOldRules(true);
-       else this.setOldRules(false);
+       if(Number.isNaN(ruleset.major) || ruleset.major < 1) ruleset = {major: 2, minor: 7};
 
        //inform user as needed:
-      if (ruleset > latestRuleset)
+      if (VersionCompare.isGreaterThan(ruleset, latestRuleset))
       {
           Main.messageUser('The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
           ruleset = latestRuleset;  //default so that things can possibly load
@@ -390,12 +387,14 @@ function MainObject()
 
        this.determineCompatibilityIssues(jsonDoc);
        if(jsonDoc.version < latestVersion) this.convertDocument(jsonDoc);
-       //TODO: if(this.determineValidity(jsonDoc)) return;  //which will return true if valid. checks for the things I assume exist below (Hero etc)
+       //TODO: if(!this.isValidDocument(jsonDoc)) return;  //checks for the things I assume exist below (Hero etc)
 
-       //useOldRules has already been set in determineCompatibilityIssues (clear does not change it)
+       this.setRuleset(jsonDoc.ruleset.major, jsonDoc.ruleset.minor);
+       document.getElementById('ruleset').value = activeRuleset.toString();
+       //clear does not change activeRuleset
        this.clear();  //must clear out all other data first so not to have any remain
        document.getElementById('HeroName').value = jsonDoc.Hero.name;
-      if (jsonDoc.Hero.transcendence !== undefined && !useOldRules)
+      if (activeRuleset.major > 1)
       {
           transcendenceMinimum = sanitizeNumber(jsonDoc.Hero.transcendence, -1, 0);
       }
@@ -435,11 +434,10 @@ function MainObject()
    {
        var jsonDoc = {Hero: {}, Abilities: {}, Powers: [], Equipment: [], Advantages: [], Skills: [], Defenses: {}};
           //skeleton so I don't need to create these later
-       if(useOldRules) jsonDoc.ruleset = 1;
-       else jsonDoc.ruleset = latestRuleset;
+       jsonDoc.ruleset = activeRuleset.toString();
        jsonDoc.version = latestVersion;
        jsonDoc.Hero.name = document.getElementById('HeroName').value;
-       if(!useOldRules) jsonDoc.Hero.transcendence = transcendence;
+       if(activeRuleset.major > 1) jsonDoc.Hero.transcendence = transcendence;
        jsonDoc.Hero.image = document.getElementById('imgFilePath').value;
        jsonDoc.Information = document.getElementById('bio box').value;
        jsonDoc.Abilities = this.abilitySection.save();
@@ -458,7 +456,7 @@ function MainObject()
    };
    this.constructor=function()
    {
-       Data.change(useOldRules);  //needed to initialize some data
+       Data.change(activeRuleset.major, activeRuleset.minor);  //needed to initialize some data
        this.abilitySection = new AbilityList();
        this.powerSection = new PowerListAgnostic('power');
        //Object.freeze(this.powerSection);  //TODO: what should and shouldn't be frozen? Main and data only (and commons etc?). freeze isn't deep. maybe screw it because tests

@@ -27,7 +27,7 @@ function AbilityList()
        total = 0;
       for (var i=0; i < abilityArray.length; i++)
       {
-          if(!Main.isOldRules() && abilityArray[i].isMissing() && Data.Ability.names[i] === 'Stamina') total+=30;
+          if(Main.getActiveRuleset().major > 1 && abilityArray[i].isMissing() && Data.Ability.names[i] === 'Stamina') total+=30;
           else if(abilityArray[i].isMissing()) total-=10;  //old rules no Stamina costs the same as other missing ones
           else total+=(abilityArray[i].getValue()*2);
       }

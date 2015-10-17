@@ -393,17 +393,8 @@ GROUP
 <br />
 <textarea id="bio box" rows="10" cols="100">Complications, background and other information</textarea>
 <br /><br />
-<table width="100%"><tr>
-   <td style="text-align: left; width: 20%;">
-       <input type="button" value="Change to Original 3e Rules" onClick="Main.ruleToggle();" id="to old rules button" />
-       <span id="to old rules span" style="display: none;">Change to Original 3e Rules</span>
-   </td>
-    <td style="text-align: center; width: 60%;" id="rule description td">The calculator is currently using the modified 3e rules</td>
-   <td style="text-align: right; width: 20%;">
-       <input type="button" value="Change to Modified 3e Rules" onClick="Main.ruleToggle();" id="to new rules button" style="display: none;" />
-       <span id="to new rules span">Change to Modified 3e Rules</span>
-   </td>
-</tr></table>
+<label>Rules: <input type="text" id="ruleset" size="1" value="2.7" onChange="Main.changeRuleset();" /></label>
+Note that only the <a href="../1-the-basics.html">most recent rules</a> are fully supported.
 
 <h2>Usage Notes</h2>
 <div>
@@ -419,8 +410,8 @@ not any image given to the file upload button.<br />
 Ranks in the Equipment Advantage are also automatically set to the lowest possible whenever the equipment section is
 changed.<br />
 Some modifiers (such as those that change range, action, and duration) are automatically set and can't be set manually.
-Change the drop downs for range etc instead.s<br />
-In order to lack an ability put "--" in the ability input.<br />
+Change the drop downs for range etc instead.<br />
+In order to lack an ability put "--" in the ability input (without the quotes).<br />
 Redundant powers, equipment, advantages and skills (those with the same type and subtype) are automatically removed.
 <br />
 To buy equipment that has no impact on any other section you may use Feature.<br />

@@ -1,4 +1,4 @@
-﻿Tester.data.beforeAll=function(){Main.setOldRules(false); Main.clear();};
+﻿Tester.data.beforeAll=function(){Main.setRuleset(2, 7); Main.clear();};
 Tester.data.afterAll = Tester.data.beforeAll;  //yes I see that it is called twice but that is so that it auto clears Main if I call a single test
 //every test needs to clear out for the other test to start clean
 //even if slow do not disable Main generation because an error might occur (due to undefined values) in which case I need to see how Main was
@@ -10,8 +10,8 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
 {
     if(arguments.length !== 0){alert('Confirming Xmls demands to be first and only'); return;}
     TesterUtility.clearResults();
-    //Main.setOldRules(false);  //the xmls are only saved with new rules
-       //covered by clearResults
+    //Main.setRuleset(2, 7);  //the xmls are only saved with current rules
+       //covered by clearResults and by Main.load
 
     var testResults=[];
     var actionTaken='Load Save Confirm';
@@ -26,10 +26,13 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
        ['Militant.xml', 'Soldier.xml'],
        ['Crime Lord.xml', 'Criminal.xml', 'Gang Leader.xml', 'Street Informant.xml', 'Thug.xml']];
 
-    try{readXMLAsString(basePath+allFolders[0]+allFiles[0][0]);}
+    try{readXMLAsString(basePath+allFolders[1]+allFiles[1][2]);}
     catch(e){alert('You idiot, you can\'t run this here.'); throw e;}  //Whoops, my bad I better turn on the flag first
-    //and I don't care that file 0,0 is parsed twice: 1) twice in a row means it should be cached 2) this won't be run with other tests 3) it is worth the time cost
-    //ironically 0,0 is the biggest one (7 KB followed by a 6 KB then some 4 KB)
+       //and I don't care that file 1,2 is parsed twice:
+       //1) twice in a row means it should be cached
+       //2) this won't be run with other tests
+       //3) it is worth the time cost
+       //1,2 was chosen because it is smallest (with 0,0 being the largest)
    for (var folderIndex=0; folderIndex < allFolders.length; folderIndex++)
    {
       for (var fileIndex=0; fileIndex < allFiles[folderIndex].length; fileIndex++)
@@ -98,10 +101,10 @@ Tester.abilityList.calculateValues=function(isFirst)
     testResults.push({Expected: 30, Actual: Main.abilitySection.getTotal(), Action: actionTaken, Description: 'The ability section total cost is 30'});
 
    //test missing stamina in new rules
-    actionTaken='Set Old Missing Stamina'; Main.setOldRules(true); TesterUtility.changeValue('Stamina', '--');
+    actionTaken='Set Old Missing Stamina'; Main.setRuleset(1, 1); TesterUtility.changeValue('Stamina', '--');
     testResults.push({Expected: true, Actual: Main.abilitySection.getByName('Stamina').isMissing(), Action: actionTaken, Description: 'Stamina is missing'});
     testResults.push({Expected: -10, Actual: Main.abilitySection.getTotal(), Action: actionTaken, Description: 'The ability section total cost is -10'});
-    Main.setOldRules(false);
+    Main.setRuleset(2, 7);
 
     TesterUtility.displayResults('Tester.abilityList.calculateValues', testResults, isFirst);
 };
@@ -456,10 +459,10 @@ Tester.defenseList.calculateValues=function(isFirst)
     testResults.push({Expected: '3', Actual: document.getElementById('Will final').innerHTML, Action: actionTaken, Description: 'Will defense bonus says 3'});
     testResults.push({Expected: 3, Actual: Main.defenseSection.getByName('Will').getTotalBonus(), Action: actionTaken, Description: 'And it is 3'});
     testResults.push({Expected: 1, Actual: Main.defenseSection.getTotal(), Action: actionTaken, Description: 'The defense section total cost is 1'});
-    //abilitySection and defenseSection are both cleared by setOldRules
+    //abilitySection and defenseSection are both cleared by Main.setRuleset
 
    //test old rule functionality
-    actionTaken='Set Old Rules'; Main.setOldRules(true);
+    actionTaken='Set Old Rules'; Main.setRuleset(1, 1);
     testResults.push({Expected: '0', Actual: document.getElementById('Will start').innerHTML, Action: actionTaken, Description: 'Will defense inital says 0'});
     testResults.push({Expected: 0, Actual: Main.defenseSection.getByName('Will').getAbilityValue(), Action: actionTaken, Description: 'And it is 0'});
     testResults.push({Expected: '0', Actual: document.getElementById('Will final').innerHTML, Action: actionTaken, Description: 'Will defense bonus says 0'});
@@ -482,7 +485,7 @@ Tester.defenseList.calculateValues=function(isFirst)
     testResults.push({Expected: '4', Actual: document.getElementById('Will final').innerHTML, Action: actionTaken, Description: 'Will defense bonus says 4'});
     testResults.push({Expected: 4, Actual: Main.defenseSection.getByName('Will').getTotalBonus(), Action: actionTaken, Description: 'And it is 4'});
     testResults.push({Expected: 1, Actual: Main.defenseSection.getTotal(), Action: actionTaken, Description: 'The defense section total cost is 1'});
-    Main.setOldRules(false);
+    Main.setRuleset(2, 7);
 
     TesterUtility.displayResults('Tester.defenseList.calculateValues', testResults, isFirst);
 };
@@ -519,6 +522,21 @@ Tester.defenseList.calculateToughness=function(isFirst)
 Tester.main={};
 Tester.main.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
 Tester.main.data={setUp: Tester.data.beforeAll};
+Tester.main.changeRuleset=function(isFirst)
+{
+    return;  //remove this when actual tests exist. ADD TESTS
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[];
+    var actionTaken='Initial';
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    try{
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.main.changeRuleset', testResults, isFirst);
+};
 Tester.main.changeTranscendence=function(isFirst)
 {
     return;  //remove this when actual tests exist. ADD TESTS
@@ -564,23 +582,8 @@ Tester.main.getProtectionTotal=function(isFirst)
 
     TesterUtility.displayResults('Tester.main.getProtectionTotal', testResults, isFirst);
 
-    //be sure to call Main.setOldRules(true); inside tests and:
-    //TesterUtility.displayResults('Tester.powerRow.setDuration. Old Rules: '+Main.isOldRules(), testResults, isFirst);
-};
-Tester.main.setOldRules=function(isFirst)  //rule toggle is the simple one
-{
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
-
-    var testResults=[];
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    TesterUtility.displayResults('Tester.main.setOldRules', testResults, isFirst);
+    //be sure to call Main.setRuleset(1, 1); inside tests and:
+    //TesterUtility.displayResults('Tester.powerRow.setDuration. Rules: '+Main.getActiveRuleset(), testResults, isFirst);
 };
 Tester.main.update=function(isFirst)
 {
@@ -696,7 +699,7 @@ Tester.main.convertDocument=function(isFirst)
               "Parry": 0,
               "Will": 0
          },
-          "ruleset": 3,
+          "ruleset": "2.7",
           "version": 2,
           "Information": "Complications, background and other information"
    });
@@ -775,7 +778,21 @@ Tester.main.convertDocument=function(isFirst)
 
     TesterUtility.displayResults('Tester.main.convertDocument', testResults, isFirst);
 };
-//Main.determineCompatibilityIssues didn't have anything worth testing
+Tester.main.determineCompatibilityIssues=function(isFirst)
+{
+    return;  //remove this when actual tests exist. ADD TESTS
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[];
+    var actionTaken='Initial';
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    try{
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.main.determineCompatibilityIssues', testResults, isFirst);
+};
 Tester.main.loadFromString=function(isFirst)
 {
     return;  //remove this when actual tests exist. ADD TESTS
