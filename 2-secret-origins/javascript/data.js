@@ -66,7 +66,7 @@ Data.Modifier =
    };
 Data.Modifier.hasAutoRank = Data.Modifier.hasAutoTotal.concat(Data.Modifier.actionRangeDuration);
 Data.Modifier.hasText=Data.Modifier.defaultText.getAllKeys().concat(['Feature', 'Limited', 'Noticeable', 'Quirk', 'Side Effect', 'Subtle', 'Triggered']);
-  //the commonModifierOtherNames are added to hasText at the bottom of Data.change
+  //the Data.change.commonModifierOtherNames are added to hasText at the bottom of this file
 Data.Power =
    {
        //actions is defined in Data.change
@@ -119,43 +119,24 @@ Data.SharedHtml =
 Object.freeze(Data.Ability);
 Object.freeze(Data.SharedHtml);
 
-//TODO: have Data.change take a ruleSet number
-/**This method changes all of the data based on if the rules are old or not. The constructor of Main also calls this to initialize the rule dependant data.*/
-Data.change = function()
+/**This method changes all of the data to the newRuleset passed in. The constructor of Main also calls this to initialize the rule dependant data.*/
+Data.change = function(newRuleset)
 {
-    var commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attractive', 'Beginner\'s Luck', 'Benefit', 'Connected',
-       'Defensive Attack', 'Defensive Roll', 'Diehard', 'Equipment', 'Evasion', 'Extraordinary Effort', 'Fast Grab', 'Improved Aim',
-       'Improved Critical', 'Improved Defense', 'Improved Disarm', 'Improved Grab', 'Improved Hold', 'Improved Initiative', 'Improved Trip',
-       'Improvised Tools', 'Inspire', 'Instant Up', 'Interpose', 'Jack of All Trades', 'Languages', 'Minion', 'Move-by Action', 'Power Attack',
-       'Prone Fighting', 'Quick Draw', 'Seize Initiative', 'Sidekick', 'Skill Mastery', 'Teamwork', 'Trance', 'Ultimate Effort'];
-    var commonModifierExtraNames = ['Accurate', 'Affects Corporeal', 'Affects Objects Also', 'Affects Objects Only', 'Affects Others Also',
-       'Affects Others Only', 'Alternate Effect', 'Alternate Resistance (Cost)', 'Alternate Resistance (Free)', 'Area', 'Attack',
-       'Contagious', 'Dimensional', 'Extended Range', 'Faster Action', 'Feature', 'Homing', 'Impervious', 'Increased Duration',
-       'Increased Mass', 'Increased Range', 'Indirect', 'Innate', 'Insidious', 'Linked', 'Multiattack', 'Penetrating', 'Precise',
-       'Reach', 'Reversible', 'Ricochet', 'Secondary Effect', 'Selective', 'Split', 'Subtle', 'Variable Descriptor'];
-    var commonModifierFlawNames = ['Activation', 'Check Required', 'Decreased Duration', 'Diminished Range', 'Distracting',
-       'Easily Removable', 'Fades', 'Feedback', 'Grab-Based', 'Inaccurate', 'Limited', 'Noticeable', 'Quirk', 'Reduced Range',
-       'Removable', 'Resistible', 'Sense-Dependent', 'Side Effect', 'Slower Action', 'Tiring', 'Unreliable'];
-    var commonModifierOtherNames = ['Other Flat Extra', 'Other Rank Extra', 'Other Free Modifier', 'Other Rank Flaw', 'Other Flat Flaw'];
-    var commonPowerNames = ['Affliction', 'Communication', 'Comprehend', 'Concealment', 'Create', 'Damage', 'Enhanced Trait', 'Environment',
-       'Feature', 'Flight', 'Growth', 'Healing', 'Illusion', 'Immortality', 'Immunity', 'Insubstantial', 'Leaping', 'Luck Control',
-       'Mind Reading', 'Morph', 'Move Object', 'Movement', 'Nullify', 'Protection', 'Quickness', 'Regeneration', 'Remote Sensing',
-       'Senses', 'Shrinking', 'Teleport', 'Transform', 'Variable', 'Weaken'];
-    var commonSkillNames = ['Acrobatics', 'Athletics', 'Close Combat', 'Deception', 'Expertise', 'Insight', 'Intimidation',
-       'Investigation', 'Perception', 'Persuasion', 'Ranged Combat', 'Sleight of Hand', 'Stealth', 'Technology', 'Treatment', 'Vehicles'];
+    if(true === newRuleset) newRuleset = 1.1;
+    if(false === newRuleset) newRuleset = 2.7;  //remove these when Main tracks version numbers instead of a boolean
 
-   if (Main !== undefined && Main.isOldRules())  //this does not execute during the constructor of Main because old rules are false by default
+   if (newRuleset < 2)
    {
        Data.Advantage.costPerRank.set('Sidekick', 1);  //only one that needs to be changed (since the rest were removed)
        Data.Advantage.maxRanks.set('Improved Initiative', Infinity);
-       Data.Advantage.names = commonAdvantageNames.concat(['Agile Feint', 'Animal Empathy', 'Artificer', 'Assessment', 'Chokehold',
+       Data.Advantage.names = Data.change.commonAdvantageNames.concat(['Agile Feint', 'Animal Empathy', 'Artificer', 'Assessment', 'Chokehold',
           'Close Attack', 'Contacts', 'Daze', 'Eidetic Memory', 'Fascinate', 'Favored Environment', 'Favored Foe', 'Fearless',
           'Grabbing Finesse', 'Great Endurance', 'Hide in Plain Sight', 'Improved Smash', 'Improvised Weapon', 'Inventor',
           'Leadership', 'Luck', 'Precise Attack', 'Ranged Attack', 'Redirect', 'Ritualist', 'Second Chance', 'Set-up', 'Startle',
           'Takedown', 'Taunt', 'Throwing Mastery', 'Tracking', 'Uncanny Dodge', 'Weapon Bind', 'Weapon Break', 'Well-informed']).sort();
 
        Data.Skill.hasText = ['Close Combat', 'Expertise', 'Ranged Combat'];
-       Data.Skill.names = commonSkillNames;
+       Data.Skill.names = Data.change.commonSkillNames;
 
        Data.Power.actions = ['Standard', 'Move', 'Free', 'Reaction', 'None'];  //None isn't a choice
        Data.Power.defaultAction.set('Variable', 'Standard');
@@ -165,11 +146,11 @@ Data.change = function()
        Data.Power.baseCost.set('Nullify', 1);
        Data.Power.baseCost.set('Regeneration', 1);
        Data.Power.baseCost.set('Shrinking', 2);
-       Data.Power.names = commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed', 'Summon', 'Swimming']).sort();
+       Data.Power.names = Data.change.commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed', 'Summon', 'Swimming']).sort();
 
-       var oldExtraNames = commonModifierExtraNames.concat(['Affects Insubstantial', 'Dynamic Alternate Effect', 'Incurable', 'Sleep', 'Triggered']).sort();
-       var oldFlawNames = commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
-       Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //commonModifierOtherNames are added at the bottom of Data.change
+       var oldExtraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Dynamic Alternate Effect', 'Incurable', 'Sleep', 'Triggered']).sort();
+       var oldFlawNames = Data.change.commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
+       Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
 
        Data.Modifier.cost.set('Attack', 0);
        Data.Modifier.type.set('Attack', 'Free');
@@ -183,13 +164,13 @@ Data.change = function()
 
        Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Awareness';
    }
-   else  //if(Main === undefined || !Main.isOldRules())
+   else  //if(newRuleset >= 2)
    {
        Data.Advantage.costPerRank.set('Sidekick', 2);
        Data.Advantage.maxRanks.set('Improved Initiative', 5);
-       Data.Advantage.names = commonAdvantageNames.concat(['Lucky', 'Meekness']).sort();
+       Data.Advantage.names = Data.change.commonAdvantageNames.concat(['Lucky', 'Meekness']).sort();
 
-       Data.Skill.names = commonSkillNames.concat(['Common Knowledge', 'Knowledge', 'Memory', 'Strategy', 'Tracking']).sort();
+       Data.Skill.names = Data.change.commonSkillNames.concat(['Common Knowledge', 'Knowledge', 'Memory', 'Strategy', 'Tracking']).sort();
        Data.Skill.names.push('Other');  //must be last instead of sorted
        Data.Skill.hasText = Data.Skill.names.copy();
        //in new rules most of them have text except the following:
@@ -206,13 +187,13 @@ Data.change = function()
        Data.Power.baseCost.set('Nullify', 3);
        Data.Power.baseCost.set('Regeneration', 3);
        Data.Power.baseCost.set('Shrinking', 3);
-       Data.Power.names = commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch', 'Permeate', 'Phantom Ranks',
+       Data.Power.names = Data.change.commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch', 'Permeate', 'Phantom Ranks',
           'Resistance', 'Summon Minion', 'Summon Object']).sort();
 
-       var newExtraNames = commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
-       var newFlawNames = commonModifierFlawNames.concat(['Ammunition', 'Fragile', 'System Dependent', 'Uncontrollable Entirely',
+       var newExtraNames = Data.change.commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
+       var newFlawNames = Data.change.commonModifierFlawNames.concat(['Ammunition', 'Fragile', 'System Dependent', 'Uncontrollable Entirely',
           'Uncontrollable Result', 'Uncontrollable Target']).sort();
-       Data.Modifier.names = newExtraNames.concat(newFlawNames);  //commonModifierOtherNames are added at the bottom of Data.change
+       Data.Modifier.names = newExtraNames.concat(newFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
 
        Data.Modifier.cost.set('Attack', 1);
        Data.Modifier.type.set('Attack', 'Rank');
@@ -226,8 +207,30 @@ Data.change = function()
 
        Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Presence';
    }
-    Data.Modifier.names = Data.Modifier.names.concat(commonModifierOtherNames);  //both rule sets end with these
-    if(Main === undefined) Data.Modifier.hasText = Data.Modifier.hasText.concat(commonModifierOtherNames);  //only do this once on page creation
-       //it's inside Data.change instead of outside in order to have access to commonModifierOtherNames
-}
+    Data.Modifier.names = Data.Modifier.names.concat(Data.change.commonModifierOtherNames);  //both rule sets end with these
+};
+Data.change.commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attractive', 'Beginner\'s Luck', 'Benefit', 'Connected',
+    'Defensive Attack', 'Defensive Roll', 'Diehard', 'Equipment', 'Evasion', 'Extraordinary Effort', 'Fast Grab', 'Improved Aim',
+    'Improved Critical', 'Improved Defense', 'Improved Disarm', 'Improved Grab', 'Improved Hold', 'Improved Initiative', 'Improved Trip',
+    'Improvised Tools', 'Inspire', 'Instant Up', 'Interpose', 'Jack of All Trades', 'Languages', 'Minion', 'Move-by Action', 'Power Attack',
+    'Prone Fighting', 'Quick Draw', 'Seize Initiative', 'Sidekick', 'Skill Mastery', 'Teamwork', 'Trance', 'Ultimate Effort'];
+Data.change.commonModifierExtraNames = ['Accurate', 'Affects Corporeal', 'Affects Objects Also', 'Affects Objects Only', 'Affects Others Also',
+    'Affects Others Only', 'Alternate Effect', 'Alternate Resistance (Cost)', 'Alternate Resistance (Free)', 'Area', 'Attack',
+    'Contagious', 'Dimensional', 'Extended Range', 'Faster Action', 'Feature', 'Homing', 'Impervious', 'Increased Duration',
+    'Increased Mass', 'Increased Range', 'Indirect', 'Innate', 'Insidious', 'Linked', 'Multiattack', 'Penetrating', 'Precise',
+    'Reach', 'Reversible', 'Ricochet', 'Secondary Effect', 'Selective', 'Split', 'Subtle', 'Variable Descriptor'];
+Data.change.commonModifierFlawNames = ['Activation', 'Check Required', 'Decreased Duration', 'Diminished Range', 'Distracting',
+    'Easily Removable', 'Fades', 'Feedback', 'Grab-Based', 'Inaccurate', 'Limited', 'Noticeable', 'Quirk', 'Reduced Range',
+    'Removable', 'Resistible', 'Sense-Dependent', 'Side Effect', 'Slower Action', 'Tiring', 'Unreliable'];
+Data.change.commonModifierOtherNames = ['Other Flat Extra', 'Other Rank Extra', 'Other Free Modifier', 'Other Rank Flaw', 'Other Flat Flaw'];
+Data.change.commonPowerNames = ['Affliction', 'Communication', 'Comprehend', 'Concealment', 'Create', 'Damage', 'Enhanced Trait', 'Environment',
+    'Feature', 'Flight', 'Growth', 'Healing', 'Illusion', 'Immortality', 'Immunity', 'Insubstantial', 'Leaping', 'Luck Control',
+    'Mind Reading', 'Morph', 'Move Object', 'Movement', 'Nullify', 'Protection', 'Quickness', 'Regeneration', 'Remote Sensing',
+    'Senses', 'Shrinking', 'Teleport', 'Transform', 'Variable', 'Weaken'];
+Data.change.commonSkillNames = ['Acrobatics', 'Athletics', 'Close Combat', 'Deception', 'Expertise', 'Insight', 'Intimidation',
+    'Investigation', 'Perception', 'Persuasion', 'Ranged Combat', 'Sleight of Hand', 'Stealth', 'Technology', 'Treatment', 'Vehicles'];
+
+Data.Modifier.hasText = Data.Modifier.hasText.concat(Data.change.commonModifierOtherNames);
+    //this is defined here in order to have access to Data.change.commonModifierOtherNames
+
 Object.freeze(Data);

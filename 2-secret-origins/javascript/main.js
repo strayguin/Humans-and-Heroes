@@ -19,10 +19,12 @@ bio box: nothing: same as hero name
 function MainObject()
 {
    //private variable section:
-    var defaultRuleSet = 3.0, defaultVersion = 2;  //see bottom of this document for a version list
+    var latestRuleset = 3.0, latestVersion = 2;  //see bottom of this document for a version list
     var characterPointsSpent = 0, transcendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
     var useOldRules = false, mockMessenger;
+    //TODO: have Main track ruleset #
+    //TODO: have Main track ruleset major and minor
 
    //Single line function section
     this.canUseGodHood=function(){return (transcendence > 0);};
@@ -159,8 +161,8 @@ function MainObject()
           document.getElementById('to new rules button').style.display = 'none';
           document.getElementById('to new rules span').style.display = 'inline';
       }
-       Data.change();
-       this.clear();  //needed to regenerate abilities etc
+       Data.change(useOldRules);
+       this.clear();  //needed to regenerate advantages etc
    };
    /**This counts character points and power level and sets the document. It needs to be called by every section's update.*/
    this.update=function()
@@ -348,22 +350,24 @@ function MainObject()
 
        //typeof version and ruleset can only be number at this point
        if(Number.isNaN(version)) version = 1;  //only version 1 doesn't have a version number so that's default
-       if(Number.isNaN(ruleset)) ruleset = defaultRuleSet;  //ruleset is fairly compatible so the most recent is default
+       if(Number.isNaN(ruleset)) ruleset = 2.7;  //there's no way to know if the document is for 1.x or 2.x so guess the more common 2.x
+          //2.x ruleset is fairly compatible so the most recent is default
+          //3.x should always have a ruleset defined but user tampering may cause it to default to 2.x
 
        //set old rules flag accordingly
        if(ruleset < 2) this.setOldRules(true);
        else this.setOldRules(false);
 
        //inform user as needed:
-      if (ruleset > defaultRuleSet)
+      if (ruleset > latestRuleset)
       {
           Main.messageUser('The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
-          ruleset = defaultRuleSet;  //default so that things can possibly load
+          ruleset = latestRuleset;  //default so that things can possibly load
       }
-      if (version > defaultVersion)
+      if (version > latestVersion)
       {
           Main.messageUser('The requested document was saved in a format newer than what is supported by this code. It might not load correctly.');
-          version = defaultVersion;
+          version = latestVersion;
       }
 
        //(re)set these so they can be used later
@@ -385,7 +389,7 @@ function MainObject()
           //yeah I know the error message is completely unhelpful but there's nothing more I can do
 
        this.determineCompatibilityIssues(jsonDoc);
-       if(jsonDoc.version < defaultVersion) this.convertDocument(jsonDoc);
+       if(jsonDoc.version < latestVersion) this.convertDocument(jsonDoc);
        //TODO: if(this.determineValidity(jsonDoc)) return;  //which will return true if valid. checks for the things I assume exist below (Hero etc)
 
        //useOldRules has already been set in determineCompatibilityIssues (clear does not change it)
@@ -432,8 +436,8 @@ function MainObject()
        var jsonDoc = {Hero: {}, Abilities: {}, Powers: [], Equipment: [], Advantages: [], Skills: [], Defenses: {}};
           //skeleton so I don't need to create these later
        if(useOldRules) jsonDoc.ruleset = 1;
-       else jsonDoc.ruleset = defaultRuleSet;
-       jsonDoc.version = defaultVersion;
+       else jsonDoc.ruleset = latestRuleset;
+       jsonDoc.version = latestVersion;
        jsonDoc.Hero.name = document.getElementById('HeroName').value;
        if(!useOldRules) jsonDoc.Hero.transcendence = transcendence;
        jsonDoc.Hero.image = document.getElementById('imgFilePath').value;
@@ -454,7 +458,7 @@ function MainObject()
    };
    this.constructor=function()
    {
-       Data.change();  //needed to initialize some data
+       Data.change(useOldRules);  //needed to initialize some data
        this.abilitySection = new AbilityList();
        this.powerSection = new PowerListAgnostic('power');
        //Object.freeze(this.powerSection);  //TODO: what should and shouldn't be frozen? Main and data only (and commons etc?). freeze isn't deep. maybe screw it because tests
