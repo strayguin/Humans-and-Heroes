@@ -52,9 +52,13 @@ function MainObject()
           ruleset = ruleset.split('.');
           //major needs special treatment so only use Number.parseInt
           ruleset = {major: Number.parseInt(ruleset[0]), minor: sanitizeNumber(ruleset[1], 0, 0)};
-          if(Number.isNaN(ruleset.major) || ruleset.major < 1){}  //ignore
-          else if(VersionCompare.isGreaterThan(ruleset, latestRuleset)){}
-          else this.setRuleset(ruleset.major, ruleset.minor);
+         if (!Number.isNaN(ruleset.major))  //ignore NaN. could be a typo like v2.0 in which case don't convert the version
+         {
+             if(ruleset.major < 1) ruleset = {major: 1, minor: 0};  //easy way to change to the oldest version
+             else if(VersionCompare.isGreaterThan(ruleset, latestRuleset)) ruleset = latestRuleset;  //easy way to change to the latest version
+             //var docString = this.save();  //TODO: convert the current data into the new version
+             this.setRuleset(ruleset.major, ruleset.minor);
+         }
       }
        document.getElementById('ruleset').value = activeRuleset.toString();
    };
@@ -341,19 +345,20 @@ function MainObject()
        version = sanitizeNumber(jsonDoc.version, 1, 1);  //only version 1 doesn't have a version number so that's default
        //user shouldn't mess with the version but users might mess with ruleset
 
-       if (undefined === jsonDoc.ruleset)
-       {
+      if (undefined === jsonDoc.ruleset)
+      {
           jsonDoc.ruleset = '2.7';  //there's no way to know if the document is for 1.x or 2.x so guess the more common 2.x
              //2.x ruleset is fairly compatible so the most recent is default
              //3.x should always have a ruleset defined but user tampering may cause it to default to 2.x
           Main.messageUser('The requested document doesn\'t have the version for the game rules defined. It might not load correctly.\n'+
              'Version 2.7 has been assumed, if this is incorrect add ruleset to the root element with value "1.1" (save a blank document for an example but don\'t add "version").');
-       }
+      }
        jsonDoc.ruleset = jsonDoc.ruleset.split('.');
        //major needs special treatment so only use Number.parseInt
        ruleset = {major: Number.parseInt(jsonDoc.ruleset[0]), minor: sanitizeNumber(jsonDoc.ruleset[1], 0, 0)};
 
-       if(Number.isNaN(ruleset.major) || ruleset.major < 1) ruleset = {major: 2, minor: 7};
+       if(Number.isNaN(ruleset.major)) ruleset = {major: 2, minor: 7};
+       else if(ruleset.major < 1) ruleset = {major: 1, minor: 0};
 
        //inform user as needed:
       if (VersionCompare.isGreaterThan(ruleset, latestRuleset))
