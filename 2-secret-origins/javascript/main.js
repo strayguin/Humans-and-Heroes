@@ -23,10 +23,10 @@ function MainObject()
     var characterPointsSpent = 0, transcendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
    var activeRuleset =
-      {
-          major: latestRuleset.major, minor: latestRuleset.minor,
-          toString: function(){return (this.major + '.' + this.minor);}
-      };
+   {
+       major: latestRuleset.major, minor: latestRuleset.minor,
+       toString: function(){return (this.major + '.' + this.minor);}
+   };
     var mockMessenger;  //used for testing
 
    //Single line function section

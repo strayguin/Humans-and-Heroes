@@ -290,7 +290,7 @@ has a rank, used as a bonus to the dice roll when using the skill. To make a ski
 used. The Gamemaster may allow circumstance bonuses to be excluded from this limitation at his discretion. For details
 on each part see the sections below.</p>
 <div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: A power level 10 character with Swimming (Str)
-18 and Athletics (Str) 1 and a Strength of 5 wants to swim. Athletics is a -2 away from swimming so add them up as follows:
+18 and Athletics (Str) 3 and a Strength of 5 wants to swim. Athletics is a -5 away from swimming so add them up as follows:
 max(Swimming-distance, 0)+max(Athletics-distance, 0)+Strength = 18+0+5 = 23 but this is too high for his power level limitations
 so instead he gets only a +20 to his roll. Notice that he didn't receive a penalty from having Athletics.</div>
 <h3 class="generated-class-22" id="TOC-SKILL-RANK">SKILL RANK</h3>
@@ -306,7 +306,7 @@ example Athletics (Str) can be used for Climbing (Str), Sprinting (Agl), or Long
 <p>Mental based skills like Knowledge checks might change the mental ability used but can't use physical abilities. Any
 of the application skills (anything that doesn't use Int) can be used as a Knowledge skill with an Int ability to answer
 some questions about whatever skill it is. For example Swimming (Str) can be used as Knowledge: Swimming (Int) to answer
-the question "what is a butterfly stroke?" but on the otherhand Knowledge: Swimming (Int) can't be used as Swimming
+the question "what is a butterfly stroke?" but on the other hand Knowledge: Swimming (Int) can't be used as Swimming
 (Str) although a successful Knowledge check might give a circumstance bonus due to knowing how to do such as stroke. For
 another example Knowledge: Investigation can represent experience in the field and thus a successful roll can explain
 where the best places to start looking for evidence providing a +1 bonus to the following Gather Evidence check.</p>
@@ -314,21 +314,19 @@ where the best places to start looking for evidence providing a +1 bonus to the 
 <p>Due to an unlimited number of skills existing there is the ability to use related skills with a penalty based on how
 unrelated they are. The exact penalty is determined by the Gamemaster but can never be a bonus. When determining
 distance penalties compare not only the difference between the ideal skill and the one in question but also consider the
-task itself for other relevant fields. For example a chemist can use Knowledge: Chemistry to cook with a -15 distance
-penalty but a cook can't use Knowledge: Cuisine for chemistry at all.</p>
+task itself for other relevant fields. For example a character can use Athletics for swimming or climbing with a -5 distance
+penalty but Swimming can't be used for climbing at all. The distance penalty is either 0 for the ideal skill, -2 for a closely
+related skill, or -5 for a distant but acceptable skill.
+The penalty maxes out at -5, any skill less related can't be used at all.</p>
+<p>Each of the broad skills have a distance penalty of -5 for each of the things they can do as listed below (for
+example using Athletics for swimming or climbing) however some of the skills below are not broad (such as Knowledge).
+Buying a specific skill such as Swimming will not provide a penalty when swimming but can't be used for things like climbing
+therefore consider whether a specific skill or a broad skill is more appropriate (or perhaps raw ability).</p>
 <div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: The question was asked "What is the average
-wingspan of an English Sparrow?" To answer this Knowledge: Birds is the most appropriate skill (no distance penalty)
-although this particular question would have a DC of around 15 anyway. The skill Knowledge: Animals having a penalty of
+wingspan of an English Sparrow?" To answer this Knowledge: Birds is the ideal skill (no distance penalty)
+although this particular question would have a DC of around 5 anyway. The skill Knowledge: Animals (aka Zoology) having a penalty of
 -2 and Knowledge: Biology a penalty of -5. The skills Knowledge: Sparrows and Knowledge: English Sparrow Wings although
-also have no distance penalty are much less useful then Knowledge: Birds and thus discouraging overly specific skills.</div>
-<div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: You want to know how to cut into a cactus for
-consumption, the ideal skill is Knowledge: Desert Survival which has no penalty but Knowledge: Survival is also appropriate
-with perhaps a -2 penalty for being more broad whereas Knowledge: Forest Survival has a -10 penalty for trying to apply
-vaguely similar knowledge to a different situation. Knowledge: Desert Cuisine might have a -15 penalty due to cooks not
-normally gathering their own ingredients and Knowledge: Plants is too distant with a penalty of -15. However too narrow
-of a Knowledge skill is hindering since Knowledge: Cactus or Knowledge: Barrel Cactus do not provide any kind of bonus
-and are less useful as skills. However Memory can also be used if your character has done this before as established by
-backstory or gameplay with a DC depending on memory basics as described later.</div>
+also have no distance penalty are much less useful then Knowledge: Birds and thus the system discourages overly specific skills.</div>
 <p>It is possible to use multiple skills when rolling for a task, in which case, for each skill, get the difference of
 (skill rank - distance penalty) with a minimum of 0 since more skills can't hinder you. Add together each skill total
 then add 3dF + ability modifier + miscellaneous modifiers so that the dice, ability, and miscellaneous are only added
@@ -880,7 +878,7 @@ encompasses a single weapon or power, although an array may be considered one po
 option, meaning skill with unarmed strikes like punches and kicks. However, this bonus does not apply to other forms of
 unarmed combat maneuvers, including, but not limited to, grabbing or tripping.</p>
 <p>The bonus from a Close Combat skill applies only to attack checks with the particular attack, not to defenses,
-countering, power checks, or other uses. Keep in mind that the distance penalty in this case is an attack penalty. In
+countering, power checks, or other uses. Keep in mind that the skill distance penalty in this case is an attack penalty (not damage). In
 this system any weapon can be used untrained as a +0 skill modifier.</p>
 <p>Here is a list of some common types of Close Combat: Improvised Weapons, Swords, Spears, Clubs, Daggers, Tonfa,
 Nunchaku, Sythe, Flamethrower, Chainsaw, and Halberd.</p>
@@ -1050,8 +1048,8 @@ can only handle easy or basic tasks or questions (DC 0 to 5).</p>
 <div class="generated-class-12">Sample Areas of Expertise</div>
 <div style="background-color:#FCE5CD">
 <p>The following are examples of suitable areas of Expertise. This list is by no means exhaustive, the GM should feel
-free to add to or modify this list as needed to suit the game and the characters in it. Note that Wizardry listed here
-besides being the application of Knowledge: Magic might also represent a skill set such as being able to translate
+free to add to or modify this list as needed to suit the game and the characters in it. Note that Wizardry is listed here,
+besides being an application of Knowledge: Magic it might also represent skills set such as being able to translate
 magical tomes or knowing about other planes of existence etc.</p>
 <p>Art, Boy Scouts, Business, Carpentry, Cooking, Criminal, Current Events, Dance, History, Journalism, Law, Law
 Enforcement, Medicine, Military, Music, Philosophy, Politics, Popular Culture, Psychiatry, Science, Sociology,
@@ -1062,11 +1060,10 @@ Streetwise, Theology, Wizardry</p>
 <p>The GM may decide that training in an Expertise skill provides some ability to deal with tasks covered by other,
 related, skills with a circumstance penalty to the skill check (see distance penalty at the top).</p>
 <div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: Figuring out a particular clue involving a government
-conspiracy requires an investigation or Expertise: Politics check. However, the GM allows a hero to substitute an Expertise: Law
+conspiracy requires an Investigation or Expertise: Politics check. However, the GM allows a hero to substitute an Expertise: Law
 check with a -2 circumstance penalty, as the knowledge is related, but outside the character's specific field. Expertise:
 Journalism might suffer a -5 penalty, but could still be useful (especially if the character works a legal or political beat
-as a reporter), while Expertise: Cooking is no help at all, and cannot be used for the check (unless the player comes up with
-a very clever explanation!)</div>
+as a reporter), while Expertise: Cooking is no help at all, and cannot be used for the check.</div>
 </div>
 <h2 style="font-size:28px;clear:both" id="TOC-INSIGHT">INSIGHT</h2>
 <div style="padding:5px;background-color:#F9CB9C;font-style:italic">Awareness</div>
@@ -1440,7 +1437,7 @@ Gamemaster's discretion (see <b>Alternate Effects</b> in <a href="6-powers.html"
 Combat: Powers is too broad. Ranged Combat: Throwing is an option and includes both thrown weapons and objects a
 character simply picks up and throws.</p>
 <p>The bonus from a Ranged Combat skill applies only to attack checks with the particular attack, not to defenses,
-countering, power checks, or other uses. Keep in mind that the distance penalty in this case is an attack penalty. In
+countering, power checks, or other uses. Keep in mind that the skill distance penalty in this case is an attack penalty (not damage). In
 this system any weapon can be used untrained as a +0 skill modifier.</p>
 <p>Here is a list of some common types of Ranged Combat: Small Arms, Throwing, Pistols, Rifles, Shotguns, Sniper Rifles,
 Bows, Crossbows, and Slings.</p>
@@ -1464,10 +1461,8 @@ beats yours, whether you succeed in planting the item or not.</p>
 <p>You can use Sleight of Hand to contort your body. Make a DC 20 Sleight of Hand check to fit through a tight space
 wide enough for your head but too narrow for the width of your shoulders, or to reach through an opening wide enough for
 your hand, but too narrow for your arm.</p>
-<p>This is similar to Acrobatics: Maneuvering at a -5 distance.</p>
 <h3 class="generated-class-8" id="TOC-ESCAPING">ESCAPING</h3>
 <p>Make a Sleight of Hand check to slip out of various restraints. This takes at least a minute per check.</p>
-<p>This is similar to Acrobatics: Maneuvering at a -5 distance.</p>
 <div class="generated-class-65">TABLE: ESCAPING DIFFICULTIES</div>
 <table border="1" bordercolor="#888" cellpadding="5" class="generated-class-10 alt">
 <tbody>
