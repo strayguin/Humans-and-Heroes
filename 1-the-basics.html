@@ -314,7 +314,7 @@ GROUP
 </li>
 <li class="goog-toc"><a href="#TOC-CHECKS"><strong>5 </strong>CHECKS</a>
    <ol class="goog-toc">
-   <li class="goog-toc"><a href="#TOC-CRITICAL-SUCCESS"><strong>5.1 </strong>CRITICAL SUCCESS</a></li>
+   <li class="goog-toc"><a href="#TOC-CRITICAL-SUCCESS-FAILURE"><strong>5.1 </strong>CRITICAL SUCCESS/FAILURE</a></li>
    <li class="goog-toc"><a href="#TOC-DIFFICULTY-CLASS"><strong>5.2 </strong>DIFFICULTY CLASS</a></li>
    <li class="goog-toc"><a href="#TOC-ROUTINE-CHECKS"><strong>5.3 </strong>ROUTINE CHECKS</a></li>
    <li class="goog-toc"><a href="#TOC-DIFFICULTY-CLASSES"><strong>5.4 </strong>DIFFICULTY CLASSES</a></li>
@@ -591,14 +591,56 @@ always go as planned when you're dealing with cunning supervillains!</p>
 <p>Checks are used to resolve all outcomes so once you understand the basic concept, the rest is easy.</p>
 <p>For detailed examples of how to use checks in the game and their effects, see <a
 href="8-action-adventure.html">Action &amp; Adventure</a>.</p>
-<h3 class="generated-class-23" id="TOC-CRITICAL-SUCCESS">CRITICAL SUCCESS</h3>
+<h3 class="generated-class-23" id="TOC-CRITICAL-SUCCESS-FAILURE">CRITICAL SUCCESS/FAILURE</h3>
 <p>If you roll for any check and all 3 Fudge dice come up as +1 (for a total of +3 before modifiers), you've scored a
-<b>critical success</b> which adds 1 to the result. This can turn a low-level success into something more significant,
-but more importantly, it can turn a failure into a full-fledged success! A critical success with an attack check is
-called a <b>critical hit</b> which has different effects. For more information regarding critical hits see <a
-href="8-action-adventure.html">Action &amp; Adventure</a>.</p>
-<p>However if all 3 Fudge dice come up as -1 (for a total of -3 before modifiers) it is a <b>critical failure</b> which
-subtracts 1 from the result. An attack check that is a critical failure always misses.</p>
+<b>critical success</b>. However if all 3 Fudge dice come up as -1 (for a total of -3 before modifiers) it is a <b>critical failure</b>.
+The effect of a critical success or failure depends on the type of roll as shown in the table below. In most cases simply
+add or subtract 1 from the result (-4 or +4 before the other modifiers).</p>
+<table border="1" bordercolor="#888" cellpadding="5" class="generated-class-2 alt">
+<tbody>
+<tr>
+<th class="generated-class-27">Type of roll</th>
+<th class="generated-class-27">Effect of Critical Success</th>
+<th class="generated-class-27">Effect of Critical Failure</th>
+</tr>
+<tr>
+<td>Attack</td>
+<td><a href="8-action-adventure.html#TOC-CRITICAL-HITS">Critical Hit</a></td>
+<td>Automatic failure (miss)</td>
+</tr>
+<tr>
+<td>Active Defense</td>
+<td>+1</td>
+<td>Automatic failure</td>
+</tr>
+<tr>
+<td>Passive Defense</td>
+<td>+1</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>Ability/Skill</td>
+<td>+1</td>
+<td>Automatic failure</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>+1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<p>The effects of critical success/failure is based on real life: there is no such thing as an automatic success, however
+mistakes can cause an automatic failure. A mistake can cause an automatic failure in the cases of an Attack, Active Defense,
+or Ability/Skill. Passive Defense on the other hand functions independently of the character's consciousness and therefore
+mistakes can't be made. The critical success of an attack is the black sheep by defying the mentioned logic
+(I should look into another way of doing this: ie this is subject to change).</p>
+<p>The reason Powers don't have automatic failure is a bit harder to explain. Basically the decision to use the power
+is a conscious effort but the resulting effect is not and is a physics based reaction. For example a gun's attack can
+automatically miss however if it does hit then the <b>Damage</b> will always be present (even if <b>Toughness</b> is
+able to resist). Another example: using a <b>Move Object</b> power check to move an extra heavy object does not
+have a chance to exert 0 force (although it might fail the check). Strength based powers are a gray zone so the Gamemaster
+should decide how to handle a critical failure.</p>
 <h3 class="generated-class-23" id="TOC-DIFFICULTY-CLASS">DIFFICULTY CLASS</h3>
 <p>Checks are made against a <b>difficulty class</b> or <b>DC</b>, a number set by the GM, which your check must equal
 or exceed to achieve success. So for a task with a DC of 15 you must roll a check total (modifiers included) of 15 or greater to succeed. In
@@ -671,7 +713,7 @@ having a good idea of the characters' capabilities.</p>
 <tbody>
 <tr>
 <th class="generated-class-27">TASK</th>
-<th class="generated-class-27">CHECK USING..</th>
+<th class="generated-class-27">CHECK USING...</th>
 </tr>
 <tr>
 <td>Sock a villain in the jaw</td>
@@ -866,8 +908,7 @@ Dodge for ranged attacks. If you equal or exceed your target's defense check res
 <p>If all 3 Fudge dice come up as +1 (for a total of +3 before attack bonuses) for an attack check it always hits and
 may be a <b>critical hit</b> (see <b>Critical Hits</b> in <a href="8-action-adventure.html">Action &amp; Adventure</a>
 for further information). But if all 3 Fudge dice come up as -1 (for a total of -3 before attack bonuses) on an attack
-check it always misses, regardless of the check total. This differs from normal checks and reflects the variable and
-unpredictable nature of combat.</p>
+check it always misses, regardless of the check total.</p>
 <h3 class="generated-class-23" id="TOC-RESISTANCE-CHECKS">RESISTANCE CHECKS</h3>
 <div>A <b>resistance check</b> is an attempt to resist different effects, ranging from damage and injury to traps, poisons,
 and various power effects. A resistance check is a 3dF roll + the appropriate defense (typically Dodge, Fortitude, Toughness,
