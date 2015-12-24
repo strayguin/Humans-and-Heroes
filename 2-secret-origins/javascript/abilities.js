@@ -89,7 +89,7 @@ function AbilityObject(abilityName)
     /**Onchange function for changing the ability value*/
     this.change=function(){CommonsLibrary.change.call(this, this.set, abilityName, Main.abilitySection, false);};
     /**Returns true if the ability is missing (ie is '--')*/
-    this.isMissing=function(){return (abilityValue === '--');};
+    this.isMissing=function(){return (abilityValue === '--');};  //TODO: rename to isAbsent
        //TODO: use isMissing exclusively for readability, to remove magic hard coding '--', and possibly remove a getter
     /**Get the value of the ability. Will return either a number or '--'*/
     this.getValue=function(){return abilityValue;};

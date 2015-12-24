@@ -205,6 +205,21 @@ Data.change = function(major, minor)
        Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Presence';
    }
     Data.Modifier.names = Data.Modifier.names.concat(Data.change.commonModifierOtherNames);  //both rule sets end with these
+
+   if (3 === major)  //change some things from 2.7 to 3.0
+   {
+       var critIndex = Data.Advantage.names.indexOf('Improved Critical');
+       Data.Advantage.names.splice(critIndex, 1);  //remove
+       var tranceIndex = Data.Advantage.names.indexOf('Trance');
+       Data.Advantage.names.splice(tranceIndex, 1);  //remove (moved to feature)
+
+       Data.Advantage.maxRanks.set('Inspire', 1);
+       Data.Advantage.names.concat('Persistent Information').sort();  //must use concat over push because push doesn't return anything
+       //TODO: Improved Initiative is now 1:1
+       //TODO: move 'Alternate Effect' from extra to flaw (see if logic works)
+       //TODO: add 'Uncontrollable Activation' (rank flaw, -1) with rule: only for triggered actions
+       //TODO: update rule # validation to allow 3.0 then test this block
+   }
 };
 Data.change.commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attractive', 'Beginner\'s Luck', 'Benefit', 'Connected',
     'Defensive Attack', 'Defensive Roll', 'Diehard', 'Equipment', 'Evasion', 'Extraordinary Effort', 'Fast Grab', 'Improved Aim',
