@@ -27,8 +27,8 @@ function AbilityList()
        total = 0;
       for (var i=0; i < abilityArray.length; i++)
       {
-          if(Main.getActiveRuleset().major > 1 && abilityArray[i].isMissing() && Data.Ability.names[i] === 'Stamina') total+=30;
-          else if(abilityArray[i].isMissing()) total-=10;  //old rules no Stamina costs the same as other missing ones
+          if(Main.getActiveRuleset().major > 1 && abilityArray[i].isAbsent() && Data.Ability.names[i] === 'Stamina') total+=30;
+          else if(abilityArray[i].isAbsent()) total-=10;  //old rules no Stamina costs the same as other absent ones
           else total+=(abilityArray[i].getValue()*2);
       }
    };
@@ -88,22 +88,22 @@ function AbilityObject(abilityName)
     var abilityValue = 0;
     /**Onchange function for changing the ability value*/
     this.change=function(){CommonsLibrary.change.call(this, this.set, abilityName, Main.abilitySection, false);};
-    /**Returns true if the ability is missing (ie is '--')*/
-    this.isMissing=function(){return (abilityValue === '--');};  //TODO: rename to isAbsent
-       //TODO: use isMissing exclusively for readability, to remove magic hard coding '--', and possibly remove a getter
+    /**Returns true if the ability is absent (ie is '--')*/
+    this.isAbsent=function(){return (abilityValue === '--');};  //TODO: make AbilityObject.absentValue='--';
+       //use it and isAbsent exclusively for readability. possibly remove a getter
     /**Get the value of the ability. Will return either a number or '--'*/
     this.getValue=function(){return abilityValue;};
-   /**Get the value of the ability. If its value is missing then 0 is returned instead so that a number is always returned.*/
+   /**Get the value of the ability. If its value is absent then 0 is returned instead so that a number is always returned.*/
    this.getZeroedValue=function()
    {
-       if(this.isMissing()) return 0;
+       if(this.isAbsent()) return 0;
        return abilityValue;
    };
    /**Validates and sets this ability to the value given. Because there is no generate the document's value must also be set here.*/
    this.set=function(givenValue)
    {
        abilityValue = (givenValue+'').trim();  //null-safe version of toString
-       if(!this.isMissing()) abilityValue = sanitizeNumber(abilityValue, -5, 0);  //missing can't be sanitized
+       if(!this.isAbsent()) abilityValue = sanitizeNumber(abilityValue, -5, 0);  //absent can't be sanitized
        document.getElementById(abilityName).value = abilityValue;
    };
 }
