@@ -393,7 +393,8 @@ GROUP
 <br />
 <textarea id="bio box" rows="10" cols="100">Complications, background and other information</textarea>
 <br /><br />
-<label>Rules: <input type="text" id="ruleset" size="1" value="3.0" onChange="Main.changeRuleset();" /></label>
+<!--ruleset's value is set at the bottom of this file-->
+<label>Rules: <input type="text" id="ruleset" size="1" onChange="Main.changeRuleset();" /></label>
 Note that only the <a href="../1-the-basics.html">most recent rules</a> are fully supported.
 
 <h2>Usage Notes</h2>
@@ -470,6 +471,7 @@ If I use semi-colons between them (which is wrong) chrome will recognize only th
 const Main = new MainObject();
 Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
+document.getElementById('ruleset').value = Main.getActiveRuleset().toString();
 </script>
 
 </body>
