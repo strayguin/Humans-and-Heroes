@@ -602,15 +602,41 @@ Tester.main.update=function(isFirst)
 };
 Tester.main.updateInitiative=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
     TesterUtility.clearResults(isFirst);
 
     var testResults=[];
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    var actionTaken='N/A';
+    var initiativeElement = document.getElementById('initiative');
+
+    testResults.push({Expected: 0, Actual: Main.abilitySection.getByName('Agility').getValue(), Action: actionTaken, Description: 'Initial Agility'});
+    testResults.push({Expected: '+0', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: 'Initial Initiative'});
+
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    TesterUtility.changeValue('Agility', 2);
+    testResults.push({Expected: '+2', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: 'Set Agility 2'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('Agility', -3);
+    testResults.push({Expected: '-3', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: 'Set Agility -3'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('advantageChoices0', 'Seize Initiative');
+    testResults.push({Expected: '-3 with Seize Initiative', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: 'Add Seize Initiative'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('advantageChoices1', 'Improved Initiative');
+    TesterUtility.changeValue('advantageRank1', 2);
+    testResults.push({Expected: '+1 with Seize Initiative', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '2.7 Improved Initiative 2'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    Main.setRuleset(1, 1);  //includes Main.clear() because the rules changed
+    SelectUtil.changeText('advantageChoices0', 'Improved Initiative');
+    TesterUtility.changeValue('advantageRank0', 3);
+    testResults.push({Expected: '+12', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '1.1 Improved Initiative 3'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.main.updateInitiative', testResults, isFirst);
