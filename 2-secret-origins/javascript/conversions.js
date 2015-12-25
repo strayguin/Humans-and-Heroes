@@ -10,8 +10,9 @@ function sanitizeNumber(numberGiven, minimum, defaultValue)
     var value = (numberGiven+'').trim();  //null safe. convert the type to string in case it is something that isn't number or string
     if(value === '' || !isFinite(value)) return defaultValue;  //empty string is checked because isFinite('') === true
        //isFinite(NaN) === false && isFinite(-Infinity) === false
-    value = Math.floor(Number.parseFloat(value));  //trailing text is caught by isFinite
-    if(value < 0) value++;  //I want to truncate (round to 0) instead of floor (round to -Infinity)
+    var unfloored = Number.parseFloat(value);  //trailing text is caught by isFinite
+    value = Math.floor(unfloored);
+    if(value !== unfloored && value < 0) value++;  //I want to truncate (round to 0) instead of floor (round to -Infinity)
     if(value < minimum) return minimum;  //make minimum -Infinity to skip this (no one skips this step)
     //there are only 2 places that have a maximum: modifier and advantage
        //vs 5/6 that don't: ability, power/ equipment, skill, defense, transcendence

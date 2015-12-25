@@ -205,7 +205,7 @@ function MainObject()
        var allOffensiveRows = '<table width="100%">';
        var closeSkillMap = this.skillSection.getCloseCombatMap();
        var rangeSkillMap = this.skillSection.getRangedCombatMap();
-       var closeAttackBonus = this.advantageSection.getRankMap().get('Close Attack');  //only exists in ruleset 1.x. will be 0 otherwise
+       var closeAttackBonus = this.advantageSection.getRankMap().get('Close Attack');  //these only exist in ruleset 1.x. will be 0 otherwise
        var rangedAttackBonus = this.advantageSection.getRankMap().get('Ranged Attack');
 
        //if Unarmed is possible then it will be the first row
