@@ -1,9 +1,10 @@
 //include everything else because I'm cool like that
-var jsFileNamesUsed = ['tools', 'MapDefault', 'data', 'abilities', 'advantage list', 'advantage row', 'CommonsLibrary',
-    'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'SelectUtil', 'skill list', 'skill row'];
-//the first 3 are first because everything depends on data which depends on MapDefault which depends on tools. everything else is alphabetical
+var jsFileNamesUsed = ['MapDefault', 'data', 'abilities', 'advantage list', 'advantage row', 'CommonsLibrary',
+    'conversions', 'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'prototypes', 'SelectUtil',
+    'skill list', 'skill row', 'Version'];
+//the first 2 are first because everything depends on data which depends on MapDefault. everything else is alphabetical
 jsFileNamesUsed = jsFileNamesUsed.concat(['simple tester', 'test suite', 'Logger']);  //comment this out in production to save memory
-    //if I feel like it that is. although test suite is the largest file
+    //if I feel like it that is. although test suite is the largest file (the unused Logger is for debugging)
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)
 {
