@@ -49,7 +49,7 @@ This array is changed and nothing is returned.*/
 Array.prototype.removeByValue=function(value)
 {
     var index = this.indexOf(value);
-    if(index === -1) return;  //not found
+    if(-1 === index) return;  //not found
     this.remove(index);
 };
 

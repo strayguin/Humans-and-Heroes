@@ -19,7 +19,7 @@ bio box: nothing: same as hero name
 function MainObject()
 {
    //private variable section:
-    var latestRuleset = {major: 2, minor: 7}, latestVersion = 2;  //see bottom of this file for a version list
+    var latestRuleset = {major: 3, minor: 0}, latestVersion = 2;  //see bottom of this file for a version list
     var characterPointsSpent = 0, transcendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
    var activeRuleset =
@@ -190,7 +190,7 @@ function MainObject()
    /**Calculates initiative and sets the document.*/
    this.updateInitiative=function()
    {
-       var agilityScore = this.abilitySection.getByName('Agility').getZeroedValue();  //used zeroed because even -- agility has initiative
+       var agilityScore = this.abilitySection.getByName('Agility').getZeroedValue();  //used zeroed because even absent agility has initiative
        if(1 === activeRuleset.major) agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*4);
        else agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*2);  //change in effectiveness
 
@@ -357,7 +357,7 @@ function MainObject()
        //major needs special treatment so only use Number.parseInt
        ruleset = {major: Number.parseInt(jsonDoc.ruleset[0]), minor: sanitizeNumber(jsonDoc.ruleset[1], 0, 0)};
 
-       if(Number.isNaN(ruleset.major)) ruleset = {major: 2, minor: 7};
+       if(Number.isNaN(ruleset.major)) ruleset = {major: 2, minor: 7};  //see above comments for why 2.7
        else if(ruleset.major < 1) ruleset = {major: 1, minor: 0};
 
        //inform user as needed:
