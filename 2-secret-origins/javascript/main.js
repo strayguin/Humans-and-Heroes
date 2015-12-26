@@ -28,8 +28,9 @@ function MainObject()
 
    //Single line function section
     this.canUseGodHood=function(){return (transcendence > 0);};
-    this.getTranscendence=function(){return transcendence;};
     this.getActiveRuleset=function(){return activeRuleset.clone();};  //defensive copy so that yoda conditions function
+    this.getLatestRuleset=function(){return latestRuleset.clone();};  //used for testing
+    this.getTranscendence=function(){return transcendence;};
     /**This sets the code box with the saved text.*/
     this.saveToText=function(){document.getElementById('code box').value = this.save();};
     /**This loads the text text within the code box.*/
@@ -49,6 +50,8 @@ function MainObject()
           ruleset = ruleset.split('.');
           //major needs special treatment so only use Number.parseInt
           ruleset = new VersionObject(Number.parseInt(ruleset[0]), sanitizeNumber(ruleset[1], 0, 0));
+          //if ruleset[1] is undefined then minor will be 0
+          //ignore ruleset[2+] if there is any: eg 2.7.0184e9a
          if (!Number.isNaN(ruleset.major))  //ignore NaN. could be a typo like v2.0 in which case don't convert the version
          {
              if(ruleset.major < 1) ruleset = new VersionObject(1, 0);  //easy way to change to the oldest version
