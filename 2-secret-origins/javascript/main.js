@@ -188,13 +188,16 @@ function MainObject()
    this.updateInitiative=function()
    {
        var agilityScore = this.abilitySection.getByName('Agility').getZeroedValue();  //used zeroed because even absent agility has initiative
-       if(1 === activeRuleset.major) agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*4);
-       else agilityScore+=(this.advantageSection.getRankMap().get('Improved Initiative')*2);  //change in effectiveness
+       var initiative = this.advantageSection.getRankMap().get('Improved Initiative');
+       if(1 === activeRuleset.major) initiative *= 4;
+       else if(2 === activeRuleset.major) initiative *= 2;
+       //else v3.0 initiative *1
+       initiative += agilityScore;
 
        var stringUsed;
-       if(agilityScore >= 0) stringUsed='+'+agilityScore;
-       else stringUsed=agilityScore;
-       if(this.advantageSection.getRankMap().get('Seize Initiative') === 1) stringUsed+=' with Seize Initiative';  //if has Seize Initiative
+       if(initiative >= 0) stringUsed = '+' + initiative;
+       else stringUsed = initiative;
+       if(1 === this.advantageSection.getRankMap().get('Seize Initiative')) stringUsed += ' with Seize Initiative';  //if has Seize Initiative
        document.getElementById('initiative').innerHTML = stringUsed;
    };
    /**Calculates and creates the offense section of the document.*/

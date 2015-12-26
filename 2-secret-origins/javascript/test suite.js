@@ -639,6 +639,13 @@ Tester.main.updateInitiative=function(isFirst)
     testResults.push({Expected: '+12', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '1.1 Improved Initiative 3'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
+    try{
+    Main.setRuleset(3, 0);  //includes Main.clear() because the rules changed
+    SelectUtil.changeText('advantageChoices0', 'Improved Initiative');
+    TesterUtility.changeValue('advantageRank0', 4);
+    testResults.push({Expected: '+4', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '3.0 Improved Initiative 4'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
     TesterUtility.displayResults('Tester.main.updateInitiative', testResults, isFirst);
 };
 Tester.main.updateOffense=function(isFirst)

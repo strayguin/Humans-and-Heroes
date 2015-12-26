@@ -213,7 +213,6 @@ Data.change = function(major, minor)
 
        Data.Advantage.maxRanks.set('Inspire', 1);
        Data.Advantage.names = Data.Advantage.names.concat('Persistent Information').sort();  //must use concat over push because push doesn't return anything
-       //TODO: Improved Initiative is now 1:1
        //TODO: move 'Alternate Effect' from extra to flaw (see if logic works)
        //TODO: add 'Uncontrollable Activation' (rank flaw, -1) with rule: only for triggered actions
    }
