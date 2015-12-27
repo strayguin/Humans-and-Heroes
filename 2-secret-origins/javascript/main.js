@@ -84,7 +84,7 @@ function MainObject()
    };
 
    //public functions section
-   /**Resets all values that can be saved, then updates. Each section is cleared. The code box and file selectors are not touched.*/
+   /**Resets all values that can be saved (except ruleset), then updates. Each section is cleared. The code box and file selectors are not touched.*/
    this.clear=function()
    {
        document.getElementById('HeroName').value = 'Hero Name';

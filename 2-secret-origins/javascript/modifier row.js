@@ -190,16 +190,18 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    {
        if(this.isBlank() || !hasAutoTotal) return powerRowRawTotal;
 
-       if(name === 'Dynamic Alternate Effect'){autoTotal=2-powerRowRawTotal; return 2;}  //only exists in ruleset 1.x
-       if(name === 'Alternate Effect' && 1 === Main.getActiveRuleset().major){autoTotal=1-powerRowRawTotal; return 1;}
+       //these autoTotals can be negative, 0, or 1 because they always cost 2 and 1
+       if('Dynamic Alternate Effect' === name){autoTotal = 2 - powerRowRawTotal; return 2;}  //only exists in ruleset 1.x
+       if('Alternate Effect' === name && 1 === Main.getActiveRuleset().major){autoTotal = 1 - powerRowRawTotal; return 1;}
        //Alternate Effect in ruleset 1.x forced the power to be worth a total of 1 (or 2 for Dynamic). the the flaw is all but 1
+       //technically 1.x Alternate Effect was an extra to spent 1 point on a whole other sub-power
 
        //name can't be both alt and removable
-       if(name === 'Alternate Effect') autoTotal=Math.floor(powerRowRawTotal/2);
-       else if(name === 'Easily Removable') autoTotal=Math.floor(powerRowRawTotal/5);
-       else if(name === 'Removable') autoTotal=Math.floor(powerRowRawTotal/5)*2;  //the *2 is outside of the floor intentionally
+       if('Alternate Effect' === name) autoTotal = -Math.floor(powerRowRawTotal / 2);
+       else if('Easily Removable' === name) autoTotal = -Math.floor(powerRowRawTotal * 2/5);
+       else if('Removable' === name) autoTotal = -Math.floor(powerRowRawTotal / 5);
 
-       return (powerRowRawTotal+autoTotal);  //autoTotal is always negative
+       return (powerRowRawTotal + autoTotal);  //autoTotal is always negative or 0
    };
    /**This set the page's data. called only by section generate*/
    this.setValues=function()
@@ -216,7 +218,6 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
           document.getElementById(sectionName+'ModifierRowTotal'+totalIndex).innerHTML = autoTotal;
        else if(document.getElementById(sectionName+'ModifierRowTotal'+totalIndex) !== null)
           document.getElementById(sectionName+'ModifierRowTotal'+totalIndex).innerHTML = rawTotal;
-          //all hasAutoTotal are -1 but will still set this
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object

@@ -309,7 +309,7 @@ Tester.advantageList.load=function(isFirst)
     testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(5).getRank(), Action: actionTaken, Description: 'Supreme with minimum rank'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    Main.clearMockMessenger();  //restore default behaviour
+    Main.clearMockMessenger();  //restore default behavior
     document.getElementById('code box').value = '';  //clear out so that control + F won't be thrown off
     TesterUtility.displayResults('Tester.advantageList.load', testResults, isFirst);
 };
@@ -736,14 +736,16 @@ Tester.main.updateInitiative=function(isFirst)
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    Main.setRuleset(1, 1);  //includes Main.clear() because the rules changed
+    Main.clear();
+    Main.setRuleset(1, 1);
     SelectUtil.changeText('advantageChoices0', 'Improved Initiative');
     TesterUtility.changeValue('advantageRank0', 3);
     testResults.push({Expected: '+12', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '1.1 Improved Initiative 3'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    Main.setRuleset(3, 0);  //includes Main.clear() because the rules changed
+    Main.clear();
+    Main.setRuleset(3, 0);
     SelectUtil.changeText('advantageChoices0', 'Improved Initiative');
     TesterUtility.changeValue('advantageRank0', 4);
     testResults.push({Expected: '+4', Actual: initiativeElement.innerHTML, Action: actionTaken, Description: '3.0 Improved Initiative 4'});
@@ -1084,15 +1086,138 @@ Tester.modifierRow.generate=function(isFirst)
 };
 Tester.modifierRow.setAutoRank=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
     TesterUtility.clearResults(isFirst);
 
     var testResults=[];
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    var actionTaken='N/A';
+    //can't save var to powerRowTotal0 and powerModifierRowTotal0.0 because they keep getting recreated
+
+    SelectUtil.changeText('powerChoices0', 'Damage');
+    TesterUtility.changeValue('powerRank0', 99);
+    testResults.push({Expected: '99', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 99 initial total'});
+
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    SelectUtil.changeText('powerModifierChoices0.0', 'Removable');
+    testResults.push({Expected: '-19', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 99 Removable modifier total'});
+    testResults.push({Expected: '80', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 99 Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Easily Removable');
+    testResults.push({Expected: '-39', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 99 Easily Removable modifier total'});
+    testResults.push({Expected: '60', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 99 Easily Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '-49', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 99 Alternate Effect modifier total'});
+    testResults.push({Expected: '50', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 99 Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('powerRank0', 4);
+    SelectUtil.changeText('powerModifierChoices0.0', 'Easily Removable');
+    testResults.push({Expected: '-1', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 4 Easily Removable modifier total'});
+    testResults.push({Expected: '3', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 4 Easily Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.changeValue('powerRank0', 100);
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Removable');
+    testResults.push({Expected: '-20', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 100 Removable modifier total'});
+    testResults.push({Expected: '80', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 100 Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Easily Removable');
+    testResults.push({Expected: '-40', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 100 Easily Removable modifier total'});
+    testResults.push({Expected: '60', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 100 Easily Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '-50', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 100 Alternate Effect modifier total'});
+    testResults.push({Expected: '50', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 100 Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.changeValue('powerRank0', 1);
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Removable');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 1 Removable modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 1 Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Easily Removable');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 1 Easily Removable modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 1 Easily Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 1 Alternate Effect modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 1 Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('powerRank0', 4);
+    SelectUtil.changeText('powerModifierChoices0.0', 'Removable');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 4 Removable modifier total'});
+    testResults.push({Expected: '4', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 4 Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('powerRank0', 2);
+    SelectUtil.changeText('powerModifierChoices0.0', 'Easily Removable');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: 'Damage 2 Easily Removable modifier total'});
+    testResults.push({Expected: '2', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 2 Easily Removable power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    Main.clear(); Main.setRuleset(1, 1);
+    SelectUtil.changeText('powerChoices0', 'Damage');
+    TesterUtility.changeValue('powerRank0', 100);
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Dynamic Alternate Effect');
+    testResults.push({Expected: '-98', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 100 Dynamic Alternate Effect modifier total'});
+    testResults.push({Expected: '2', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 100 Dynamic Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '-99', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 100 Alternate Effect modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 100 Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.changeValue('powerRank0', 99);
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Dynamic Alternate Effect');
+    testResults.push({Expected: '-97', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 99 Dynamic Alternate Effect modifier total'});
+    testResults.push({Expected: '2', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 99 Dynamic Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '-98', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 99 Alternate Effect modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 99 Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.changeValue('powerRank0', 1);
+
+    //TODO: look at changing 1.1 alt effects into an extra
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Dynamic Alternate Effect');
+    testResults.push({Expected: '1', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 1 Dynamic Alternate Effect modifier total'});
+    testResults.push({Expected: '2', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 1 Dynamic Alternate Effect power total'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerModifierChoices0.0', 'Alternate Effect');
+    testResults.push({Expected: '0', Actual: document.getElementById('powerModifierRowTotal0.0').innerHTML, Action: actionTaken, Description: '1.1 Damage 1 Alternate Effect modifier total'});
+    testResults.push({Expected: '1', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: '1.1 Damage 1 Alternate Effect power total'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.modifierRow.setAutoRank', testResults, isFirst);

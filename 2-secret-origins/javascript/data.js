@@ -143,9 +143,11 @@ Data.change = function(major, minor)
        Data.Power.baseCost.set('Nullify', 1);
        Data.Power.baseCost.set('Regeneration', 1);
        Data.Power.baseCost.set('Shrinking', 2);
-       Data.Power.names = Data.change.commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed', 'Summon', 'Swimming']).sort();
+       Data.Power.names = Data.change.commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed',
+          'Summon', 'Swimming']).sort();
 
-       var oldExtraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Dynamic Alternate Effect', 'Incurable', 'Sleep', 'Triggered']).sort();
+       var oldExtraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Alternate Effect', 'Dynamic Alternate Effect',
+          'Incurable', 'Sleep', 'Triggered']).sort();  //Alternate Effect is a flaw in 2.x+
        var oldFlawNames = Data.change.commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
        Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
 
@@ -184,12 +186,13 @@ Data.change = function(major, minor)
        Data.Power.baseCost.set('Nullify', 3);
        Data.Power.baseCost.set('Regeneration', 3);
        Data.Power.baseCost.set('Shrinking', 3);
-       Data.Power.names = Data.change.commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch', 'Permeate', 'Phantom Ranks',
-          'Resistance', 'Summon Minion', 'Summon Object']).sort();
+       Data.Power.names = Data.change.commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch',
+          'Permeate', 'Phantom Ranks', 'Resistance', 'Summon Minion', 'Summon Object']).sort();
 
        var newExtraNames = Data.change.commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
-       var newFlawNames = Data.change.commonModifierFlawNames.concat(['Ammunition', 'Fragile', 'System Dependent', 'Uncontrollable Entirely',
-          'Uncontrollable Result', 'Uncontrollable Target']).sort();
+       var newFlawNames = Data.change.commonModifierFlawNames.concat(['Alternate Effect', 'Ammunition', 'Fragile',
+          'System Dependent', 'Uncontrollable Entirely', 'Uncontrollable Result', 'Uncontrollable Target']).sort();
+       //Alternate Effect is a flaw in 2.x+ however in 2.x it was mislabeled as an extra
        Data.Modifier.names = newExtraNames.concat(newFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
 
        Data.Modifier.cost.set('Attack', 1);
@@ -213,7 +216,6 @@ Data.change = function(major, minor)
 
        Data.Advantage.maxRanks.set('Inspire', 1);
        Data.Advantage.names = Data.Advantage.names.concat('Persistent Information').sort();  //must use concat over push because push doesn't return anything
-       //TODO: move 'Alternate Effect' from extra to flaw (see if logic works)
        //TODO: add 'Uncontrollable Activation' (rank flaw, -1) with rule: only for triggered actions
    }
 };
@@ -223,7 +225,7 @@ Data.change.commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attrac
     'Improvised Tools', 'Inspire', 'Instant Up', 'Interpose', 'Jack of All Trades', 'Languages', 'Minion', 'Move-by Action', 'Power Attack',
     'Prone Fighting', 'Quick Draw', 'Seize Initiative', 'Sidekick', 'Skill Mastery', 'Teamwork', 'Trance', 'Ultimate Effort'];
 Data.change.commonModifierExtraNames = ['Accurate', 'Affects Corporeal', 'Affects Objects Also', 'Affects Objects Only', 'Affects Others Also',
-    'Affects Others Only', 'Alternate Effect', 'Alternate Resistance (Cost)', 'Alternate Resistance (Free)', 'Area', 'Attack',
+    'Affects Others Only', 'Alternate Resistance (Cost)', 'Alternate Resistance (Free)', 'Area', 'Attack',
     'Contagious', 'Dimensional', 'Extended Range', 'Faster Action', 'Feature', 'Homing', 'Impervious', 'Increased Duration',
     'Increased Mass', 'Increased Range', 'Indirect', 'Innate', 'Insidious', 'Linked', 'Multiattack', 'Penetrating', 'Precise',
     'Reach', 'Reversible', 'Ricochet', 'Secondary Effect', 'Selective', 'Split', 'Subtle', 'Variable Descriptor'];
