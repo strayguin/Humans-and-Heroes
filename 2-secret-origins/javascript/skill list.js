@@ -74,7 +74,7 @@ function SkillList()
       {
          if (!Data.Skill.names.contains(jsonSection[i].name))
          {
-             if(1 === Main.getActiveRuleset().major) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In the original rules no other skills exist.');
+             if(1 === Main.getActiveRuleset().major) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In M&M 3e no other skills exist.');
              else Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. Did you mean "Other" with a subtype?');
              continue;
          }

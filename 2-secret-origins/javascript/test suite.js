@@ -238,7 +238,7 @@ Tester.advantageList.load=function(isFirst)
    catch (e)
    {
        testResults.push({Error: e, Action: actionTaken});
-       //no need to revert Main.messageUser since a crash requires page refresh anyway
+       //no need to unmock Main.messageUser since a crash requires page refresh anyway
        TesterUtility.displayResults('Tester.advantageList.load', testResults, isFirst);
        return;  //if set up fails then it will all fail so stop now
    }

@@ -84,7 +84,7 @@ function MainObject()
    };
 
    //public functions section
-   /**Resets all values then updates. Each section is cleared. The code box and file selectors are not touched.*/
+   /**Resets all values that can be saved, then updates. Each section is cleared. The code box and file selectors are not touched.*/
    this.clear=function()
    {
        document.getElementById('HeroName').value = 'Hero Name';
@@ -132,12 +132,12 @@ function MainObject()
        if(this.powerSection.getProtectionRankTotal() > this.equipmentSection.getProtectionRankTotal()) return this.powerSection.getProtectionRankTotal();
        return this.equipmentSection.getProtectionRankTotal();
    };
-   /**This method passes a message to the user in some way (currently uses alert).
+   /**This method passes a message to the user in some way (currently uses code box).
    It is abstracted for mocking and so it can easily be changed later.*/
    this.messageUser=function(messsageSent)
    {
        if(mockMessenger !== undefined){mockMessenger(messsageSent); return;}
-       alert(messsageSent);
+       document.getElementById('code box').value += messsageSent + '\n\n';
    };
    /**Onclick event for the saveToFileLink anchor link only.
    It changes the a tag so that the link downloads the document as a saved file.*/
@@ -373,7 +373,7 @@ function MainObject()
       if (ruleset.isGreaterThan(latestRuleset))
       {
           Main.messageUser('The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
-          ruleset = latestRuleset;  //default so that things can possibly load
+          ruleset = latestRuleset.clone();  //default so that things can possibly load
       }
       if (version > latestVersion)
       {
@@ -391,13 +391,19 @@ function MainObject()
        fileString = fileString.trim();
        if(fileString === '') return;  //done
 
+       document.getElementById('code box').value = '';
        var jsonDoc, transcendenceMinimum = -1, docType;
        try{
        if(fileString[0] === '<'){docType = 'XML'; jsonDoc = xmlToJson(fileString);}  //if the first character is less than then assume XML
        else{docType = 'JSON'; jsonDoc = JSON.parse(fileString);}  //else assume JSON
        }
-       catch(e){Main.messageUser('A parsing error has occurred. The document you provided is not legal '+docType+'.\n\n'+e); throw e;}
-          //yeah I know the error message is completely unhelpful but there's nothing more I can do
+       catch(e)
+       {
+           Main.messageUser('A parsing error has occurred. The document you provided is not legal '+docType+'.\n\n'+e);
+           //yeah I know the error message is completely unhelpful but there's nothing more I can do
+           window.location.hash = '#code box';  //scroll to the code box
+           throw e;
+       }
 
        this.determineCompatibilityIssues(jsonDoc);
        if(jsonDoc.version < latestVersion) this.convertDocument(jsonDoc);
@@ -425,7 +431,8 @@ function MainObject()
        this.advantageSection.load(jsonDoc.Advantages);
        this.skillSection.load(jsonDoc.Skills);
        this.defenseSection.load(jsonDoc.Defenses);
-       window.scrollTo(0,0);  //jump to top left of page after loading so the user can see the loaded hero
+       if('' !== document.getElementById('code box').value) window.location.hash = '#code box';  //scroll to the code box if there's an error
+       else window.scrollTo(0,0);  //jump to top left of page after loading so the user can see the loaded hero
    };
    /**This is a simple generator called by updateOffense to create a row of offense information.*/
    this.makeOffenseRow=function(skillName, attackBonus, range, effect, damage)
