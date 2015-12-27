@@ -32,9 +32,9 @@ function MainObject()
     this.getLatestRuleset=function(){return latestRuleset.clone();};  //used for testing
     this.getTranscendence=function(){return transcendence;};
     /**This sets the code box with the saved text.*/
-    this.saveToText=function(){document.getElementById('code box').value = this.save();};
+    this.saveToTextArea=function(){document.getElementById('code box').value = this.saveAsString();};
     /**This loads the text text within the code box.*/
-    this.loadText=function(){this.loadFromString(document.getElementById('code box').value);};
+    this.loadFromTextArea=function(){this.loadFromString(document.getElementById('code box').value);};
     /**Set a replacement function that is called in place of the normal user messenger.*/
     this.setMockMessenger=function(mockedFun){mockMessenger = mockedFun;};
     /**Restores the default function for messaging the user*/
@@ -56,7 +56,7 @@ function MainObject()
          {
              if(ruleset.major < 1) ruleset = new VersionObject(1, 0);  //easy way to change to the oldest version
              else if(ruleset.isGreaterThan(latestRuleset)) ruleset = latestRuleset.clone();  //easy way to change to the latest version
-             //var docString = this.save();  //TODO: convert the current data into the new version
+             //var docString = this.saveAsString();  //TODO: convert the current data into the new version
              this.setRuleset(ruleset.major, ruleset.minor);
          }
       }
@@ -141,12 +141,12 @@ function MainObject()
       if (document.getElementById('saveType').value === 'JSON')
       {
           link.download = document.getElementById('HeroName').value+'.json';
-          link.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(this.save());
+          link.href = 'data:application/json;charset=utf-8,'+encodeURIComponent(this.saveAsString());
       }
       else
       {
           link.download = document.getElementById('HeroName').value+'.xml';
-          link.href = 'data:application/xml;charset=utf-8,'+encodeURIComponent(this.save());
+          link.href = 'data:application/xml;charset=utf-8,'+encodeURIComponent(this.saveAsString());
       }
        //encodeURIComponent is called to convert end lines
        //there is no way to clear out the link info right after the save as prompt. So just ignore the huge href
@@ -390,7 +390,7 @@ function MainObject()
        if(fileString[0] === '<'){docType = 'XML'; jsonDoc = xmlToJson(fileString);}  //if the first character is less than then assume XML
        else{docType = 'JSON'; jsonDoc = JSON.parse(fileString);}  //else assume JSON
        }
-       catch(e){Main.messageUser('A parsing error has occured. The document you provided is not legal '+docType+'.\n\n'+e); throw e;}
+       catch(e){Main.messageUser('A parsing error has occurred. The document you provided is not legal '+docType+'.\n\n'+e); throw e;}
           //yeah I know the error message is completely unhelpful but there's nothing more I can do
 
        this.determineCompatibilityIssues(jsonDoc);
@@ -437,7 +437,7 @@ function MainObject()
        thisOffensiveRow+='</td></tr>\n';
        return thisOffensiveRow;
    };
-   /**This returns the document's data as a string*/
+   /**This returns the document's data as a json object*/
    this.save=function()
    {
        var jsonDoc = {Hero: {}, Abilities: {}, Powers: [], Equipment: [], Advantages: [], Skills: [], Defenses: {}};
@@ -454,7 +454,12 @@ function MainObject()
        jsonDoc.Advantages = this.advantageSection.save();
        jsonDoc.Skills = this.skillSection.save();
        jsonDoc.Defenses = this.defenseSection.save();
-
+       return jsonDoc;
+   };
+   /**This returns the document's data as a string*/
+   this.saveAsString=function()
+   {
+       var jsonDoc = this.save();
        var fileString;
        if(document.getElementById('saveType').value === 'JSON') fileString = JSON.stringify(jsonDoc);
           //in this case value returns the selected text because the html attribute named value is not defined

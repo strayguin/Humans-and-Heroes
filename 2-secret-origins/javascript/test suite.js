@@ -1,4 +1,4 @@
-﻿Tester.data.beforeAll=function(){Main.setRuleset(2, 7); Main.clear();};
+Tester.data.beforeAll=function(){Main.clear(); Main.setRuleset(2, 7);};
 Tester.data.afterAll = Tester.data.beforeAll;  //yes I see that it is called twice but that is so that it auto clears Main if I call a single test
 //every test needs to clear out for the other test to start clean
 //even if slow do not disable Main generation because an error might occur (due to undefined values) in which case I need to see how Main was
@@ -50,7 +50,7 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
           originalContents+='\n';  //ends with a blank line
           originalContents=originalContents.replace(/\s+<!--[\s\S]*?-->/g, '');  //remove comments when comparing because save doesn't generate them
           Main.load();
-          Main.save();
+          Main.saveToTextArea();  //TODO: test: var newContents=Main.saveAsString();
           var newContents=document.getElementById('code box').value;
           document.getElementById('code box').value=newContents;
           newContents=document.getElementById('code box').value;  //to conform the end lines
@@ -220,12 +220,12 @@ Tester.advantageList.load=function(isFirst)
           Tester.advantageList.load.data.transcendence = [];
           Tester.advantageList.load.data.not_found = [];
           Main.clear();
-          return JSON.parse(Main.save());  //return skeleton needed
+          return Main.save();  //return skeleton needed
       };
       sendData = function(jsonData)
       {
           document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
-          Main.loadText();
+          Main.loadFromTextArea();
       };
       Main.setMockMessenger(function(message)
       {
@@ -616,17 +616,24 @@ Tester.main.changeRuleset=function(isFirst)
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    TesterUtility.changeValue('ruleset', '2.5');  //this will work if above tests pass so don't assert
+    TesterUtility.changeValue('ruleset', '2.5');  //this will work if above tests pass. so don't assert
     TesterUtility.changeValue('ruleset', '2.-5.2');
     testResults.push({Expected: '2.0', Actual: Main.getActiveRuleset().toString(), Action: actionTaken, Description: 'Edge case, negative minor: ActiveRuleset 2.-5.2 -> 2.0'});
     testResults.push({Expected: '2.0', Actual: rulesetElement.value, Action: actionTaken, Description: 'Edge case, negative minor: Element 2.-5.2 -> 2.0'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    TesterUtility.changeValue('ruleset', '2.4');  //this will work if above tests pass so don't assert
+    TesterUtility.changeValue('ruleset', '2.4');
     TesterUtility.changeValue('ruleset', '2.5.2.1.7.8');
     testResults.push({Expected: '2.5', Actual: Main.getActiveRuleset().toString(), Action: actionTaken, Description: 'Edge case, numbers and dots: ActiveRuleset 2.5.2.1.7.8 -> 2.5'});
     testResults.push({Expected: '2.5', Actual: rulesetElement.value, Action: actionTaken, Description: 'Edge case, numbers and dots: Element 2.5.2.1.7.8 -> 2.5'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('ruleset', '2.6');
+    TesterUtility.changeValue('Strength', '2');
+    TesterUtility.changeValue('ruleset', '2.7');
+    testResults.push({Expected: 2, Actual: Main.abilitySection.getByName('Strength').getValue(), Action: actionTaken, Description: 'Maintains document on version change'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.main.changeRuleset', testResults, isFirst);
@@ -794,7 +801,8 @@ Tester.main.convertDocument=function(isFirst)
     var testResults=[];
     var actionTaken, input, expected;
 
-    /**this value must match the result of Main.clear(); Main.save();
+    //TODO: refactor to: Main.clear(); Main.setRuleset(2, 7); const blankDoc = JSON.stringify(Main.save());
+    /**this value must match the result of Main.clear(); Main.saveAsString();
     It is a string so that it is completely immutable and easy to copy.*/
    const blankDoc = JSON.stringify
    ({
