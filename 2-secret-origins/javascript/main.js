@@ -56,8 +56,14 @@ function MainObject()
          {
              if(ruleset.major < 1) ruleset = new VersionObject(1, 0);  //easy way to change to the oldest version
              else if(ruleset.isGreaterThan(latestRuleset)) ruleset = latestRuleset.clone();  //easy way to change to the latest version
-             //var docString = this.saveAsString();  //TODO: convert the current data into the new version
-             this.setRuleset(ruleset.major, ruleset.minor);
+
+            if (!ruleset.equals(activeRuleset))  //no change needed
+            {
+                var jsonDoc = this.save();
+                this.setRuleset(ruleset.major, ruleset.minor);
+                jsonDoc.ruleset = activeRuleset.toString();  //so that the activeRuleset isn't reverted on load
+                this.loadFromString(JSON.stringify(jsonDoc));
+            }
          }
       }
        document.getElementById('ruleset').value = activeRuleset.toString();

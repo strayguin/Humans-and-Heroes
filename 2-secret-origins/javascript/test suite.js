@@ -27,7 +27,7 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
        ['Crime Lord.xml', 'Criminal.xml', 'Gang Leader.xml', 'Street Informant.xml', 'Thug.xml']];
 
     try{readXMLAsString(basePath+allFolders[1]+allFiles[1][2]);}
-    catch(e){alert('You idiot, you can\'t run this here.'); throw e;}  //Whoops, my bad I better turn on the flag first
+    catch(e){alert('You idiot, you can\'t run this here. I have a shortcut in the git folder.'); throw e;}  //Whoops, my bad I better turn on the flag first
        //and I don't care that file 1,2 is parsed twice:
        //1) twice in a row means it should be cached
        //2) this won't be run with other tests
@@ -41,7 +41,7 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
           document.getElementById('code box').value=originalContents;  //should conform the end lines (plus can only load from here)
           originalContents=document.getElementById('code box').value;  //must be on separate lines for some reason
           originalContents=originalContents.replace(/\/>/g, ' />');
-          //originalContents=originalContents.replace(/<Document ruleset='\d+' version='\d+'>/, '<Document>');  //don't remove: being out of date is noteworthy
+          //originalContents=originalContents.replace(/<Document ruleset="\d+.\d+" version="\d+">/, '<Document>');  //don't replace: being out of date is noteworthy
           originalContents=originalContents.replace(/\?>/, '?>\n\n');  //add a blank line
           originalContents=originalContents.replace(/<Powers \/>/, '<Powers></Powers>');  //make empty group instead of self closing
           originalContents=originalContents.replace(/<Equipment \/>/, '<Equipment></Equipment>');
@@ -49,15 +49,17 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
           originalContents=originalContents.replace(/<Skills \/>/, '<Skills></Skills>');
           originalContents+='\n';  //ends with a blank line
           originalContents=originalContents.replace(/\s+<!--[\s\S]*?-->/g, '');  //remove comments when comparing because save doesn't generate them
-          Main.load();
-          Main.saveToTextArea();  //TODO: test: var newContents=Main.saveAsString();
+          Main.loadFromTextArea();
+          Main.saveToTextArea();
           var newContents=document.getElementById('code box').value;
           document.getElementById('code box').value=newContents;
-          newContents=document.getElementById('code box').value;  //to conform the end lines
+          newContents=document.getElementById('code box').value;  //to conform the end lines. TODO: really?
           testResults.push({Expected: originalContents, Actual: newContents, Action: actionTaken, Description: allFolders[folderIndex]+allFiles[folderIndex][fileIndex]});
           //document.getElementById('code box').value=originalContents;
           //document.getElementById('code box').value+=stringDiffDisplay(originalContents, newContents);
+          //break;
       }
+          //break;
    }
 
     TesterUtility.displayResults('Tester.confirmAllXmls', testResults, true);  //grand total is pointless but will scroll me to the bottom
@@ -801,44 +803,9 @@ Tester.main.convertDocument=function(isFirst)
     var testResults=[];
     var actionTaken, input, expected;
 
-    //TODO: refactor to: Main.clear(); Main.setRuleset(2, 7); const blankDoc = JSON.stringify(Main.save());
-    /**this value must match the result of Main.clear(); Main.saveAsString();
-    It is a string so that it is completely immutable and easy to copy.*/
-   const blankDoc = JSON.stringify
-   ({
-         "Hero":
-         {
-              "name": "Hero Name",
-              "transcendence": 0,
-              "image": "../images/Sirocco.jpg"
-         },
-         "Abilities":
-         {
-              "Strength": 0,
-              "Agility": 0,
-              "Fighting": 0,
-              "Awareness": 0,
-              "Stamina": 0,
-              "Dexterity": 0,
-              "Intellect": 0,
-              "Presence": 0
-         },
-          "Powers": [],
-          "Equipment": [],
-          "Advantages": [],
-          "Skills": [],
-         "Defenses":
-         {
-              "Dodge": 0,
-              "Fortitude": 0,
-              "Parry": 0,
-              "Will": 0
-         },
-          "ruleset": "2.7",
-          "version": 2,
-          "Information": "Complications, background and other information"
-   });
+    Main.clear(); Main.setRuleset(2, 7);
     SelectUtil.setText('saveType', 'JSON');
+    const blankDoc = JSON.stringify(Main.save());
    function useLoadButton(input)
    {
        document.getElementById('code box').value = input;
@@ -2114,7 +2081,8 @@ Tester.test.allDataInfoToCodeBox=function(isFirst)
 
 /**Given the relative (might also allow absolute) path to the xml this method returns a string of the contents.
 None of my browsers allow this by default for security reasons. In order to run this in chrome: first close all chrome then run:
-C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --allow-file-access-from-files*/
+C:\Program Files (x86)\Google\Chrome\Application>chrome.exe --allow-file-access-from-files
+I have a shortcut to this in the git folder*/
 function readXMLAsString(xmlLocation)
 {
     var xmlhttp=new XMLHttpRequest();  //code for IE7+, Chrome, Firefox, Opera, Safari
