@@ -1,3 +1,5 @@
+//this unused file is for debugging
+
 /**The LoggerObject is sent messages which are appended to the log's string. The log has depth 0 and is enabled by default.
 This is not redundant with console.log because:
 This log can be read on command (as opposed to when the log statement executes)
