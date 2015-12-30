@@ -246,11 +246,23 @@ Tester.advantageList.load=function(isFirst)
     try{
     dataToLoad = resetData();
     dataToLoad.Advantages.push({name: 'Seize Initiative'});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Happy Path: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Happy Path: nothing else'});
+    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Happy Path: has rank'});
+    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Happy Path: has text'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Seize Initiative'});
     dataToLoad.Advantages.push({name: 'Die hard'});  //not found. real name is Diehard
     sendData(dataToLoad);
-    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Test Load Errors: Seize Initiative was loaded'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found[0].contains('Die hard'), Action: actionTaken, Description: 'Test Load Errors: Die hard was not found'});
-    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Test Load Errors: Make sure update was called'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Errors: Seize Initiative was loaded'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Errors: Nothing else was loaded'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found[0].contains('Die hard'), Action: actionTaken, Description: 'Errors: Die hard was not found'});
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Errors: Make sure update was called'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
@@ -258,10 +270,11 @@ Tester.advantageList.load=function(isFirst)
     dataToLoad.Advantages.push({name: 'Seize Initiative'});
     dataToLoad.Advantages.push({name: 'Beyond Mortal'});  //godhood
     sendData(dataToLoad);
-    testResults.push({Expected: false, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Test Load Errors: Godhood is off'});
-    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Test Load Errors: Seize Initiative was loaded'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence[0].contains('Beyond Mortal'), Action: actionTaken, Description: 'Test Load Errors: Beyond Mortal was not allowed'});
-    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Test Load Errors: Make sure update was called'});
+    testResults.push({Expected: false, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Errors: Godhood is off'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Errors: Seize Initiative was loaded'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Errors: Nothing else was loaded'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence[0].contains('Beyond Mortal'), Action: actionTaken, Description: 'Errors: Beyond Mortal was not allowed'});
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Errors: Make sure update was called'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
@@ -279,33 +292,22 @@ Tester.advantageList.load=function(isFirst)
 
     try{
     dataToLoad = resetData();
-    dataToLoad.Advantages.push({name: 'Benefit'});  //does have rank and text
+    dataToLoad.Advantages.push({name: 'Ultimate Effort', text: 'text'});
     sendData(dataToLoad);
 
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load empty Benefit: the advantage'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load empty Benefit: nothing else'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Load empty Benefit: has rank'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Load empty Benefit: has text'});
+    testResults.push({Expected: 'Ultimate Effort', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Text: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Text: nothing else'});
+    testResults.push({Expected: 'text', Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Text: getText'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
     dataToLoad = resetData();
-    dataToLoad.Advantages.push({name: 'Benefit', text: 'text'});
+    dataToLoad.Advantages.push({name: 'Defensive Roll', rank: 3});
     sendData(dataToLoad);
 
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load text Benefit: the advantage'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load text Benefit: nothing else'});
-    testResults.push({Expected: 'text', Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Load text Benefit: getText'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    try{
-    dataToLoad = resetData();
-    dataToLoad.Advantages.push({name: 'Benefit', rank: 3});
-    sendData(dataToLoad);
-
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load rank Benefit: the advantage'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load rank Benefit: nothing else'});
-    testResults.push({Expected: 3, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Load rank Benefit: getRank'});
+    testResults.push({Expected: 'Defensive Roll', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Rank: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Rank: nothing else'});
+    testResults.push({Expected: 3, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Rank: getRank'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     Main.clearMockMessenger();  //restore default behavior
@@ -1393,17 +1395,176 @@ Tester.powerList.calculateValues=function(isFirst)
 };
 Tester.powerList.load=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
     TesterUtility.clearResults(isFirst);
 
+    var dataToLoad, resetData, sendData;
     var testResults=[];
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    var actionTaken='N/A';
+
+   try
+   {
+       Tester.powerList.load.data = {};
+       SelectUtil.setText('saveType', 'JSON');  //only needs to be done once is why it isn't in resetData
+      resetData = function()
+      {
+          Tester.powerList.load.data.transcendence = [];
+          Tester.powerList.load.data.not_found = [];
+          Main.clear();
+          return Main.save();  //return skeleton needed
+      };
+      sendData = function(jsonData)
+      {
+          document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
+          Main.loadFromTextArea();
+      };
+      Main.setMockMessenger(function(message)
+      {
+          if(message.contains('transcendence')) Tester.powerList.load.data.transcendence.push(message);
+          else Tester.powerList.load.data.not_found.push(message);
+      });
+   }
+   catch (e)
+   {
+       testResults.push({Error: e, Action: 'Set up'});
+       //no need to unmock Main.messageUser since a crash requires page refresh anyway
+       TesterUtility.displayResults('Tester.powerList.load', testResults, isFirst);
+       return;  //if set up fails then it will all fail so stop now
+   }
+
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"Text test","action":"Free","range":"Personal","duration":"Sustained",
+       "Modifiers":[{"name":"Selective"}], "rank":2});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Happy Path: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Happy Path: 1 row'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.not_found.isEmpty(), Action: actionTaken, Description: 'Happy Path: No errors 1'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.transcendence.isEmpty(), Action: actionTaken, Description: 'Happy Path: No errors 2'});
+    testResults.push({Expected: false, Actual: Main.powerSection.getRow(0).isBaseCostSettable(), Action: actionTaken, Description: 'Happy Path: isBaseCostSettable'});
+    testResults.push({Expected: 'Text test', Actual: Main.powerSection.getRow(0).getText(), Action: actionTaken, Description: 'Happy Path: text'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Happy Path: default action'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Happy Path: default range'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Happy Path: default duration'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getRow(0).getModifierList().getRow(0).getName(), Action: actionTaken, Description: 'Happy Path: simple modifier'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(0).getModifierList().getRow(1).isBlank(), Action: actionTaken, Description: 'Happy Path: no others modifiers'});
+    testResults.push({Expected: 2, Actual: Main.powerSection.getRow(0).getRank(), Action: actionTaken, Description: 'Happy Path: rank'});
+    testResults.push({Expected: 6, Actual: Main.powerSection.getTotal(), Action: actionTaken, Description: 'Happy Path: Make sure update was called'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Equipment.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[], "rank":1});
+    dataToLoad.Advantages.push({"name":"Equipment","rank":1});  //just to make the path happy
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.equipmentSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Happy Equipment: Effect'});
+    //just confirming that it loaded
+    testResults.push({Expected: true, Actual: Main.equipmentSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Happy Equipment: 1 row'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    dataToLoad.Powers.push({"effect":"Invalid","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Errors: Flight was loaded'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Errors: Nothing else was loaded'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.not_found[0].contains('Invalid'), Action: actionTaken, Description: 'Errors: not found'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    dataToLoad.Powers.push({"effect":"A God I Am","text":"","action":"Triggered","range":"Personal","duration":"Continuous","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: false, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Errors: Godhood is off'});
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Errors: Flight was loaded'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Errors: Nothing else was loaded'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.transcendence[0].contains('A God I Am'), Action: actionTaken, Description: 'Errors: A God I Am was not allowed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Hero.transcendence = 1;  //set godhood
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    //flight is to make sure transcendence isn't reset
+    dataToLoad.Powers.push({"effect":"A God I Am","text":"","action":"Triggered","range":"Personal","duration":"Continuous","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: true, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Load Godhood: Godhood is on'});
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Load Godhood: Flight was loaded'});
+    testResults.push({Expected: 'A God I Am', Actual: Main.powerSection.getRow(1).getEffect(), Action: actionTaken, Description: 'Load Godhood: A God I Am was loaded'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(2).isBlank(), Action: actionTaken, Description: 'Load Godhood: Nothing else was loaded'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.not_found.isEmpty(), Action: actionTaken, Description: 'Load godhood: No errors (found)'});
+    testResults.push({Expected: true, Actual: Tester.powerList.load.data.transcendence.isEmpty(), Action: actionTaken, Description: 'Load godhood: No errors (godhood)'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Attain Knowledge","cost":3,"text":"","action":"Standard","range":"Personal","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Attain Knowledge', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Custom Cost: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Custom Cost: 1 row'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(0).isBaseCostSettable(), Action: actionTaken, Description: 'Custom Cost: isBaseCostSettable'});
+    testResults.push({Expected: 3, Actual: Main.powerSection.getRow(0).getBaseCost(), Action: actionTaken, Description: 'Custom Cost: getBaseCost'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Move","range":"Personal","duration":"Sustained",
+       "Modifiers":[{"name":"Slower Action","applications":1}],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Custom Action: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Custom Action: 1 row'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Custom Action: getAction'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Healing","text":"","action":"Standard","range":"Ranged","duration":"Instant",
+       "Modifiers":[{"name":"Increased Range","applications":1}],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Healing', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Custom Range: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Custom Range: 1 row'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Custom Range: getRange'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"Descriptors and other text","action":"Free","range":"Personal","duration":"Concentration",
+       "Modifiers":[{"name":"Decreased Duration","applications":1}],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Custom Duration: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Custom Duration: 1 row'});
+    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Custom Duration: getDuration'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Damage","text":"","action":"Standard","range":"Close","duration":"Instant",
+       "name":"Damage name","skill":"Skill used","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Damage', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Name and skill: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Name and skill: 1 row'});
+    testResults.push({Expected: 'Damage name', Actual: Main.powerSection.getRow(0).getName(), Action: actionTaken, Description: 'Name and skill: getName'});
+    testResults.push({Expected: 'Skill used', Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Name and skill: getSkillUsed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Mind Reading","text":"","action":"Standard","range":"Perception","duration":"Sustained",
+       "name":"Mind Reading name","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Mind Reading', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Name only: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Name only: 1 row'});
+    testResults.push({Expected: 'Mind Reading name', Actual: Main.powerSection.getRow(0).getName(), Action: actionTaken, Description: 'Name only: getName'});
+    testResults.push({Expected: undefined, Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Name only: getSkillUsed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+   //TODO: fix them all. write placeholder tests for:
+   //disableValidationForActivationInfo: things that might not be allowed while loading
+   //validateActivationInfo: throw errors and auto-fix some things...
+   //fix godhood: make a minTran = 0 or user input (if empty set 0)
+
+    Main.clearMockMessenger();  //restore default behavior
     TesterUtility.displayResults('Tester.powerList.load', testResults, isFirst);
 };
 Tester.powerList.save=function(isFirst)

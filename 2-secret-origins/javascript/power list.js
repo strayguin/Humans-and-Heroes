@@ -77,27 +77,28 @@ function PowerListAgnostic(sectionName)
        //Main.clear() is called at the start of Main.load()
       for (var i=0; i < jsonSection.length; i++)
       {
-          var nameToLoad=jsonSection[i].effect;
+          var nameToLoad = jsonSection[i].effect;
           if(!Data.Power.names.contains(nameToLoad) && !Data.Power.godhoodNames.contains(nameToLoad))
-             {Main.messageUser('Load Error: '+nameToLoad+' is not a power name.'); continue;}  //not found
+             {Main.messageUser('Load Error: ' + nameToLoad + ' is not a power name.'); continue;}
           if(Data.Power.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
-             {Main.messageUser('Load Error: '+nameToLoad+' is the power listed without transcendence (='+Main.getTranscendence()+')'); continue;}
-          var rowPointer=rowArray.last();
-          rowPointer.setPower(nameToLoad);  //must be done before all others
-          if(jsonSection[i].cost !== undefined) rowPointer.setBaseCost(jsonSection[i].cost);
-          rowPointer.setText(jsonSection[i].text);
+             {Main.messageUser('Load Error: ' + nameToLoad + ' is the power listed without transcendence (=' + Main.getTranscendence() + ')'); continue;}
+          var rowPointer = rowArray.last();
+          rowPointer.setPower(nameToLoad);  //must be done first
+          if(undefined !== jsonSection[i].cost) rowPointer.setBaseCost(jsonSection[i].cost);
+          rowPointer.setText(jsonSection[i].text);  //they all have text because descriptors
           //rowPointer.disableValidationForActivationInfo();
           //TODO: onload blindly set activation info and modifiers...
-          //validate activation if possible (else revert to base activation)
-          //recreate all faster action etc
-          //sort those to be the first instead of last
           rowPointer.setAction(jsonSection[i].action);  //all sets take strings
           rowPointer.setRange(jsonSection[i].range);
           rowPointer.setDuration(jsonSection[i].duration);
-          if(jsonSection[i].name !== undefined) rowPointer.setName(jsonSection[i].name);
-          if(jsonSection[i].skill !== undefined) rowPointer.setSkill(jsonSection[i].skill);
+          if(undefined !== jsonSection[i].name) rowPointer.setName(jsonSection[i].name);
+          if(undefined !== jsonSection[i].skill) rowPointer.setSkill(jsonSection[i].skill);
+          //skill requires name however perception range has name without skill
           rowPointer.setRank(jsonSection[i].rank);
           rowPointer.getModifierList().load(jsonSection[i].Modifiers);  //load modifiers
+          //rowPointer.validateActivationInfo(); if possible (else revert to base activation)
+          //recreate all faster action etc
+          //sort those to be the first instead of last
           this.addRow();
       }
        this.update();
