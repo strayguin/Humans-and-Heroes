@@ -44,7 +44,7 @@ function AdvantageObject(rowIndex)
        hasRank = (maxRanks !== 1);  //if max ranks is 1 then there are no ranks
        if(useNewData) rank = 1;
        costPerRank = Data.Advantage.costPerRank.get(name);
-       total = costPerRank*rank;  //since it's rank 1
+       total = costPerRank * rank;
        hasText = Data.Advantage.hasText.contains(name);
        if(hasText && useNewData) text = Data.Advantage.defaultText.get(name);
        else if(useNewData) text = undefined;  //needs to be explicit so that the previous data is destroyed
@@ -62,9 +62,9 @@ function AdvantageObject(rowIndex)
    /**Used to set data independent of the document and without calling update*/
    this.setText=function(textGiven)
    {
-       if(this.isBlank()) return;
+       if(this.isBlank()) return;  //TODO: looks like cargo cult
        if(!hasText) return;  //can only happen when loading
-       text = textGiven.trim();  //trimed in case it needs to match up with something else
+       text = textGiven.trim();  //trimmed in case it needs to match up with something else
    };
 
    //public function section
@@ -104,7 +104,7 @@ function AdvantageObject(rowIndex)
    this.getUniqueName=function()
    {
        if(this.isBlank()) return;  //never hit
-       if(name === 'Minion' || name === 'Sidekick') return ('Helper: '+text);
+       if(name === 'Minion' || name === 'Sidekick') return ('Helper: '+text);  //you can't have the same character be a minion and sidekick
        if(hasText) return (name+': '+text);
        return name;
    };

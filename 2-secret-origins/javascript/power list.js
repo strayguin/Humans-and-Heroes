@@ -86,6 +86,11 @@ function PowerListAgnostic(sectionName)
           rowPointer.setPower(nameToLoad);  //must be done before all others
           if(jsonSection[i].cost !== undefined) rowPointer.setBaseCost(jsonSection[i].cost);
           rowPointer.setText(jsonSection[i].text);
+          //rowPointer.disableValidationForActivationInfo();
+          //TODO: onload blindly set activation info and modifiers...
+          //validate activation if possible (else revert to base activation)
+          //recreate all faster action etc
+          //sort those to be the first instead of last
           rowPointer.setAction(jsonSection[i].action);  //all sets take strings
           rowPointer.setRange(jsonSection[i].range);
           rowPointer.setDuration(jsonSection[i].duration);

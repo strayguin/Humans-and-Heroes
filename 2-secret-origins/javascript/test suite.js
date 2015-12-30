@@ -211,7 +211,7 @@ Tester.advantageList.load=function(isFirst)
 
     var dataToLoad, resetData, sendData;
     var testResults=[];
-    var actionTaken='Set up';
+    var actionTaken='N/A';
 
    try
    {
@@ -237,80 +237,78 @@ Tester.advantageList.load=function(isFirst)
    }
    catch (e)
    {
-       testResults.push({Error: e, Action: actionTaken});
+       testResults.push({Error: e, Action: 'Set up'});
        //no need to unmock Main.messageUser since a crash requires page refresh anyway
        TesterUtility.displayResults('Tester.advantageList.load', testResults, isFirst);
        return;  //if set up fails then it will all fail so stop now
    }
 
     try{
-    actionTaken='Test Load Errors'; dataToLoad = resetData();
-    dataToLoad.Advantages.push({name: 'Benefit'});  //no error (despite missing rank and text data)
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Seize Initiative'});
     dataToLoad.Advantages.push({name: 'Die hard'});  //not found. real name is Diehard
-    dataToLoad.Advantages.push({name: 'Beyond Mortal'});  //godhood
     sendData(dataToLoad);
-    testResults.push({Expected: false, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Godhood is off'});
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Benefit was loaded'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found[0].contains('Die hard'), Action: actionTaken, Description: 'Die hard was not found'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence[0].contains('Beyond Mortal'), Action: actionTaken, Description: 'Beyond Mortal was not allowed'});
-    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Make sure update was called'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Test Load Errors: Seize Initiative was loaded'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found[0].contains('Die hard'), Action: actionTaken, Description: 'Test Load Errors: Die hard was not found'});
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Test Load Errors: Make sure update was called'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    actionTaken='Load godhood'; dataToLoad = resetData();
-    dataToLoad.Hero.transcendence = '1';  //set godhood
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Seize Initiative'});
     dataToLoad.Advantages.push({name: 'Beyond Mortal'});  //godhood
-    dataToLoad.Advantages.push({name: 'Benefit'});  //normal (just to make sure there are no message generated)
     sendData(dataToLoad);
-    testResults.push({Expected: true, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Godhood is on'});
-    testResults.push({Expected: 'Beyond Mortal', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Beyond Mortal was loaded'});
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Benefit was loaded'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found.isEmpty(), Action: actionTaken, Description: 'No errors (found)'});
-    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence.isEmpty(), Action: actionTaken, Description: 'No errors (godhood)'});
+    testResults.push({Expected: false, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Test Load Errors: Godhood is off'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Test Load Errors: Seize Initiative was loaded'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence[0].contains('Beyond Mortal'), Action: actionTaken, Description: 'Test Load Errors: Beyond Mortal was not allowed'});
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getTotal(), Action: actionTaken, Description: 'Test Load Errors: Make sure update was called'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
-    actionTaken='Load rank text'; dataToLoad = resetData();
-    dataToLoad.Hero.transcendence = '1';  //set godhood
+    dataToLoad = resetData();
+    dataToLoad.Hero.transcendence = 1;  //set godhood
+    dataToLoad.Advantages.push({name: 'Seize Initiative'});  //normal to make sure transcendence isn't reset
+    dataToLoad.Advantages.push({name: 'Beyond Mortal'});  //godhood
+    sendData(dataToLoad);
+    testResults.push({Expected: true, Actual: Main.canUseGodHood(), Action: actionTaken, Description: 'Load godhood: Godhood is on'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load godhood: Seize Initiative was loaded'});
+    testResults.push({Expected: 'Beyond Mortal', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Load godhood: Beyond Mortal was loaded'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.not_found.isEmpty(), Action: actionTaken, Description: 'Load godhood: No errors (found)'});
+    testResults.push({Expected: true, Actual: Tester.advantageList.load.data.transcendence.isEmpty(), Action: actionTaken, Description: 'Load godhood: No errors (godhood)'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
     dataToLoad.Advantages.push({name: 'Benefit'});  //does have rank and text
-    dataToLoad.Advantages.push({name: 'Beyond Mortal', text: 'yoyo text', rank: '45'});  //doesn't have rank or text
-    dataToLoad.Advantages.push({name: 'Stay Like That', text: 'yoyo text', rank: '45'});  //doesn't have rank but does have text
-    dataToLoad.Advantages.push({name: 'Omniscient', text: 'yoyo text', rank: '+45'});  //doesn't have text but does have rank. also above max rank
-    dataToLoad.Advantages.push({name: 'Supreme', rank: '5', text: 'sup1'});  //does have rank and text
-    dataToLoad.Advantages.push({name: 'Supreme', text: 'sup1'});  //redundant
-    dataToLoad.Advantages.push({name: 'Supreme', rank: '-5', text: 'sup2'});
     sendData(dataToLoad);
 
-    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Make sure they all loaded'});
-    testResults.push({Expected: 'Beyond Mortal', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: '...'});
-    testResults.push({Expected: 'Stay Like That', Actual: Main.advantageSection.getRow(2).getName(), Action: actionTaken, Description: '...'});
-    testResults.push({Expected: 'Omniscient', Actual: Main.advantageSection.getRow(3).getName(), Action: actionTaken, Description: '...'});
-    testResults.push({Expected: 'Supreme', Actual: Main.advantageSection.getRow(4).getName(), Action: actionTaken, Description: '...'});
-    testResults.push({Expected: 'Supreme', Actual: Main.advantageSection.getRow(5).getName(), Action: actionTaken, Description: '...'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(6).isBlank(), Action: actionTaken, Description: 'But not the redundant Supreme'});
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load empty Benefit: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load empty Benefit: nothing else'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Load empty Benefit: has rank'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Load empty Benefit: has text'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Benefit has rank'});
-    testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'of default rank'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Benefit has text'});
-    testResults.push({Expected: Data.Advantage.defaultText.get('Benefit'), Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'of default text'});
-    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(1).doesHaveRank(), Action: actionTaken, Description: 'Beyond Mortal doesn\'t have rank'});
-    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(1).doesHaveText(), Action: actionTaken, Description: 'or text'});
-    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(2).doesHaveRank(), Action: actionTaken, Description: 'Stay Like That doesn\'t have rank'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(2).doesHaveText(), Action: actionTaken, Description: 'but does have text'});
-    testResults.push({Expected: 'yoyo text', Actual: Main.advantageSection.getRow(2).getText(), Action: actionTaken, Description: 'as specified'});
-    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(3).doesHaveText(), Action: actionTaken, Description: 'Omniscient no text'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(3).doesHaveRank(), Action: actionTaken, Description: 'Omniscient has rank'});
-    testResults.push({Expected: Data.Advantage.maxRanks.get('Omniscient'), Actual: Main.advantageSection.getRow(3).getRank(), Action: actionTaken, Description: 'as max'});
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Benefit', text: 'text'});
+    sendData(dataToLoad);
 
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(4).doesHaveRank(), Action: actionTaken, Description: 'Supreme has rank'});
-    testResults.push({Expected: 5, Actual: Main.advantageSection.getRow(4).getRank(), Action: actionTaken, Description: 'as specified'});
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(4).doesHaveText(), Action: actionTaken, Description: 'Supreme has text'});
-    testResults.push({Expected: 'sup1', Actual: Main.advantageSection.getRow(4).getText(), Action: actionTaken, Description: 'as specified'});
-    testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(5).getRank(), Action: actionTaken, Description: 'Supreme with minimum rank'});
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load text Benefit: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load text Benefit: nothing else'});
+    testResults.push({Expected: 'text', Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Load text Benefit: getText'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Benefit', rank: 3});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load rank Benefit: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load rank Benefit: nothing else'});
+    testResults.push({Expected: 3, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Load rank Benefit: getRank'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     Main.clearMockMessenger();  //restore default behavior
-    document.getElementById('code box').value = '';  //clear out so that control + F won't be thrown off
     TesterUtility.displayResults('Tester.advantageList.load', testResults, isFirst);
 };
 Tester.advantageRow={};
@@ -319,6 +317,7 @@ Tester.advantageRow.data={setUp: Tester.data.beforeAll};
 Tester.advantageRow.setAdvantage=function(isFirst)
 {
     return;  //remove this when actual tests exist. ADD TESTS
+    //testResults.push({Expected: Data.Advantage.defaultText.get('Benefit'), Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'of default text'});
     TesterUtility.clearResults(isFirst);
 
     var testResults=[];
@@ -331,6 +330,143 @@ Tester.advantageRow.setAdvantage=function(isFirst)
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.advantageRow.setAdvantage', testResults, isFirst);
+};
+Tester.advantageRow.setRank=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var dataToLoad, resetData, sendData;
+    var testResults=[];
+    var actionTaken='N/A';
+
+   try
+   {
+       SelectUtil.setText('saveType', 'JSON');  //only needs to be done once is why it isn't in resetData
+      resetData = function()
+      {
+          Main.clear();
+          return Main.save();  //return skeleton needed
+      };
+      sendData = function(jsonData)
+      {
+          document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
+          Main.loadFromTextArea();
+      };
+   }
+   catch (e)
+   {
+       testResults.push({Error: e, Action: 'Set up'});
+       TesterUtility.displayResults('Tester.advantageRow.setRank', testResults, isFirst);
+       return;  //if set up fails then it will all fail so stop now
+   }
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Benefit', rank: 123456});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load Benefit: no other rows'});
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load Benefit: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Load Benefit: doesHaveRank'});
+    testResults.push({Expected: 123456, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Load Benefit: rank set'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('advantageRank0', 5);
+    testResults.push({Expected: 5, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Change Benefit rank'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Seize Initiative', rank: 5});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load Seize Initiative: no other rows'});
+    testResults.push({Expected: 'Seize Initiative', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load Seize Initiative: the advantage'});
+    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(0).doesHaveRank(), Action: actionTaken, Description: 'Load Seize Initiative: doesHaveRank'});
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Load Seize Initiative: Rank ignored'});
+    //if you have the advantage means 1 rank which is why it isn't undefined
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('advantageChoices0', 'Lucky');
+    testResults.push({Expected: 'Lucky', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Change to Lucky'});
+    testResults.push({Expected: 3, Actual: Main.advantageSection.getRow(0).getMaxRanks(), Action: actionTaken, Description: 'Lucky getMaxRanks'});
+
+    TesterUtility.changeValue('advantageRank0', 5);
+    testResults.push({Expected: 3, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Lucky max rank enforced'});
+
+    TesterUtility.changeValue('advantageRank0', -5);
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Lucky min rank enforced'});
+
+    TesterUtility.changeValue('advantageRank0', 2);
+    TesterUtility.changeValue('advantageRank0', 'invalid');
+    testResults.push({Expected: 1, Actual: Main.advantageSection.getRow(0).getRank(), Action: actionTaken, Description: 'Lucky rank defaults to 1'});
+
+    TesterUtility.changeValue('advantageRank0', 2);
+    testResults.push({Expected: 5, Actual: Main.advantageSection.getRow(0).getCostPerRank(), Action: actionTaken, Description: 'Lucky getCostPerRank'});
+    testResults.push({Expected: 10, Actual: Main.advantageSection.getRow(0).getTotal(), Action: actionTaken, Description: 'Lucky total cost'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.advantageRow.setRank', testResults, isFirst);
+};
+Tester.advantageRow.setText=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var dataToLoad, resetData, sendData;
+    var testResults=[];
+    var actionTaken='N/A';
+
+   try
+   {
+       SelectUtil.setText('saveType', 'JSON');  //only needs to be done once is why it isn't in resetData
+      resetData = function()
+      {
+          Main.clear();
+          return Main.save();  //return skeleton needed
+      };
+      sendData = function(jsonData)
+      {
+          document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
+          Main.loadFromTextArea();
+      };
+   }
+   catch (e)
+   {
+       testResults.push({Error: e, Action: 'Set up'});
+       TesterUtility.displayResults('Tester.advantageRow.setText', testResults, isFirst);
+       return;  //if set up fails then it will all fail so stop now
+   }
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Benefit', text: '\thas text: also trimmed  \n'});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load Benefit: no other rows'});
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load Benefit: the advantage'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Load Benefit: doesHaveText'});
+    testResults.push({Expected: 'has text: also trimmed', Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Load Benefit: text set'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    TesterUtility.changeValue('advantageText0', '\tchanged text: trimmed \n');
+    testResults.push({Expected: 'changed text: trimmed', Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Change Benefit text'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Advantages.push({name: 'Lucky', text: 'can\'t have text'});
+    sendData(dataToLoad);
+
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Load Lucky: no other rows'});
+    testResults.push({Expected: 'Lucky', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Load Lucky: the advantage'});
+    testResults.push({Expected: false, Actual: Main.advantageSection.getRow(0).doesHaveText(), Action: actionTaken, Description: 'Load Lucky: doesHaveText'});
+    testResults.push({Expected: undefined, Actual: Main.advantageSection.getRow(0).getText(), Action: actionTaken, Description: 'Load Lucky: Text not set'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.advantageRow.setText', testResults, isFirst);
 };
 Tester.advantageRow.generate=function(isFirst)
 {
