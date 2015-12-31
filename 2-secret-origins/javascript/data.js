@@ -199,7 +199,7 @@ Data.change = function(major, minor)
        Data.Modifier.type.set('Attack', 'Rank');
        Data.Modifier.maxRank.set('Diminished Range', 1);
        Data.Modifier.cost.set('Impervious', 2);
-       Data.Modifier.maxRank.set('Impervious', -1);
+       Data.Modifier.maxRank.set('Impervious', Infinity);
        Data.Modifier.type.set('Impervious', 'Flat');
        Data.Modifier.cost.set('Increased Mass', 3);
        Data.Modifier.type.set('Innate', 'Rank');
