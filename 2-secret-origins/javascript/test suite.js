@@ -1529,7 +1529,7 @@ Tester.powerList.load=function(isFirst)
 
     try{
     dataToLoad = resetData();
-    dataToLoad.Powers.push({"effect":"Flight","text":"Descriptors and other text","action":"Free","range":"Personal","duration":"Concentration",
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Concentration",
        "Modifiers":[{"name":"Decreased Duration","applications":1}],"rank":1});
     sendData(dataToLoad);
     testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Custom Duration: Effect'});
@@ -1559,9 +1559,7 @@ Tester.powerList.load=function(isFirst)
     testResults.push({Expected: undefined, Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Name only: getSkillUsed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-   //TODO: fix them all. write placeholder tests for:
-   //disableValidationForActivationInfo: things that might not be allowed while loading
-   //validateActivationInfo: throw errors and auto-fix some things...
+   //TODO: fix them all
    //fix godhood: make a minTran = 0 or user input (if empty set 0)
 
     Main.clearMockMessenger();  //restore default behavior
@@ -1600,6 +1598,375 @@ Tester.powerList.notifyDependent=function(isFirst)
 Tester.powerRow={};
 Tester.powerRow.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
 Tester.powerRow.data={setUp: Tester.data.beforeAll};
+Tester.powerRow.disableValidationForActivationInfo=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var dataToLoad, resetData, sendData;
+    var testResults=[];
+    var actionTaken='N/A';
+
+   try
+   {
+       Tester.powerRow.disableValidationForActivationInfo.data = {};
+       SelectUtil.setText('saveType', 'JSON');  //only needs to be done once is why it isn't in resetData
+      resetData = function()
+      {
+          Tester.powerRow.disableValidationForActivationInfo.data.transcendence = [];
+          Tester.powerRow.disableValidationForActivationInfo.data.not_found = [];
+          Main.clear();
+          return Main.save();  //return skeleton needed
+      };
+      sendData = function(jsonData)
+      {
+          document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
+          Main.loadFromTextArea();
+      };
+   }
+   catch (e)
+   {
+       testResults.push({Error: e, Action: 'Set up'});
+       //no need to unmock Main.messageUser since a crash requires page refresh anyway
+       TesterUtility.displayResults('Tester.powerRow.disableValidationForActivationInfo', testResults, isFirst);
+       return;  //if set up fails then it will all fail so stop now
+   }
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Close","duration":"Sustained",
+       "Modifiers":[{"name":"Affects Others Only"}],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Personal to close Range: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Personal to close Range: 1 row'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Personal to close Range: getRange'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"None","range":"Personal","duration":"Permanent",
+       "Modifiers":[{"name":"Increased Duration","applications":2}],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Action None: Effect'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getRow(1).isBlank(), Action: actionTaken, Description: 'Action None: 1 row'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Action None: getAction'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.powerRow.disableValidationForActivationInfo', testResults, isFirst);
+};
+Tester.powerRow.validateActivationInfo=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var dataToLoad;
+    var testResults=[];
+    var actionTaken='N/A';
+
+    var errorHolder = {};
+    SelectUtil.setText('saveType', 'JSON');  //only needs to be done once is why it isn't in resetData
+    function resetData()
+    {
+        errorHolder.doesNotExist = [];
+        errorHolder.changeAction = [];
+        errorHolder.changeDuration = [];
+        errorHolder.changeBoth = [];
+        errorHolder.instant = [];
+        errorHolder.personal = [];
+        Main.clear();
+        return Main.save();  //return skeleton needed
+    };
+    function sendData(jsonData)
+    {
+        document.getElementById('code box').value = JSON.stringify(jsonData);  //to simulate user input
+        Main.loadFromTextArea();
+    };
+    Main.setMockMessenger(function(message)
+    {
+        if(message.contains('exist')) errorHolder.doesNotExist.push(message);
+        else if(message.contains('Personal')) errorHolder.personal.push(message);
+        else if(message.contains('Instant')) errorHolder.instant.push(message);
+        else if(message.contains('both')) errorHolder.changeBoth.push(message);
+        else if(message.contains('action')) errorHolder.changeAction.push(message);
+        else errorHolder.changeDuration.push(message);
+    });
+    function isValid()
+    {
+        if(!errorHolder.doesNotExist.isEmpty()) return false;
+        if(!errorHolder.changeAction.isEmpty()) return false;
+        if(!errorHolder.changeDuration.isEmpty()) return false;
+        if(!errorHolder.changeBoth.isEmpty()) return false;
+        if(!errorHolder.personal.isEmpty()) return false;
+        return errorHolder.instant.isEmpty();
+    };
+    function singleMessage(errorArray, substring)
+    {
+        return (1 === errorArray.length && errorArray[0].contains(substring));
+    };
+    function doesNotExistError(substring)
+    {
+        if(!singleMessage(errorHolder.doesNotExist, substring)) return false;
+        if(!errorHolder.changeAction.isEmpty()) return false;
+        if(!errorHolder.changeDuration.isEmpty()) return false;
+        if(!errorHolder.changeBoth.isEmpty()) return false;
+        if(!errorHolder.personal.isEmpty()) return false;
+        return errorHolder.instant.isEmpty();
+    };
+    function changeActionError(substring)
+    {
+        if(!errorHolder.doesNotExist.isEmpty()) return false;
+        if(!singleMessage(errorHolder.changeAction, substring)) return false;
+        if(!errorHolder.changeDuration.isEmpty()) return false;
+        if(!errorHolder.changeBoth.isEmpty()) return false;
+        if(!errorHolder.personal.isEmpty()) return false;
+        return errorHolder.instant.isEmpty();
+    };
+
+    //none of these tests will have modifiers because they should be ignored and recreated
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"None","range":"Personal","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Valid 1: power was loaded'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Valid 1: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Valid 1: getRange'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Valid 1: getDuration'});
+    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Valid 1: no errors'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Valid 2: power was loaded'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Valid 2: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Valid 2: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Valid 2: getDuration'});
+    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Valid 2: no errors'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Teleport","text":"","action":"Move","range":"Personal","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Teleport', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Valid 3: power was loaded'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Valid 3: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Valid 3: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Valid 3: getDuration'});
+    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Valid 3: no errors'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Close","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Valid 4: power was loaded'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Valid 4: getAction'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Valid 4: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Valid 4: getDuration'});
+    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Valid 4: no errors'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Teleport","text":"","action":"Move","range":"Close","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Teleport', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Valid 5: power was loaded'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Valid 5: getAction'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Valid 5: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Valid 5: getDuration'});
+    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Valid 5: no errors'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"None","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change action 1: power was loaded'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change action 1: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change action 1: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change action 1: getDuration'});
+    testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Change action 1: error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Teleport","text":"","action":"None","range":"Personal","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Teleport', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change action 2: power was loaded'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change action 2: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change action 2: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change action 2: getDuration'});
+    testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Change action 2: error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"None","range":"Close","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change action 3: power was loaded'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change action 3: getAction'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change action 3: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change action 3: getDuration'});
+    testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Change action 3: error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Teleport","text":"","action":"None","range":"Close","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Teleport', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change action 4: power was loaded'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change action 4: getAction'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change action 4: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change action 4: getDuration'});
+    testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Change action 4: error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"Personal","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change action to none: power was loaded'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change action to none: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change action to none: getRange'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change action to none: getDuration'});
+    testResults.push({Expected: true, Actual: changeActionError('Free'), Action: actionTaken, Description: 'Change action to none: error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Create","text":"","action":"Standard","range":"Ranged","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change duration: power was loaded'});
+    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change duration: getAction'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change duration: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change duration: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeDuration, 'Permanent'), Action: actionTaken, Description: 'Change duration: error'});
+    testResults.push({Expected: true, Actual: errorHolder.doesNotExist.isEmpty(), Action: actionTaken, Description: 'Change duration: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Change duration: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Change duration: no changeBoth error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Change duration: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Change duration: no personal error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Create","text":"","action":"None","range":"Ranged","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change both: power was loaded'});
+    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change both: getAction'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change both: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change both: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeDuration, 'None'), Action: actionTaken, Description: 'Change both: error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Change both: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Change both: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.doesNotExist.isEmpty(), Action: actionTaken, Description: 'Change both: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Change both: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Change both: no personal error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Create","text":"","action":"invalid action","range":"Ranged","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Action does not exist: power was loaded'});
+    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Action does not exist: getAction'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Action does not exist: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Action does not exist: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.doesNotExist, 'invalid action'), Action: actionTaken, Description: 'Action does not exist: defaulted error'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeDuration, 'Permanent'), Action: actionTaken, Description: 'Action does not exist: and then validated'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Action does not exist: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Action does not exist: no changeBoth error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Action does not exist: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Action does not exist: no personal error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Flight","text":"","action":"Free","range":"invalid range","duration":"Permanent","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Range does not exist: power was loaded'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Range does not exist: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Range does not exist: getRange'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Range does not exist: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.doesNotExist, 'invalid range'), Action: actionTaken, Description: 'Range does not exist: defaulted error'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeAction, 'Free'), Action: actionTaken, Description: 'Range does not exist: and then validated'});
+    testResults.push({Expected: true, Actual: errorHolder.changeDuration.isEmpty(), Action: actionTaken, Description: 'Range does not exist: no changeDuration error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Range does not exist: no changeBoth error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Range does not exist: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Range does not exist: no personal error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Protection","text":"","action":"Free","range":"Personal","duration":"invalid duration","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Protection', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Duration does not exist: power was loaded'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Duration does not exist: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Duration does not exist: getRange'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Duration does not exist: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.doesNotExist, 'invalid duration'), Action: actionTaken, Description: 'Duration does not exist: defaulted error'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeAction, 'Free'), Action: actionTaken, Description: 'Duration does not exist: and then validated'});
+    testResults.push({Expected: true, Actual: errorHolder.changeDuration.isEmpty(), Action: actionTaken, Description: 'Duration does not exist: no changeDuration error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Duration does not exist: no changeBoth error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Duration does not exist: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Duration does not exist: no personal error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Create","text":"","action":"Standard","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Can\'t change to personal: power was loaded'});
+    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Can\'t change to personal: getAction'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Can\'t change to personal: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Can\'t change to personal: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.personal, 'Personal'), Action: actionTaken, Description: 'Can\'t change to personal: error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Can\'t change to personal: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Can\'t change to personal: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.doesNotExist.isEmpty(), Action: actionTaken, Description: 'Can\'t change to personal: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.instant.isEmpty(), Action: actionTaken, Description: 'Can\'t change to personal: no instant error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeDuration.isEmpty(), Action: actionTaken, Description: 'Can\'t change to personal: no changeDuration error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Create","text":"","action":"Standard","range":"Ranged","duration":"Instant","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Can\'t change to Instant: power was loaded'});
+    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Can\'t change to Instant: getAction'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Can\'t change to Instant: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Can\'t change to Instant: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.instant, 'Instant'), Action: actionTaken, Description: 'Can\'t change to Instant: error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Can\'t change to Instant: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Can\'t change to Instant: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.doesNotExist.isEmpty(), Action: actionTaken, Description: 'Can\'t change to Instant: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Can\'t change to Instant: no personal error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeDuration.isEmpty(), Action: actionTaken, Description: 'Can\'t change to Instant: no changeDuration error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    dataToLoad = resetData();
+    dataToLoad.Powers.push({"effect":"Teleport","text":"","action":"Move","range":"Personal","duration":"Sustained","Modifiers":[],"rank":1});
+    sendData(dataToLoad);
+    testResults.push({Expected: 'Teleport', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Can\'t change from Instant: power was loaded'});
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Can\'t change from Instant: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Can\'t change from Instant: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Can\'t change from Instant: getDuration'});
+    testResults.push({Expected: true, Actual: singleMessage(errorHolder.instant, 'Instant'), Action: actionTaken, Description: 'Can\'t change from Instant: error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeBoth.isEmpty(), Action: actionTaken, Description: 'Can\'t change from Instant: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Can\'t change from Instant: no changeAction error'});
+    testResults.push({Expected: true, Actual: errorHolder.doesNotExist.isEmpty(), Action: actionTaken, Description: 'Can\'t change from Instant: no doesNotExist error'});
+    testResults.push({Expected: true, Actual: errorHolder.personal.isEmpty(), Action: actionTaken, Description: 'Can\'t change from Instant: no personal error'});
+    testResults.push({Expected: true, Actual: errorHolder.changeDuration.isEmpty(), Action: actionTaken, Description: 'Can\'t change from Instant: no changeDuration error'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    //next redo all but the last 3 of the tests for Feature
+    //because although Feature is special these tests still apply
+
+   //TODO: fix them all
+
+    Main.clearMockMessenger();  //restore default behavior
+    TesterUtility.displayResults('Tester.powerRow.validateActivationInfo', testResults, isFirst);
+};
 Tester.powerRow.setDuration=function(isFirst)
 {
     TesterUtility.clearResults(isFirst);
