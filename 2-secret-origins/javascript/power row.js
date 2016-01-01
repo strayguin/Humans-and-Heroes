@@ -139,8 +139,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser(actionGiven + ' is not the name of an action.');
           return;
       }
-       action = actionGiven;
-       if(shouldValidateActivationInfo) this.validateAction();
+       if(!shouldValidateActivationInfo || this.validateAction()) action = actionGiven;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setRange=function(rangeGiven)
@@ -153,8 +152,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser(rangeGiven + ' is not the name of a range.');
           return;
       }
-       range = rangeGiven;
-       if(shouldValidateActivationInfo) this.validateRange();
+       if(!shouldValidateActivationInfo || this.validateRange(rangeGiven)) range = rangeGiven;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setDuration=function(durationGiven)
@@ -167,8 +165,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser(durationGiven + ' is not the name of a duration.');
           return;
       }
-       duration = durationGiven;
-       if(shouldValidateActivationInfo) this.validateDuration();
+       if(!shouldValidateActivationInfo || this.validateDuration()) duration = durationGiven;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setName=function(nameGiven)
@@ -407,6 +404,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           action = 'None';
       }
 
+       //TODO: this needs to create the modifiers. and test that
        //TODO: hand write (WET) onchange then DRY it out afterwards
    };
 
@@ -464,30 +462,44 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        if(duration === 'Permanent') this.setAction('None');
    };
    /**Validates range. It might make changes and create modifiers.*/
-   this.validateRange=function()
+   this.validateRange=function(rangeGiven)
    {
-       if(effect === 'Feature'){range = range; return;}  //Feature doesn't change modifiers and is always valid
-       var baseRangeName = Data.Power.defaultRange.get(effect);
-       if(range === 'Personal' && baseRangeName !== 'Personal') return;  //when loading bad data (Feature's baseRange is Personal)
-       if(duration === 'Permanent' && range !== 'Personal') return;  //can only be Personal
-
-       var baseRangeIndex = Data.Power.ranges.indexOf(baseRangeName);
-       var newIndex = Data.Power.ranges.indexOf(range);
-       if(baseRangeName === 'Personal') baseRangeIndex = Data.Power.ranges.indexOf('Close');  //calculate distance from close
-       if(range === 'Personal') return;  //only possible when a modifier is removed
-      if (name !== undefined)
+      if (undefined !== name)
       {
-          if(range === 'Perception') skillUsed = undefined;
-          else skillUsed = 'Skill used for attack';
+          if('Perception' === rangeGiven) skillUsed = undefined;  //if becoming perception range then skillUsed no longer applies
+          else if('Perception' === range) skillUsed = 'Skill used for attack';  //if no longer perception range then skillUsed now applies
+          //note that changing from Perception to Personal will set name to undefined
       }
+
+       //when changing to personal nothing else needs to change
+       if('Personal' === rangeGiven) return true;  //only possible (for feature or) when removing a modifier
+
+      if ('Personal' === range && 'Permanent' === duration)
+      {
+          //changing from personal must change duration to not be permanent
+          var defaultDuration = Data.Power.defaultDuration.get(effect);
+          if('Permanent' === defaultDuration) this.setDuration('Sustained');
+          else this.setDuration(defaultDuration);
+          //use default duration if possible. otherwise use Sustained
+          //either way it will cost 0
+      }
+
+       if('Feature' === effect) return true;  //Feature doesn't change modifiers
+
+       var defaultRangeName = Data.Power.defaultRange.get(effect);
+       var defaultRangeIndex = Data.Power.ranges.indexOf(defaultRangeName);
+       var newRangeIndex = Data.Power.ranges.indexOf(rangeGiven);
+       if('Personal' === defaultRangeName) defaultRangeIndex = Data.Power.ranges.indexOf('Close');  //calculate distance from close
 
        //remove both if possible
        modifierSection.removeByName('Increased Range');
        modifierSection.removeByName('Reduced Range');
 
-       var rangeDifference = (newIndex-baseRangeIndex);
+       var rangeDifference = (newRangeIndex - defaultRangeIndex);
        if(rangeDifference > 0) modifierSection.createByNameRank('Increased Range', rangeDifference);
        else if(rangeDifference < 0) modifierSection.createByNameRank('Reduced Range', -rangeDifference);
+
+       return true;
    };
    this.constructor=function()
    {

@@ -2193,7 +2193,7 @@ Tester.powerRow.setDuration=function(isFirst)
 {
     TesterUtility.clearResults(isFirst);
 
-    var testResults=[];
+    var testResults=[], actionTaken;
     //test Permanent duration of a base non-Permanent power without personal range
     try{
     actionTaken='Set Create'; SelectUtil.changeText('powerChoices0', 'Create');
@@ -2479,15 +2479,105 @@ Tester.powerRow.setAction=function(isFirst)
 };
 Tester.powerRow.setRange=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
     TesterUtility.clearResults(isFirst);
 
-    var testResults=[];
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    var testResults=[], actionTaken='N/A';
+
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    SelectUtil.changeText('powerChoices0', 'Damage');
+    testResults.push({Expected: 'Damage', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change to Perception: power'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change to Perception: getRange before'});
+    testResults.push({Expected: 'Power 1 Damage', Actual: Main.powerSection.getRow(0).getName(), Action: actionTaken, Description: 'Change to Perception: getName before'});
+    testResults.push({Expected: 'Skill used for attack', Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Change to Perception: getSkillUsed before'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Perception');
+    testResults.push({Expected: 'Perception', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change to Perception: getRange after'});
+    testResults.push({Expected: 'Power 1 Damage', Actual: Main.powerSection.getRow(0).getName(), Action: actionTaken, Description: 'Change to Perception: getName after'});
+    testResults.push({Expected: undefined, Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Change to Perception: getSkillUsed after'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change from Perception: getRange'});
+    testResults.push({Expected: 'Power 1 Damage', Actual: Main.powerSection.getRow(0).getName(), Action: actionTaken, Description: 'Change from Perception: getName'});
+    testResults.push({Expected: 'Skill used for attack', Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Change from Perception: getSkillUsed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerChoices0', 'Protection');
+    testResults.push({Expected: 'Protection', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change from personal: power'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change from personal: getAction before'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change from personal: getRange before'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change from personal: getDuration before'});
+
+    SelectUtil.changeText('powerModifierChoices0.0', 'Affects Others Only');
+    testResults.push({Expected: 'Affects Others Only', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Change from personal: modifier'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change from personal: getAction after'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change from personal: getRange after'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change from personal: getDuration after'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerSelectAction0', 'Move');
+    SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    SelectUtil.changeText('powerModifierChoices0.0', 'Select One');  //must be last here
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change to personal changes nothing: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change to personal changes nothing: getRange'});
+    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change to personal changes nothing: getDuration'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature change from personal: power'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature change from personal: getAction before'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange before'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change from personal: getDuration before'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature change from personal: getAction after'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange after'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change from personal: getDuration after'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerSelectAction0', 'Move');
+    SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    SelectUtil.changeText('powerSelectRange0', 'Personal');  //must be last here
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature change to personal changes nothing: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change to personal changes nothing: getRange'});
+    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change to personal changes nothing: getDuration'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerChoices0', 'Move Object'); SelectUtil.changeText('powerSelectRange0', 'Perception');
+    testResults.push({Expected: 'Perception', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Increased Range: range'});
+    testResults.push({Expected: 'Increased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Range: was auto created'});
+    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Increased Range: is rank 1'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Ranged');
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Increased Range: setting the range back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Range: was auto removed'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Perception'); SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Increased Range: setting range up then down'});
+    testResults.push({Expected: 'Decreased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Range: was auto replaced with Decreased Range'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Increased Range: was in fact removed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: range'});
+    testResults.push({Expected: 'Decreased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Range: was auto created'});
+    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Decreased Range: is rank 1'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Ranged');
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: setting the range back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Range: was auto removed'});
+
+    SelectUtil.changeText('powerSelectRange0', 'Close'); SelectUtil.changeText('powerSelectRange0', 'Perception');
+    testResults.push({Expected: 'Perception', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: setting range down then up'});
+    testResults.push({Expected: 'Increased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Range: was auto replaced with Increased Range'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Decreased Range: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.powerRow.setRange', testResults, isFirst);
