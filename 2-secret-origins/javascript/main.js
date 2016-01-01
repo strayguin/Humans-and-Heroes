@@ -133,10 +133,11 @@ function MainObject()
        return this.equipmentSection.getProtectionRankTotal();
    };
    /**This method passes a message to the user in some way (currently uses code box).
-   It is abstracted for mocking and so it can easily be changed later.*/
-   this.messageUser=function(messsageSent)
+   It is abstracted for mocking and so it can easily be changed later.
+   errorCode only exists to be sent to the mockMessenger*/
+   this.messageUser=function(errorCode, messsageSent)
    {
-       if(mockMessenger !== undefined){mockMessenger(messsageSent); return;}
+       if(mockMessenger !== undefined){mockMessenger(errorCode, messsageSent); return;}
        document.getElementById('code box').value += messsageSent + '\n\n';
    };
    /**Onclick event for the saveToFileLink anchor link only.
@@ -359,7 +360,7 @@ function MainObject()
           jsonDoc.ruleset = '2.7';  //there's no way to know if the document is for 1.x or 2.x so guess the more common 2.x
              //2.x ruleset is fairly compatible so the most recent is default
              //3.x should always have a ruleset defined but user tampering may cause it to default to 2.x
-          Main.messageUser('The requested document doesn\'t have the version for the game rules defined. It might not load correctly.\n'+
+          Main.messageUser('MainObject.determineCompatibilityIssues.noRuleset', 'The requested document doesn\'t have the version for the game rules defined. It might not load correctly.\n'+
              'Version 2.7 has been assumed, if this is incorrect add ruleset to the root element with value "1.1" (save a blank document for an example but don\'t add "version").');
       }
        jsonDoc.ruleset = jsonDoc.ruleset.split('.');
@@ -372,12 +373,12 @@ function MainObject()
        //inform user as needed:
       if (ruleset.isGreaterThan(latestRuleset))
       {
-          Main.messageUser('The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
+          Main.messageUser('MainObject.determineCompatibilityIssues.newRuleset', 'The requested document uses game rules newer than what is supported by this code. It might not load correctly.');
           ruleset = latestRuleset.clone();  //default so that things can possibly load
       }
       if (version > latestVersion)
       {
-          Main.messageUser('The requested document was saved in a format newer than what is supported by this code. It might not load correctly.');
+          Main.messageUser('MainObject.determineCompatibilityIssues.newVersion', 'The requested document was saved in a format newer than what is supported by this code. It might not load correctly.');
           version = latestVersion;
       }
 
@@ -399,7 +400,7 @@ function MainObject()
        }
        catch(e)
        {
-           Main.messageUser('A parsing error has occurred. The document you provided is not legal '+docType+'.\n\n'+e);
+           Main.messageUser('MainObject.loadFromString.parsing', 'A parsing error has occurred. The document you provided is not legal '+docType+'.\n\n'+e);
            //yeah I know the error message is completely unhelpful but there's nothing more I can do
            window.location.hash = '#code box';  //scroll to the code box
            throw e;

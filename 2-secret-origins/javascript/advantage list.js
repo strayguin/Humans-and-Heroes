@@ -69,11 +69,11 @@ function AdvantageList()
       {
           var nameToLoad = jsonSection[i].name;
           if(!Data.Advantage.names.contains(nameToLoad) && !Data.Advantage.godhoodNames.contains(nameToLoad))
-             {Main.messageUser('Load Error: ' + nameToLoad + ' is not an advantage name.'); continue;}
+             {Main.messageUser('AdvantageList.load.notExist', 'Advantage #' + (i+1) + ': ' + nameToLoad + ' is not an advantage name.'); continue;}
           if(Data.Advantage.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
-             {Main.messageUser('Load Error: ' + nameToLoad + ' is the advantage listed without transcendence (=' + Main.getTranscendence() + ')'); continue;}
+             {Main.messageUser('AdvantageList.load.godhood', 'Advantage #' + (i+1) + ': ' + nameToLoad + ' is not allowed because transcendence is ' + Main.getTranscendence() + '.'); continue;}
           var rowPointer = rowArray.last();
-          rowPointer.setAdvantage(nameToLoad);  //load in the data
+          rowPointer.setAdvantage(nameToLoad);
           if(undefined !== jsonSection[i].rank) rowPointer.setRank(jsonSection[i].rank);
           if(undefined !== jsonSection[i].text) rowPointer.setText(jsonSection[i].text);
           this.addRow();

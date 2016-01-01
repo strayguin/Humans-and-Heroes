@@ -74,14 +74,19 @@ function SkillList()
       {
          if (!Data.Skill.names.contains(jsonSection[i].name))
          {
-             if(1 === Main.getActiveRuleset().major) Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. In M&M 3e no other skills exist.');
-             else Main.messageUser('Load Error: '+jsonSection[i].name+' is not a basic skill name. Did you mean "Other" with a subtype?');
+             var errorEnding;
+             if(1 === Main.getActiveRuleset().major) errorEnding = 'In M&M 3e no other skills exist.';
+             else errorEnding = 'Did you mean "Other" with a subtype?';
+
+             Main.messageUser('SkillList.load.notExist', 'Skill #' + (i+1) + ': ' +
+                jsonSection[i].name + ' is not a basic skill name. ' + errorEnding);
              continue;
          }
-          rowArray.last().setSkill(jsonSection[i].name);
-          if(jsonSection[i].subtype !== undefined) rowArray.last().setText(jsonSection[i].subtype);
-          rowArray.last().setRank(jsonSection[i].rank);
-          rowArray.last().setAbility(jsonSection[i].ability);
+          var rowPointer = rowArray.last();
+          rowPointer.setSkill(jsonSection[i].name);
+          if(undefined !== jsonSection[i].subtype) rowPointer.setText(jsonSection[i].subtype);
+          rowPointer.setRank(jsonSection[i].rank);
+          rowPointer.setAbility(jsonSection[i].ability);
           this.addRow();  //add new blank data row
       }
        this.update();

@@ -14,6 +14,13 @@ if(String.prototype.startsWith === undefined){String.prototype.startsWith=functi
 deletes all leading and trailing spaces from a string (returns new version).*/
 if(String.prototype.trim === undefined){String.prototype.trim=function(){return this.replace(/^\s+|\s+$/g, '');};}
     //regex | is for the entire expression, same as /(?:^\s+|\s+$)/g I don't like how | does that
+/**Capitalizes the first character of every word.*/
+String.prototype.toTitleCase=function() {
+  return this.replace(/\w+ */g, function(match){
+    return match.charAt(0).toUpperCase() + match.substring(1);
+  });
+};
+
 /**Removes all elements from an array. This must be used over ar=[]; if ar is references anywhere else.*/
 Array.prototype.clear=function(){while(this.length > 0) this.pop();};
 /**For each element of this array a type strict comparison is done against the parameter and returns true if any of them match*/

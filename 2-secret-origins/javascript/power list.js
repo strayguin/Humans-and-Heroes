@@ -79,9 +79,11 @@ function PowerListAgnostic(sectionName)
       {
           var nameToLoad = jsonSection[i].effect;
           if(!Data.Power.names.contains(nameToLoad) && !Data.Power.godhoodNames.contains(nameToLoad))
-             {Main.messageUser('Load Error: ' + nameToLoad + ' is not a power name.'); continue;}
+             {Main.messageUser('PowerListAgnostic.load.notExist', sectionName.toTitleCase() + ' #' + (i+1) + ': ' +
+              nameToLoad + ' is not a power name.'); continue;}
           if(Data.Power.godhoodNames.contains(nameToLoad) && !Main.canUseGodHood())
-             {Main.messageUser('Load Error: ' + nameToLoad + ' is the power listed without transcendence (=' + Main.getTranscendence() + ')'); continue;}
+             {Main.messageUser('PowerListAgnostic.load.godhood', sectionName.toTitleCase() + ' #' + (i+1) + ': ' +
+              nameToLoad + ' is not allowed because transcendence is ' + Main.getTranscendence() + '.'); continue;}
           var rowPointer = rowArray.last();
           rowPointer.setPower(nameToLoad);  //must be done first
           if(undefined !== jsonSection[i].cost) rowPointer.setBaseCost(jsonSection[i].cost);

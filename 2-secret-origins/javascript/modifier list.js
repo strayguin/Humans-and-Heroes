@@ -113,12 +113,13 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        //Main.clear() is called at the start of Main.load()
       for (var i=0; i < jsonSection.length; i++)
       {
-          var newName=jsonSection[i].name;
+          var newName = jsonSection[i].name;
           if(!Data.Modifier.names.contains(newName))
-             {Main.messageUser('Load Error: '+newName+' is not a modifier name. Did you mean "Other" with text?'); continue;}  //not found
+             {Main.messageUser('ModifierList.load.notExist', sectionName.toTitleCase() + ' #' + (sectionRowIndex+1) + ' Modifier #' + (i+1) + ': ' +
+              newName + ' is not a modifier name. Did you mean "Other" with text?'); continue;}
           rowArray.last().setModifier(newName);
-          if(jsonSection[i].applications !== undefined) rowArray.last().setRank(jsonSection[i].applications);
-          if(jsonSection[i].text !== undefined) rowArray.last().setText(jsonSection[i].text);
+          if(undefined !== jsonSection[i].applications) rowArray.last().setRank(jsonSection[i].applications);
+          if(undefined !== jsonSection[i].text) rowArray.last().setText(jsonSection[i].text);
           this.addRow();
       }
       //doesn't call update. Power must do that

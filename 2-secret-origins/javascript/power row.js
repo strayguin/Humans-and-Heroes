@@ -136,7 +136,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       if (!Data.Power.actions.contains(actionGiven))
       {
           //if not found (only possible when loading bad data)
-          Main.messageUser(actionGiven + ' is not the name of an action.');
+          Main.messageUser('PowerObjectAgnostic.setAction.notExist', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' + actionGiven + ' is not the name of an action.');
           return;
       }
        if(!shouldValidateActivationInfo || this.validateAction(actionGiven)) action = actionGiven;
@@ -149,7 +149,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       if (!Data.Power.ranges.contains(rangeGiven))
       {
           //if not found (only possible when loading bad data)
-          Main.messageUser(rangeGiven + ' is not the name of a range.');
+          Main.messageUser('PowerObjectAgnostic.setRange.notExist', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' + rangeGiven + ' is not the name of a range.');
           return;
       }
        if(!shouldValidateActivationInfo || this.validateRange(rangeGiven)) range = rangeGiven;
@@ -162,7 +162,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       if (!Data.Power.durations.contains(durationGiven))
       {
           //if not found (only possible when loading bad data)
-          Main.messageUser(durationGiven + ' is not the name of a duration.');
+          Main.messageUser('PowerObjectAgnostic.setDuration.notExist', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' + durationGiven + ' is not the name of a duration.');
           return;
       }
        if(!shouldValidateActivationInfo || this.validateDuration(durationGiven)) duration = durationGiven;
@@ -360,8 +360,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        var defaultRange = Data.Power.defaultRange.get(effect);
       if ('Personal' === range  && 'Personal' !== defaultRange)
       {
-          //TODO: all errors can be improved with row # and error code
-          Main.messageUser(effect + ' can\'t have Personal range. Using the default range of ' + defaultRange + ' instead.');
+          Main.messageUser('PowerObjectAgnostic.validateActivationInfo.notPersonal', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+          effect + ' can\'t have Personal range. Using the default range of ' + defaultRange + ' instead.');
           range = defaultRange;  //can't change something to personal unless it started out as that (Feature's baseRange is Personal)
       }
 
@@ -370,14 +370,16 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       {
          if ('Instant' !== duration)
          {
-             Main.messageUser(effect + ' can\'t have ' + duration + ' duration. It can only be Instant.');
+             Main.messageUser('PowerObjectAgnostic.validateActivationInfo.onlyInstant', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+             effect + ' can\'t have ' + duration + ' duration. It can only be Instant.');
              duration = 'Instant';  //can't be changed (Feature's baseDuration is Permanent)
          }
       }
       else if ('Instant' === duration && 'Feature' !== effect)
       {
           //only Feature can change to Instant duration
-          Main.messageUser(effect + ' can\'t have Instant duration. Using the default duration of ' + defaultDuration + ' instead.');
+          Main.messageUser('PowerObjectAgnostic.validateActivationInfo.notInstant', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+          effect + ' can\'t have Instant duration. Using the default duration of ' + defaultDuration + ' instead.');
           duration = defaultDuration;
       }
       else if ('Permanent' === duration && 'Personal' !== range)  //only personal range can have Permanent duration
@@ -386,7 +388,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           else duration = defaultDuration;
           //use default duration if possible. otherwise use Sustained
           //either way it will cost 0
-          Main.messageUser(effect + ' can\'t have Permanent duration because it isn\'t Personal range (range is ' + range + '). Using duration of ' + duration + ' instead.');
+          Main.messageUser('PowerObjectAgnostic.validateActivationInfo.notPermanent', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+          effect + ' can\'t have Permanent duration because it isn\'t Personal range (range is ' + range + '). Using duration of ' + duration + ' instead.');
       }
 
       if ('None' === action && 'Permanent' !== duration)  //only Permanent duration can have action None
@@ -395,11 +398,14 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           if('None' === action) action = 'Free';
           //use default action if possible. otherwise use Free
           //either way it will cost 0
-          Main.messageUser(effect + ' can\'t have an action of None because it isn\'t Permanent duration (duration is ' + duration + '). Using action of ' + action + ' instead.');
+          Main.messageUser('PowerObjectAgnostic.validateActivationInfo.notNone', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+          effect + ' can\'t have an action of None because it isn\'t Permanent duration (duration is ' + duration + '). Using action of ' + action + ' instead.');
       }
       else if ('None' !== action && 'Permanent' === duration)
       {
-          Main.messageUser(effect + ' can\'t have an action of ' + action + '. It can only be None because the duration is Permanent.');
+          //TODO: change sectionName to normally be title case so I don't have to call toTitleCase()
+          Main.messageUser('PowerObjectAgnostic.validateActivationInfo.onlyNone', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
+          effect + ' can\'t have an action of ' + action + '. It can only be None because the duration is Permanent.');
           //Permanent duration can only have action None
           action = 'None';
       }
