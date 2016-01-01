@@ -147,7 +147,7 @@ Data.change = function(major, minor)
           'Summon', 'Swimming']).sort();
 
        var oldExtraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Alternate Effect', 'Dynamic Alternate Effect',
-          'Incurable', 'Sleep', 'Triggered']).sort();  //Alternate Effect is a flaw in 2.x+
+          'Incurable', 'Sleep', 'Triggered']).sort();  //Alternate Effect is a flaw in 2.x+ and Triggered is an action
        var oldFlawNames = Data.change.commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
        Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
 

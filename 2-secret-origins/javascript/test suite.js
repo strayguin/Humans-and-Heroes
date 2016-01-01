@@ -2174,6 +2174,7 @@ Tester.powerRow.setDuration=function(isFirst)
 
     var testResults=[], actionTaken='N/A';
 
+    //TODO: test that Feature doesn't gain modifiers
     try{
     SelectUtil.changeText('powerChoices0', 'Feature');
     SelectUtil.changeText('powerSelectDuration0', 'Instant');
@@ -2276,99 +2277,64 @@ Tester.powerRow.setAction=function(isFirst)
     TesterUtility.clearResults(isFirst);
 
     //testing for setting to None exists in setDuration tests
-    var testResults=[], actionTaken;
-    //test Faster Action
+    var testResults=[], actionTaken='N/A';
+
     try{
-    actionTaken='Set Attain Knowledge Free'; SelectUtil.changeText('powerChoices0', 'Attain Knowledge'); SelectUtil.changeText('powerSelectAction0', 'Free');
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Attain Knowledge can be set to Free action'});
-    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Faster Action was auto created'});
-    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Faster Action is rank 2'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Attain Knowledge can be set to Standard action'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Faster Action was auto removed'});
-    actionTaken='Free to Slow'; SelectUtil.changeText('powerSelectAction0', 'Free'); SelectUtil.changeText('powerSelectAction0', 'Slow');
-    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Faster Action was auto replaced with Slower Action'});
-    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Slower Action is rank 2'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Faster Action was in fact removed'});
+    SelectUtil.changeText('powerChoices0', 'Teleport'); SelectUtil.changeText('powerSelectAction0', 'Reaction');
+    testResults.push({Expected: 'Reaction', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Faster Action: action'});
+    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Faster Action: was auto created'});
+    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Faster Action: rank'});
+
+    SelectUtil.changeText('powerSelectAction0', 'Move');
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Faster Action: setting the action back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Faster Action: was auto removed'});
+
+    SelectUtil.changeText('powerSelectAction0', 'Reaction'); SelectUtil.changeText('powerSelectAction0', 'Full');
+    testResults.push({Expected: 'Full', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Faster Action: setting action up then down'});
+    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Faster Action: was auto replaced with Slower Action'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Faster Action: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Slower Action
     try{
-    actionTaken='Set Attain Knowledge Slow'; SelectUtil.changeText('powerChoices0', 'Attain Knowledge'); SelectUtil.changeText('powerSelectAction0', 'Slow');
-    testResults.push({Expected: 'Slow', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Attain Knowledge can be set to Slow action'});
-    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Slower Action was auto created'});
-    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Slower Action is rank 2'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Attain Knowledge can be set to Standard action'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Slower Action was auto removed'});
-    actionTaken='Slow to Free'; SelectUtil.changeText('powerSelectAction0', 'Slow'); SelectUtil.changeText('powerSelectAction0', 'Free');
-    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Slower Action was auto replaced with Faster Action'});
-    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Faster Action is rank 2'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Slower Action was in fact removed'});
+    SelectUtil.changeText('powerSelectAction0', 'Full');
+    testResults.push({Expected: 'Full', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Slower Action: action'});
+    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Slower Action: was auto created'});
+    testResults.push({Expected: 2, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Slower Action: is rank 1'});
+
+    SelectUtil.changeText('powerSelectAction0', 'Move');
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Slower Action: setting the action back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Slower Action: was auto removed'});
+
+    SelectUtil.changeText('powerSelectAction0', 'Full'); SelectUtil.changeText('powerSelectAction0', 'Reaction');
+    testResults.push({Expected: 'Reaction', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Slower Action: setting action down then up'});
+    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Slower Action: was auto replaced with Faster Action'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Slower Action: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Selective
     try{
-    actionTaken='Set Nullify Triggered'; SelectUtil.changeText('powerChoices0', 'Nullify'); SelectUtil.changeText('powerSelectAction0', 'Triggered');
-    testResults.push({Expected: 'Triggered', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Nullify can be set to Triggered action'});
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Selective was auto created'});
-    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 1).getName(), Action: actionTaken, Description: 'Faster Action was auto created'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Selective remains'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'But Faster Action was auto removed'});
-    actionTaken='Pad Selective'; SelectUtil.changeText('powerModifierChoices0.0', 'Other Free Modifier'); SelectUtil.changeText('powerModifierChoices0.1', 'Selective');
-    actionTaken='Change to Triggered'; SelectUtil.changeText('powerSelectAction0', 'Triggered');
-    testResults.push({Expected: 'Triggered', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Nullify can be set to Triggered action again'});
-    testResults.push({Expected: 'Other Free Modifier', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'First modifier row remains'});
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 1).getName(), Action: actionTaken, Description: 'Selective remains'});
-    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 2).getName(), Action: actionTaken, Description: 'Faster Action readded'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 3).isBlank(), Action: actionTaken, Description: 'And there is only 1 Selective'});
+    SelectUtil.changeText('powerSelectAction0', 'Triggered');
+    testResults.push({Expected: 'Triggered', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Add Selective: action'});
+    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Add Selective: Faster Action was auto created'});
+    testResults.push({Expected: 3, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Add Selective: Faster Action rank 3'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 1).getName(), Action: actionTaken, Description: 'Add Selective: Selective was auto created'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-   //feature section
-   {
-    //test Faster Action
     try{
-    Main.powerSection.clear();
-    actionTaken='Set Feature Sustained'; SelectUtil.changeText('powerChoices0', 'Feature'); SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature was set'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Free action was auto set'});
-    actionTaken='Change to Reaction'; SelectUtil.changeText('powerSelectAction0', 'Reaction');
-    testResults.push({Expected: 'Reaction', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Attain Knowledge can be set to Free action'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Faster Action was not auto added'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Faster Action still gone'});
-    actionTaken='Free to Slow'; SelectUtil.changeText('powerSelectAction0', 'Free'); SelectUtil.changeText('powerSelectAction0', 'Slow');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Faster Action still gone'});
+    SelectUtil.changeText('powerSelectAction0', 'Move');
+    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Keep Selective: action'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Keep Selective: Selective still there'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Keep Selective: no other modifiers'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Slower Action
     try{
-    actionTaken='Set Slow'; SelectUtil.changeText('powerSelectAction0', 'Slow');
-    testResults.push({Expected: 'Slow', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature can be set to Slow action'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Slower Action was not auto added'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Slower Action still gone'});
-    actionTaken='Slow to Free'; SelectUtil.changeText('powerSelectAction0', 'Slow'); SelectUtil.changeText('powerSelectAction0', 'Free');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Slower Action still gone'});
+    SelectUtil.changeText('powerSelectAction0', 'Triggered');
+    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Only 1 Selective: Faster Action was auto created'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 1).getName(), Action: actionTaken, Description: 'Only 1 Selective: Selective still there'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 2).isBlank(), Action: actionTaken, Description: 'Only 1 Selective: no other modifiers'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Selective
-    try{
-    actionTaken='Set Triggered'; SelectUtil.changeText('powerSelectAction0', 'Triggered');
-    testResults.push({Expected: 'Triggered', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature can be set to Triggered action'});
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Selective was auto created'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Faster Action was not auto created'});
-    actionTaken='Change to Standard'; SelectUtil.changeText('powerSelectAction0', 'Standard');
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Selective remains'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'And Faster Action is still gone'});
-    actionTaken='Pad Selective'; SelectUtil.changeText('powerModifierChoices0.0', 'Other Free Modifier'); SelectUtil.changeText('powerModifierChoices0.1', 'Selective');
-    actionTaken='Change to Triggered'; SelectUtil.changeText('powerSelectAction0', 'Triggered');
-    testResults.push({Expected: 'Other Free Modifier', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'First modifier row remains'});
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 1).getName(), Action: actionTaken, Description: 'Selective remains'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 2).isBlank(), Action: actionTaken, Description: 'Faster Action still gone and nothing else exists'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-   }
+    //TODO: Feature should set Selective but no other modifiers
+
     TesterUtility.displayResults('Tester.powerRow.setAction', testResults, isFirst);
 };
 Tester.powerRow.setRange=function(isFirst)
@@ -2455,24 +2421,24 @@ Tester.powerRow.setRange=function(isFirst)
 
     SelectUtil.changeText('powerSelectRange0', 'Perception'); SelectUtil.changeText('powerSelectRange0', 'Close');
     testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Increased Range: setting range up then down'});
-    testResults.push({Expected: 'Decreased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Range: was auto replaced with Decreased Range'});
+    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Range: was auto replaced with Reduced Range'});
     testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Increased Range: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
     SelectUtil.changeText('powerSelectRange0', 'Close');
-    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: range'});
-    testResults.push({Expected: 'Decreased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Range: was auto created'});
-    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Decreased Range: is rank 1'});
+    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Reduced Range: range'});
+    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Reduced Range: was auto created'});
+    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Reduced Range: is rank 1'});
 
     SelectUtil.changeText('powerSelectRange0', 'Ranged');
-    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: setting the range back'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Range: was auto removed'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Reduced Range: setting the range back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Reduced Range: was auto removed'});
 
     SelectUtil.changeText('powerSelectRange0', 'Close'); SelectUtil.changeText('powerSelectRange0', 'Perception');
-    testResults.push({Expected: 'Perception', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Decreased Range: setting range down then up'});
-    testResults.push({Expected: 'Increased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Range: was auto replaced with Increased Range'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Decreased Range: was in fact removed'});
+    testResults.push({Expected: 'Perception', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Reduced Range: setting range down then up'});
+    testResults.push({Expected: 'Increased Range', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Reduced Range: was auto replaced with Increased Range'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Reduced Range: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.powerRow.setRange', testResults, isFirst);

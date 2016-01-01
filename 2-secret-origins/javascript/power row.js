@@ -405,30 +405,33 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       }
 
        //TODO: this needs to create the modifiers. and test that
-       //TODO: hand write (WET) onchange then DRY it out afterwards
+       //TODO: can this get DRY with onchange?
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object
    /**Validates action. It might make changes and create modifiers.*/
    this.validateAction=function(actionGiven)
    {
-       var baseActionName = Data.Power.defaultAction.get(effect);
-       if(baseActionName === 'None' && action !== 'None') baseActionName = 'Free';  //calculate distance from free
-       var baseActionIndex = Data.Power.actions.indexOf(baseActionName);
-       var newIndex = Data.Power.actions.indexOf(action);
+       if('Triggered' === actionGiven) modifierSection.createByNameRank('Selective', 1);  //Triggered must also be selective so it auto adds but doesn't remove
 
-       if(action === 'None') return;  //don't change modifiers
-       if(action === 'Triggered') modifierSection.createByNameRank('Selective', 1);
-          //new rules only. Triggered must also be selective so it auto adds but doesn't remove
-       if(effect === 'Feature') return;  //Feature doesn't change any other modifiers
+       if('Feature' === effect) return true;  //Feature doesn't change any other modifiers
 
        //remove both if possible
        modifierSection.removeByName('Slower Action');
        modifierSection.removeByName('Faster Action');
 
-       var actionDifference = (newIndex-baseActionIndex);
+       if('None' === actionGiven) return true;  //don't add any modifiers
+
+       var defaultActionName = Data.Power.defaultAction.get(effect);
+       if('None' === defaultActionName) defaultActionName = 'Free';  //calculate distance from free
+       var defaultActionIndex = Data.Power.actions.indexOf(defaultActionName);
+       var newActionIndex = Data.Power.actions.indexOf(actionGiven);
+
+       var actionDifference = (newActionIndex - defaultActionIndex);
        if(actionDifference > 0) modifierSection.createByNameRank('Faster Action', actionDifference);
        else if(actionDifference < 0) modifierSection.createByNameRank('Slower Action', -actionDifference);
+
+       return true;
    };
    /**Validates duration. It might make changes and create modifiers.*/
    this.validateDuration=function(durationGiven)
