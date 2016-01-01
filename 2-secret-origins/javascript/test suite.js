@@ -1681,12 +1681,12 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     };
     Main.setMockMessenger(function(message)
     {
-        if(message.contains('exist')) errorHolder.doesNotExist.push(message);
-        else if(message.contains('Personal')) errorHolder.personal.push(message);
-        else if(message.contains('Instant')) errorHolder.instant.push(message);
-        else if(message.contains('both')) errorHolder.changeBoth.push(message);
-        else if(message.contains('action')) errorHolder.changeAction.push(message);
-        else errorHolder.changeDuration.push(message);
+        if(message.contains('Using the default range of ')) errorHolder.personal.push(message);
+        else if(message.contains('It can only be Instant.') || message.contains('can\'t have Instant duration.')) errorHolder.instant.push(message);
+        else if(message.contains('can\'t have Permanent duration')) errorHolder.changeDuration.push(message);
+        else if(message.contains('can\'t have an action of')) errorHolder.changeAction.push(message);
+        else if(message.contains(' is not the name of a')) errorHolder.doesNotExist.push(message);
+        //else if(message.contains('both')) errorHolder.changeBoth.push(message);
     });
     function isValid()
     {
@@ -2033,7 +2033,7 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     dataToLoad.Powers.push({"effect":"Feature","text":"","action":"None","range":"Personal","duration":"Instant","Modifiers":[],"rank":1});
     sendData(dataToLoad);
     testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Change action 2: power was loaded'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change action 2: getAction'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change action 2: getAction'});
     testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Change action 2: getRange'});
     testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Change action 2: getDuration'});
     testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Feature Change action 2: error'});
@@ -2055,7 +2055,7 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     dataToLoad.Powers.push({"effect":"Feature","text":"","action":"None","range":"Close","duration":"Instant","Modifiers":[],"rank":1});
     sendData(dataToLoad);
     testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Change action 4: power was loaded'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change action 4: getAction'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change action 4: getAction'});
     testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Change action 4: getRange'});
     testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Change action 4: getDuration'});
     testResults.push({Expected: true, Actual: changeActionError('None'), Action: actionTaken, Description: 'Feature Change action 4: error'});
@@ -2093,7 +2093,7 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     dataToLoad.Powers.push({"effect":"Feature","text":"","action":"None","range":"Ranged","duration":"Permanent","Modifiers":[],"rank":1});
     sendData(dataToLoad);
     testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Change both: power was loaded'});
-    testResults.push({Expected: 'Standard', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change both: getAction'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Change both: getAction'});
     testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Change both: getRange'});
     testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Change both: getDuration'});
     testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeDuration, 'None'), Action: actionTaken, Description: 'Feature Change both: error'});
@@ -2109,9 +2109,9 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     dataToLoad.Powers.push({"effect":"Feature","text":"","action":"invalid action","range":"Ranged","duration":"Permanent","Modifiers":[],"rank":1});
     sendData(dataToLoad);
     testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Action does not exist: power was loaded'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Action does not exist: getAction'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Action does not exist: getAction'});
     testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Action does not exist: getRange'});
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Action does not exist: getDuration'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Action does not exist: getDuration'});
     testResults.push({Expected: true, Actual: singleMessage(errorHolder.doesNotExist, 'invalid action'), Action: actionTaken, Description: 'Feature Action does not exist: defaulted error'});
     testResults.push({Expected: true, Actual: singleMessage(errorHolder.changeBoth, 'Permanent'), Action: actionTaken, Description: 'Feature Action does not exist: and then validated'});
     testResults.push({Expected: true, Actual: errorHolder.changeAction.isEmpty(), Action: actionTaken, Description: 'Feature Action does not exist: no changeAction error'});

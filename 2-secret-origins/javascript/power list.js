@@ -86,7 +86,7 @@ function PowerListAgnostic(sectionName)
           rowPointer.setPower(nameToLoad);  //must be done first
           if(undefined !== jsonSection[i].cost) rowPointer.setBaseCost(jsonSection[i].cost);
           rowPointer.setText(jsonSection[i].text);  //they all have text because descriptors
-          //rowPointer.disableValidationForActivationInfo();
+          rowPointer.disableValidationForActivationInfo();
           //TODO: onload blindly set activation info and modifiers...
           rowPointer.setAction(jsonSection[i].action);  //all sets take strings
           rowPointer.setRange(jsonSection[i].range);
@@ -96,7 +96,7 @@ function PowerListAgnostic(sectionName)
           //skill requires name however perception range has name without skill
           rowPointer.setRank(jsonSection[i].rank);
           rowPointer.getModifierList().load(jsonSection[i].Modifiers);  //load modifiers
-          //rowPointer.validateActivationInfo(); if possible (else revert to base activation)
+          rowPointer.validateActivationInfo();
           //recreate all faster action etc
           //sort those to be the first instead of last
           this.addRow();
