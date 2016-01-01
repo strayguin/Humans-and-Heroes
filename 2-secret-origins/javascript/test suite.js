@@ -2163,27 +2163,6 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Feature Can change to Instant on load: no errors'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-   //TODO: the onchange tests don't belong here
-    try{
-    Main.clear();
-    SelectUtil.changeText('powerChoices0', 'Feature');
-    SelectUtil.changeText('powerSelectDuration0', 'Instant');
-    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Can change to Instant in form: power was loaded'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Can change to Instant in form: getAction'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Can change to Instant in form: getRange'});
-    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Can change to Instant in form: getDuration'});
-    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Feature Can change to Instant in form: no errors'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    try{
-    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Can change from Instant in form: power was loaded'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Can change from Instant in form: getAction'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Can change from Instant in form: getRange'});
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Can change from Instant in form: getDuration'});
-    testResults.push({Expected: true, Actual: isValid(), Action: actionTaken, Description: 'Feature Can change from Instant in form: no errors'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
    //TODO: fix them all
 
     Main.clearMockMessenger();  //restore default behavior
@@ -2193,172 +2172,87 @@ Tester.powerRow.setDuration=function(isFirst)
 {
     TesterUtility.clearResults(isFirst);
 
-    var testResults=[], actionTaken;
-    //test Permanent duration of a base non-Permanent power without personal range
-    try{
-    actionTaken='Set Create'; SelectUtil.changeText('powerChoices0', 'Create');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Create has a default duration of Sustained'});
-    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Create has a default range of Ranged'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Create can\'t be changed to Permanent duration'});
-    actionTaken='Change to Concentration'; SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Create can be changed to Concentration duration'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    var testResults=[], actionTaken='N/A';
 
-    //test Permanent duration of a base non-Permanent power (with personal range)
     try{
-    actionTaken='Set Flight'; SelectUtil.changeText('powerChoices0', 'Flight');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Flight has a default duration of Sustained'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Flight has a default range of Personal'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Flight has a default action of Free'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Flight can change to Permanent duration'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Flight\'s action was auto changed to None'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Flight can change back to Permanent duration'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Flight\'s action was auto changed back to Free'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    //test Permanent duration of a base Permanent power
-    try{
-    actionTaken='Set Regeneration'; SelectUtil.changeText('powerChoices0', 'Regeneration');
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration has a default duration of Permanent'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Regeneration has a default range of Personal'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration has a default action of None'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration was set to Sustained duration'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration\'s action was auto changed to Free'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration was set to Permanent duration'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration\'s action auto changed back to None'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    //base Permanent power shouldn't affect action when not setting to and from Permanent
-    try{
-    actionTaken='Sustained Regeneration'; SelectUtil.changeText('powerChoices0', 'Regeneration'); SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration can be set to Sustained duration'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration\'s action was auto set to Free'});
-    actionTaken='Change to Move'; SelectUtil.changeText('powerSelectAction0', 'Move');
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'I changed Regeneration\'s action to Move'});
-    actionTaken='Change to Continuous'; SelectUtil.changeText('powerSelectDuration0', 'Continuous');
-    testResults.push({Expected: 'Continuous', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration was changed to Continuous duration'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration\'s action was not affected'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Regeneration can be changed back to Sustained duration'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Regeneration\'s action was still not affected'});
-    Main.powerSection.clear();
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    //test Increased Duration
-    try{
-    actionTaken='Set Flight Continuous'; SelectUtil.changeText('powerChoices0', 'Flight'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
-    testResults.push({Expected: 'Continuous', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Flight can be set to Continuous duration'});
-    testResults.push({Expected: 'Increased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Duration was auto created'});
-    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Increased Duration is rank 1'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Duration was auto removed'});
-    actionTaken='Continuous to Concentration'; SelectUtil.changeText('powerSelectDuration0', 'Continuous'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Duration was auto replaced with Decreased Duration'});
-    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Decreased Duration is rank 1'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Increased Duration was in fact removed'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-    //test Decreased Duration
-    try{
-    Main.powerSection.clear();
-    actionTaken='Set Flight Concentration'; SelectUtil.changeText('powerChoices0', 'Flight'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Flight can be set to Concentration duration'});
-    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Duration was auto created'});
-    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Decreased Duration is rank 1'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Duration was auto removed'});
-    actionTaken='Concentration to Continuous'; SelectUtil.changeText('powerSelectDuration0', 'Concentration'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
-    testResults.push({Expected: 'Increased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Duration was auto replaced with Increased Duration'});
-    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Increased Duration is rank 1'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Decreased Duration was in fact removed'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
-
-   //feature section. still part of powerRow.setDuration because feature should not be tested separately
-   {
-    //Feature can set to and from Instant duration without affecting action
-    try{
-    actionTaken='Sustained Feature'; SelectUtil.changeText('powerChoices0', 'Feature'); SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can be set to Sustained duration'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was auto set to Free'});
-    actionTaken='Change to Move'; SelectUtil.changeText('powerSelectAction0', 'Move');
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'I changed Feature\'s action to Move'});
-    actionTaken='Change to Instant'; SelectUtil.changeText('powerSelectDuration0', 'Instant');
-    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can be changed to Instant duration'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was not affected'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can be changed back to Sustained duration'});
-    testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was still not affected'});
-    Main.powerSection.clear();
     SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectDuration0', 'Instant');
+    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Can change to Instant: power'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Can change to Instant: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Can change to Instant: getRange'});
+    testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Can change to Instant: getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Permanent duration of a base non-Permanent power without personal range
-       //these tests make sure Feature is treated like any other power in these cases
     try{
-    actionTaken='Set Close Range'; SelectUtil.changeText('powerSelectDuration0', 'Sustained'); SelectUtil.changeText('powerSelectRange0', 'Close');
-    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature now has Close range'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can\'t be changed to Permanent duration'});
-    actionTaken='Change to Concentration'; SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can be changed to Concentration duration'});
+    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
+    testResults.push({Expected: 'Feature', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Feature Can change from Instant: power'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature Can change from Instant: getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature Can change from Instant: getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature Can change from Instant: getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Permanent duration of a base non-Permanent power (with personal range)
-       //these tests make sure Feature is treated like any other power in these cases
     try{
-    actionTaken='Personal Sustained'; SelectUtil.changeText('powerSelectRange0', 'Personal'); SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature has Sustained duration'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature has a range of Personal'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature has an action of Free'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can change to Permanent duration'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was auto changed to None'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature can change back to Permanent duration'});
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was auto changed back to Free'});
+    SelectUtil.changeText('powerChoices0', 'Flight');
+    SelectUtil.changeText('powerSelectDuration0', 'Permanent');
+    testResults.push({Expected: 'Flight', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change to permanent (non-permanent default): power'});
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change to permanent (non-permanent default): getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change to permanent (non-permanent default): getRange'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change to permanent (non-permanent default): getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Permanent duration of a base Permanent power
-       //these tests make sure Feature is treated like any other power in these cases
     try{
-    actionTaken='Set Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature has a duration of Permanent'});
-    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature has a range of Personal'});
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature has a action of None'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action was auto changed to Free'});
-    actionTaken='Change to Permanent'; SelectUtil.changeText('powerSelectDuration0', 'Permanent');
-    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature\'s action auto changed back to None'});
+    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change from permanent (non-permanent default): getAction'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change from permanent (non-permanent default): getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //test Increased Duration
+    try{
+    SelectUtil.changeText('powerChoices0', 'Protection');
+    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
+    testResults.push({Expected: 'Protection', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'Change from permanent (permanent default): power'});
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change from permanent (permanent default): getAction'});
+    testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change from permanent (permanent default): getRange'});
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change from permanent (permanent default): getDuration'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerSelectDuration0', 'Permanent');
+    testResults.push({Expected: 'None', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change to permanent (permanent default): getAction'});
+    testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change to permanent (permanent default): getDuration'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    SelectUtil.changeText('powerChoices0', 'Flight'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
+    testResults.push({Expected: 'Continuous', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Increased Duration: duration'});
+    testResults.push({Expected: 'Increased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Duration: was auto created'});
+    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Increased Duration: is rank 1'});
+
+    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Increased Duration: setting the duration back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Duration: was auto removed'});
+
+    SelectUtil.changeText('powerSelectDuration0', 'Continuous'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Increased Duration: setting duration up then down'});
+    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Increased Duration: was auto replaced with Decreased Duration'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Increased Duration: was in fact removed'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
     try{
     Main.powerSection.clear();
-    actionTaken='Set Continuous'; SelectUtil.changeText('powerChoices0', 'Feature'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Duration was not auto created'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Duration still gone'});
-    actionTaken='Continuous to Concentration'; SelectUtil.changeText('powerSelectDuration0', 'Continuous'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Increased Duration still gone'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    SelectUtil.changeText('powerChoices0', 'Flight'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Decreased Duration: duration'});
+    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Duration: was auto created'});
+    testResults.push({Expected: 1, Actual: Main.powerSection.getModifierRowShort(0, 0).getRank(), Action: actionTaken, Description: 'Decreased Duration: is rank 1'});
 
-    //test Decreased Duration
-    try{
-    Main.powerSection.clear();
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature has Concentration duration'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Duration was not auto created'});
-    actionTaken='Change to Sustained'; SelectUtil.changeText('powerSelectDuration0', 'Sustained');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Duration still gone'});
-    actionTaken='Concentration to Continuous'; SelectUtil.changeText('powerSelectDuration0', 'Concentration'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Duration still gone'});
+    SelectUtil.changeText('powerSelectDuration0', 'Sustained');
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Decreased Duration: setting the duration back'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Decreased Duration: was auto removed'});
+
+    SelectUtil.changeText('powerSelectDuration0', 'Concentration'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
+    testResults.push({Expected: 'Continuous', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Decreased Duration: setting duration up then down'});
+    testResults.push({Expected: 'Increased Duration', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Decreased Duration: was auto replaced with Increased Duration'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Decreased Duration: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
-   }
 
     TesterUtility.displayResults('Tester.powerRow.setDuration', testResults, isFirst);
 };
@@ -2533,10 +2427,11 @@ Tester.powerRow.setRange=function(isFirst)
     testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange before'});
     testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change from personal: getDuration before'});
 
-    SelectUtil.changeText('powerSelectRange0', 'Close');
+    SelectUtil.changeText('powerSelectRange0', 'Ranged');
     testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature change from personal: getAction after'});
-    testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange after'});
+    testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange after'});
     testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change from personal: getDuration after'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature change from personal: Increased Range wasn\'t auto created'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{

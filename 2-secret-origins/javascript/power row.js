@@ -139,7 +139,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser(actionGiven + ' is not the name of an action.');
           return;
       }
-       if(!shouldValidateActivationInfo || this.validateAction()) action = actionGiven;
+       if(!shouldValidateActivationInfo || this.validateAction(actionGiven)) action = actionGiven;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setRange=function(rangeGiven)
@@ -165,7 +165,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser(durationGiven + ' is not the name of a duration.');
           return;
       }
-       if(!shouldValidateActivationInfo || this.validateDuration()) duration = durationGiven;
+       if(!shouldValidateActivationInfo || this.validateDuration(durationGiven)) duration = durationGiven;
    };
    /**Used to set data independent of the document and without calling update*/
    this.setName=function(nameGiven)
@@ -410,7 +410,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
 
    //'private' functions section. Although all public none of these should be called from outside of this object
    /**Validates action. It might make changes and create modifiers.*/
-   this.validateAction=function()
+   this.validateAction=function(actionGiven)
    {
        var baseActionName = Data.Power.defaultAction.get(effect);
        if(baseActionName === 'None' && action !== 'None') baseActionName = 'Free';  //calculate distance from free
@@ -431,35 +431,34 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        else if(actionDifference < 0) modifierSection.createByNameRank('Slower Action', -actionDifference);
    };
    /**Validates duration. It might make changes and create modifiers.*/
-   this.validateDuration=function()
+   this.validateDuration=function(durationGiven)
    {
-       var baseDurationName = Data.Power.defaultDuration.get(effect);
-       if(effect !== 'Feature' && (duration === 'Instant' || baseDurationName === 'Instant')) return;
-          //only Feature can set to and from instant. other attempts are only possible when loading bad data
-       if(range !== 'Personal' && duration === 'Permanent') return;  //only personal range can have Permanent duration
+       var defaultDurationName = Data.Power.defaultDuration.get(effect);
 
-      if (duration === 'Permanent' || duration === 'Permanent')  //if changing to or from Permanent
+       if('Permanent' === durationGiven) this.setAction('None');  //if changing to Permanent
+      else if('Permanent' === duration)  //if changing from Permanent
       {
           //then reset action
-          if(baseDurationName === 'Permanent') this.setAction('Free');  //default action is None, Free is used when an action exists
+          if('Permanent' === defaultDurationName) this.setAction('Free');  //default action is None so use Free instead
           else this.setAction(Data.Power.defaultAction.get(effect));
-          //action will be set to none later if duration is Permanent
+          //use default action if possible otherwise use Free
+          //either way it will cost 0
       }
-       //else do not set action
 
-       var baseDurationIndex = Data.Power.durations.indexOf(baseDurationName);
-       var newIndex = Data.Power.durations.indexOf(duration);
-      if (effect !== 'Feature')  //Feature doesn't change modifiers
-      {
-          //remove both if possible
-          modifierSection.removeByName('Increased Duration');
-          modifierSection.removeByName('Decreased Duration');
+       if('Feature' === effect) return true;  //Feature doesn't change modifiers
 
-          var durationDifference = (newIndex-baseDurationIndex);
-          if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
-          else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
-      }
-       if(duration === 'Permanent') this.setAction('None');
+       var defaultDurationIndex = Data.Power.durations.indexOf(defaultDurationName);
+       var newDurationIndex = Data.Power.durations.indexOf(durationGiven);
+
+       //remove both if possible
+       modifierSection.removeByName('Increased Duration');
+       modifierSection.removeByName('Decreased Duration');
+
+       var durationDifference = (newDurationIndex - defaultDurationIndex);
+       if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
+       else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
+
+       return true;
    };
    /**Validates range. It might make changes and create modifiers.*/
    this.validateRange=function(rangeGiven)
@@ -485,6 +484,9 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       }
 
        if('Feature' === effect) return true;  //Feature doesn't change modifiers
+       //TODO: refactor so that Feature has a base activation row and a current activation row
+       //so that Feature will have the modifiers auto set. This should be less confusing to the user
+       //this will also allow and require more edge case testing
 
        var defaultRangeName = Data.Power.defaultRange.get(effect);
        var defaultRangeIndex = Data.Power.ranges.indexOf(defaultRangeName);
