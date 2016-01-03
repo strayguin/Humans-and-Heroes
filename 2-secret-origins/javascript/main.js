@@ -8,7 +8,7 @@ if(document.getElementById('test results') !== null)  //false in production to s
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)
 {
-    document.write('<script type="text/javascript1.3" src="javascript/'+jsName+'.js"></script>');
+    document.write('<script type="text/javascript" src="javascript/'+jsName+'.js"></script>');
     //document write is not a problem since this is ran only once
 }
 
