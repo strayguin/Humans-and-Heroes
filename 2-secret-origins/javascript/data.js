@@ -34,7 +34,7 @@ Data.Modifier =
           ['Limited', -1], ['Linked', 0], ['Noticeable', -1], ['Other Flat Flaw', -1], ['Other Free Modifier', 0],
           ['Other Rank Flaw', -1], ['Penetrating', 2], ['Quirk', -1], ['Reduced Range', -1], ['Removable', -1], ['Resistible', -1],
           ['Sense-Dependent', -1], ['Side Effect', -1], ['Sleep', 0], ['Slower Action', -1], ['System Dependent', -2],
-          ['Tiring', -1], ['Uncontrollable Entirely', -5], ['Uncontrollable Result', -1], ['Uncontrollable Target', -1],
+          ['Tiring', -1], ['Uncontrollable Activation', -1], ['Uncontrollable Entirely', -5], ['Uncontrollable Result', -1], ['Uncontrollable Target', -1],
           ['Uncontrolled', -1], ['Unreliable', -1]], 1),
        defaultText: MapDefault.makeFromArray([['Activation', 'Action Required'], ['Alternate Effect', 'To What'],
           ['Alternate Resistance (Cost)', 'Name of Resistance'], ['Alternate Resistance (Free)', 'Name of Resistance'],
@@ -122,6 +122,7 @@ Object.freeze(Data.SharedHtml);
 /**This method changes all of the data to the major, minor ruleset passed in. The constructor of Main also calls this to initialize the rule dependant data.*/
 Data.change = function(major, minor)
 {
+    var extraNames, flawNames;
    if (1 === major)
    {
        Data.Advantage.costPerRank.set('Sidekick', 1);  //only one that needs to be changed (since the rest were removed)
@@ -146,10 +147,10 @@ Data.change = function(major, minor)
        Data.Power.names = Data.change.commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed',
           'Summon', 'Swimming']).sort();
 
-       var oldExtraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Alternate Effect', 'Dynamic Alternate Effect',
+       extraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Alternate Effect', 'Dynamic Alternate Effect',
           'Incurable', 'Sleep', 'Triggered']).sort();  //Alternate Effect is a flaw in 2.x+ and Triggered is an action
-       var oldFlawNames = Data.change.commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
-       Data.Modifier.names = oldExtraNames.concat(oldFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
+       flawNames = Data.change.commonModifierFlawNames.concat('Uncontrolled').sort();  //must use concat over push because push doesn't return anything
+       //Data.Modifier.names is set at the bottom of Data.change
 
        Data.Modifier.cost.set('Attack', 0);
        Data.Modifier.type.set('Attack', 'Free');
@@ -189,11 +190,11 @@ Data.change = function(major, minor)
        Data.Power.names = Data.change.commonPowerNames.concat(['Attain Knowledge', 'Mental Transform', 'Mind Switch',
           'Permeate', 'Phantom Ranks', 'Resistance', 'Summon Minion', 'Summon Object']).sort();
 
-       var newExtraNames = Data.change.commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
-       var newFlawNames = Data.change.commonModifierFlawNames.concat(['Alternate Effect', 'Ammunition', 'Fragile',
+       extraNames = Data.change.commonModifierExtraNames.concat('Existence Dependent').sort();  //must use concat over push because push doesn't return anything
+       flawNames = Data.change.commonModifierFlawNames.concat(['Alternate Effect', 'Ammunition', 'Fragile',
           'System Dependent', 'Uncontrollable Entirely', 'Uncontrollable Result', 'Uncontrollable Target']).sort();
        //Alternate Effect is a flaw in 2.x+ however in 2.x it was mislabeled as an extra
-       Data.Modifier.names = newExtraNames.concat(newFlawNames);  //Data.change.commonModifierOtherNames are added at the bottom of Data.change
+       //Data.Modifier.names is set at the bottom of Data.change
 
        Data.Modifier.cost.set('Attack', 1);
        Data.Modifier.type.set('Attack', 'Rank');
@@ -207,7 +208,6 @@ Data.change = function(major, minor)
 
        Data.Defense.abilityUsed[Data.Defense.names.indexOf('Will')] = 'Presence';
    }
-    Data.Modifier.names = Data.Modifier.names.concat(Data.change.commonModifierOtherNames);  //both rule sets end with these
 
    if (3 === major)  //change some things from 2.7 to 3.0
    {
@@ -216,8 +216,10 @@ Data.change = function(major, minor)
 
        Data.Advantage.maxRanks.set('Inspire', 1);
        Data.Advantage.names = Data.Advantage.names.concat('Persistent Information').sort();  //must use concat over push because push doesn't return anything
-       //TODO: add 'Uncontrollable Activation' (rank flaw, -1) with rule: only for triggered actions
+       flawNames = flawNames.concat('Uncontrollable Activation').sort();
    }
+
+    Data.Modifier.names = extraNames.concat(flawNames).concat(Data.change.commonModifierOtherNames);
 };
 Data.change.commonAdvantageNames = ['Accurate Attack', 'All-out Attack', 'Attractive', 'Beginner\'s Luck', 'Benefit', 'Connected',
     'Defensive Attack', 'Defensive Roll', 'Diehard', 'Equipment', 'Evasion', 'Extraordinary Effort', 'Fast Grab', 'Improved Aim',
