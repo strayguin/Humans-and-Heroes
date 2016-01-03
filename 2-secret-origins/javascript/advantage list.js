@@ -43,6 +43,7 @@ function AdvantageList()
    this.calculateValues=function()
    {
        this.sanitizeRows();
+       rowArray.sort(this.sortOrder);  //this messes up the indexing which is fixed below
        rankMap.clear();
        usingGodhoodAdvantages = false;
        pettyRulesApply = true;
@@ -51,6 +52,7 @@ function AdvantageList()
 
       for (var i=0; i < rowArray.length-1; i++)  //last row is blank
       {
+          rowArray[i].setRowIndex(i);  //needs to be reset because of the sorting
           var advantageName = rowArray[i].getName();
           if(Data.Advantage.godhoodNames.contains(advantageName)) usingGodhoodAdvantages = true;
           //do not connected with else since Petty Rules are godhood
@@ -104,11 +106,19 @@ function AdvantageList()
        if(newEquipmentRank === 0) this.removeRow(equipmentRow);  //don't need the row any more
        else rowArray[equipmentRow].setRank(newEquipmentRank);
    };
+   /**Pass into Array.prototype.sort so that the automatic advantages come first (equipment then the rest).*/
+   this.sortOrder=function(a, b)
+   {
+       if('Equipment' === a.getName()) return -1;  //make a come first
+       if('Equipment' === b.getName()) return 1;  //b first
+
+       return 0;  //else maintain the current order
+   };
    /**Updates other sections which depend on advantage section*/
    this.notifyDependent=function()
    {
        Main.updateInitiative();
-       Main.updateOffense();  //some old advantages might affect this so it needs to be updated
+       Main.updateOffense();  //some 1.x advantages might affect this so it needs to be updated
        Main.defenseSection.calculateValues();
    };
    //constructor:

@@ -435,8 +435,6 @@ Tester.powerRow.validateActivationInfo=function(isFirst)
     testResults.push({Expected: true, Actual: Messages.isValid(), Action: actionTaken, Description: 'Feature Can change to Instant on load: no errors'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-   //TODO: fix them all
-
     Main.clearMockMessenger();  //restore default behavior
     TesterUtility.displayResults('Tester.powerRow.validateActivationInfo', testResults, isFirst);
 };

@@ -73,6 +73,7 @@ Tester.modifierRow.setAutoRank=function(isFirst)
     SelectUtil.changeText('powerChoices0', 'Damage');
     TesterUtility.changeValue('powerRank0', 99);
     testResults.push({Expected: '99', Actual: document.getElementById('powerRowTotal0').innerHTML, Action: actionTaken, Description: 'Damage 99 initial total'});
+    //TODO: tests (except generate and setAll) should not check the document
 
     try{
     SelectUtil.changeText('powerModifierChoices0.0', 'Removable');

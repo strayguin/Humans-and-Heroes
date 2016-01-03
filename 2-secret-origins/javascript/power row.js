@@ -132,6 +132,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           Main.messageUser('PowerObjectAgnostic.setAction.notExist', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' + newActionName + ' is not the name of an action.');
           return;
       }
+      //TODO: the above only applies when loading. If moved this method would only set
 
        action = newActionName;
 
@@ -448,6 +449,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        document.getElementById(sectionName+'FlatModifierCost'+rowIndex).innerHTML=modifierSection.getFlatTotal();
        document.getElementById(sectionName+'RowTotal'+rowIndex).innerHTML=total;
    };
+   /**Called when loading after action, range, and duration have been set. This function validates the values
+   making sure the values are possible and consistent with priority given to range then duration.*/
    this.validateActivationInfo=function()
    {
        shouldValidateActivationInfo = true;

@@ -133,13 +133,13 @@ Tester.advantageRow.generate=function(isFirst)
 
     try{
     actionTaken='Padded Equipment Row Test'; SelectUtil.changeText('advantageChoices0', Data.Advantage.names.last()); SelectUtil.changeText('equipmentChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 10); SelectUtil.changeText('advantageChoices2', Data.Advantage.names[0]);
-    testResults.push({Expected: Data.Advantage.names.last(), Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is '+Data.Advantage.names.last()});
-    testResults.push({Expected: 'Equipment', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Then Equipment'});
+    testResults.push({Expected: 'Equipment', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'First Advantage Row is Equipment'});
+    testResults.push({Expected: Data.Advantage.names.last(), Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Then '+Data.Advantage.names.last()});
     testResults.push({Expected: Data.Advantage.names[0], Actual: Main.advantageSection.getRow(2).getName(), Action: actionTaken, Description: 'Then '+Data.Advantage.names[0]});
     testResults.push({Expected: true, Actual: Main.advantageSection.getRow(3).isBlank(), Action: actionTaken, Description: 'Then blank'});
 
-    testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices0'), Action: actionTaken, Description: 'First row is a select'});
-    testResults.push({Expected: null, Actual: document.getElementById('advantageChoices1'), Action: actionTaken, Description: '2nd Row select id doesn\'t exist'});
+    testResults.push({Expected: null, Actual: document.getElementById('advantageChoices0'), Action: actionTaken, Description: 'Equipment select id doesn\'t exist'});
+    testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices1'), Action: actionTaken, Description: '2nd Row is a select'});
     testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices2'), Action: actionTaken, Description: '3rd row is a select'});
     testResults.push({Expected: true, Actual: SelectUtil.isSelect('advantageChoices3'), Action: actionTaken, Description: '4th row is a select'});
     testResults.push({Expected: 'Equipment', Actual: document.getElementById('advantageEquipment').innerHTML, Action: actionTaken, Description: '2nd Row says equipment'});

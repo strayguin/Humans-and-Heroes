@@ -172,3 +172,24 @@ Tester.advantageList.load=function(isFirst)
     Main.clearMockMessenger();  //restore default behavior
     TesterUtility.displayResults('Tester.advantageList.load', testResults, isFirst);
 };
+Tester.advantageList.sortOrder=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[];
+    var actionTaken='N/A';
+
+    try{
+    SelectUtil.changeText('advantageChoices0', 'Connected');
+    SelectUtil.changeText('equipmentChoices0', 'Damage');
+    SelectUtil.changeText('advantageChoices2', 'Benefit');
+
+    testResults.push({Expected: 'Damage', Actual: Main.equipmentSection.getRow(0).getEffect(), Action: actionTaken, Description: 'equipment section row'});
+    testResults.push({Expected: 'Equipment', Actual: Main.advantageSection.getRow(0).getName(), Action: actionTaken, Description: 'Advantage 1'});
+    testResults.push({Expected: 'Connected', Actual: Main.advantageSection.getRow(1).getName(), Action: actionTaken, Description: 'Advantage 2'});
+    testResults.push({Expected: 'Benefit', Actual: Main.advantageSection.getRow(2).getName(), Action: actionTaken, Description: 'Advantage 3'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(3).isBlank(), Action: actionTaken, Description: 'No more Advantages'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.advantageList.sortOrder', testResults, isFirst);
+};
