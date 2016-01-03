@@ -136,26 +136,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
 
        action = newActionName;
 
-       if(!shouldValidateActivationInfo) return;  //done
-
-       if('Triggered' === newActionName) modifierSection.createByNameRank('Selective', 1);  //Triggered must also be selective so it auto adds but doesn't remove
-
-       if('Feature' === effect) return;  //Feature doesn't change any other modifiers
-
-       //remove both if possible
-       modifierSection.removeByName('Faster Action');
-       modifierSection.removeByName('Slower Action');
-
-       if('None' === newActionName) return;  //don't add any modifiers
-
-       var defaultActionName = Data.Power.defaultAction.get(effect);
-       if('None' === defaultActionName) defaultActionName = 'Free';  //calculate distance from free
-       var defaultActionIndex = Data.Power.actions.indexOf(defaultActionName);
-       var newActionIndex = Data.Power.actions.indexOf(newActionName);
-
-       var actionDifference = (newActionIndex - defaultActionIndex);
-       if(actionDifference > 0) modifierSection.createByNameRank('Faster Action', actionDifference);
-       else if(actionDifference < 0) modifierSection.createByNameRank('Slower Action', -actionDifference);
+       if(shouldValidateActivationInfo) this.updateActionModifiers();
    };
    /**Used to set data independent of the document and without calling update*/
    this.setRange=function(newRangeName)
@@ -174,15 +155,13 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
 
        if(!shouldValidateActivationInfo) return;  //done
 
+      //TODO: loading should make sure that skillUsed can't be set when Perception range
       if (undefined !== name)
       {
           if('Perception' === newRangeName) skillUsed = undefined;  //if becoming perception range then skillUsed no longer applies
           else if('Perception' === oldRange) skillUsed = 'Skill used for attack';  //if no longer perception range then skillUsed now applies
           //note that changing from Perception to Personal will set name to undefined
       }
-
-       //when changing to personal nothing else needs to change
-       if('Personal' === newRangeName) return;  //only possible (for feature or) when removing a modifier
 
       if ('Personal' === oldRange && 'Permanent' === duration)
       {
@@ -194,23 +173,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           //either way it will cost 0
       }
 
-       if('Feature' === effect) return;  //Feature doesn't change modifiers
-       //TODO: refactor so that Feature has a base activation row and a current activation row
-       //so that Feature will have the modifiers auto set. This should be less confusing to the user
-       //this will also allow and require more edge case testing
-
-       var defaultRangeName = Data.Power.defaultRange.get(effect);
-       var defaultRangeIndex = Data.Power.ranges.indexOf(defaultRangeName);
-       var newRangeIndex = Data.Power.ranges.indexOf(newRangeName);
-       if('Personal' === defaultRangeName) defaultRangeIndex = Data.Power.ranges.indexOf('Close');  //calculate distance from close
-
-       //remove both if possible
-       modifierSection.removeByName('Increased Range');
-       modifierSection.removeByName('Reduced Range');
-
-       var rangeDifference = (newRangeIndex - defaultRangeIndex);
-       if(rangeDifference > 0) modifierSection.createByNameRank('Increased Range', rangeDifference);
-       else if(rangeDifference < 0) modifierSection.createByNameRank('Reduced Range', -rangeDifference);
+       this.updateRangeModifiers();
    };
    /**Used to set data independent of the document and without calling update*/
    this.setDuration=function(newDurationName)
@@ -241,19 +204,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           //either way it will cost 0
       }
 
-       if('Feature' === effect) return;  //Feature doesn't change modifiers
-
-       var defaultDurationIndex = Data.Power.durations.indexOf(defaultDurationName);
-       var newDurationIndex = Data.Power.durations.indexOf(newDurationName);
-       if('Permanent' === defaultDurationName && 'Personal' !== range) defaultDurationIndex = Data.Power.durations.indexOf('Sustained');  //calculate distance from Sustained
-
-       //remove both if possible
-       modifierSection.removeByName('Increased Duration');
-       modifierSection.removeByName('Decreased Duration');
-
-       var durationDifference = (newDurationIndex - defaultDurationIndex);
-       if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
-       else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
+       this.updateDurationModifiers();
    };
    /**Used to set data independent of the document and without calling update*/
    this.setName=function(nameGiven)
@@ -507,7 +458,10 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
           action = 'None';
       }
 
-       //TODO: this needs to create the modifiers. and test that
+       //create all of the modifiers
+       this.updateActionModifiers();
+       this.updateRangeModifiers();
+       this.updateDurationModifiers();
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object
@@ -525,6 +479,70 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        rank = undefined;
        total = 0;
        shouldValidateActivationInfo = true;
+   };
+   /**This function creates Selective if needed and recreates Faster/Slower Action as needed.*/
+   this.updateActionModifiers=function()
+   {
+       if('Triggered' === action) modifierSection.createByNameRank('Selective', 1);  //Triggered must also be selective so it auto adds but doesn't remove
+
+       if('Feature' === effect) return;  //Feature doesn't change any other modifiers
+
+       //remove both if possible
+       modifierSection.removeByName('Faster Action');
+       modifierSection.removeByName('Slower Action');
+
+       if('None' === action) return;  //don't add any modifiers
+
+       var defaultActionName = Data.Power.defaultAction.get(effect);
+       if('None' === defaultActionName) defaultActionName = 'Free';  //calculate distance from free
+       var defaultActionIndex = Data.Power.actions.indexOf(defaultActionName);
+       var newActionIndex = Data.Power.actions.indexOf(action);
+
+       var actionDifference = (newActionIndex - defaultActionIndex);
+       if(actionDifference > 0) modifierSection.createByNameRank('Faster Action', actionDifference);
+       else if(actionDifference < 0) modifierSection.createByNameRank('Slower Action', -actionDifference);
+   };
+   /**This function recreates Increased/Decreased Duration as needed.*/
+   this.updateDurationModifiers=function()
+   {
+       if('Feature' === effect) return;  //Feature doesn't change modifiers
+
+       var defaultDurationName = Data.Power.defaultDuration.get(effect);
+       var defaultDurationIndex = Data.Power.durations.indexOf(defaultDurationName);
+       var newDurationIndex = Data.Power.durations.indexOf(duration);
+       if('Permanent' === defaultDurationName && 'Personal' !== range) defaultDurationIndex = Data.Power.durations.indexOf('Sustained');  //calculate distance from Sustained
+
+       //remove both if possible
+       modifierSection.removeByName('Increased Duration');
+       modifierSection.removeByName('Decreased Duration');
+
+       var durationDifference = (newDurationIndex - defaultDurationIndex);
+       if(durationDifference > 0) modifierSection.createByNameRank('Increased Duration', durationDifference);
+       else if(durationDifference < 0) modifierSection.createByNameRank('Decreased Duration', -durationDifference);
+   };
+   /**This function recreates Increased/Reduced Range as needed.*/
+   this.updateRangeModifiers=function()
+   {
+       //when changing to personal nothing else needs to change
+       if('Personal' === range) return;  //only possible (for feature or) when removing a modifier
+
+       if('Feature' === effect) return;  //Feature doesn't change modifiers
+       //TODO: refactor so that Feature has a base activation row and a current activation row
+       //so that Feature will have the modifiers auto set. This should be less confusing to the user
+       //this will also allow and require more edge case testing
+
+       var defaultRangeName = Data.Power.defaultRange.get(effect);
+       var defaultRangeIndex = Data.Power.ranges.indexOf(defaultRangeName);
+       var newRangeIndex = Data.Power.ranges.indexOf(range);
+       if('Personal' === defaultRangeName) defaultRangeIndex = Data.Power.ranges.indexOf('Close');  //calculate distance from close
+
+       //remove both if possible
+       modifierSection.removeByName('Increased Range');
+       modifierSection.removeByName('Reduced Range');
+
+       var rangeDifference = (newRangeIndex - defaultRangeIndex);
+       if(rangeDifference > 0) modifierSection.createByNameRank('Increased Range', rangeDifference);
+       else if(rangeDifference < 0) modifierSection.createByNameRank('Reduced Range', -rangeDifference);
    };
    //constructor:
     this.constructor();

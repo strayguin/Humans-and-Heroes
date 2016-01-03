@@ -8,6 +8,7 @@ Tester.powerRow.disableValidationForActivationInfo=function(isFirst)
     var dataToLoad;
     var testResults=[];
     var actionTaken='N/A';
+    //these tests are things that wouldn't be valid if loaded in order: action, range, duration
 
     try{
     dataToLoad = Loader.resetData();
@@ -445,7 +446,6 @@ Tester.powerRow.setDuration=function(isFirst)
     var testResults=[], actionTaken='N/A';
 
     //TODO: test that the gui doesn't allow instant for non-feature. and none, personal, permanent
-    //TODO: test that Feature doesn't gain modifiers
     try{
     SelectUtil.changeText('powerChoices0', 'Feature');
     SelectUtil.changeText('powerSelectDuration0', 'Instant');
@@ -493,6 +493,33 @@ Tester.powerRow.setDuration=function(isFirst)
     testResults.push({Expected: 'Permanent', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change to permanent (permanent default): getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
+    TesterUtility.displayResults('Tester.powerRow.setDuration', testResults, isFirst);
+};
+Tester.powerRow.updateDurationModifiers=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[], actionTaken='N/A';
+
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature does\'t auto gain Increased Duration: getDuration'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Increased Duration: before is blank'});
+    SelectUtil.changeText('powerSelectDuration0', 'Continuous');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Increased Duration: after is still blank'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Decreased Duration: before is blank'});
+    SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Decreased Duration: after is still blank'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
     try{
     SelectUtil.changeText('powerChoices0', 'Flight'); SelectUtil.changeText('powerSelectDuration0', 'Continuous');
     testResults.push({Expected: 'Continuous', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Increased Duration: duration'});
@@ -526,7 +553,7 @@ Tester.powerRow.setDuration=function(isFirst)
     testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Decreased Duration: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    TesterUtility.displayResults('Tester.powerRow.setDuration', testResults, isFirst);
+    TesterUtility.displayResults('Tester.powerRow.updateDurationModifiers', testResults, isFirst);
 };
 Tester.powerRow.setPower=function(isFirst)
 {
@@ -543,7 +570,7 @@ Tester.powerRow.setPower=function(isFirst)
 
     TesterUtility.displayResults('Tester.powerRow.setPower', testResults, isFirst);
 };
-Tester.powerRow.setAction=function(isFirst)
+Tester.powerRow.updateActionModifiers=function(isFirst)
 {
     TesterUtility.clearResults(isFirst);
 
@@ -604,9 +631,33 @@ Tester.powerRow.setAction=function(isFirst)
     testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 2).isBlank(), Action: actionTaken, Description: 'Only 1 Selective: no other modifiers'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    //TODO: Feature should set Selective but no other modifiers
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature doesn\'t auto gain Faster Action: getAction'});
+    SelectUtil.changeText('powerSelectAction0', 'Reaction');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature doesn\'t auto gain Faster Action: after'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    TesterUtility.displayResults('Tester.powerRow.setAction', testResults, isFirst);
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    SelectUtil.changeText('powerSelectAction0', 'Slow');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature doesn\'t auto gain Slower Action: after'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    SelectUtil.changeText('powerSelectAction0', 'Triggered');
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Feature auto gains Selective: Selective added'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Feature auto gains Selective: no other modifiers'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.powerRow.updateActionModifiers', testResults, isFirst);
 };
 Tester.powerRow.setRange=function(isFirst)
 {
@@ -669,10 +720,12 @@ Tester.powerRow.setRange=function(isFirst)
     testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Feature change from personal: getAction after'});
     testResults.push({Expected: 'Ranged', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change from personal: getRange after'});
     testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change from personal: getDuration after'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature change from personal: Increased Range wasn\'t auto created'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    SelectUtil.changeText('powerSelectRange0', 'Ranged');
     SelectUtil.changeText('powerSelectAction0', 'Move');
     SelectUtil.changeText('powerSelectDuration0', 'Concentration');
     SelectUtil.changeText('powerSelectRange0', 'Personal');  //must be last here
@@ -680,6 +733,23 @@ Tester.powerRow.setRange=function(isFirst)
     testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Feature change to personal changes nothing: getRange'});
     testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Feature change to personal changes nothing: getDuration'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.powerRow.setRange', testResults, isFirst);
+};
+Tester.powerRow.updateRangeModifiers=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[], actionTaken='N/A';
+
+    try{
+    Main.powerSection.clear();
+    SelectUtil.changeText('powerChoices0', 'Feature');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Increased Range: before is blank'});
+    SelectUtil.changeText('powerSelectRange0', 'Ranged');
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 0).isBlank(), Action: actionTaken, Description: 'Feature does\'t auto gain Increased Range: after is still blank'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    //can't test 'Feature does\'t auto gain Decreased Range' because Feature's default range is Personal
 
     try{
     SelectUtil.changeText('powerChoices0', 'Move Object'); SelectUtil.changeText('powerSelectRange0', 'Perception');
@@ -713,7 +783,7 @@ Tester.powerRow.setRange=function(isFirst)
     testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Reduced Range: was in fact removed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-    TesterUtility.displayResults('Tester.powerRow.setRange', testResults, isFirst);
+    TesterUtility.displayResults('Tester.powerRow.updateRangeModifiers', testResults, isFirst);
 };
 Tester.powerRow.calculateValues=function(isFirst)
 {
