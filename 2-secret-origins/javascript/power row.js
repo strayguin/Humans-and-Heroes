@@ -345,26 +345,27 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
 
        htmlString+='      <td colspan="2" width="66%">\n';
        htmlString+='          Range\n';
-       var sharedString='          <select id="'+sectionName+'SelectRange'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectRange();"><option>Close</option><option>Ranged</option><option>Perception</option>';
-      if (effect === 'Feature')  //has unique drop downs
-      {
-          //always has selects
-          htmlString+=sharedString+'<option>Personal</option></select>\n';
-      }
+       if(range === 'Personal' && effect !== 'Feature') htmlString+='          <span id="'+sectionName+'SelectRange'+rowIndex+'" style="display: inline-block; width: 90px; text-align: center;"></span>\n';
       else
       {
-          if(range === 'Personal') htmlString+='          <span id="'+sectionName+'SelectRange'+rowIndex+'" style="display: inline-block; width: 90px; text-align: center;"></span>\n';
-          else htmlString+=sharedString+'</select>\n';
+          htmlString+='          <select id="'+sectionName+'SelectRange'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectRange();">\n';
+          if(effect === 'Feature') htmlString+='             <option>Personal</option>\n';
+          htmlString+='             <option>Close</option>\n';
+          htmlString+='             <option>Ranged</option>\n';
+          htmlString+='             <option>Perception</option>\n';
+          htmlString+='          </select>\n';
       }
        htmlString+='          Duration\n';
-       sharedString='          <select id="'+sectionName+'SelectDuration'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectDuration();"><option>Concentration</option><option>Sustained</option><option>Continuous</option>';
-      if (effect === 'Feature')  //has unique drop downs
-          htmlString+=sharedString+'<option>Permanent</option><option>Instant</option></select>\n';  //always has selects
+       if(duration === 'Instant' && effect !== 'Feature') htmlString+='          <span id="'+sectionName+'SelectDuration'+rowIndex+'" style="display: inline-block; width: 80px; text-align: center;"></span>\n';
       else
       {
-          if(range === 'Personal') sharedString+='<option>Permanent</option>';
-          if(duration === 'Instant') htmlString+='          <span id="'+sectionName+'SelectDuration'+rowIndex+'" style="display: inline-block; width: 80px; text-align: center;"></span>\n';
-          else htmlString+=sharedString+'</select>\n';
+          htmlString+='          <select id="'+sectionName+'SelectDuration'+rowIndex+'" onChange="Main.'+sectionName+'Section.getRow('+rowIndex+').selectDuration();">\n';
+          htmlString+='             <option>Concentration</option>\n';
+          htmlString+='             <option>Sustained</option>\n';
+          htmlString+='             <option>Continuous</option>\n';
+          if(range === 'Personal') htmlString+='             <option>Permanent</option>\n';
+          if(effect === 'Feature') htmlString+='             <option>Instant</option>\n';
+          htmlString+='          </select>\n';
       }
        htmlString+='      </td>\n';
        htmlString+='   </tr>\n';
@@ -497,7 +498,6 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       }
       else if ('None' !== action && 'Permanent' === duration)
       {
-          //TODO: change sectionName to normally be title case so I don't have to call toTitleCase()
           Main.messageUser('PowerObjectAgnostic.validateActivationInfo.onlyNone', sectionName.toTitleCase() + ' #' + (rowIndex+1) + ': ' +
           effect + ' can\'t have an action of ' + action + '. It can only be None because the duration is Permanent.');
           //Permanent duration can only have action None
@@ -505,7 +505,6 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
       }
 
        //TODO: this needs to create the modifiers. and test that
-       //TODO: can this get DRY with onchange?
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object

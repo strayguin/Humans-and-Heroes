@@ -4,6 +4,8 @@
 //TODO: add: 2 links for first unmade and first unfinished (if neither then don't have links)
 //TODO: add: link for bottom of suite and top of suite
 
+if(undefined === Math.trunc){Math.trunc=function(n){return ~~n;};}  //bitwise shortcut. Rounds (to a whole number) towards 0
+
 //this is optional. feel free to remove it.
 /**Provided as a default way to compare objects.
 It simply enumerates over all properties and makes sure they match.
@@ -62,11 +64,11 @@ Number.prototype.ensurePrecision = function(precision)
     if(this.valueOf() === 0) return 0;  //already perfect
     var resultWhole = Math.floor(this);
     if(resultWhole > this) return resultWhole;  //in case Math.floor ensured some precision when this is 0.999999 etc
-    resultWhole = simpleTruncate(this);
+    resultWhole = Math.trunc(this);
        //notice how this is not changed
     var resultDigits = ((this - resultWhole) * Math.pow(10, precision));
 
-    var savedDigits = simpleTruncate(resultDigits);
+    var savedDigits = Math.trunc(resultDigits);
     var digitsInQuestion = Math.abs(resultDigits - savedDigits);
 
     //if exactly half then truncate. else round away from half
@@ -77,13 +79,8 @@ Number.prototype.ensurePrecision = function(precision)
 
     savedDigits /= Math.pow(10, precision);
     return (resultWhole+savedDigits);
-
-   function simpleTruncate(num)
-   {
-       if(num >= 0) return Math.floor(num);
-       return Math.ceil(num);
-   }
 };
+
 const TesterUtility={};
 /*If all of the requirements pass then return true otherwise add the failures to the testResults and return false
 Use this if the test output gets too huge*/
