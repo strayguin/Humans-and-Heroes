@@ -1,3 +1,4 @@
+//TODO: split this file into a test folder with files for each thing being tested
 Tester.data.beforeAll=function(){Main.clear(); Main.setRuleset(2, 7);};
 Tester.data.afterAll = Tester.data.beforeAll;  //yes I see that it is called twice but that is so that it auto clears Main if I call a single test
 //every test needs to clear out for the other test to start clean
@@ -59,7 +60,7 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
           //document.getElementById('code box').value+=stringDiffDisplay(originalContents, newContents);
           //break;
       }
-          //break;
+       //break;
    }
 
     TesterUtility.displayResults('Tester.confirmAllXmls', testResults, true);  //grand total is pointless but will scroll me to the bottom
@@ -1086,6 +1087,32 @@ Tester.modifierList.sanitizeRows=function(isFirst)
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
     TesterUtility.displayResults('Tester.modifierList.sanitizeRows', testResults, isFirst);
+};
+Tester.modifierList.sortOrder=function(isFirst)
+{
+    TesterUtility.clearResults(isFirst);
+
+    var testResults=[];
+    var actionTaken='N/A';
+
+    try{
+    SelectUtil.changeText('powerChoices0', 'Create');
+    SelectUtil.changeText('powerSelectAction0', 'Slow');
+    SelectUtil.changeText('powerModifierChoices0.1', 'Selective');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    SelectUtil.changeText('powerSelectDuration0', 'Concentration');
+    SelectUtil.changeText('powerModifierChoices0.4', 'Precise');
+
+    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Action: actionTaken, Description: 'power row'});
+    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0,0).getName(), Action: actionTaken, Description: 'Modifier 1'});
+    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0,1).getName(), Action: actionTaken, Description: 'Modifier 2'});
+    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0,2).getName(), Action: actionTaken, Description: 'Modifier 3'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0,3).getName(), Action: actionTaken, Description: 'Modifier 4'});
+    testResults.push({Expected: 'Precise', Actual: Main.powerSection.getModifierRowShort(0,4).getName(), Action: actionTaken, Description: 'Modifier 5'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0,5).isBlank(), Action: actionTaken, Description: 'No more modifiers'});
+    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+
+    TesterUtility.displayResults('Tester.modifierList.sortOrder', testResults, isFirst);
 };
 Tester.modifierRow={};
 Tester.modifierRow.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
@@ -2149,7 +2176,7 @@ Tester.powerRow.setRange=function(isFirst)
     try{
     SelectUtil.changeText('powerSelectAction0', 'Move');
     SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    SelectUtil.changeText('powerModifierChoices0.0', 'Select One');  //must be last here
+    SelectUtil.changeText('powerModifierChoices0.2', 'Select One');  //removes Affects Others (first 2 are for action and duration)
     testResults.push({Expected: 'Move', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change to personal changes nothing: getAction'});
     testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change to personal changes nothing: getRange'});
     testResults.push({Expected: 'Concentration', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change to personal changes nothing: getDuration'});

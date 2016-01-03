@@ -57,12 +57,15 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    {
       if (!Data.Modifier.names.contains(nameGiven))  //if row is removed, eg: 'Select One'
       {
-          var wasAttack = (name === 'Attack' || name === 'Affects Others Only' || name === 'Affects Others Also');
-          if(wasAttack && this.getPower().getEffect() !== 'Feature') this.getPower().setRange('Personal');
+          var wasAttack = ('Attack' === name || 'Affects Others Only' === name || 'Affects Others Also' === name);
+          //TODO: remove these modifiers for non-personal powers. Those would need to be Enhanced trait attack
+          if(wasAttack && 'Feature' !== this.getPower().getEffect() && 'Personal' === this.getPower().getDefaultRange())
+             this.getPower().setRange('Personal');
           this.constructor();  //reset row
           return;
       }
-       if(name === 'Selective' && this.getPower().getAction() === 'Triggered') return;  //prevent removing this row
+       if('Selective' === name && 'Triggered' === this.getPower().getAction()) return;  //prevent removing this row
+       //TODO: change Selective to be a span in this case (and change sort order)
 
        name = nameGiven;
        modifierType = Data.Modifier.type.get(name);
@@ -76,7 +79,8 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
        hasAutoTotal = Data.Modifier.hasAutoTotal.contains(name);
        this.calculateTotal();
 
-       if(name === 'Attack' || name === 'Affects Others Only' || name === 'Affects Others Also') this.getPower().setRange('Close');
+       if(('Attack' === name || 'Affects Others Only' === name || 'Affects Others Also' === name) && 'Personal' === this.getPower().getRange())
+          this.getPower().setRange('Close');
        if(name === 'Attack') this.getPower().setDefaultNameAndSkill();
    };
    /**Used to set data independent of the document and without calling update*/

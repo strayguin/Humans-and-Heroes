@@ -142,8 +142,8 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        if('Feature' === effect) return;  //Feature doesn't change any other modifiers
 
        //remove both if possible
-       modifierSection.removeByName('Slower Action');
        modifierSection.removeByName('Faster Action');
+       modifierSection.removeByName('Slower Action');
 
        if('None' === newActionName) return;  //don't add any modifiers
 

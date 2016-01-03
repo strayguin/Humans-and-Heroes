@@ -49,6 +49,8 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    this.calculateValues=function()
    {
        this.sanitizeRows();
+       rowArray.sort(this.sortOrder);
+       this.setSectionRowIndex(sectionRowIndex);  //used to correct all indexing
        autoModifierNameToRowIndex.clear();
        rankTotal=0; flatTotal=0;
       for (var i=0; i < rowArray.length-1; i++)  //the last row is always blank
@@ -130,7 +132,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        var rowIndex=this.findRowByName(rowName);
        if(rowIndex !== undefined) this.removeRow(rowIndex);
    };
-   /**Needs to be updated for document reasons. This will update all dependant indexing*/
+   /**Needs to be updated for document reasons. This will update all dependent indexing*/
    this.setSectionRowIndex=function(sectionRowIndexGiven)
    {
        sectionRowIndex=sectionRowIndexGiven;
@@ -174,6 +176,23 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
       }
        if(rowArray.isEmpty() || !rowArray.last().isBlank())
           this.addRow();  //if last row isn't blank add one
+   };
+   /**Pass into Array.prototype.sort so that the automatic modifiers come first. With action, range, duration, then others.*/
+   this.sortOrder=function(a, b)
+   {
+       const aFirst = -1;
+       const bFirst = 1;
+
+       if('Faster Action' === a.getName() || 'Slower Action' === a.getName()) return aFirst;
+       if('Faster Action' === b.getName() || 'Slower Action' === b.getName()) return bFirst;
+
+       if('Increased Range' === a.getName() || 'Reduced Range' === a.getName()) return aFirst;
+       if('Increased Range' === b.getName() || 'Reduced Range' === b.getName()) return bFirst;
+
+       if('Increased Duration' === a.getName() || 'Decreased Duration' === a.getName()) return aFirst;
+       if('Increased Duration' === b.getName() || 'Decreased Duration' === b.getName()) return bFirst;
+
+       return 0;  //else maintain the current order
    };
    /**Removes the row from the array and updates the index of all others in the list.*/
    this.removeRow=function(rowIndexToRemove)
