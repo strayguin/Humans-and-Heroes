@@ -3,15 +3,13 @@ Tester.data.afterAll = Tester.data.beforeAll;  //yes I see that it is called twi
 //every test needs to clear out for the other test to start clean
 //even if slow do not disable Main generation because an error might occur (due to undefined values) in which case I need to see how Main was
 
-//doesn't take as long as I thought but still leave it out of testAll() hence the enumerable: false
-Object.defineProperty(Tester, 'confirmAllXmls', {
-  enumerable: false,
-  value: function()
+//doesn't take as long as I thought but still leave it out of Tester.testAll() hence being a global function
+function confirmAllXmls()
 {
-    if(arguments.length !== 0){alert('Confirming Xmls demands to be first and only'); return;}
     TesterUtility.clearResults();
     //Main.setRuleset(2, 7);  //the xmls are only saved with current rules
        //covered by clearResults and by Main.load
+    SelectUtil.setText('saveType', 'XML');  //needed
 
     var testResults=[];
     var actionTaken='Load Save Confirm';
@@ -38,22 +36,19 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
       for (var fileIndex=0; fileIndex < allFiles[folderIndex].length; fileIndex++)
       {
           var originalContents=readXMLAsString(basePath+allFolders[folderIndex]+allFiles[folderIndex][fileIndex]);
-          document.getElementById('code box').value=originalContents;  //should conform the end lines (plus can only load from here)
-          originalContents=document.getElementById('code box').value;  //must be on separate lines for some reason
+          document.getElementById('code box').value=originalContents;
           originalContents=originalContents.replace(/\/>/g, ' />');
           //originalContents=originalContents.replace(/<Document ruleset="\d+.\d+" version="\d+">/, '<Document>');  //don't replace: being out of date is noteworthy
-          originalContents=originalContents.replace(/\?>/, '?>\n\n');  //add a blank line
-          originalContents=originalContents.replace(/<Powers \/>/, '<Powers></Powers>');  //make empty group instead of self closing
-          originalContents=originalContents.replace(/<Equipment \/>/, '<Equipment></Equipment>');
-          originalContents=originalContents.replace(/<Advantages \/>/, '<Advantages></Advantages>');
-          originalContents=originalContents.replace(/<Skills \/>/, '<Skills></Skills>');
+          originalContents=originalContents.replace('?>', '?>\n\n');  //add a blank line
+          originalContents=originalContents.replace('<Powers />', '<Powers></Powers>');  //make empty group instead of self closing
+          originalContents=originalContents.replace('<Equipment />', '<Equipment></Equipment>');
+          originalContents=originalContents.replace('<Advantages />', '<Advantages></Advantages>');
+          originalContents=originalContents.replace('<Skills />', '<Skills></Skills>');
           originalContents+='\n';  //ends with a blank line
           originalContents=originalContents.replace(/\s+<!--[\s\S]*?-->/g, '');  //remove comments when comparing because save doesn't generate them
           Main.loadFromTextArea();
           Main.saveToTextArea();
           var newContents=document.getElementById('code box').value;
-          document.getElementById('code box').value=newContents;
-          newContents=document.getElementById('code box').value;  //to conform the end lines. TODO: really?
           testResults.push({Expected: originalContents, Actual: newContents, Action: actionTaken, Description: allFolders[folderIndex]+allFiles[folderIndex][fileIndex]});
           //document.getElementById('code box').value=originalContents;
           //document.getElementById('code box').value+=stringDiffDisplay(originalContents, newContents);
@@ -62,9 +57,8 @@ Object.defineProperty(Tester, 'confirmAllXmls', {
        //break;
    }
 
-    TesterUtility.displayResults('Tester.confirmAllXmls', testResults, true);  //grand total is pointless but will scroll me to the bottom
+    TesterUtility.displayResults('confirmAllXmls', testResults, true);  //grand total is pointless but will scroll me to the bottom
 }
-});
 //free javascript debugger: http://www.aptana.com/products/studio3
     //it doesn't work (doesn't run) use chrome or firefox instead
 //http://docs.seleniumhq.org/ and http://www.eclipse.org/webtools/jsdt/

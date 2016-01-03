@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
+<Document ruleset="3.0" version="2">
     <Hero name="Zombie" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
@@ -14,7 +14,7 @@
        <Presence value="0" />
    </Abilities>
    <Powers>
-       <Row name="Protection" text="Undead" action="None" range="Personal" duration="Permanent" rank="3" />
+       <Row effect="Protection" text="Undead" action="None" range="Personal" duration="Permanent" rank="3" />
    </Powers>
     <Equipment></Equipment>
     <Advantages></Advantages>
