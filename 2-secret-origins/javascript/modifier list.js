@@ -180,6 +180,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    /**Pass into Array.prototype.sort so that the automatic modifiers come first. With action, range, duration, then others.*/
    this.sortOrder=function(a, b)
    {
+       //TODO: also do this for Advantage's equipment
        const aFirst = -1;
        const bFirst = 1;
 
