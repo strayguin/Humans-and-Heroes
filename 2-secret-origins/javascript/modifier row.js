@@ -77,7 +77,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
        this.calculateTotal();
 
        if(name === 'Attack' || name === 'Affects Others Only' || name === 'Affects Others Also') this.getPower().setRange('Close');
-       //TODO: attack also needs to set name and skill
+       if(name === 'Attack') this.getPower().setDefaultNameAndSkill();
    };
    /**Used to set data independent of the document and without calling update*/
    this.setRank=function(rankGiven)

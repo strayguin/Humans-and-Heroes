@@ -106,14 +106,7 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        range = Data.Power.defaultRange.get(effect);
        duration = Data.Power.defaultDuration.get(effect);
        rank = 1;
-      if (Data.Power.isAttack.contains(effect))
-      {
-          name = ((rowIndex+1) + ' ' + effect);
-          if(powerListParent === Main.powerSection) name = 'Power ' + name;
-          else name = 'Equipment ' + name;  //for example: "Equipment 1 Damage" the "Equipment 1" is used for uniqueness
-          if(range === 'Perception') skillUsed = undefined;  //needs to be explicitly set because it might have been defined before
-          else skillUsed = 'Skill used for attack';
-      }
+       if(Data.Power.isAttack.contains(effect)) this.setDefaultNameAndSkill();
        else name = skillUsed = undefined;
    };
    /**Used to set data independent of the document and without calling update*/
@@ -409,6 +402,13 @@ function PowerObjectAgnostic(powerListParent, rowIndex, sectionName)
        json.Modifiers=modifierSection.save();
        json.rank=rank;
        return json;
+   };
+   /**Used by this.setPower and setModifier in order to set the default text for name and skill*/
+   this.setDefaultNameAndSkill=function()
+   {
+       name = sectionName.toTitleCase() + ' ' + ((rowIndex+1) + ' ' + effect);  //for example: "Equipment 1 Damage" the "Equipment 1" is used for uniqueness
+       if(range === 'Perception') skillUsed = undefined;  //needs to be explicitly set because it might have been defined before
+       else skillUsed = 'Skill used for attack';
    };
    /**This sets the page's data. called only by section generate*/
    this.setValues=function()
