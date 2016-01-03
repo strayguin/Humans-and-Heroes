@@ -14,7 +14,7 @@ SelectUtil.getTextById=function(optionID)  //only called by CommonsLibrary (and 
 };
 /**Given the id of the select, this returns true if any of its options have text that matches the parameter (false otherwise).
 Will return undefined if the id is not a select element or if the text is not a string*/
-SelectUtil.containsText=function(optionID, textToFind)  //never called but will be used to test generate. can't move into auto test due to object freeze
+SelectUtil.containsText=function(optionID, textToFind)  //only used for testing (such as generate). can't move into auto test due to object freeze
 {
     if(!SelectUtil.isSelect(optionID) || typeof(textToFind) !== 'string') return undefined;  //bad test
     var element = document.getElementById(optionID);

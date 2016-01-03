@@ -21,7 +21,7 @@ function MainObject()
 {
    //private variable section:
     const latestRuleset = new VersionObject(3, 0), latestVersion = 2;  //see bottom of this file for a version list
-    var characterPointsSpent = 0, transcendence = 0, previousGodHood = false;
+    var characterPointsSpent = 0, transcendence = 0, minimumTranscendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
     var activeRuleset = latestRuleset.clone();
     var mockMessenger;  //used for testing
@@ -75,12 +75,8 @@ function MainObject()
        transcendence = sanitizeNumber(document.getElementById('transcendence').value, -1, 0);
        if((this.powerSection.isUsingGodhoodPowers() || this.advantageSection.hasGodhoodAdvantages()) && transcendence <= 0)
           transcendence = 1;  //must raise the minimum due to currently using god-like powers
-       document.getElementById('transcendence').value = transcendence;
-       if(previousGodHood === this.canUseGodHood()) return;  //same transcendence so don't need to regenerate
-       previousGodHood = this.canUseGodHood();
-       this.powerSection.update();  //transcendence changed so update these
-       this.advantageSection.update();
-       //although devices can have godhood powers (if maker is T2+) equipment can't so equipment isn't regenerated
+       minimumTranscendence = transcendence;
+       this.updateTranscendence();
    };
 
    //public functions section
@@ -88,7 +84,7 @@ function MainObject()
    this.clear=function()
    {
        document.getElementById('HeroName').value = 'Hero Name';
-       document.getElementById('transcendence').value = transcendence = 0;
+       document.getElementById('transcendence').value = transcendence = minimumTranscendence = 0;
        this.abilitySection.clear();
        document.getElementById('imgFilePath').value='';
        this.loadImageFromPath();  //after setting the images to blank this will reset the image
@@ -187,11 +183,9 @@ function MainObject()
        document.getElementById('grand total max').innerHTML = (powerLevel*15);
       if (activeRuleset.major > 1)
       {
-          if(powerLevel >= 20) transcendence = Math.floor(powerLevel/20);  //gain a transcendence every 20 PL
-          else if(transcendence !== -1) transcendence = 0;  //if PL < 20 then set to minimum (which is 0 unless -1 is specified)
-          //else: leave it as -1
-          document.getElementById('transcendence').value = transcendence;
-          this.changeTranscendence();  //to regenerate as needed
+          transcendence = Math.floor(powerLevel/20);  //gain a transcendence every 20 PL
+          if(transcendence < minimumTranscendence) transcendence = minimumTranscendence;  //don't auto-set below the user requested value
+          this.updateTranscendence();  //to regenerate as needed
       }
    };
    /**Calculates initiative and sets the document.*/
@@ -260,6 +254,16 @@ function MainObject()
        allOffensiveRows+='</table>';
        document.getElementById('offensive section').innerHTML = allOffensiveRows;
        //offense example: Close, Weaken 4, Crit. 19-20 |or| Perception, Flight 3, Crit. 16-20
+   };
+   /**Updates the document for transcendence field and might regenerate powers and advantages.*/
+   this.updateTranscendence=function()
+   {
+       document.getElementById('transcendence').value = transcendence;
+       if(previousGodHood === this.canUseGodHood()) return;  //same transcendence so don't need to regenerate
+       previousGodHood = this.canUseGodHood();
+       this.powerSection.update();  //transcendence changed so update these
+       this.advantageSection.update();
+       //although devices can have godhood powers (if maker is T2+) equipment can't so equipment isn't regenerated
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object
@@ -393,7 +397,7 @@ function MainObject()
        if(fileString === '') return;  //done
 
        document.getElementById('code box').value = '';
-       var jsonDoc, transcendenceMinimum = -1, docType;
+       var jsonDoc, docType;
        try{
        if(fileString[0] === '<'){docType = 'XML'; jsonDoc = xmlToJson(fileString);}  //if the first character is less than then assume XML
        else{docType = 'JSON'; jsonDoc = JSON.parse(fileString);}  //else assume JSON
@@ -417,18 +421,17 @@ function MainObject()
        document.getElementById('HeroName').value = jsonDoc.Hero.name;
       if (activeRuleset.major > 1)
       {
-          transcendenceMinimum = sanitizeNumber(jsonDoc.Hero.transcendence, -1, 0);
+          transcendence = minimumTranscendence = sanitizeNumber(jsonDoc.Hero.transcendence, -1, 0);
+          document.getElementById('transcendence').value = transcendence;
       }
        document.getElementById('imgFilePath').value = jsonDoc.Hero.image;
        this.loadImageFromPath();  //can't set the file chooser for obvious security reasons
        document.getElementById('bio box').value = jsonDoc.Information;
        this.abilitySection.load(jsonDoc.Abilities);  //at the end of each load it updates and generates
 
-       if(transcendenceMinimum > transcendence) transcendence = transcendenceMinimum;  //so that godhood powers can be loaded
        this.powerSection.load(jsonDoc.Powers);
        this.equipmentSection.load(jsonDoc.Equipment);  //equipment can't have godhood
 
-       if(transcendenceMinimum > transcendence) transcendence = transcendenceMinimum;  //so that godhood advantages can be loaded
        this.advantageSection.load(jsonDoc.Advantages);
        this.skillSection.load(jsonDoc.Skills);
        this.defenseSection.load(jsonDoc.Defenses);

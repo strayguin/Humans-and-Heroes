@@ -1459,7 +1459,6 @@ Tester.powerList.load=function(isFirst)
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
    //TODO: fix them all
-   //fix godhood: make a minTran = 0 or user input (if empty set 0)
 
     Main.clearMockMessenger();  //restore default behavior
     TesterUtility.displayResults('Tester.powerList.load', testResults, isFirst);
