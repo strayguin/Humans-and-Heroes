@@ -55,7 +55,13 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    The data set is independent of the document and doesn't call update.*/
    this.setModifier=function(nameGiven)
    {
-       if(!Data.Modifier.names.contains(nameGiven)){this.constructor(); return;}  //reset row
+      if (!Data.Modifier.names.contains(nameGiven))  //if row is removed, eg: 'Select One'
+      {
+          var wasAttack = (name === 'Attack' || name === 'Affects Others Only' || name === 'Affects Others Also');
+          if(wasAttack && this.getPower().getEffect() !== 'Feature') this.getPower().setRange('Personal');
+          this.constructor();  //reset row
+          return;
+      }
        if(name === 'Selective' && this.getPower().getAction() === 'Triggered') return;  //prevent removing this row
 
        name = nameGiven;
@@ -71,6 +77,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
        this.calculateTotal();
 
        if(name === 'Attack' || name === 'Affects Others Only' || name === 'Affects Others Also') this.getPower().setRange('Close');
+       //TODO: attack also needs to set name and skill
    };
    /**Used to set data independent of the document and without calling update*/
    this.setRank=function(rankGiven)

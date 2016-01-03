@@ -1942,6 +1942,7 @@ Tester.powerRow.setDuration=function(isFirst)
 
     var testResults=[], actionTaken='N/A';
 
+    //TODO: test that the gui doesn't allow instant for non-feature. and none, personal, permanent
     //TODO: test that Feature doesn't gain modifiers
     try{
     SelectUtil.changeText('powerChoices0', 'Feature');
@@ -2140,6 +2141,7 @@ Tester.powerRow.setRange=function(isFirst)
 
     SelectUtil.changeText('powerModifierChoices0.0', 'Affects Others Only');
     testResults.push({Expected: 'Affects Others Only', Actual: Main.powerSection.getModifierRowShort(0, 0).getName(), Action: actionTaken, Description: 'Change from personal: modifier'});
+    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0, 1).isBlank(), Action: actionTaken, Description: 'Change from personal: no other modifiers'});
     testResults.push({Expected: 'Free', Actual: Main.powerSection.getRow(0).getAction(), Action: actionTaken, Description: 'Change from personal: getAction after'});
     testResults.push({Expected: 'Close', Actual: Main.powerSection.getRow(0).getRange(), Action: actionTaken, Description: 'Change from personal: getRange after'});
     testResults.push({Expected: 'Sustained', Actual: Main.powerSection.getRow(0).getDuration(), Action: actionTaken, Description: 'Change from personal: getDuration after'});

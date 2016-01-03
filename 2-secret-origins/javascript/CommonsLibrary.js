@@ -6,8 +6,11 @@ CommonsLibrary.select=function(setterPointer, elementId, updateThis)
     setterPointer.call(this, SelectUtil.getTextById(elementId));
     updateThis.update();
     //document doesn't need to be reset because setAll will do that later
-    document.getElementById(elementId).focus();  //regain focus (so the user can use tab)
+    var element = document.getElementById(elementId);
     //I was using document.activeElement but it always pointed to the changed element anyway
+    if(null !== element) element.focus();  //regain focus (so the user can use tab)
+    //the only time it can be null is if something like Faster Action is inserted (powerModifierName0.0 instead of powerModifierChoices0.0)
+    //in such cases there is no way to recover focus so it is lost
 };
 /**Onchange function for changing any input text field*/
 CommonsLibrary.change=function(setterPointer, elementId, updateThis, shouldFocus)
