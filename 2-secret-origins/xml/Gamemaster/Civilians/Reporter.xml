@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
+<Document ruleset="3.0" version="2">
     <Hero name="Reporter" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
@@ -15,8 +15,8 @@
    </Abilities>
     <Powers></Powers>
    <Equipment>
-       <Row name="Feature" cost="1" text="Camera, computer, audio recorder" action="None" range="Personal" duration="Permanent" rank="3" />
-       <Row name="Feature" cost="2" text="smart-phone" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Camera, computer, audio recorder" action="None" range="Personal" duration="Permanent" rank="3" />
+       <Row effect="Feature" cost="2" text="smart-phone" action="None" range="Personal" duration="Permanent" rank="1" />
    </Equipment>
    <Advantages>
        <Row name="Equipment" rank="1" />
