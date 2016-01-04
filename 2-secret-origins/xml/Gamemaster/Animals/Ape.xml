@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
+<Document ruleset="3.0" version="2">
     <Hero name="Ape" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
@@ -14,15 +14,13 @@
        <Presence value="-1" />
    </Abilities>
    <Powers>
-      <Row name="Growth" text="" action="None" range="Personal" duration="Permanent" rank="1">
-          <Modifier name="Permanent" />
+      <Row effect="Growth" text="" action="None" range="Personal" duration="Permanent" rank="1">
+          <Modifier name="Increased Duration" applications="2" />
           <Modifier name="Innate" />
       </Row>
-      <Row name="Enhanced Trait" cost="1" text="Defense: Toughness" action="None" range="Personal" duration="Permanent" rank="2">
-          <Modifier name="Permanent" />
-      </Row>
-       <Row name="Senses" cost="1" text="Low-light vision" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Senses" cost="1" text="Acute Smell" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Protection" text="Actually Enhanced Toughness" action="None" range="Personal" duration="Permanent" rank="2" />
+       <Row effect="Senses" cost="1" text="Low-light vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Acute Smell" action="None" range="Personal" duration="Permanent" rank="1" />
    </Powers>
     <Equipment></Equipment>
     <Advantages></Advantages>
