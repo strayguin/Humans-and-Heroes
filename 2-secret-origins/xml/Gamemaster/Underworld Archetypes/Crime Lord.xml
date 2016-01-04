@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
+<Document ruleset="3.0" version="2">
     <Hero name="Crime Lord" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
@@ -15,14 +15,14 @@
    </Abilities>
     <Powers></Powers>
    <Equipment>
-      <Row name="Protection" text="Bulletproof vest" action="None" range="Personal" duration="Permanent" rank="4">
-          <Modifier name="Limited" applications="1" text="vs. Ballistic" />
+      <Row effect="Protection" text="Bulletproof vest" action="None" range="Personal" duration="Permanent" rank="4">
+          <Modifier name="Limited" applications="1" text="Only against Ballistic" />
           <Modifier name="Subtle" applications="1" text="" />
       </Row>
-      <Row name="Damage" text="Heavy Pistol" action="Standard" range="Ranged" duration="Instant" rank="4">
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Heavy Pistol" skill="Pistols" rank="4">
           <Modifier name="Increased Range" applications="1" />
       </Row>
-       <Row name="Feature" cost="1" text="cell phone" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="cell phone" action="None" range="Personal" duration="Permanent" rank="1" />
    </Equipment>
    <Advantages>
        <Row name="Equipment" rank="3" />
