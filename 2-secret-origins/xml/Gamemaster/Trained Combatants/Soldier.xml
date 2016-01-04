@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
+<Document ruleset="3.0" version="2">
     <Hero name="Soldier" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
@@ -15,18 +15,18 @@
    </Abilities>
     <Powers></Powers>
    <Equipment>
-      <Row name="Damage" text="Assault rifle" action="Standard" range="Ranged" duration="Instant" rank="5">
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Assault rifle" skill="Rifles" rank="5">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Multiattack" />
       </Row>
-       <Row name="Protection" text="body armor" action="None" range="Personal" duration="Permanent" rank="3" />
-       <Row name="Feature" cost="1" text="17 points of other equipment" action="None" range="Personal" duration="Permanent" rank="17" />
+       <Row effect="Protection" text="body armor" action="None" range="Personal" duration="Permanent" rank="3" />
+       <Row effect="Feature" cost="1" text="17 points of other equipment" action="None" range="Personal" duration="Permanent" rank="17" />
    </Equipment>
    <Advantages>
        <Row name="Equipment" rank="7" />
    </Advantages>
    <Skills>
-       <Row name="Ranged Combat" subtype="Rifle" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Rifles" rank="4" ability="Dexterity" />
        <Row name="Athletics" subtype="" rank="4" ability="Strength" />
        <Row name="Expertise" subtype="Soldier" rank="4" ability="Intellect" />
        <Row name="Strategy" subtype="Military" rank="4" ability="Intellect" />
