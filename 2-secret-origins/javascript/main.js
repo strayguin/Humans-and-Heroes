@@ -449,7 +449,7 @@ function MainObject()
    {
        var thisOffensiveRow = '<tr><td class="character-sheet-offense-row">' + skillName + ' ';
        if(attackBonus !== '--' && attackBonus >= 0) thisOffensiveRow+='+';  //add leading plus. checking for '--' is unneeded but more clear
-       thisOffensiveRow+=attackBonus+'</td><td class="character-sheet-offense-row">' + range + ', ' + effect + ', ' + damage;
+       thisOffensiveRow+=attackBonus+'</td><td class="character-sheet-offense-row">' + range + ', ' + effect + ' ' + damage;
 
        var minCritNum = (20 - this.advantageSection.getRankMap().get('Improved Critical: '+skillName));
        if(minCritNum < 20) thisOffensiveRow+=', Crit. '+minCritNum+'-20';  //the '-20' is a range through 20
