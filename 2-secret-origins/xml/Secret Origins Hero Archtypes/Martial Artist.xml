@@ -15,7 +15,7 @@
    </Abilities>
    <Powers>
        <Row effect="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row effect="Feature" cost="1" text="Trance" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Trance" action="Full" range="Personal" duration="Concentration" rank="1" />
    </Powers>
     <Equipment></Equipment>
    <Advantages>

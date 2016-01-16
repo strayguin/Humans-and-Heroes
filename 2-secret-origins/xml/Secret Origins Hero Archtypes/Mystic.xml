@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
-    <Hero name="Mystic" transcendence="0" image="../images/TCP Vampire 53750.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Mystic" transcendence="0" image="../images/Mystic.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="0" />
@@ -14,27 +14,26 @@
        <Presence value="4" />
    </Abilities>
    <Powers>
-      <Row name="Remote Sensing" cost="3" text="Astral Projection: visual, auditory, mental. up to 2 miles away" action="Free" range="Personal" duration="Sustained" rank="10">
+      <Row effect="Remote Sensing" cost="3" text="Astral Projection: visual, auditory, mental. up to 2 miles away" action="Free" range="Personal" duration="Sustained" rank="10">
           <Modifier name="Limited" applications="1" text="physical body is defenseless during the use of this power" />
           <Modifier name="Subtle" applications="2" text="" />
       </Row>
-       <Row name="Flight" text="Levitation: 30 MPH" action="Free" range="Personal" duration="Sustained" rank="4" />
-      <Row name="Protection" text="Mystic Shield" action="Free" range="Personal" duration="Sustained" rank="6">
+       <Row effect="Flight" text="Levitation: 30 MPH" action="Free" range="Personal" duration="Sustained" rank="4" />
+      <Row effect="Protection" text="Mystic Shield" action="Free" range="Personal" duration="Sustained" rank="6">
+          <Modifier name="Decreased Duration" applications="2" />
           <Modifier name="Impervious" applications="3" />
-          <Modifier name="Sustained" />
       </Row>
-      <Row name="Senses" cost="1" text="Magical Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">
+      <Row effect="Senses" cost="1" text="Magical Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">
           <Modifier name="Other Flat Extra" applications="1" text="Radius" />
       </Row>
-      <Row name="Damage" text="Spellcasting" action="Standard" range="Ranged" duration="Instant" rank="10">
+      <Row effect="Damage" text="Spellcasting" action="Standard" range="Ranged" duration="Instant" name="Spellcasting" skill="Spellcasting" rank="10">
           <Modifier name="Increased Range" applications="1" />
       </Row>
-       <Row name="Resistance" text="Fearless. Resist fear" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Resistance" text="Fearless. Resist fear" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Trance" action="Full" range="Personal" duration="Concentration" rank="1" />
    </Powers>
     <Equipment></Equipment>
-   <Advantages>
-       <Row name="Trance" />
-   </Advantages>
+    <Advantages></Advantages>
    <Skills>
        <Row name="Expertise" subtype="Wizardry" rank="10" ability="Intellect" />
        <Row name="Insight" subtype="" rank="6" ability="Awareness" />
