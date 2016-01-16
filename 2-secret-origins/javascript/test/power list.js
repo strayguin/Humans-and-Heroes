@@ -152,8 +152,6 @@ Tester.powerList.load=function(isFirst)
     testResults.push({Expected: undefined, Actual: Main.powerSection.getRow(0).getSkillUsed(), Action: actionTaken, Description: 'Name only: getSkillUsed'});
     } catch(e){testResults.push({Error: e, Action: actionTaken});}
 
-   //TODO: fix them all
-
     Main.clearMockMessenger();  //restore default behavior
     TesterUtility.displayResults('Tester.powerList.load', testResults, isFirst);
 };
