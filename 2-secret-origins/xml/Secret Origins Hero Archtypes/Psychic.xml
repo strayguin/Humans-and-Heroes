@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
-    <Hero name="Psychic" transcendence="0" image="../images/TCP Pirate 10174.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Psychic" transcendence="0" image="../images/Psychic.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="0" />
@@ -14,34 +14,34 @@
        <Presence value="4" />
    </Abilities>
    <Powers>
-      <Row name="Senses" cost="1" text="Mental Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">
+      <Row effect="Senses" cost="1" text="Mental Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">
           <Modifier name="Other Flat Extra" applications="1" text="Radius" />
       </Row>
-      <Row name="Move Object" text="Telekinesis" action="Standard" range="Ranged" duration="Sustained" rank="8">
+      <Row effect="Move Object" text="Telekinesis" action="Standard" range="Ranged" duration="Sustained" name="Telekinesis" skill="Telekinesis" rank="8">
           <Modifier name="Accurate" applications="4" />
       </Row>
-      <Row name="Protection" text="Telekinetic Field" action="Free" range="Personal" duration="Sustained" rank="3">
-          <Modifier name="Sustained" />
+      <Row effect="Protection" text="Telekinetic Field" action="Free" range="Personal" duration="Sustained" rank="3">
+          <Modifier name="Decreased Duration" applications="2" />
       </Row>
-       <Row name="Flight" text="Telekinetic Levitation: 16 MPH" action="Free" range="Personal" duration="Sustained" rank="3" />
-      <Row name="Mind Reading" text="Telepathy" action="Standard" range="Perception" duration="Sustained" rank="5">
+       <Row effect="Flight" text="Telekinetic Levitation: 16 MPH" action="Free" range="Personal" duration="Sustained" rank="3" />
+      <Row effect="Mind Reading" text="Telepathy" action="Standard" range="Perception" duration="Sustained" name="Telepathy" rank="5">
           <Modifier name="Linked" text="with next power" />
       </Row>
-      <Row name="Communication" text="Mental" action="Free" range="Personal" duration="Sustained" rank="2">
+      <Row effect="Communication" text="Mental" action="Free" range="Personal" duration="Sustained" rank="2">
           <Modifier name="Area" applications="1" text="Burst " />
           <Modifier name="Linked" text="with previous power" />
       </Row>
-      <!--<Row name="Affliction" text="(Option) Mind Control: Resisted by Will; Dazed, Compelled, Controlled" action="Standard" range="Perception" duration="Instant" rank="4">
-          <Modifier name="Increased Range" applications="3" />
+      <!--<Row effect="Affliction" text="Mind Control: Resisted by Will; Dazed, Compelled, Controlled" action="Standard" range="Perception" duration="Instant" name="Mind Control" rank="4">
+          <Modifier name="Increased Range" applications="2" />
           <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
       </Row>-->
-      <Row name="Illusion" cost="5" text="All senses" action="Standard" range="Perception" duration="Sustained" rank="4">
+      <Row effect="Illusion" cost="5" text="All senses" action="Standard" range="Perception" duration="Sustained" name="Telepathic Illusion" rank="4">
           <Modifier name="Resistible" text="by Will (DC 14)" />
           <Modifier name="Selective" />
-          <Modifier name="Alternate Effect" applications="10" text="of Telepathy" />
+          <Modifier name="Alternate Effect" text="of Telepathy" />
       </Row>
-      <Row name="Damage" text="Mental Blast" action="Standard" range="Perception" duration="Instant" rank="3">
-          <Modifier name="Increased Range" applications="3" />
+      <Row effect="Damage" text="Mental Blast" action="Standard" range="Perception" duration="Instant" name="Mental Blast" rank="3">
+          <Modifier name="Increased Range" applications="2" />
           <Modifier name="Alternate Resistance (Cost)" text="Will" />
       </Row>
    </Powers>
