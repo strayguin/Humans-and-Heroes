@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Document ruleset="2.7" version="1">
-    <Hero name="Speedster" transcendence="0" image="../images/TCP Steampunk 418f3.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Speedster" transcendence="0" image="../images/Speedster.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="2" />
@@ -14,23 +14,22 @@
        <Presence value="2" />
    </Abilities>
    <Powers>
-      <Row name="Damage" text="Fast Attack. Total of Damage 6 by default" action="Standard" range="Close" duration="Instant" rank="4">
+      <Row effect="Damage" text="Fast Attack. Total of Damage 6 by default" action="Standard" range="Close" duration="Instant" name="Fast Attack" skill="Unarmed" rank="4">
           <Modifier name="Other Free Modifier" text="Strength-based" />
           <Modifier name="Multiattack" />
           <Modifier name="Selective" />
       </Row>
-      <Row name="Damage" text="Cyclone" action="Full" range="Close" duration="Instant" rank="2">
+      <Row effect="Damage" text="Cyclone" action="Full" range="Close" duration="Instant" name="Cyclone" skill="Cyclone" rank="2">
+          <Modifier name="Slower Action" applications="1" />
           <Modifier name="Area" applications="1" text="Cylinder: 30 ft radius and height" />
           <Modifier name="Limited" applications="1" text="Always points straight up" />
-          <Modifier name="Limited" applications="0" text="Must be able to run around the target(s) in a 30-ft radius circle" />
-          <Modifier name="Slower Action" applications="1" />
       </Row>
-       <Row name="Quickness" text="" action="Free" range="Personal" duration="Sustained" rank="10" />
-       <Row name="Movement" text="Gound Speed 15: 64,000 MPH" action="Free" range="Personal" duration="Sustained" rank="15" />
-      <Row name="Movement" text="Run On Water. Movement 1: Water Walking" action="Free" range="Personal" duration="Sustained" rank="1">
+       <Row effect="Quickness" text="" action="Free" range="Personal" duration="Sustained" rank="10" />
+       <Row effect="Movement" cost="1" text="Gound Speed 15: 64,000 MPH" action="Free" range="Personal" duration="Sustained" rank="15" />
+      <Row effect="Movement" cost="2" text="Run On Water. Movement 1: Water Walking" action="Free" range="Personal" duration="Sustained" rank="1">
           <Modifier name="Limited" applications="1" text="Only while running" />
       </Row>
-      <Row name="Movement" text="Run Up Walls. Movement 2: Wall Crawling" action="Free" range="Personal" duration="Sustained" rank="2">
+      <Row effect="Movement" cost="2" text="Run Up Walls. Movement 2: Wall Crawling" action="Free" range="Personal" duration="Sustained" rank="2">
           <Modifier name="Limited" applications="1" text="Only while running" />
       </Row>
    </Powers>
