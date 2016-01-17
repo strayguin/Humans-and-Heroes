@@ -20,7 +20,7 @@
        <Row effect="Protection" text="Scales" action="None" range="Personal" duration="Permanent" rank="3" />
        <Row effect="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
        <Row effect="Senses" cost="1" text="Acute Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row effect="Movement" text="Swimming (8 MPH)" action="Free" range="Personal" duration="Sustained" rank="4" />
+       <Row effect="Movement" cost="1" text="Swimming (8 MPH)" action="Free" range="Personal" duration="Sustained" rank="4" />
    </Powers>
     <Equipment></Equipment>
    <Advantages>
