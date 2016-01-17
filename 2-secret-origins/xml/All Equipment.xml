@@ -38,12 +38,14 @@
           <Modifier name="Affects Objects Only" />
           <Modifier name="Other Flat Extra" applications="1" text="Linked to Damage 1" />
       </Row>
-      <Row effect="Affliction" text="Resisted by Fortitude; Visual Dazzle: Vision Impaired, Vision Disabled, Vision Unaware" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="4">
+      <Row effect="Affliction" text="Flash-Bangs. Fortitude Dazzle (Impaired, Disabled, Unaware) Visual and Auditory" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="4">
           <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Rank Extra" applications="2" text="Cumulative, Extra Condition" />
           <Modifier name="Area" applications="1" text="Burst" />
-          <Modifier name="Other Rank Extra" applications="1" text="Extra Condition: Auditory Dazzle: Hearing Impaired, Hearing Disabled, Hearing Unaware" />
       </Row>
-       <Row effect="Affliction" text="Chemical. Resisted by Fortitude; Visual Dazzle: Vision Impaired, Vision Disabled, Vision Unaware" action="Standard" range="Close" duration="Instant" name="Pepper Spray" skill="Pepper Spray" rank="4" />
+      <Row effect="Affliction" text="Pepper Spray. Chemical. Resisted by Fortitude; Visual Dazzle: Vision Impaired, Vision Disabled, Vision Unaware" action="Standard" range="Close" duration="Instant" name="Pepper Spray" skill="Pepper Spray" rank="4">
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
+      </Row>
       <Row effect="Damage" text="bludgeoning" action="Standard" range="Close" duration="Instant" name="Brass Knuckles" skill="Unarmed" rank="1">
           <Modifier name="Other Free Modifier" text="Strength-based" />
       </Row>
@@ -51,7 +53,7 @@
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Area" applications="1" text="Cloud" />
       </Row>
-      <Row effect="Concealment" cost="4" text="Normal Vision" action="Free" range="Ranged" duration="Sustained" name="Smoke Pellets" skill="Grenades" rank="1">
+      <Row effect="Concealment" cost="4" text="Smoke Pellets. Normal Vision" action="Free" range="Ranged" duration="Sustained" name="Smoke Pellets" skill="Grenades" rank="1">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Attack" />
           <Modifier name="Area" applications="1" text="Cloud" />
@@ -87,7 +89,7 @@
       </Row>
    </Equipment>
    <Advantages>
-       <Row name="Equipment" rank="39" />
+       <Row name="Equipment" rank="40" />
    </Advantages>
     <Skills></Skills>
    <Defenses>
