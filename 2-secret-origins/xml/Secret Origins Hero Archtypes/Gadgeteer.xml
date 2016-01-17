@@ -16,22 +16,22 @@
    <Powers>
       <Row effect="Damage" text="Blaster" action="Standard" range="Ranged" duration="Instant" name="Blaster Hurt" skill="Blaster" rank="12">
           <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Other Flat Flaw" applications="12" text="Easily Removable. Can't use the actual flaw because this calculator can't include alternate effects" />
+          <Modifier name="Other Flat Flaw" applications="14" text="Easily Removable. Can't use the actual flaw because this calculator can't include alternate effects" />
       </Row>
       <Row effect="Affliction" text="Fortitude Visual Dazzle (Impaired, Disabled, Unaware)" action="Standard" range="Ranged" duration="Instant" name="Blaster Stun" skill="Blaster" rank="7">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Alternate Effect" text="to Blaster" />
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
       </Row>
       <Row effect="Protection" text="Force Shield Belt" action="Free" range="Personal" duration="Sustained" rank="10">
           <Modifier name="Decreased Duration" applications="2" />
           <Modifier name="Impervious" applications="5" />
-          <Modifier name="Precise" />
           <Modifier name="Removable" text="Belt" />
       </Row>
       <Row effect="Flight" text="Jet-Pack. 60 MPH" action="Free" range="Personal" duration="Sustained" rank="5">
           <Modifier name="Removable" text="Like a Back-back" />
       </Row>
-      <Row effect="Quickness" text="Quick-Thinking" action="Free" range="Personal" duration="Sustained" rank="4">
+      <Row effect="Quickness" text="Quick-Thinking" action="Free" range="Personal" duration="Sustained" rank="2">
           <Modifier name="Limited" applications="1" text="only for Mental Tasks" />
       </Row>
    </Powers>
