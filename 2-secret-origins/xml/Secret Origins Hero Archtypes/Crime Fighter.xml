@@ -21,10 +21,10 @@
    <Equipment>
        <Row effect="Feature" cost="1" text="Commlink" action="None" range="Personal" duration="Permanent" rank="1" />
        <Row effect="Protection" text="Costume" action="None" range="Personal" duration="Permanent" rank="2" />
-       <Row effect="Movement" text="Grapple Gun: Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
-      <Row effect="Affliction" text="Flash-Bangs. Fortitude Dazzle (Impaired, Disabled, Unaware) Visual" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="2">
+       <Row effect="Movement" cost="2" text="Grappling hook: Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
+      <Row effect="Affliction" text="Flash-Bangs (much smaller than normal). Fortitude Dazzle (Impaired, Disabled, Unaware) Visual and Auditory" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="2">
           <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Other Rank Extra" applications="1" text="Extra Condition: Fortitude Dazzle Auditory" />
+          <Modifier name="Other Rank Extra" applications="2" text="Cumulative, Extra Condition" />
           <Modifier name="Area" applications="1" text="Burst" />
       </Row>
       <Row effect="Affliction" text="Sleep Gas Pellets. Fortitude; Daze, Stun, Asleep" action="Standard" range="Ranged" duration="Instant" name="Sleep Gas Pellets" skill="Grenades" rank="4">
