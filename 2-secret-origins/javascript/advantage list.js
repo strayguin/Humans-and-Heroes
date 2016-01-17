@@ -109,10 +109,16 @@ function AdvantageList()
    /**Pass into Array.prototype.sort so that the automatic advantages come first (equipment then the rest).*/
    this.sortOrder=function(a, b)
    {
-       if('Equipment' === a.getName()) return -1;  //make a come first
-       if('Equipment' === b.getName()) return 1;  //b first
+       const aFirst = -1;
+       const bFirst = 1;
 
-       return 0;  //else maintain the current order
+       if('Equipment' === a.getName()) return aFirst;
+       if('Equipment' === b.getName()) return bFirst;
+
+       //else maintain the current order
+       //using rowIndex to force sort to be stable (since it might not be)
+       if(a.getRowIndex() < b.getRowIndex()) return aFirst;
+       return bFirst;
    };
    /**Updates other sections which depend on advantage section*/
    this.notifyDependent=function()

@@ -96,7 +96,8 @@ Data.Power =
           ['Transform', 'Close'], ['Weaken', 'Close']], 'Personal'),
        durations: ['Concentration', 'Sustained', 'Continuous', 'Permanent', 'Instant'],  //Instant isn't a choice and Permanent cost weird
        godhoodNames: ['A God I Am', 'Reality Warp'],
-       hasInputBaseCost: ['Attain Knowledge', 'Concealment', 'Enhanced Trait', 'Environment', 'Feature', 'Illusion', 'Remote Sensing', 'Senses', 'Transform'],
+       hasInputBaseCost: ['Attain Knowledge', 'Concealment', 'Enhanced Trait', 'Environment', 'Feature', 'Illusion',
+          'Movement', 'Remote Sensing', 'Senses', 'Transform'],
        isAttack: ['Affliction', 'Damage', 'Illusion', 'Mental Transform', 'Mind Reading', 'Mind Switch', 'Move Object', 'Nullify', 'Weaken'],
        //names is defined in Data.change
        ranges: ['Close', 'Ranged', 'Perception', 'Personal']  //Personal isn't a choice
@@ -146,6 +147,7 @@ Data.change = function(major, minor)
        Data.Power.baseCost.set('Shrinking', 2);
        Data.Power.names = Data.change.commonPowerNames.concat(['Burrowing', 'Deflect', 'Elongation', 'Extra Limbs', 'Speed',
           'Summon', 'Swimming']).sort();
+       //TODO: in 1.x Movement always costs 2 (not input)
 
        extraNames = Data.change.commonModifierExtraNames.concat(['Affects Insubstantial', 'Alternate Effect', 'Dynamic Alternate Effect',
           'Incurable', 'Sleep', 'Triggered']).sort();  //Alternate Effect is a flaw in 2.x+ and Triggered is an action

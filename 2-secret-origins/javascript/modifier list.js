@@ -192,6 +192,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        if('Increased Duration' === a.getName() || 'Decreased Duration' === a.getName()) return aFirst;
        if('Increased Duration' === b.getName() || 'Decreased Duration' === b.getName()) return bFirst;
 
+       //TODO: also needs to be made stable. doing so will require refactoring totalIndex
        return 0;  //else maintain the current order
    };
    /**Removes the row from the array and updates the index of all others in the list.*/

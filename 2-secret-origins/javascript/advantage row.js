@@ -19,6 +19,7 @@ function AdvantageObject(rowIndex)
     this.getTotal=function(){return total;};
 
    //Single line function section
+    this.getRowIndex=function(){return rowIndex;};
     this.setRowIndex=function(indexGiven){rowIndex=indexGiven;};
     this.isBlank=function(){return (name === undefined);};
 
