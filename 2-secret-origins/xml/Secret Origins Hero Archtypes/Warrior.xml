@@ -17,7 +17,6 @@
       <Row effect="Enhanced Trait" cost="2" text="Power Lifting: Enhanced Strength. Lifting Str 12; 100 tons" action="Free" range="Personal" duration="Sustained" rank="2">
           <Modifier name="Limited" applications="1" text="to Lifting" />
       </Row>
-       <Row effect="Resistance" text="Fearless. Resistance to fear" action="None" range="Personal" duration="Permanent" rank="1" />
        <!-- Aquatic Option is pre-selected -->
        <Row effect="Immunity" text="Drowning" action="None" range="Personal" duration="Permanent" rank="1" />
        <Row effect="Movement" cost="1" text="Swimming" action="Free" range="Personal" duration="Sustained" rank="6" />
@@ -55,19 +54,22 @@
    </Powers>
     <Equipment></Equipment>
    <Advantages>
-       <Row name="Defensive Roll" rank="2" />
-       <Row name="Move-by Action" />
-       <Row name="Power Attack" />
        <Row name="Accurate Attack" />
        <Row name="All-out Attack" />
        <Row name="Benefit" rank="1" text="(Choose One)" />
        <Row name="Defensive Attack" />
+       <Row name="Defensive Roll" rank="2" />
+       <Row name="Diehard" />
        <Row name="Improved Disarm" />
-       <Row name="Languages" rank="1" text="(Choose One)" />
-       <Row name="Skill Mastery" text="(Choose One)" />
        <!-- Weapon Warrior Option
        <Row name="Improved Initiative" rank="2" />
        -->
+       <Row name="Interpose" />
+       <Row name="Languages" rank="1" text="(Choose One)" />
+       <Row name="Move-by Action" />
+       <Row name="Power Attack" />
+       <Row name="Prone Fighting" />
+       <Row name="Skill Mastery" text="(Choose One)" />
    </Advantages>
    <Skills>
        <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
