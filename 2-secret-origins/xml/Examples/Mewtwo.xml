@@ -10,7 +10,9 @@ Prejudice: Mewtwo considers certain lifeforms to be superior to others. In order
 
 Egotistical: Mewtwo thinks he is the best and wants everyone to know it. He doesn't actually want to rule the world, he just wants everyone to know he's strong enough to be able to take over the world. He demonstrates his power in many ways: total mind control, weather control, building amazing machines, etc.
 
-(Speculation from memory) It's hard to say what his view of slavery is. "Mewtwo tells the Trainers that humans are weak and cruel, and have made all Pokémon their slaves. He also says that Pokémon are no better off, since they choose to associate with humans." (bulbapedia). However he doesn't treat his clones any better than trainers would. Perhaps he allows slavery only when it lines up with his prejudice (Mewtwo > clones and regular > humans).]]></Information>
+(Speculation from memory) It's hard to say what his view of slavery is. "Mewtwo tells the Trainers that humans are weak and cruel, and have made all Pokémon their slaves. He also says that Pokémon are no better off, since they choose to associate with humans." (bulbapedia). However he doesn't treat his clones any better than trainers would. Perhaps he allows slavery only when it lines up with his prejudice (Mewtwo > clones and regular > humans).
+
+Note how Shadow Ball isn't linked with Weaken 6: "Resisted by Will and lowers Will" because although true in the games it isn't shown or mentioned in this movie. Which is also why he has no Protection: I don't remember him taking any hits. Points are left unspent to try to maintain accuracy with the movie (even though the numbers are fairly meaningless).]]></Information>
    <Abilities>
        <Strength value="0" />
        <Agility value="0" />
@@ -24,11 +26,6 @@ Egotistical: Mewtwo thinks he is the best and wants everyone to know it. He does
    <Powers>
       <Row effect="Damage" text="Ghost type" action="Standard" range="Ranged" duration="Instant" name="Shadow Ball" skill="Shadow Ball" rank="10">
           <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Alternate Resistance (Cost)" text="Will" />
-      </Row>
-      <Row effect="Weaken" text="Resisted by Will and lowers Will." action="Standard" range="Ranged" duration="Instant" name="Shadow Ball" skill="Shadow Ball" rank="6">
-          <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Linked" text="Shadow Ball" />
       </Row>
       <Row effect="Move Object" text="Physic Type" action="Standard" range="Ranged" duration="Sustained" name="Physic" skill="Physic" rank="6">
           <Modifier name="Other Rank Extra" applications="1" text="Damaging" />
@@ -43,13 +40,13 @@ Egotistical: Mewtwo thinks he is the best and wants everyone to know it. He does
           <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
           <Modifier name="Reversible" />
       </Row>
-      <Row effect="Communication" text="Psychic Link. Mental" action="Free" range="Personal" duration="Sustained" rank="2">
+      <Row effect="Communication" text="Physic Type. Psychic Link. Mental" action="Free" range="Personal" duration="Sustained" rank="2">
           <Modifier name="Subtle" applications="2" text="" />
       </Row>
-      <Row effect="Comprehend" text="Languages" action="None" range="Personal" duration="Permanent" rank="2">
+      <Row effect="Comprehend" text="Physic Type. Languages" action="None" range="Personal" duration="Permanent" rank="2">
           <Modifier name="Linked" text="Psychic Link" />
       </Row>
-       <Row effect="Enhanced Trait" cost="2" text="Will Defense. Psychic Type." action="Free" range="Personal" duration="Sustained" rank="4" />
+       <Row effect="Protection" text="He didn't take damage from Mew's Shadow Ball." action="None" range="Personal" duration="Permanent" rank="10" />
    </Powers>
     <Equipment></Equipment>
     <Advantages></Advantages>
@@ -63,6 +60,6 @@ Egotistical: Mewtwo thinks he is the best and wants everyone to know it. He does
        <Dodge value="5" />
        <Fortitude value="0" />
        <Parry value="0" />
-       <Will value="6" />
+       <Will value="14" />
    </Defenses>
 </Document>
