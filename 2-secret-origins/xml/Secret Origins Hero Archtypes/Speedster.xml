@@ -14,7 +14,7 @@
        <Presence value="2" />
    </Abilities>
    <Powers>
-      <Row effect="Damage" text="Fast Attack. Total of Damage 6 by default" action="Standard" range="Close" duration="Instant" name="Fast Attack" skill="Unarmed" rank="4">
+      <Row effect="Damage" text="Fast Attack. Total of Damage 8 by default" action="Standard" range="Close" duration="Instant" name="Fast Attack" skill="Unarmed" rank="6">
           <Modifier name="Other Free Modifier" text="Strength-based" />
           <Modifier name="Multiattack" />
           <Modifier name="Selective" />
@@ -44,11 +44,10 @@
        <Row name="Acrobatics" subtype="" rank="4" ability="Agility" />
        <Row name="Athletics" subtype="" rank="8" ability="Strength" />
        <Row name="Close Combat" subtype="Unarmed" rank="6" ability="Fighting" />
-       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Deception" subtype="" rank="3" ability="Presence" />
        <Row name="Expertise" subtype="(Choose One)" rank="6" ability="Intellect" />
        <Row name="Perception" rank="8" ability="Awareness" />
-       <Row name="Ranged Combat" subtype="Throw" rank="6" ability="Dexterity" />
-       <Row name="Technology" subtype="" rank="6" ability="Intellect" />
+       <Row name="Technology" subtype="" rank="3" ability="Intellect" />
    </Skills>
    <Defenses>
        <Dodge value="11" />
