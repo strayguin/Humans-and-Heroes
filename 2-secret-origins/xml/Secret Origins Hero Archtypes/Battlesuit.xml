@@ -38,7 +38,6 @@
    </Powers>
     <Equipment></Equipment>
    <Advantages>
-       <Row name="Accurate Attack" />
        <Row name="Improvised Tools" />
    </Advantages>
    <Skills>
@@ -48,7 +47,7 @@
        <Row name="Persuasion" rank="4" ability="Presence" />
        <Row name="Technology" subtype="" rank="8" ability="Intellect" />
        <Row name="Other" subtype="Inventor" rank="8" ability="Intellect" />
-       <Row name="Ranged Combat" subtype="Force Beams" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Force Beams" rank="6" ability="Dexterity" />
    </Skills>
    <Defenses>
        <Dodge value="7" />
