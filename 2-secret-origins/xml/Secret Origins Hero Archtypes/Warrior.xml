@@ -4,9 +4,9 @@
     <Hero name="Warrior" transcendence="0" image="../images/Powerhouse.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
-       <Strength value="10" />
+       <Strength value="10" /><!--12 for Strong Warrior Option and 6 for Weapon Warrior Option-->
        <Agility value="6" />
-       <Fighting value="10" />
+       <Fighting value="10" /><!--8 for Strong Warrior Option-->
        <Awareness value="4" />
        <Stamina value="8" />
        <Dexterity value="4" />
@@ -45,8 +45,7 @@
        <!--Note that you must choose one of the above options (which is why 1 is pre-selected).
        The Strong Warrior Option and Weapon Warrior Option are optional and are in addition to the above options.-->
 
-       <!--I don't really have any way of expressing the Strong Warrior option but it does add up-->
-       <!-- Weapon Warrior Option with -3 Strength comes out even
+       <!-- Weapon Warrior Option
       <Row effect="Damage" text="Unique Weapon" action="Standard" range="Close" duration="Instant" name="Unique Weapon" skill="Unique Weapon" rank="4">
           <Modifier name="Penetrating" applications="3" />
           <Modifier name="Easily Removable" text="(Choose something)" />
@@ -66,6 +65,9 @@
        <Row name="Improved Disarm" />
        <Row name="Languages" rank="1" text="(Choose One)" />
        <Row name="Skill Mastery" text="(Choose One)" />
+       <!-- Weapon Warrior Option
+       <Row name="Improved Initiative" rank="2" />
+       -->
    </Advantages>
    <Skills>
        <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />

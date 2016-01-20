@@ -28,10 +28,10 @@
    </Advantages>
    <Skills>
        <Row name="Expertise" subtype="(Choose One)" rank="7" ability="Intellect" />
-       <Row name="Insight" subtype="" rank="6" ability="Awareness" />
+       <Row name="Insight" subtype="" rank="8" ability="Awareness" />
        <Row name="Perception" rank="8" ability="Awareness" />
        <Row name="Persuasion" rank="6" ability="Presence" />
-       <Row name="Ranged Combat" subtype="Throwing" rank="7" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Throwing" rank="5" ability="Dexterity" />
    </Skills>
    <Defenses>
        <Dodge value="5" />
