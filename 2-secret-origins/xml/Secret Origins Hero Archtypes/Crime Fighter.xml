@@ -4,13 +4,13 @@
     <Hero name="Crime Fighter" transcendence="0" image="../images/Crime-Fighter.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
-       <Strength value="3" />
+       <Strength value="7" />
        <Agility value="6" />
        <Fighting value="12" />
        <Awareness value="4" />
        <Stamina value="3" />
        <Dexterity value="6" />
-       <Intellect value="4" />
+       <Intellect value="3" />
        <Presence value="4" />
    </Abilities>
    <Powers>
@@ -61,12 +61,11 @@
    </Advantages>
    <Skills>
        <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
-       <Row name="Athletics" subtype="" rank="6" ability="Strength" />
-       <Row name="Close Combat" subtype="(Unarmed or Knives)" rank="2" ability="Fighting" />
-       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Athletics" subtype="" rank="2" ability="Strength" />
+       <Row name="Deception" subtype="" rank="2" ability="Presence" />
        <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
        <Row name="Insight" subtype="" rank="6" ability="Awareness" />
-       <Row name="Intimidation" subtype="" rank="8" ability="Presence" />
+       <Row name="Intimidation" subtype="" rank="6" ability="Presence" />
        <Row name="Investigation" subtype="" rank="8" ability="Intellect" />
        <Row name="Perception" rank="6" ability="Awareness" />
        <Row name="Ranged Combat" subtype="Boomerang" rank="4" ability="Dexterity" />
