@@ -4,9 +4,9 @@
     <Hero name="Martial Artist" transcendence="0" image="../images/Martial-Artist.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
-       <Strength value="4" />
+       <Strength value="8" />
        <Agility value="6" />
-       <Fighting value="12" />
+       <Fighting value="8" />
        <Awareness value="5" />
        <Stamina value="3" />
        <Dexterity value="4" />
@@ -37,19 +37,19 @@
        <Row name="Skill Mastery" text="Acrobatics" />
    </Advantages>
    <Skills>
-       <Row name="Acrobatics" subtype="" rank="10" ability="Agility" />
-       <Row name="Athletics" subtype="" rank="10" ability="Strength" />
+       <Row name="Acrobatics" subtype="" rank="9" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="9" ability="Strength" />
        <Row name="Close Combat" subtype="Unarmed" rank="3" ability="Fighting" />
        <Row name="Expertise" subtype="Philosophy" rank="5" ability="Intellect" />
-       <Row name="Insight" subtype="" rank="8" ability="Stamina" />
-       <Row name="Intimidation" subtype="" rank="8" ability="Presence" />
+       <Row name="Insight" subtype="" rank="4" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="7" ability="Presence" />
        <Row name="Perception" rank="8" ability="Awareness" />
-       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+       <Row name="Stealth" subtype="" rank="7" ability="Agility" />
    </Skills>
    <Defenses>
        <Dodge value="7" />
        <Fortitude value="8" />
-       <Parry value="1" />
+       <Parry value="5" />
        <Will value="4" />
    </Defenses>
 </Document>
