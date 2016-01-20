@@ -14,7 +14,7 @@
        <Presence value="4" />
    </Abilities>
    <Powers>
-      <Row effect="Remote Sensing" cost="3" text="Astral Projection: visual, auditory, mental. up to 2 miles away" action="Free" range="Personal" duration="Sustained" rank="10">
+      <Row effect="Remote Sensing" cost="3" text="Astral Projection: visual, auditory, mental. up to 960 feet away" action="Free" range="Personal" duration="Sustained" rank="6">
           <Modifier name="Limited" applications="1" text="physical body is defenseless during the use of this power" />
           <Modifier name="Subtle" applications="2" text="" />
       </Row>
@@ -29,8 +29,8 @@
       <Row effect="Damage" text="Spellcasting" action="Standard" range="Ranged" duration="Instant" name="Spellcasting" skill="Spellcasting" rank="10">
           <Modifier name="Increased Range" applications="1" />
       </Row>
-       <Row effect="Resistance" text="Fearless. Resist fear" action="None" range="Personal" duration="Permanent" rank="1" />
        <Row effect="Feature" cost="1" text="Trance" action="Full" range="Personal" duration="Concentration" rank="1" />
+       <Row effect="Healing" text="Heal Spell" action="Standard" range="Close" duration="Instant" rank="5" />
    </Powers>
     <Equipment></Equipment>
     <Advantages></Advantages>
@@ -40,7 +40,7 @@
        <Row name="Intimidation" subtype="" rank="4" ability="Presence" />
        <Row name="Perception" rank="4" ability="Awareness" />
        <Row name="Sleight of Hand" subtype="" rank="4" ability="Dexterity" />
-       <Row name="Ranged Combat" subtype="Spellcasting" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Spellcasting" rank="6" ability="Dexterity" />
    </Skills>
    <Defenses>
        <Dodge value="7" />
