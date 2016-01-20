@@ -19,8 +19,7 @@
           <Modifier name="Subtle" applications="2" text="" />
       </Row>
        <Row effect="Flight" text="Levitation: 30 MPH" action="Free" range="Personal" duration="Sustained" rank="4" />
-      <Row effect="Protection" text="Mystic Shield" action="Free" range="Personal" duration="Sustained" rank="6">
-          <Modifier name="Decreased Duration" applications="2" />
+      <Row effect="Protection" text="Protection charm" action="None" range="Personal" duration="Permanent" rank="6">
           <Modifier name="Impervious" applications="3" />
       </Row>
       <Row effect="Senses" cost="1" text="Magical Awareness (Mental)" action="None" range="Personal" duration="Permanent" rank="1">

@@ -19,11 +19,11 @@
       </Row>
       <Row effect="Move Object" text="Telekinesis" action="Standard" range="Ranged" duration="Sustained" name="Telekinesis" skill="Telekinesis" rank="8">
           <Modifier name="Accurate" applications="4" />
+          <Modifier name="Other Flat Extra" applications="1" text="Flying. 190 MPH if you are rank 2 mass" />
       </Row>
-      <Row effect="Protection" text="Telekinetic Field" action="Free" range="Personal" duration="Sustained" rank="3">
+      <Row effect="Protection" text="Telekinetic Field" action="Free" range="Personal" duration="Sustained" rank="10">
           <Modifier name="Decreased Duration" applications="2" />
       </Row>
-       <Row effect="Flight" text="Telekinetic Levitation: 16 MPH" action="Free" range="Personal" duration="Sustained" rank="3" />
       <Row effect="Mind Reading" text="Telepathy" action="Standard" range="Perception" duration="Sustained" name="Telepathy" rank="5">
           <Modifier name="Linked" text="with next power" />
       </Row>
@@ -35,7 +35,7 @@
           <Modifier name="Increased Range" applications="2" />
           <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
       </Row>-->
-      <Row effect="Illusion" cost="5" text="All senses" action="Standard" range="Perception" duration="Sustained" name="Telepathic Illusion" rank="4">
+      <Row effect="Illusion" cost="5" text="All senses" action="Standard" range="Perception" duration="Sustained" name="Telepathic Illusion" rank="3">
           <Modifier name="Resistible" text="by Will (DC 14)" />
           <Modifier name="Selective" />
           <Modifier name="Alternate Effect" text="of Telepathy" />
