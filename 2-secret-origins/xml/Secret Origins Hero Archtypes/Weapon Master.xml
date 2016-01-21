@@ -4,7 +4,7 @@
     <Hero name="Weapon Master" transcendence="0" image="../images/Weapon-Master.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
-       <Strength value="3" />
+       <Strength value="5" />
        <Agility value="5" />
        <Fighting value="7" />
        <Awareness value="1" />
@@ -52,23 +52,16 @@
    <Equipment>
        <Row effect="Feature" cost="1" text="Vehicle: Motorcycle" action="None" range="Personal" duration="Permanent" rank="10" />
        <Row effect="Protection" text="Plate-mail" action="None" range="Personal" duration="Permanent" rank="5" />
-      <Row effect="Damage" text="Machine pistol" action="Standard" range="Ranged" duration="Instant" name="Machine pistol" skill="Pistols" rank="3">
-          <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Multiattack" />
+      <Row effect="Damage" text="Battleaxe" action="Standard" range="Close" duration="Instant" name="Battleaxe" skill="Axes" rank="3">
+          <Modifier name="Other Free Modifier" text="Strength-based" />
       </Row>
-       <Row effect="Damage" text="Sword" action="Standard" range="Close" duration="Instant" name="Sword" skill="Swords" rank="3" />
-      <Row effect="Damage" text="Shotgun" action="Standard" range="Ranged" duration="Instant" name="Shotgun solid slug" skill="Shotgun" rank="5">
-          <Modifier name="Increased Range" applications="1" />
+      <Row effect="Damage" text="Brass Knuckles. bludgeoning" action="Standard" range="Close" duration="Instant" name="Brass Knuckles" skill="Unarmed" rank="1">
+          <Modifier name="Other Free Modifier" text="Strength-based" />
       </Row>
-      <Row effect="Damage" text="Shotgun" action="Standard" range="Ranged" duration="Instant" name="Shotgun buckshot" skill="Shotgun" rank="3">
-          <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Area" applications="1" text="Multiattack single target if close (adjacent). Cone Area 1 if short range." />
-          <Modifier name="Limited" applications="1" text="Can't do damage at medium or further range" />
-          <Modifier name="Alternate Effect" text="the 2 shotgun effects depend on shell loaded" />
-      </Row>
+       <Row effect="Feature" cost="1" text="Gas Mask" action="None" range="Personal" duration="Permanent" rank="1" />
    </Equipment>
    <Advantages>
-       <Row name="Equipment" rank="8" />
+       <Row name="Equipment" rank="4" />
        <Row name="Accurate Attack" />
        <Row name="Defensive Attack" />
        <Row name="Evasion" rank="1" />
@@ -83,13 +76,13 @@
        <Row name="Athletics" subtype="" rank="8" ability="Strength" />
        <Row name="Deception" subtype="" rank="8" ability="Presence" />
        <Row name="Expertise" subtype="(Choose One)" rank="6" ability="Intellect" />
-       <Row name="Expertise" subtype="Weapons" rank="8" ability="Intellect" />
+       <Row name="Close Combat" subtype="Axes" rank="5" ability="Fighting" />
        <Row name="Intimidation" subtype="" rank="6" ability="Presence" />
        <Row name="Investigation" subtype="" rank="6" ability="Intellect" />
        <Row name="Perception" rank="8" ability="Awareness" />
        <Row name="Sleight of Hand" subtype="" rank="6" ability="Dexterity" />
        <Row name="Stealth" subtype="" rank="8" ability="Agility" />
-       <Row name="Vehicles" subtype="" rank="4" ability="Dexterity" />
+       <Row name="Vehicles" subtype="" rank="7" ability="Dexterity" />
    </Skills>
    <Defenses>
        <Dodge value="10" />
