@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Robot" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Robot" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="5" />
@@ -14,7 +14,7 @@
        <Presence value="0" />
    </Abilities>
    <Powers>
-      <Row name="Protection" text="Armor" action="None" range="Personal" duration="Permanent" rank="10">
+      <Row effect="Protection" text="Armor" action="None" range="Personal" duration="Permanent" rank="10">
           <Modifier name="Impervious" applications="3" />
       </Row>
    </Powers>

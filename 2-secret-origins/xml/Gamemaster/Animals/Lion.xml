@@ -1,22 +1,21 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Lion" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Lion" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="3" />
        <Agility value="3" />
        <Fighting value="4" />
        <Awareness value="1" />
-       <Stamina value="0" />
+       <Stamina value="4" />
        <Dexterity value="1" />
        <Intellect value="-4" />
        <Presence value="0" />
    </Abilities>
    <Powers>
-       <Row name="Enhanced Trait" cost="1" text="Defense: Toughness" action="Free" range="Personal" duration="Sustained" rank="4" />
-       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Senses" cost="1" text="Acute (1) Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Acute (1) Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
    </Powers>
     <Equipment></Equipment>
     <Advantages></Advantages>
@@ -27,7 +26,7 @@
    </Skills>
    <Defenses>
        <Dodge value="4" />
-       <Fortitude value="6" />
+       <Fortitude value="2" />
        <Parry value="3" />
        <Will value="3" />
    </Defenses>

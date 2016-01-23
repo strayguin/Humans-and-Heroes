@@ -1,0 +1,1056 @@
+/* Copyright 2012 Google Inc. All Rights Reserved.
+Um was I allowed to copy this? Because I did then stripped most of it out (like 90%).*/
+
+/* ========Color reference========
+      hero-red   #990000;
+my-light-green   #D9EAD3;
+official colors: http://dev.w3.org/csswg/css-color-3/#svg-color
+*/
+
+.sites-layout-sidebar-left {
+    padding-left: 5px;
+}
+
+.sites-sidebar-nav li {
+    list-style: none;
+    list-style-image: none;
+    padding: 2px 0 0;
+    margin: 1px 0 0 0;
+}
+
+.sites-sidebar-nav .expander {
+    float: left;
+    width: 11px;
+    height: 11px;
+    padding: 0 2px;
+    margin: 1px 0 0 4px;
+    background: url(../images/arrow-down.gif) no-repeat;
+}
+
+/*If you want to replace the arrows with unicode:
+http://stackoverflow.com/questions/2701192/ascii-character-for-up-down-triangle-arrow-to-display-in-html/6325076#6325076
+but you'd have to mess with font size and getting them to fit on one line*/
+
+.sites-sidebar-nav li.closed .expander {
+    background: url(../images/arrow-left.gif) no-repeat;
+}
+
+.sites-sidebar-nav .current-bg {
+    font-weight: bold;
+}
+
+.sites-embed-title {
+    font-size: 13px;
+    margin: 0;
+    padding: 3px 5px;
+    text-align: left;
+}
+
+.sites-embed-content {
+    text-align: left;
+}
+
+ol.goog-toc {
+    margin-left: 10px;
+    padding-left: 0;
+}
+
+.goog-toc {
+    text-align: left;
+    line-height: 1.5em;
+    list-style: none;
+}
+
+div.goog-toc h4 {
+    margin: 1em 0;
+    padding: 2px 6px;
+    font-weight: bold;
+    text-align: left;
+}
+
+div.goog-toc>ul,.sites-embed>ul {
+    margin: 1em 0;
+}
+
+x:-moz-any-link,x:-moz-any-link {
+    border-left: none;
+    margin-left: 0;
+}
+
+html,body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font: normal 10pt Arial,sans-serif;
+}
+
+a img {
+    border: 0;
+    padding: 0;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    vertical-align: top;
+}
+
+body {
+    margin: 0 auto;
+}
+
+.sites-tile-name-footer {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+tt:-moz-any-link {
+    height: 23px;
+}
+
+tt:-moz-any-link {
+    display: -moz-inline-box;
+    line-height: 25px;
+    padding-left: 5px;
+}
+
+tt:-moz-any-link,tt:default {
+    height: 24px;
+}
+
+tt:-moz-any-link,tt:default {
+    display: inline-block;
+}
+
+tt:-moz-any-link {
+    display: -moz-inline-box;
+    line-height: 15px;
+    padding-left: 0;
+}
+
+div.sites-sidebar-nav {
+    border-bottom: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.sites-sidebar-nav a {
+    display: block;
+    text-decoration: none;
+}
+
+.sites-sidebar-nav a:hover {
+    text-decoration: underline;
+}
+
+body .sites-sidebar-nav ul {
+    line-height: 1.33em;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.sites-sidebar-nav a,.sites-sidebar-nav .current-bg {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sites-sidebar-nav li.closed ul {
+    display: none;
+}
+
+.sites-sidebar-nav li ul .current-bg {
+    outline-width: 1px;
+}
+
+.sites-embed {
+    margin: 0 0 6px;
+}
+
+.sites-embed-content {
+    overflow: hidden;
+}
+
+.sites-embed-content.sites-embed-type-toc {
+    overflow: visible;
+}
+
+.sites-embed-align-left-wrapping-on {
+    display: inline;
+    float: left;
+    margin: 5px 20px 5px 0;
+}
+
+.sites-embed-align-left-wrapping-on .sites-embed {
+    display: table-cell;
+}
+
+div.goog-toc {
+    margin-bottom: 5px;
+    overflow: hidden;
+    width: auto;
+}
+
+.goog-toc a {
+    text-decoration: none;
+}
+
+div.goog-toc .expander {
+    margin-top: 3px;
+}
+
+div.goog-toc ul {
+    line-height: 1.5em;
+}
+
+div.nav-toc-content {
+    margin: 5px 0;
+}
+
+.goog-toc h4,div.goog-toc p {
+    padding: 4px 5px 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+body {
+    width: 100%;
+}
+
+#sites-chrome-sidebar-left {
+    width: 150px;
+}
+
+body a[imageanchor] {
+    background: none;
+    border-bottom: none;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+.sites-embed-content-sidebar-textbox {
+    padding: 5px;
+}
+
+body {
+    background-color: white;
+}
+
+h2 {
+    margin: .9em 0 .5em;
+    font-family: "Palatino","Palatino Linotype",serif;
+    font-size: 1.8em;
+    font-weight: normal;
+    color: #a90707;
+}
+
+h3 {
+    font-family: "Palatino","Palatino Linotype",serif;
+    font-size: 1.5em;
+    font-weight: normal;
+    margin-top: 1em;
+    color: #a90707;
+}
+
+h4 {
+    font-size: 1.1em;
+    color: #a90707;
+}
+
+td {
+    vertical-align: top;
+    padding: 1px 4px;
+}
+
+a:link, a:visited {
+    /*Need to also have :visited so that the browser won't blue shift the color*/
+    color: #a90707;
+    text-decoration: underline;
+    font-weight: bold;
+    padding: 2px;
+}
+
+a:hover,a:active {
+    color: #333333;
+    background: #e7e7e7;
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px dotted #a90707;
+    height: 3px;
+}
+
+ul li {
+    list-style-position: outside;
+    list-style-type: square;
+}
+
+body {
+    background: url(bg-top.gif) top repeat-x;
+    color: #333333;
+    padding: 0;
+    font: 1em "Lucida Grande","Lucida Sans",Verdana,Arial,sans-serif;
+    line-height: 1.5;
+}
+
+body #sites-chrome-sidebar-left {
+    padding: 5px 0;
+    width: 150px;
+    margin: 10px 25px 10px 0;
+    background: url(bg-pattern.gif) repeat;
+}
+
+#sites-chrome-sidebar-left .sites-embed {
+    font-size: 12px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+body #sites-chrome-sidebar-left .sites-embed-content {
+    background-color: none;
+    margin: 0;
+}
+
+body #sites-chrome-sidebar-left .sites-embed-title {
+    font-family: "Palatino","Palatino Linotype",serif;
+    font-size: 1.4em;
+    font-weight: normal;
+    border-bottom: 1px dotted #a90707;
+}
+
+#sites-chrome-sidebar-left .sites-sidebar-nav a,#sites-chrome-sidebar-left .sites-sidebar-nav a:visited {
+    color: #666666;
+    border-bottom: 1px dotted #eeeeee;
+    text-decoration: none;
+    background-image: none;
+}
+
+#sites-chrome-sidebar-left .sites-sidebar-nav a:hover {
+    text-decoration: underline;
+    color: #a90707;
+    background-color: transparent;
+}
+
+.sites-sidebar-nav .expander {
+    margin-top: 3px;
+}
+
+.sites-sidebar-nav .current-bg {
+    color: white;
+    background: #a90707;
+    font-weight: bold;
+    padding-left: 202px;
+}
+
+div.goog-toc {
+    background: url(bg-pattern.gif) repeat;
+    padding: 2px;
+    border: 1px solid #efefef;
+}
+
+div.goog-toc a,div.goog-toc a:visited {
+    color: #a90707;
+    background-image: none;
+}
+
+div.goog-toc p {
+    padding: 3px 5px 0;
+    margin: 0;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.goog-toc h4 {
+    color: #333333;
+}
+
+th {
+    background: url(bg-pattern.gif) repeat;
+    color: #333333;
+    text-align: left;
+    vertical-align: top;
+    padding: 3px 5px 5px;
+    border-bottom: 1px dotted #999999;
+}
+
+body {
+    min-width: 90%!important;
+}
+
+#sites-chrome-sidebar-left {
+    width: 170px!important;
+}
+
+body,h1,h2,h3,h4,h5,h6,input {
+    font-family: Antic,serif!important;
+}
+
+#sites-canvas h1,#sites-canvas h2,#sites-canvas h3,#sites-canvas h4,#sites-canvas h5,#sites-canvas h6 {
+    font-family: Paytone One,serif!important;
+}
+
+#sites-chrome-sidebar-left .sites-embed,#sites-chrome-sidebar-left .sites-embed h1,#sites-chrome-sidebar-left .sites-embed h2,#sites-chrome-sidebar-left .sites-embed h3,#sites-chrome-sidebar-left .sites-embed h4,#sites-chrome-sidebar-left .sites-embed h5,#sites-chrome-sidebar-left .sites-embed h6 {
+    font-family: Aldrich,serif!important;
+}
+
+#sites-chrome-sidebar-left .sites-sidebar-nav a {
+    color: #a90707!important;
+}
+
+.sites-sidebar-nav .current-bg {
+    background-color: #8b0000!important;
+}
+
+.sites-sidebar-nav li.topLevel {
+    border-top: 1px solid transparent;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.sites-sidebar-nav li.topLevel {
+    border-top-color: #d5d5d5;
+    border-top-style: dotted;
+}
+
+.sites-sidebar-nav a.topLevel {
+    font-weight: bold;
+}
+
+.sites-sidebar-nav li.nav-first {
+    border-top-width: 0px;
+    margin-top: 0px;
+}
+
+/*Stuff I added*/
+body {
+    padding: 15px 0 0;
+}
+
+.alt tr {
+    text-align: center;
+}
+
+.alt tr:nth-child(even) {
+    background-color: #CFE2F3;
+}
+
+.page-header-blue {
+    font-size: 32px;
+    font-weight: bolder;
+    background-color: #0B5394;
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+
+.page-header-red {
+    font-size: 32px;
+    font-weight: bolder;
+    background-color: #990000; /*hero-red*/
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+
+.blue-box-header {
+    font-size: 26px;
+    font-weight: bolder;
+    background-color: #0B5394;
+    padding: 5px;
+    margin: 30px 0px;
+    color: white;
+    border-radius: 10px 10px 10px 10px;
+    clear: both;
+}
+
+.stamp-top, .stamp-middle, .stamp-bottom {
+    text-align: center;
+    font-weight: bold;
+    width: 150px;
+    border: solid black 5px;
+}
+.stamp-top {
+    font-size: 14px;
+    border-bottom-width: 0;
+    background-color: #990000; /*hero-red*/
+    color: white;
+    margin-top: 15px;
+}
+.stamp-middle {
+    font-size: 36px;
+}
+.stamp-bottom {
+    font-size: 16px;
+    border-top-width: 0;
+    padding-top: 3px;
+}
+
+.character-sheet-defense-white > td, .character-sheet-defense-green > td {
+    padding: 10px;
+    text-align: center;
+    width: 25%;
+}
+.character-sheet-defense-green > td {
+    background-color: #D9EAD3; /*my-light-green*/
+}
+.character-sheet-defense-green > td:nth-child(odd), .character-sheet-defense-white > td:nth-child(odd){
+    font-weight: bold;
+}
+.character-sheet-offense-row {
+    width: 50%;
+    padding: 5px;
+    text-align: center;
+}
+.character-sheet-initiative {
+    padding: 5px 0px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #D9EAD3; /*my-light-green*/
+    font-size: 20px;
+}
+.character-sheet-light-green {
+    padding: 5px;
+    background-color: #D9EAD3; /*my-light-green*/
+}
+
+.character-sheet-hero-name, .character-sheet-power-level, .character-sheet-ability-label, .character-sheet-section-label, .character-sheet-point-totals {
+    background-color: #38761D;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+.character-sheet-hero-name {
+    width: 85%;
+    font-size: 24px;
+}
+.character-sheet-power-level {
+    width: 15%;
+    text-align: center;
+    font-size: 24px;
+}
+.character-sheet-ability-label {
+    width: 100px;
+    height: 50px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 16px;
+}
+.character-sheet-section-label {
+    font-size: 18px;
+}
+.character-sheet-point-totals {
+    text-align: center;
+    font-size: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    clear: both;
+}
+.character-sheet-ability-value {
+    width: 100px;
+    height: 80px;
+    vertical-align: middle;
+    padding: 10px;
+    background-color: #D9EAD3; /*my-light-green*/
+    text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+/* TODO: more css clean up
+generated-classes: 0, 16, 17, 18, 20, 35, 42, 74, 76
+All have border: solid thin #999999;
+I doubt the need for clear: both; and text-align: left;
+Look into fixing up the constructs like I did the example characters
+Write a script to inline classes that are only used once
+*/
+
+.generated-class-0 {
+    border: solid thin #999999;
+    margin: 5px 0px;
+}
+
+.generated-class-1 {
+    font-weight: bold;
+    background-color: #990000; /*hero-red*/
+    padding: 5px;
+    color: white;
+}
+
+.generated-class-2 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    width: 50%;
+}
+
+.generated-class-3 {
+    font-size: 16px;
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}
+
+.generated-class-4 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    width: 100%;
+}
+
+.generated-class-5 {
+    padding: 5px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    color: #990000; /*hero-red*/
+}
+
+.generated-class-6 {
+    font-weight: bold;
+    background-color: #274E13;
+    padding: 5px;
+    color: white;
+}
+
+.generated-class-7 {
+    float: right;
+    width: 425px;
+    background-color: white;
+    margin: 20px 0px 20px 20px;
+}
+
+.generated-class-8 {
+    border-bottom: solid thin #990000; /*hero-red*/
+}
+
+.generated-class-9 {
+    font-weight: bold;
+    background-color: #0B5394;
+    padding: 5px;
+    color: white;
+}
+
+.generated-class-10 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    margin: 10px;
+}
+
+.generated-class-11 {
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    margin-left: 40px;
+}
+
+.generated-class-12 {
+    font-weight: bold;
+    background-color: #E69138;
+    padding: 5px;
+    color: white;
+}
+
+.generated-class-13 {
+    padding: 5px 0px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #D9EAD3; /*my-light-green*/
+}
+
+.generated-class-14 {
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.generated-class-15 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    margin: 10px 0px;
+}
+
+.generated-class-16 {
+    border: solid thin #999999;
+    margin: 10px;
+    width: 100%;
+}
+
+.generated-class-17 {
+    border: solid thin #999999;
+    margin: 10px;
+}
+
+.generated-class-18 {
+    border: solid thin #999999;
+    margin: 10px;
+    width: 450px;
+}
+
+.generated-class-19 {
+    padding: 5px;
+    background-color: #F9CB9C;
+    font-style: italic;
+    clear: both;
+    text-align: left;
+}
+
+.generated-class-20 {
+    border: solid thin #999999;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.generated-class-21 {
+    width: 450px;
+    float: right;
+    margin: 0px 0px 10px 10px;
+    clear: both;
+    background-color: white;
+}
+
+.generated-class-22 {
+    font-size: 16px;
+    color: black;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    clear: both;
+}
+
+.generated-class-23 {
+    border-bottom: solid thin #990000; /*hero-red*/
+    clear: both;
+}
+
+.generated-class-24 {
+    float: right;
+    width: 510px;
+    margin: 20px 0px 20px 20px;
+    padding: 5px;
+    background-color: white;
+}
+
+.generated-class-25 {
+    float: right;
+    width: 300px;
+    margin: 20px 0px 20px 20px;
+    padding: 10px;
+    background-color: white;
+}
+
+.generated-class-26 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    width: 40%;
+    margin-top: 5px;
+}
+
+.generated-class-27 {
+    width: 20%;
+    background-color: #6FA8DC;
+    border-top: 8px solid #0B5394;
+    text-align: center;
+}
+
+.generated-class-28 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    margin: 5px 0px;
+    width: 100%;
+}
+
+.generated-class-29 {
+    width: 10%;
+    background-color: #6FA8DC;
+    border-top: 8px solid #0B5394;
+    text-align: center;
+}
+
+.generated-class-30 {
+    width: 30%;
+    background-color: #6FA8DC;
+    border-top: 8px solid #0B5394;
+    text-align: center;
+}
+
+.generated-class-31 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.generated-class-32 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.generated-class-35 {
+    border: solid thin #999999;
+    width: 450px;
+    margin: 10px;
+    float: right;
+}
+
+.generated-class-36 {
+    border-collapse: collapse;
+    border-color: #888888;
+    border-width: 1px;
+    width: 50%;
+    width: 40%;
+    margin-top: 5px;
+}
+
+.generated-class-37 {
+    background-color: #FF9900;
+    color: white;
+    padding: 5px;
+    margin: 30px 0px 5px 0px;
+    font-weight: bold;
+}
+
+.generated-class-38 {
+    width: 85%;
+    background-color: #FF9900;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.generated-class-41 {
+    width: 40%;
+    background-color: #38761D;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.generated-class-42 {
+    border: solid thin #999999;
+    margin: 10px;
+    width: 450px;
+    float: right;
+    margin: 10px;
+}
+
+.generated-class-43 {
+    padding: 5px;
+    float: left;
+    width: 50px;
+    background-color: #FF9900;
+    margin-right: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.generated-class-44 {
+    padding: 5px;
+    float: left;
+    width: 50px;
+    background-color: #D9EAD3; /*my-light-green*/
+    margin-right: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.generated-class-45 {
+    width: 15%;
+    background-color: #FF9900;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+}
+
+.generated-class-46 {
+    width: 45%;
+    background-color: #38761D;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+}
+
+.generated-class-48 {
+    display: block;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    border: solid 5px #38761D;
+}
+
+.generated-class-51 {
+    background-color: #D9EAD3; /*my-light-green*/
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: solid 5px #FF9900;
+}
+
+.generated-class-55 {
+    width: 361px;
+    margin: 0px auto;
+    border: solid medium #990000; /*hero-red*/
+    padding: 10px 10px 5px 5px;
+    background-color: white;
+}
+
+.generated-class-56 {
+    border-bottom: solid thin #990000; /*hero-red*/
+    border-top: solid thin #990000; /*hero-red*/
+}
+
+.generated-class-58 {
+    background-color: #D9EAD3; /*my-light-green*/
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-bottom: solid 5px #FF9900;
+}
+
+.generated-class-59 {
+    margin: 10px;
+    width: 450px;
+    float: right;
+    margin: 10px;
+}
+
+.generated-class-60 {
+    display: inline;
+    float: right;
+    margin: 5px 0 5px 20px;
+    width: 400px;
+}
+
+.generated-class-61 {
+    display: block;
+    margin: 5px auto 5px 0;
+    text-align: left;
+    width: 450px;
+}
+
+.generated-class-62 {
+    display: block;
+    margin: 5px auto 5px 0;
+    text-align: left;
+    width: 400px;
+}
+
+.generated-class-63 {
+    display: block;
+    margin: 5px auto 5px 0;
+    text-align: left;
+    width: 250px;
+}
+
+.generated-class-64 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #990000; /*hero-red*/
+}
+
+.generated-class-65 {
+    color: #073763;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 10px 5px;
+}
+
+.generated-class-66 {
+    width: 450px;
+    float: right;
+    margin: 10px;
+    background-color: white;
+}
+
+.generated-class-67 {
+    margin: 10px;
+    background-color: white;
+    width: 450px;
+    float: right;
+}
+
+.generated-class-68 {
+    vertical-align: middle;
+    border-style: solid;
+    border-width: 5px;
+    width: 150px;
+}
+
+.generated-class-69 {
+    width: 30%;
+    background-color: #D9EAD3; /*my-light-green*/
+    font-weight: bold;
+    padding: 10px;
+}
+
+.generated-class-70 {
+    padding: 5px;
+    background-color: #F9CB9C;
+    font-style: italic;
+    clear: both;
+}
+
+.generated-class-71 {
+    width: 20%;
+    background-color: #D9EAD3; /*my-light-green*/
+    text-align: center;
+    padding: 10px;
+}
+
+.generated-class-72 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0B5394;
+    margin: 10px 0px 5px 0px;
+}
+
+.generated-class-73 {
+    background-color: #FF9900;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.generated-class-74 {
+    border: solid thin #999999;
+    width: 100%;
+}
+
+.generated-class-75 {
+    font-weight: bold;
+    background-color: #CC23D3;
+    padding: 5px;
+    color: white;
+}
+
+.generated-class-76 {
+    border: solid thin #999999;
+    width: 450px;
+}

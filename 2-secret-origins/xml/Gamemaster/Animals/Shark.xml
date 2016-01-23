@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Shark" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Shark" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="2" />
@@ -14,13 +14,13 @@
        <Presence value="-4" />
    </Abilities>
    <Powers>
-      <Row name="Damage" text="Bite" action="Standard" range="Close" duration="Instant" rank="1">
+      <Row effect="Damage" text="" action="Standard" range="Close" duration="Instant" name="Bite" skill="Bite" rank="1">
           <Modifier name="Other Free Modifier" text="Strength-based" />
       </Row>
-       <Row name="Protection" text="Scales" action="None" range="Personal" duration="Permanent" rank="3" />
-       <Row name="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Senses" cost="1" text="Acute Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Movement" text="Swimming (8 MPH)" action="Free" range="Personal" duration="Sustained" rank="4" />
+       <Row effect="Protection" text="Scales" action="None" range="Personal" duration="Permanent" rank="3" />
+       <Row effect="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Acute Normal Smell" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Movement" cost="1" text="Swimming (8 MPH)" action="Free" range="Personal" duration="Sustained" rank="4" />
    </Powers>
     <Equipment></Equipment>
    <Advantages>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Mewtwo" transcendence="0" image="http://img.pokemondb.net/artwork/mewtwo.jpg" />
+    <Information><![CDATA[This information is as of the beginning of "Pokémon: The First Movie" (No real spoilers). This might not be entirely correct: I'd have to watch the movie again.
+
+Genderless: Mewtwo is not male or female and can't reproduce at all. (I'll say "he" because it's easier than "it").
+
+Prejudice: Mewtwo considers certain lifeforms to be superior to others. In order: Mewtwo, Mew, cloned Pokémon, regular Pokémon, then humans. He thinks the lower lifeforms should know their place: he talks down to them and considers them worthless. He treats Nurse Joy as a tool (specifically a herald but not a person). He steals and clones the Pokémon of the main characters then planned to leave the originals to rot (because worthless).
+
+Egotistical: Mewtwo thinks he is the best and wants everyone to know it. He doesn't actually want to rule the world, he just wants everyone to know he's strong enough to be able to take over the world. He demonstrates his power in many ways: total mind control, weather control, building amazing machines, etc.
+
+(Speculation from memory) It's hard to say what his view of slavery is. "Mewtwo tells the Trainers that humans are weak and cruel, and have made all Pokémon their slaves. He also says that Pokémon are no better off, since they choose to associate with humans." (bulbapedia). However he doesn't treat his clones any better than trainers would. Perhaps he allows slavery only when it lines up with his prejudice (Mewtwo > clones and regular > humans).
+
+Note how Shadow Ball isn't linked with Weaken 6: "Resisted by Will and lowers Will" because although true in the games it isn't shown or mentioned in this movie. Which is also why he has no Protection: I don't remember him taking any hits. Points are left unspent to try to maintain accuracy with the movie (even though the numbers are fairly meaningless).]]></Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="0" />
+       <Fighting value="0" />
+       <Awareness value="0" />
+       <Stamina value="0" />
+       <Dexterity value="0" />
+       <Intellect value="4" />
+       <Presence value="4" />
+   </Abilities>
+   <Powers>
+      <Row effect="Damage" text="Ghost type" action="Standard" range="Ranged" duration="Instant" name="Shadow Ball" skill="Shadow Ball" rank="10">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+      <Row effect="Move Object" text="Physic Type" action="Standard" range="Ranged" duration="Sustained" name="Physic" skill="Physic" rank="6">
+          <Modifier name="Other Rank Extra" applications="1" text="Damaging" />
+          <Modifier name="Other Flat Extra" applications="1" text="Flying" />
+      </Row>
+      <Row effect="Mental Transform" text="Physic Type" action="Standard" range="Ranged" duration="Instant" name="Mind Wipe" skill="Mind Wipe" rank="10">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Limited" applications="1" text="A max of Memory" />
+      </Row>
+      <Row effect="Affliction" text="Physic Type. Dazed, Compelled, Controlled. Resisted by Will." action="Standard" range="Perception" duration="Instant" name="Mind Control" rank="10">
+          <Modifier name="Increased Range" applications="2" />
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
+          <Modifier name="Reversible" />
+      </Row>
+      <Row effect="Communication" text="Physic Type. Psychic Link. Mental" action="Free" range="Personal" duration="Sustained" rank="2">
+          <Modifier name="Subtle" applications="2" text="" />
+      </Row>
+      <Row effect="Comprehend" text="Physic Type. Languages" action="None" range="Personal" duration="Permanent" rank="2">
+          <Modifier name="Linked" text="Psychic Link" />
+      </Row>
+       <Row effect="Protection" text="He didn't take damage from Mew's Shadow Ball." action="None" range="Personal" duration="Permanent" rank="10" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Ranged Combat" subtype="Shadow Ball" rank="10" ability="Dexterity" />
+       <Row name="Technology" subtype="Inventions" rank="10" ability="Intellect" />
+       <Row name="Knowledge" subtype="Weather" rank="4" ability="Intellect" />
+       <Row name="Knowledge" subtype="Geography" rank="4" ability="Intellect" />
+   </Skills>
+   <Defenses>
+       <Dodge value="5" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="14" />
+   </Defenses>
+</Document>

@@ -1,62 +1,75 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Crime Fighter" transcendence="0" image="../images/TCP Hero 288fd.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Crime Fighter" transcendence="0" image="../images/Crime-Fighter.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
-       <Strength value="3" />
+       <Strength value="7" />
        <Agility value="6" />
        <Fighting value="12" />
        <Awareness value="4" />
        <Stamina value="3" />
        <Dexterity value="6" />
-       <Intellect value="4" />
+       <Intellect value="3" />
        <Presence value="4" />
    </Abilities>
-    <Powers></Powers>
+   <Powers>
+       <!--For the Stealthy Option
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       -->
+   </Powers>
    <Equipment>
-       <Row name="Feature" cost="1" text="Commlink" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Protection" text="Costume" action="None" range="Personal" duration="Permanent" rank="2" />
-       <Row name="Movement" text="Grapple Gun: Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
-      <Row name="Affliction" text="Flash-Bangs. Fortitude Dazzle (Impaired, Disabled, Unaware) Visual" action="Standard" range="Ranged" duration="Instant" rank="2">
+       <Row effect="Feature" cost="1" text="Commlink" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Protection" text="Costume" action="None" range="Personal" duration="Permanent" rank="2" />
+       <Row effect="Movement" cost="2" text="Grappling hook: Swinging" action="Free" range="Personal" duration="Sustained" rank="1" />
+      <Row effect="Affliction" text="Flash-Bangs (much smaller than normal). Fortitude Dazzle (Impaired, Disabled, Unaware) Visual and Auditory" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="2">
           <Modifier name="Increased Range" applications="1" />
-          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
-          <Modifier name="Other Rank Extra" applications="1" text="Extra Condition: Fortitude Dazzle Auditory" />
+          <Modifier name="Other Rank Extra" applications="2" text="Cumulative, Extra Condition" />
           <Modifier name="Area" applications="1" text="Burst" />
       </Row>
-      <Row name="Affliction" text="Sleep Gas Pellets. Fortitude; Daze, Stun, Asleep" action="Standard" range="Ranged" duration="Instant" rank="4">
+      <Row effect="Affliction" text="Sleep Gas Pellets. Fortitude; Daze, Stun, Asleep" action="Standard" range="Ranged" duration="Instant" name="Sleep Gas Pellets" skill="Grenades" rank="4">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Area" applications="1" text="Cloud" />
       </Row>
-      <Row name="Damage" text="Boomerangs (Total Damage 4)" action="Standard" range="Ranged" duration="Instant" rank="1">
+      <Row effect="Damage" text="Boomerangs (Total Damage 4)" action="Standard" range="Ranged" duration="Instant" name="Boomerang" skill="Boomerang" rank="1">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Other Free Modifier" text="Strength-Based" />
       </Row>
-       <Row name="Feature" cost="1" text="Handcuffs" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Handcuffs" action="None" range="Personal" duration="Permanent" rank="1" />
+       <!--For the Stealthy Option
+       <Row effect="Damage" text="Knife" action="Standard" range="Close" duration="Instant" name="Knife" skill="Knives" rank="1" />
+       <Row effect="Feature" cost="1" text="Camo Clothing" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Multi-tool" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Binoculars" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Mini-Tracer" action="None" range="Personal" duration="Permanent" rank="1" />
+       -->
    </Equipment>
    <Advantages>
        <Row name="Equipment" rank="6" />
        <Row name="Defensive Roll" rank="3" />
+       <!--For the Gimmick or normal Crime Fighter (not Stealthy or Vehicle)
+       choose 3 of the following 6 (for Stealthy choose only 1).
+       The first 3 have been pre-selected for your convenience.-->
        <Row name="Defensive Attack" />
        <Row name="Jack of All Trades" />
        <Row name="Power Attack" />
        <!--
-       <Row name="Benefit" rank="1" text="(Option) (Choose One)" />
-       <Row name="Skill Mastery" text="(Option) Stealth" />
-       <Row name="Ultimate Effort" text="(Option) Investigation" />
+       <Row name="Benefit" rank="1" text="(Choose One)" />
+       <Row name="Skill Mastery" text="Stealth" />
+       <Row name="Ultimate Effort" text="Investigation" />
        -->
    </Advantages>
    <Skills>
        <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
-       <Row name="Athletics" subtype="" rank="6" ability="Strength" />
-       <Row name="Close Combat" subtype="Unarmed" rank="2" ability="Fighting" />
-       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Athletics" subtype="" rank="2" ability="Strength" />
+       <Row name="Deception" subtype="" rank="2" ability="Presence" />
        <Row name="Expertise" subtype="(Choose One)" rank="4" ability="Intellect" />
        <Row name="Insight" subtype="" rank="6" ability="Awareness" />
-       <Row name="Intimidation" subtype="" rank="8" ability="Presence" />
+       <Row name="Intimidation" subtype="" rank="6" ability="Presence" />
        <Row name="Investigation" subtype="" rank="8" ability="Intellect" />
        <Row name="Perception" rank="6" ability="Awareness" />
-       <Row name="Ranged Combat" subtype="Throw" rank="8" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Boomerang" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Grenades" rank="4" ability="Dexterity" />
        <Row name="Sleight of Hand" subtype="" rank="4" ability="Dexterity" />
        <Row name="Stealth" subtype="" rank="8" ability="Agility" />
        <Row name="Technology" subtype="" rank="2" ability="Intellect" />

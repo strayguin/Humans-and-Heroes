@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="SWAT Officer" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="SWAT Officer" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="2" />
@@ -15,19 +15,19 @@
    </Abilities>
     <Powers></Powers>
    <Equipment>
-      <Row name="Damage" text="Submachine gun" action="Standard" range="Ranged" duration="Instant" rank="4">
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Submachine gun" skill="Machine Guns" rank="4">
           <Modifier name="Increased Range" applications="1" />
           <Modifier name="Multiattack" />
       </Row>
-       <Row name="Protection" text="Riot Gear" action="None" range="Personal" duration="Permanent" rank="4" />
-       <Row name="Damage" text="Police Baton" action="Standard" range="Close" duration="Instant" rank="2" />
-       <Row name="Feature" cost="1" text="cell phone, handcuffs" action="None" range="Personal" duration="Permanent" rank="2" />
+       <Row effect="Protection" text="Riot Gear" action="None" range="Personal" duration="Permanent" rank="4" />
+       <Row effect="Damage" text="bludgeoning" action="Standard" range="Close" duration="Instant" name="Police Baton" skill="Clubs" rank="2" />
+       <Row effect="Feature" cost="1" text="cell phone, handcuffs" action="None" range="Personal" duration="Permanent" rank="2" />
    </Equipment>
    <Advantages>
        <Row name="Equipment" rank="4" />
    </Advantages>
    <Skills>
-       <Row name="Close Combat" subtype="Police Baton" rank="2" ability="Fighting" />
+       <Row name="Close Combat" subtype="Clubs" rank="2" ability="Fighting" />
        <Row name="Athletics" subtype="" rank="3" ability="Strength" />
        <Row name="Knowledge" subtype="Current Events" rank="2" ability="Intellect" />
        <Row name="Expertise" subtype="Streetwise" rank="4" ability="Intellect" />
@@ -35,7 +35,7 @@
        <Row name="Expertise" subtype="SWAT Officer" rank="5" ability="Intellect" />
        <Row name="Intimidation" subtype="" rank="4" ability="Presence" />
        <Row name="Perception" rank="2" ability="Awareness" />
-       <Row name="Ranged Combat" subtype="Submachine Gun" rank="4" ability="Dexterity" />
+       <Row name="Ranged Combat" subtype="Machine Guns" rank="4" ability="Dexterity" />
        <Row name="Stealth" subtype="" rank="4" ability="Agility" />
        <Row name="Treatment" subtype="" rank="3" ability="Intellect" />
    </Skills>

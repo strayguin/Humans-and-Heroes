@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Wolf" transcendence="0" image="../images/SiroccoLoRese461.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Wolf" transcendence="0" image="../images/Sirocco.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="2" />
@@ -14,8 +14,8 @@
        <Presence value="-2" />
    </Abilities>
    <Powers>
-       <Row name="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
-       <Row name="Senses" cost="2" text="Acute (2) All Olfactory" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="2" text="Acute (2) All Olfactory" action="None" range="Personal" duration="Permanent" rank="1" />
    </Powers>
     <Equipment></Equipment>
    <Advantages>

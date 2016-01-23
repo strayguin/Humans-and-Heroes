@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<Document>
-    <Hero name="Shapeshifter" transcendence="0" image="../images/TCP Manimal 683af.jpg" />
+<Document ruleset="3.0" version="2">
+    <Hero name="Shapeshifter" transcendence="0" image="../images/Shapeshifter.jpg" />
     <Information>Complications, background and other information</Information>
    <Abilities>
        <Strength value="1" />
@@ -14,12 +14,12 @@
        <Presence value="3" />
    </Abilities>
    <Powers>
-      <Row name="Variable" text="Shapeshift: 40 variable points for assuming different animals" action="Move" range="Personal" duration="Sustained" rank="8">
+      <Row effect="Variable" text="Shapeshift: 40 variable points for assuming different animals" action="Move" range="Personal" duration="Sustained" rank="8">
           <Modifier name="Faster Action" applications="2" />
       </Row>
-      <Row name="Morph" text="For assuming any animal form" action="Move" range="Personal" duration="Sustained" rank="3">
-          <Modifier name="Linked" text="With above" />
+      <Row effect="Morph" text="For assuming any animal form" action="Move" range="Personal" duration="Sustained" rank="3">
           <Modifier name="Slower Action" applications="1" />
+          <Modifier name="Linked" text="With above" />
       </Row>
    </Powers>
     <Equipment></Equipment>
