@@ -19,7 +19,11 @@ Object.prototype.equals = function(obj)
    for (var i in obj)
    {
        //if(!obj.hasOwnProperty(i)) continue;  //intentionally not used: all enumerated properties must match
-       if(obj[i] !== this[i]) return false;  //this[i] could be undefined
+       if(obj[i] instanceof Object && typeof(obj[i].equals) === 'function')
+       {
+          if(!obj[i].equals(this[i])) return false;
+       }
+       else if(obj[i] !== this[i]) return false;  //either could be undefined
    }
     return true;
 };
@@ -34,7 +38,11 @@ Error.prototype.equals=function(err)
    for (var i in err)
    {
        //if(!err.hasOwnProperty(i)) continue;  //intentionally not used: all enumerated properties must match
-       if(err[i] !== this[i]) return false;  //this[i] could be undefined
+       if(err[i] instanceof Object && typeof(err[i].equals) === 'function')
+       {
+          if(!err[i].equals(this[i])) return false;
+       }
+       else if(err[i] !== this[i]) return false;  //this[i] could be undefined
    }
     //all Errors have these and they are not enumerated
     if(err.name !== this.name) return false;  //defined in Function
@@ -43,6 +51,26 @@ Error.prototype.equals=function(err)
     //if(err.stack !== this.stack) return false;  //ignore the stack value
        //also ignore: fileName, lineNumber, columnNumber
     return true;
+};
+Number.prototype.equals = function(obj)
+{
+    if(!(obj instanceof Number) && typeof(obj) !== 'number') return false;
+    return (this.valueOf() === obj.valueOf());
+};
+Boolean.prototype.equals = function(obj)
+{
+    if(!(obj instanceof Boolean) && typeof(obj) !== 'boolean') return false;
+    return (this.valueOf() === obj.valueOf());
+};
+String.prototype.equals = function(obj)
+{
+    if(!(obj instanceof String) && typeof(obj) !== 'string') return false;
+    return (this.valueOf() === obj.valueOf());
+};
+Function.prototype.equals = function(obj)
+{
+    if(!(obj instanceof Function) && typeof(obj) !== 'function') return false;
+    return (this.valueOf() === obj.valueOf());
 };
 
 //this is used by TesterUtility.testPassed. don't remove it
@@ -164,9 +192,8 @@ TesterUtility.displayResults=function(tableName, testResults, isFirst)
     var failCount = 0;
     var errorCount = 0;
     var output = '<table border="1">\n';
-    output+='<tr><td colspan="5" style="text-align:center">'+tableName+'</td></tr>\n<tr>\n';
+    output+='<tr><td colspan="4" style="text-align:center">'+tableName+'</td></tr>\n<tr>\n';
     //max table width is about 1036 px. the columns are set to auto width
-    output+='<td style="text-align: center;">Action Taken</td>\n';
     output+='<td style="text-align: center;">Description of test</td>\n';
     output+='<td style="text-align: center;">Expected</td>\n';
     output+='<td style="text-align: center;">Actual</td>\n';
@@ -175,24 +202,25 @@ TesterUtility.displayResults=function(tableName, testResults, isFirst)
    {
        output+='<tr';
        var testPassed = TesterUtility.testPassed(testResults[i]);
+       //TODO: this is a patch to allow action for now:
+       if(testResults[i].Action !== undefined) testResults[i].Description = '' + testResults[i].Action + ': ' + testResults[i].Description;
        if(Tester.data.isFirstFailedTest && (testResults[i].Error !== undefined || !testPassed)){output+=' id="First Failed Test"'; Tester.data.isFirstFailedTest = false;}
       if (testResults[i].Error !== undefined)
       {
           output+=' style="background-color: red;"';
-          output+='>\n<td>'+testResults[i].Action+'</td>\n<td colspan="3">'+testResults[i].Error+'</td>\n<td>Error</td>\n</tr>\n';
+          output+='>\n<td>'+testResults[i].Description+'</td>\n<td colspan="2">'+testResults[i].Error+'</td>\n<td>Error</td>\n</tr>\n';
           errorCount++;
           continue;
       }
        if(!testPassed) output+=' style="background-color: red;"';
        //else: default white
-       //TODO: there's no meaningful difference between Action and Description. Remove Action
-       output+='>\n<td>'+testResults[i].Action+'</td>\n<td>'+testResults[i].Description+'</td>\n<td style="text-align: right;">';
+       output+='>\n<td>'+testResults[i].Description+'</td>\n<td style="text-align: right;">';
 
-       if(typeof(testResults[i].Expected) === 'string' && testResults[i].Expected.length > 80) output+='<pre>(Too Long)</pre>';  //string.length to see if too long to display
+       if((''+testResults[i].Expected).length > 80) output+='<pre>(Too Long)</pre>';  //string.length to see if too long to display
        else output+=testResults[i].Expected;  //string append is null safe but calls toString
 
        output+='</td>\n<td>\n';
-       if(typeof(testResults[i].Actual) === 'string' && testResults[i].Actual.length > 80) output+='<pre>(Too Long)</pre>';  //of course this includes html tags but these should be plain text
+       if((''+testResults[i].Actual).length > 80) output+='<pre>(Too Long)</pre>';  //of course this includes html tags but these should be plain text
        else output+=testResults[i].Actual;  //if Actual is an html object it will not be embedded into the table
        //however if the toString is valid html it can be embedded
 
@@ -204,7 +232,7 @@ TesterUtility.displayResults=function(tableName, testResults, isFirst)
     output+='<tr';
     if(errorCount !== 0) output+=' style="background-color: red;"';
     else if(failCount === 0) output+=' style="background-color: #53E753;"';
-    output+='><td colspan="3">Section Totals. '+TesterUtility.formatPassFail(passCount, failCount, errorCount).replace('<br />\n', '</td><td colspan="2">')+'</td></tr>\n';
+    output+='><td colspan="3">Section Totals. '+TesterUtility.formatPassFail(passCount, failCount, errorCount).replace('<br />\n', '</td><td>')+'</td></tr>\n';
     output+='</table>\n<br />\n';
    if (Tester.data.isFirstFailedSuite && (failCount + errorCount) > 0)
    {
@@ -254,7 +282,7 @@ TesterUtility.testAll=function(testSuite, isFirst)
          {
              setUp();
              try{testSuite[i](false);}
-             catch(e){console.error(e.stack); errorTests.push({Error: e, Action: i});}
+             catch(e){console.error(e.stack); errorTests.push({Error: e, Description: i});}
          }
       }
        suiteCollection.shift();
@@ -293,7 +321,7 @@ Unlike unmade, unfinished takes isFirst which allows that suite to be called dir
 name: the name of the test suite that will be displayed as the name of the table.*/
 TesterUtility.unfinished=function(name, testsSoFar, isFirst)
 {
-    testsSoFar.push({Error: 'Not finished.', Action: 'TesterUtility.unfinished'});
+    testsSoFar.push({Error: 'Not finished.', Description: 'TesterUtility.unfinished'});
     TesterUtility.displayResults(name, testsSoFar, isFirst);
 };
 /**This is a simple way to mark test suites that have not not been made. This makes them easy to find because they show up in testAll.
@@ -301,7 +329,12 @@ This will call TesterUtility.displayResults with a single test with Error: 'Not 
 name: the name of the test suite that will be displayed as the name of the table.*/
 TesterUtility.unmade=function(name)
 {
-    TesterUtility.displayResults(name, [{Error: 'Not yet implemented.', Action: 'TesterUtility.unmade'}], false);
+    TesterUtility.displayResults(name, [{Error: 'Not yet implemented.', Description: 'TesterUtility.unmade'}], false);
+};
+/**This is a simple way to fail when a test was expected to throw but didn't.*/
+TesterUtility.failedToThrow=function(testsSoFar, description)
+{
+    testsSoFar.push({Expected: 'throw', Actual: 'return', Description: description});
 };
 Object.freeze(TesterUtility);
 
@@ -325,27 +358,25 @@ Tester.abilityList.calculateValues=function(isFirst)
     TesterUtility.clearResults(isFirst);
 
     var testResults=[];
-    var catchFailed = function(action, description){return {Expected: 'throw', Actual: 'return', Action: action, Description: description};};
-    var catchPass = function(error, action, description){return {Expected: error, Actual: error, Action: action, Description: description};};
+    var catchFailed = function(description){return {Expected: 'throw', Actual: 'return', Description: description};};
+    var catchPass = function(error, description){return {Expected: error, Actual: error, Description: description};};
     //catchFailed and catchPass are shorthand if you are expecting an error to be thrown
-    var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: 'Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: NaN, Actual: Math.factorial('Not a number'), Action: actionTaken, Description: 'Math.factorial when passed NaN'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}  //not expecting an error to be thrown but it was. fail instead of crash
+    SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: NaN, Actual: Math.factorial('Not a number'), Description: 'Math.factorial when passed NaN'});
+    } catch(e){testResults.push({Error: e, Description: 'Set Concentration'});}  //not expecting an error to be thrown but it was. fail instead of crash
 
     try{
-    actionTaken='Validation';
     validator.validate(null);
-    testResults.push(catchFailed(actionTaken, 'Validator did not throw given an invalid value/ state.'));
+    testResults.push(catchFailed('Validator did not throw given an invalid value/ state.'));
     }
    catch(e)
    {
-       testResults.push(catchPass(e, actionTaken, 'Validator threw when null was passed in.'));
-       testResults.push({Expected: 'Invalid state: object can\'t be null.', Actual: e.message, Action: actionTaken, Description: 'Validator threw the correct error message.'});
-       testResults.push({Expected: 'TypeError', Actual: e.name, Action: actionTaken, Description: 'Validator threw the correct error type.'});
-       testResults.push({Expected: new TypeError('Invalid state: object can\'t be null.'), Actual: e, Action: actionTaken, Description: 'Validator threw the correct type and message.'});
+       testResults.push(catchPass(e, 'Validator threw when null was passed in.'));
+       testResults.push({Expected: 'Invalid state: object can\'t be null.', Actual: e.message, Description: 'Validator threw the correct error message.'});
+       testResults.push({Expected: 'TypeError', Actual: e.name, Description: 'Validator threw the correct error type.'});
+       testResults.push({Expected: new TypeError('Invalid state: object can\'t be null.'), Actual: e, Description: 'Validator threw the correct type and message.'});
           //this last one is only possible if Error.prototype.equals is defined to ignore the stack etc
    }
 
