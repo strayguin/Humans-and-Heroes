@@ -55,6 +55,7 @@ Error.prototype.equals=function(err)
 Number.prototype.equals = function(obj)
 {
     if(!(obj instanceof Number) && typeof(obj) !== 'number') return false;
+    if(Number.isNaN(this.valueOf()) && Number.isNaN(obj.valueOf())) return true;
     return (this.valueOf() === obj.valueOf());
 };
 Boolean.prototype.equals = function(obj)
@@ -72,6 +73,16 @@ Function.prototype.equals = function(obj)
     if(!(obj instanceof Function) && typeof(obj) !== 'function') return false;
     return (this.valueOf() === obj.valueOf());
 };
+Date.prototype.equals = function(obj)
+{
+    if(!(obj instanceof Date)) return false;
+    return (this.valueOf() === obj.valueOf());
+};
+//TODO: consider: using jasmine or QUnit:
+//http://jasmine.github.io/2.4/introduction.html
+//http://qunitjs.com/
+//both stand alone. jasmine has support for custom equality
+//QUnit has better test result output
 
 //this is used by TesterUtility.testPassed. don't remove it
 /**precision is the number of decimal places (base 10 after the decimal point) that need to be ensured, any further digits are ignored.
@@ -85,6 +96,7 @@ This function is similar to Number(num.toFixed(precision)) except this function 
 This function is not similar to Number.prototype.toPrecision (which returns a string of significant figures via Half_Up).*/
 Number.prototype.ensurePrecision = function(precision)
 {
+    //TODO: just use Number(num.toFixed(precision)) instead
     if(!isFinite(this)) return this.valueOf();
     if(typeof(precision) !== 'number' || !isFinite(precision) || isNaN(this)) return NaN;
     //Infinity and NaN precision are not allowed (isFinite calls isNaN)
@@ -212,22 +224,28 @@ TesterUtility.displayResults=function(tableName, testResults, isFirst)
           errorCount++;
           continue;
       }
-       if(!testPassed) output+=' style="background-color: red;"';
+       //TODO: redo the entire drawing so minimize output (show nothing of the passed ones and remove result % column)
+       if(!testPassed){ output+=' style="background-color: red;"';
        //else: default white
        output+='>\n<td>'+testResults[i].Description+'</td>\n<td style="text-align: right;">';
 
-       if((''+testResults[i].Expected).length > 80) output+='<pre>(Too Long)</pre>';  //string.length to see if too long to display
-       else output+=testResults[i].Expected;  //string append is null safe but calls toString
+       //TODO: redo the display of expected/actual. and nothing it too long
+       //TODO: console log the failures
+       function display(arg){
+       return '' + arg + '<br/>' + JSON.stringify(arg);
+     }
+
+       output+=display(testResults[i].Expected);
 
        output+='</td>\n<td>\n';
-       if((''+testResults[i].Actual).length > 80) output+='<pre>(Too Long)</pre>';  //of course this includes html tags but these should be plain text
-       else output+=testResults[i].Actual;  //if Actual is an html object it will not be embedded into the table
+       output+=display(testResults[i].Actual);  //if Actual is an html object it will not be embedded into the table
        //however if the toString is valid html it can be embedded
 
        output+='</td>\n<td>\n';
        if(testPassed){output+='Pass'; passCount++;}
-       else{output+='Failure'; failCount++;}
-       output+='</td>\n</tr>\n';
+       else{output+='Failure'; console.log(testResults[i].Expected, testResults[i].Actual); failCount++;}
+       output+='</td>\n</tr>\n';}
+       else passCount++;
    }
     output+='<tr';
     if(errorCount !== 0) output+=' style="background-color: red;"';
@@ -305,14 +323,15 @@ TesterUtility.testPassed=function(testResult)
 
     if(typeof(testResult.Expected) === 'number' && isNaN(testResult.Expected) && isNaN(testResult.Actual)) return true;
        //NaN is a jerk: NaN === NaN erroneously returns false (x === x is a tautology. the reason the standard returns false no longer applies)
+
     var precision = testResult.Precision;
     if(typeof(testResult.Precision) !== 'number' || !isFinite(testResult.Precision)) precision = Tester.data.defaultPrecision;
     if(typeof(testResult.Expected) !== 'number' || typeof(precision) !== 'number' || !isFinite(precision))
        return false;  //equality was denied at base case
        //if precision isn't needed or is invalid or undefined
 
-    return (testResult.Expected === testResult.Actual.ensurePrecision(precision));
-       //testResult.Actual is not changed by ensurePrecision
+    return (testResult.Expected.ensurePrecision(precision) === testResult.Actual.ensurePrecision(precision));
+       //ensurePrecision doesn't mutate the number
 };
 /**This is a simple way to mark unfinished test suites. This makes them easy to find because they show up in testAll.
 Unfinished can be in the middle of a test suite but must return afterwards without any more tests. Or can be at the end of a suite.

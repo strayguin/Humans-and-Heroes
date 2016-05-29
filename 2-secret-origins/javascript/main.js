@@ -470,6 +470,7 @@ function MainObject()
        jsonDoc.Hero.name = document.getElementById('HeroName').value;
        if(activeRuleset.major > 1) jsonDoc.Hero.transcendence = transcendence;
        jsonDoc.Hero.image = document.getElementById('imgFilePath').value;
+       //TODO: use jsonDoc.Hero.image = document.getElementById('characterImage').src;
        jsonDoc.Information = document.getElementById('bio box').value;
        jsonDoc.Abilities = this.abilitySection.save();
        jsonDoc.Powers = this.powerSection.save();

@@ -462,10 +462,11 @@ If I use semi-colons between them (which is wrong) chrome will recognize only th
 </tr>
 </table>
 
+<script type="text/javascript">var Main;</script>
 <script type="text/javascript" src="javascript/main.js"></script>
 <script type="text/javascript">
 //Main must be created after all functions have been defined
-const Main = new MainObject();
+Main = new MainObject();
 Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
 document.getElementById('ruleset').value = Main.getActiveRuleset().toString();
