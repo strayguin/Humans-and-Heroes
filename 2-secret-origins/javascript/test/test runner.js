@@ -4,8 +4,6 @@
 //TODO: add: 2 links for first unmade and first unfinished (if neither then don't have links)
 //TODO: add: link for bottom of suite and top of suite
 
-if(undefined === Math.trunc){Math.trunc=function(n){return ~~n;};}  //bitwise shortcut. Rounds (to a whole number) towards 0
-
 //this is optional. feel free to remove it.
 /**Provided as a default way to compare objects.
 It simply enumerates over all properties and makes sure they match.
@@ -84,43 +82,6 @@ Date.prototype.equals = function(obj)
 //both stand alone. jasmine has support for custom equality
 //QUnit has better test result output
 
-//this is used by TesterUtility.testPassed. don't remove it
-/**precision is the number of decimal places (base 10 after the decimal point) that need to be ensured, any further digits are ignored.
-If necessary this Number is multiplied (this is not changed) by Math.pow(10, precision); then rounded (not truncated) via Half_Down then divided back.
-Therefore ensurePrecision increased accuracy but does not guarantee it.
-So for example precision of 2 means to compare the numbers but ignore any value smaller than 1/100.
-precision of 0 means compare them as whole numbers.
-precision must be a number type and can't be infinite.
-There is no range checking done on precision because I can't ask the browser for the maximum precision (appears to be 15).
-This function is similar to Number(num.toFixed(precision)) except this function uses Half_Down instead of Half_Up.
-This function is not similar to Number.prototype.toPrecision (which returns a string of significant figures via Half_Up).*/
-Number.prototype.ensurePrecision = function(precision)
-{
-    //TODO: just use Number(num.toFixed(precision)) instead
-    if(!isFinite(this)) return this.valueOf();
-    if(typeof(precision) !== 'number' || !isFinite(precision) || isNaN(this)) return NaN;
-    //Infinity and NaN precision are not allowed (isFinite calls isNaN)
-    //I am allowing people to specify negative precision or ones that are not whole numbers. why and what that means is up to the user
-    if(this.valueOf() === 0) return 0;  //already perfect
-    var resultWhole = Math.floor(this);
-    if(resultWhole > this) return resultWhole;  //in case Math.floor ensured some precision when this is 0.999999 etc
-    resultWhole = Math.trunc(this);
-       //notice how this is not changed
-    var resultDigits = ((this - resultWhole) * Math.pow(10, precision));
-
-    var savedDigits = Math.trunc(resultDigits);
-    var digitsInQuestion = Math.abs(resultDigits - savedDigits);
-
-    //if exactly half then truncate. else round away from half
-       //need to round in case of 0.999999999, 0.6666666, or 0.0000001 etc
-    if(digitsInQuestion <= 0.5){}  //remain whole if exactly half or smaller
-    else if(resultWhole > 0) savedDigits++;
-    else savedDigits--;  //step away from 0 if digitsInQuestion > 0.5
-
-    savedDigits /= Math.pow(10, precision);
-    return (resultWhole+savedDigits);
-};
-
 const TesterUtility={};
 /*If all of the requirements pass then return true otherwise add the failures to the testResults and return false
 Use this if the test output gets too huge*/
@@ -153,6 +114,8 @@ TesterUtility.clearResults=function(isFirst)
     if(isFirst === undefined) isFirst = true;
     if(isFirst !== true) return;
     Tester.data.startTime = new Date();
+    //no support for previous version:
+    if(undefined !== Tester.data.defaultPrecision && 15 !== Tester.data.defaultPrecision) throw new Error('Must update tests');
     window.location.hash = '';  //this is needed so that it will scroll to the grand totals when finished
     Tester.data.endTime = undefined;
     document.getElementById('test results').innerHTML = '';
@@ -311,27 +274,27 @@ TesterUtility.testAll=function(testSuite, isFirst)
 };
 /**Returns true if testResult.Expected === testResult.Actual, however this also returns true if both are equal to NaN.
 If Expected and Actual are both (non-null) objects and Expected.equals is a function then it will return the result of Expected.equals(Actual).
-If Expected and Actual are both numbers then testResult.Precision can also be specified (it must be a number).
-Precision is passed to Number.prototype.ensurePrecision (see doc for details).
-If Precision is not specified (or is invalid) it will default to Tester.data.defaultPrecision (if valid).*/
+If Expected and Actual are both numbers then testResult.Delta can also be specified (it must be a number).
+Delta is the maximum number that numbers are allowed to differ by to be considered equal (eg 1 and 2 are equal if delta is 1).
+If Delta is not specified it will default to Tester.data.defaultDelta.*/
 TesterUtility.testPassed=function(testResult)
 {
-    if(typeof(testResult.Expected) !== typeof(testResult.Actual)) return false;  //testing is type strict
-    if(testResult.Expected === testResult.Actual) return true;  //base case. if this is true no need to get more advanced
+   if(undefined !== testResult.Error) return false;
+   if(typeof(testResult.Expected) !== typeof(testResult.Actual)) return false;  //testing is type strict
+   if(testResult.Expected === testResult.Actual) return true;  //base case. if this is true no need to get more advanced
 
-    if(testResult.Expected instanceof Object && typeof(testResult.Expected.equals) === 'function') return testResult.Expected.equals(testResult.Actual);
+   if(testResult.Expected instanceof Object && typeof(testResult.Expected.equals) === 'function') return testResult.Expected.equals(testResult.Actual);
 
-    if(typeof(testResult.Expected) === 'number' && isNaN(testResult.Expected) && isNaN(testResult.Actual)) return true;
-       //NaN is a jerk: NaN === NaN erroneously returns false (x === x is a tautology. the reason the standard returns false no longer applies)
+   if(typeof(testResult.Expected) !== 'number') return false;  //equality was denied at base case
+   if(isNaN(testResult.Expected) && isNaN(testResult.Actual)) return true;
+      //NaN is a jerk: NaN === NaN erroneously returns false (x === x is a tautology. the reason the standard returns false no longer applies)
 
-    var precision = testResult.Precision;
-    if(typeof(testResult.Precision) !== 'number' || !isFinite(testResult.Precision)) precision = Tester.data.defaultPrecision;
-    if(typeof(testResult.Expected) !== 'number' || typeof(precision) !== 'number' || !isFinite(precision))
-       return false;  //equality was denied at base case
-       //if precision isn't needed or is invalid or undefined
+   var delta = testResult.Delta;
+   if(undefined === delta) delta = Tester.data.defaultDelta;
+   if(typeof(delta) !== 'number' || !isFinite(delta)) throw new Error('Test error: illegal delta: ' + delta);
 
-    return (testResult.Expected.ensurePrecision(precision) === testResult.Actual.ensurePrecision(precision));
-       //ensurePrecision doesn't mutate the number
+   return Math.abs(testResult.Expected - testResult.Actual) <= delta;
+      //numbers are immutable. they are kept the same for the sake of display. TODO: change the display. somehow?
 };
 /**This is a simple way to mark unfinished test suites. This makes them easy to find because they show up in testAll.
 Unfinished can be in the middle of a test suite but must return afterwards without any more tests. Or can be at the end of a suite.
@@ -359,7 +322,7 @@ Object.freeze(TesterUtility);
 
 const Tester = {};
 Tester.testAll=function(){TesterUtility.testAll(this, true);};  //true is the default for isFirst but it is explicit in this case
-Tester.data = {beforeAll: function(){}, afterAll: function(){}, defaultPrecision: 15};
+Tester.data = {beforeAll: function(){}, afterAll: function(){}, defaultDelta: 0};
 //note that setUp is only called from TesterUtility.testAll. If an individual test is called directly setUp will not run (but beforeAll and afterAll will).
 //be careful not to override the other properties of Tester.data. beforeAll and afterAll should be the only ones overridden
     //do not modify the following properties of Tester.data: startTime, endTime, passCount, failCount, errorCount, isFirstFailedSuite, isFirstFailedTest
