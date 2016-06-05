@@ -5,8 +5,9 @@ var jsFileNamesUsed = ['MapDefault', 'data', 'abilities', 'advantage list', 'adv
 //the first 2 are first because everything depends on data which depends on MapDefault. everything else is alphabetical
 if(null !== document.getElementById('test results'))  //false in production to save memory (like half the files)
 {
-   jsFileNamesUsed = jsFileNamesUsed.concat(['test/test runner', 'test/root', 'test/abilities', 'test/advantage list',
-      'test/advantage row', 'test/CommonsLibrary', 'test/conversions', 'test/defenses', 'test/Logger',
+   var runnerPath = '../../../Miscellaneous/src/javascript/test runner';  //only works locally
+   jsFileNamesUsed = jsFileNamesUsed.concat([runnerPath, 'test/root', 'test/abilities', 'test/advantage list',
+      'test/advantage row', 'test/CommonsLibrary', 'test/conversions', 'test/defenses',
       'test/main', 'test/modifier list', 'test/modifier row', 'test/power list', 'test/power row',
       'test/SelectUtil', 'test/skill list', 'test/skill row']);
      //the unused Logger is for debugging
