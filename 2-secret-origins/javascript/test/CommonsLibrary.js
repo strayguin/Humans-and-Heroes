@@ -1,153 +1,151 @@
-Tester.CommonsLibrary={};
-Tester.CommonsLibrary.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
-Tester.CommonsLibrary.data={setUp: Tester.data.beforeAll};
-Tester.CommonsLibrary.select=function(isFirst)
+TestSuite.CommonsLibrary={};
+TestSuite.CommonsLibrary.select=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.select', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.select', testResults, isFirst);
 };
-Tester.CommonsLibrary.change=function(isFirst)
+TestSuite.CommonsLibrary.change=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.change', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.change', testResults, isFirst);
 };
-Tester.CommonsLibrary.clear=function(isFirst)
+TestSuite.CommonsLibrary.clear=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.clear', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.clear', testResults, isFirst);
 };
-Tester.CommonsLibrary.getRow=function(isFirst)
+TestSuite.CommonsLibrary.getRow=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.getRow', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.getRow', testResults, isFirst);
 };
-Tester.CommonsLibrary.update=function(isFirst)
+TestSuite.CommonsLibrary.update=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.update', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.update', testResults, isFirst);
 };
-Tester.CommonsLibrary.generate=function(isFirst)
+TestSuite.CommonsLibrary.generate=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.generate', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.generate', testResults, isFirst);
 };
-Tester.CommonsLibrary.removeRow=function(isFirst)
+TestSuite.CommonsLibrary.removeRow=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.removeRow', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.removeRow', testResults, isFirst);
 };
-Tester.CommonsLibrary.sanitizeRows=function(isFirst)
+TestSuite.CommonsLibrary.sanitizeRows=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.sanitizeRows', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.sanitizeRows', testResults, isFirst);
 };
-Tester.CommonsLibrary.setAll=function(isFirst)
+TestSuite.CommonsLibrary.setAll=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.setAll', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.setAll', testResults, isFirst);
 };
-Tester.CommonsLibrary.initializeRows=function(isFirst)
+TestSuite.CommonsLibrary.initializeRows=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.CommonsLibrary.initializeRows', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.CommonsLibrary.initializeRows', testResults, isFirst);
 };

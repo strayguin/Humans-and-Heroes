@@ -3,14 +3,13 @@ var jsFileNamesUsed = ['MapDefault', 'data', 'abilities', 'advantage list', 'adv
     'conversions', 'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'prototypes', 'SelectUtil',
     'skill list', 'skill row', 'Version'];
 //the first 2 are first because everything depends on data which depends on MapDefault. everything else is alphabetical
-if(null !== document.getElementById('test results'))  //false in production to save memory (like half the files)
+if (null !== document.getElementById('testResults'))  //false in production to save memory (like half the files)
 {
    var runnerPath = '../../../Miscellaneous/src/javascript/test runner';  //only works locally
    jsFileNamesUsed = jsFileNamesUsed.concat([runnerPath, 'test/root', 'test/abilities', 'test/advantage list',
       'test/advantage row', 'test/CommonsLibrary', 'test/conversions', 'test/defenses',
       'test/main', 'test/modifier list', 'test/modifier row', 'test/power list', 'test/power row',
       'test/SelectUtil', 'test/skill list', 'test/skill row']);
-     //the unused Logger is for debugging
 }
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)

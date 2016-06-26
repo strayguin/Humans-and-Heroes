@@ -1,12 +1,11 @@
-Tester.data.beforeAll=function(){Main.clear(); Main.setRuleset(2, 7);};
-Tester.data.afterAll = Tester.data.beforeAll;  //yes I see that it is called twice but that is so that it auto clears Main if I call a single test
+TestConfig.betweenEach=function(){Main.clear(); Main.setRuleset(2, 7);};
 //every test needs to clear out for the other test to start clean
 //even if slow do not disable Main generation because an error might occur (due to undefined values) in which case I need to see how Main was
 
-//doesn't take as long as I thought but still leave it out of Tester.testAll() hence being a global function
+//doesn't take as long as I thought but still leave it out of TestSuite.testAll() hence being a global function
 function confirmAllXmls()
 {
-    TesterUtility.clearResults();
+    TestRunner.clearResults();
     //Main.setRuleset(2, 7);  //the xmls are only saved with current rules
        //covered by clearResults and by Main.load
     SelectUtil.setText('saveType', 'XML');  //needed
@@ -49,7 +48,7 @@ function confirmAllXmls()
           Main.loadFromTextArea();
           Main.saveToTextArea();
           var newContents=document.getElementById('code box').value;
-          testResults.push({Expected: originalContents, Actual: newContents, Action: actionTaken, Description: allFolders[folderIndex]+allFiles[folderIndex][fileIndex]});
+          testResults.push({Expected: originalContents, Actual: newContents, Description: actionTaken, Description: allFolders[folderIndex]+allFiles[folderIndex][fileIndex]});
           //document.getElementById('code box').value=originalContents;
           //document.getElementById('code box').value+=stringDiffDisplay(originalContents, newContents);
           //break;
@@ -57,7 +56,7 @@ function confirmAllXmls()
        //break;
    }
 
-    TesterUtility.displayResults('confirmAllXmls', testResults, true);  //grand total is pointless but will scroll me to the bottom
+    return TestRunner.displayResults('confirmAllXmls', testResults, true);
 }
 //free javascript debugger: http://www.aptana.com/products/studio3
     //it doesn't work (doesn't run) use chrome or firefox instead
@@ -67,98 +66,96 @@ function confirmAllXmls()
     //for example: loading action is based on duration which is based on range which is based on duration... range is also based on modifiers
     //try: load effect name (and other power stuff), power rank, then all modifiers, then range, then duration, then action
 
-Tester.test={};
-Tester.test.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
-Tester.test.data={setUp: Tester.data.beforeAll};
-Tester.test.readXMLAsString=function(isFirst)
+TestSuite.test={};
+TestSuite.test.readXMLAsString=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.readXMLAsString', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.readXMLAsString', testResults, isFirst);
 };
-Tester.test.stringDiffIndex=function(isFirst)
+TestSuite.test.stringDiffIndex=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.stringDiffIndex', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.stringDiffIndex', testResults, isFirst);
 };
-Tester.test.stringDiffDisplay=function(isFirst)
+TestSuite.test.stringDiffDisplay=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.stringDiffDisplay', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.stringDiffDisplay', testResults, isFirst);
 };
-Tester.test.dataInfo=function(isFirst)
+TestSuite.test.dataInfo=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.dataInfo', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.dataInfo', testResults, isFirst);
 };
-Tester.test.allDataInfo=function(isFirst)
+TestSuite.test.allDataInfo=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.allDataInfo', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.allDataInfo', testResults, isFirst);
 };
-Tester.test.allDataInfoToCodeBox=function(isFirst)
+TestSuite.test.allDataInfoToCodeBox=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.test.allDataInfoToCodeBox', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.test.allDataInfoToCodeBox', testResults, isFirst);
 };
 //TODO: make all tests (search for ADD TESTS)
 
@@ -236,9 +233,10 @@ function allDataInfoToCodeBox(dataSource)
 
 SelectUtil.setText('saveType', 'JSON');  //not needed for Loader but when I test I always use json
 var Loader = {};
+var errorList = [];
 Loader.resetData=function()
 {
-    Tester.data.errorList = [];
+    errorList = [];
     Main.clear();
     return Main.save();  //return skeleton needed
 };
@@ -250,22 +248,22 @@ Loader.sendData=function(jsonData)
 var Messages = {};
 Messages.errorCapture=function(errorCode, message)
 {
-    Tester.data.errorList.push({errorCode: errorCode, message: message});
+    errorList.push({errorCode: errorCode, message: message});
 };
-Messages.isValid=function(){return Tester.data.errorList.isEmpty();};
+Messages.isValid=function(){return errorList.isEmpty();};
 Messages.isOnlyErrorCodes=function(errorCodeArray)
 {
     if(!Array.isArray(errorCodeArray)) errorCodeArray = [errorCodeArray];
-    if(Tester.data.errorList.length !== errorCodeArray.length) return false;
+    if(errorList.length !== errorCodeArray.length) return false;
    for (var i=0; i<errorCodeArray.length; ++i)
    {
-       if(Tester.data.errorList[i].errorCode !== errorCodeArray[i]) return false;
+       if(errorList[i].errorCode !== errorCodeArray[i]) return false;
    }
     return true;
 };
 
-/**This function was made to test the difference and reliability of isNaN and isFinite. It is not included in Tester so that it isn't auto ran.
-Unlike confirmAllXmls this test suite is not in any way related to the project which is why is isn't hidden in Tester.*/
+/**This function was made to test the difference and reliability of isNaN and isFinite. It is not included in TestSuite so that it isn't auto ran.
+Unlike confirmAllXmls this test suite is not in any way related to the project which is why is isn't hidden in TestSuite.*/
 function unlinkedNanTest()
 {
     var testResults=[], actionTaken, testDescription;
@@ -275,7 +273,7 @@ function unlinkedNanTest()
     function numberConstructorNaN(num){return (Number(num).toString() === 'NaN');}  //this works
     function isNotFinite(num){return (!isFinite(num));}
 
-    TesterUtility.clearResults();
+    TestRunner.clearResults();
 
    for (var functionIndex=0; functionIndex < testFunctions.length; functionIndex++)
    {
@@ -286,7 +284,7 @@ function unlinkedNanTest()
           if(typeof(trueTests[inputIndex]) === 'string') testDescription+='"'+trueTests[inputIndex]+'"';
           else testDescription+=trueTests[inputIndex];
           testDescription+=')';
-          testResults.push({Expected: true, Actual: testFunctions[functionIndex](trueTests[inputIndex]), Action: actionTaken, Description: testDescription});
+          testResults.push({Expected: true, Actual: testFunctions[functionIndex](trueTests[inputIndex]), Description: actionTaken, Description: testDescription});
       }
        actionTaken='Number tests';
       for (var inputIndex=0; inputIndex < falseTests.length; inputIndex++)
@@ -295,30 +293,30 @@ function unlinkedNanTest()
           if(typeof(falseTests[inputIndex]) === 'string') testDescription+='"'+falseTests[inputIndex]+'"';
           else testDescription+=falseTests[inputIndex];
           testDescription+=')';
-          testResults.push({Expected: false, Actual: testFunctions[functionIndex](falseTests[inputIndex]), Action: actionTaken, Description: testDescription});
+          testResults.push({Expected: false, Actual: testFunctions[functionIndex](falseTests[inputIndex]), Description: actionTaken, Description: testDescription});
       }
    }
 
     actionTaken='Infinity tests';
-    testResults.push({Expected: false, Actual: isNaN('Infinity'), Action: actionTaken, Description: 'isNaN("Infinity")'});
-    testResults.push({Expected: false, Actual: isNaN(Infinity), Action: actionTaken, Description: 'isNaN(Infinity)'});
-    testResults.push({Expected: false, Actual: isNaN('-Infinity'), Action: actionTaken, Description: 'isNaN("-Infinity")'});
-    testResults.push({Expected: false, Actual: isNaN(-Infinity), Action: actionTaken, Description: 'isNaN(-Infinity)'});
+    testResults.push({Expected: false, Actual: isNaN('Infinity'), Description: actionTaken+': isNaN("Infinity")'});
+    testResults.push({Expected: false, Actual: isNaN(Infinity), Description: actionTaken+': isNaN(Infinity)'});
+    testResults.push({Expected: false, Actual: isNaN('-Infinity'), Description: actionTaken+': isNaN("-Infinity")'});
+    testResults.push({Expected: false, Actual: isNaN(-Infinity), Description: actionTaken+': isNaN(-Infinity)'});
 
-    testResults.push({Expected: true, Actual: !isFinite('Infinity'), Action: actionTaken, Description: '!isFinite("Infinity")'});
-    testResults.push({Expected: true, Actual: !isFinite(Infinity), Action: actionTaken, Description: '!isFinite(Infinity)'});
-    testResults.push({Expected: true, Actual: !isFinite('-Infinity'), Action: actionTaken, Description: '!isFinite("-Infinity")'});
-    testResults.push({Expected: true, Actual: !isFinite(-Infinity), Action: actionTaken, Description: '!isFinite(-Infinity)'});
+    testResults.push({Expected: true, Actual: !isFinite('Infinity'), Description: actionTaken+': !isFinite("Infinity")'});
+    testResults.push({Expected: true, Actual: !isFinite(Infinity), Description: actionTaken+': !isFinite(Infinity)'});
+    testResults.push({Expected: true, Actual: !isFinite('-Infinity'), Description: actionTaken+': !isFinite("-Infinity")'});
+    testResults.push({Expected: true, Actual: !isFinite(-Infinity), Description: actionTaken+': !isFinite(-Infinity)'});
 
-    testResults.push({Expected: true, Actual: !numberConstructorNaN('Infinity'), Action: actionTaken, Description: '!numberConstructorNaN("Infinity")'});
-    testResults.push({Expected: true, Actual: !numberConstructorNaN(Infinity), Action: actionTaken, Description: '!numberConstructorNaN(Infinity)'});
-    testResults.push({Expected: true, Actual: !numberConstructorNaN('-Infinity'), Action: actionTaken, Description: '!numberConstructorNaN("-Infinity")'});
-    testResults.push({Expected: true, Actual: !numberConstructorNaN(-Infinity), Action: actionTaken, Description: '!numberConstructorNaN(-Infinity)'});
+    testResults.push({Expected: true, Actual: !numberConstructorNaN('Infinity'), Description: actionTaken+': !numberConstructorNaN("Infinity")'});
+    testResults.push({Expected: true, Actual: !numberConstructorNaN(Infinity), Description: actionTaken+': !numberConstructorNaN(Infinity)'});
+    testResults.push({Expected: true, Actual: !numberConstructorNaN('-Infinity'), Description: actionTaken+': !numberConstructorNaN("-Infinity")'});
+    testResults.push({Expected: true, Actual: !numberConstructorNaN(-Infinity), Description: actionTaken+': !numberConstructorNaN(-Infinity)'});
 
     actionTaken='No Parameter tests';
-    testResults.push({Expected: true, Actual: isNaN(), Action: actionTaken, Description: 'isNaN()'});
-    testResults.push({Expected: true, Actual: !isFinite(), Action: actionTaken, Description: '!isFinite()'});
-    testResults.push({Expected: true, Actual: !numberConstructorNaN(), Action: actionTaken, Description: '!numberConstructorNaN()'});
+    testResults.push({Expected: true, Actual: isNaN(), Description: actionTaken+': isNaN()'});
+    testResults.push({Expected: true, Actual: !isFinite(), Description: actionTaken+': !isFinite()'});
+    testResults.push({Expected: true, Actual: !numberConstructorNaN(), Description: actionTaken+': !numberConstructorNaN()'});
 
     actionTaken='Comparing NaN tests';
    for (var inputIndex=0; inputIndex < trueTests.length; inputIndex++)
@@ -327,7 +325,7 @@ function unlinkedNanTest()
        if(typeof(trueTests[inputIndex]) === 'string') testDescription+='"'+trueTests[inputIndex]+'"';
        else testDescription+=trueTests[inputIndex];
        testDescription+=') vs isNotFinite';
-       testResults.push({Expected: isNaN(trueTests[inputIndex]), Actual: isNotFinite(trueTests[inputIndex]), Action: actionTaken, Description: testDescription});
+       testResults.push({Expected: isNaN(trueTests[inputIndex]), Actual: isNotFinite(trueTests[inputIndex]), Description: actionTaken, Description: testDescription});
    }
     actionTaken='Comparing Number tests';
    for (var inputIndex=0; inputIndex < falseTests.length; inputIndex++)
@@ -336,7 +334,7 @@ function unlinkedNanTest()
        if(typeof(falseTests[inputIndex]) === 'string') testDescription+='"'+falseTests[inputIndex]+'"';
        else testDescription+=falseTests[inputIndex];
        testDescription+=') vs isNotFinite';
-       testResults.push({Expected: isNaN(falseTests[inputIndex]), Actual: isNotFinite(falseTests[inputIndex]), Action: actionTaken, Description: testDescription});
+       testResults.push({Expected: isNaN(falseTests[inputIndex]), Actual: isNotFinite(falseTests[inputIndex]), Description: actionTaken, Description: testDescription});
    }
 
     actionTaken='Comparing NaN tests';
@@ -346,7 +344,7 @@ function unlinkedNanTest()
        if(typeof(trueTests[inputIndex]) === 'string') testDescription+='"'+trueTests[inputIndex]+'"';
        else testDescription+=trueTests[inputIndex];
        testDescription+=') vs numberConstructorNaN';
-       testResults.push({Expected: isNaN(trueTests[inputIndex]), Actual: numberConstructorNaN(trueTests[inputIndex]), Action: actionTaken, Description: testDescription});
+       testResults.push({Expected: isNaN(trueTests[inputIndex]), Actual: numberConstructorNaN(trueTests[inputIndex]), Description: actionTaken, Description: testDescription});
    }
     actionTaken='Comparing Number tests';
    for (var inputIndex=0; inputIndex < falseTests.length; inputIndex++)
@@ -355,10 +353,10 @@ function unlinkedNanTest()
        if(typeof(falseTests[inputIndex]) === 'string') testDescription+='"'+falseTests[inputIndex]+'"';
        else testDescription+=falseTests[inputIndex];
        testDescription+=') vs numberConstructorNaN';
-       testResults.push({Expected: isNaN(falseTests[inputIndex]), Actual: numberConstructorNaN(falseTests[inputIndex]), Action: actionTaken, Description: testDescription});
+       testResults.push({Expected: isNaN(falseTests[inputIndex]), Actual: numberConstructorNaN(falseTests[inputIndex]), Description: actionTaken, Description: testDescription});
    }
 
-    TesterUtility.displayResults('unlinkedNanTest', testResults, true);  //grand total is pointless but this will scroll me to the bottom
+    return TestRunner.displayResults('unlinkedNanTest', testResults, true);  //grand total is pointless but this will scroll me to the bottom
 };
 /*
 Primitives and objects get the same results. The special values:

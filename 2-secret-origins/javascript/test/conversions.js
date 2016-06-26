@@ -1,9 +1,7 @@
-Tester.conversions={};
-Tester.conversions.testAll=function(isFirst){TesterUtility.testAll(this, isFirst);};
-Tester.conversions.data={setUp: Tester.data.beforeAll};
-Tester.conversions.sanitizeNumber=function(isFirst)
+TestSuite.conversions={};
+TestSuite.conversions.sanitizeNumber=function(isFirst)
 {
-    TesterUtility.clearResults(isFirst);
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
@@ -17,56 +15,56 @@ Tester.conversions.sanitizeNumber=function(isFirst)
    for (var i=0; i < zeroArray.length; i++)
    {
        result = normalSanitize(zeroArray[i]);
-       testResults.push({Expected: 0, Actual: result, Action: actionTaken, Description: (zeroArray[i] + ' => 0 (default value)')});
+       testResults.push({Expected: 0, Actual: result, Description: actionTaken, Description: (zeroArray[i] + ' => 0 (default value)')});
    }
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
     try{
     actionTaken='Valid Loop';
    for (var i=0; i < numberArray.length; i++)
    {
        result = normalSanitize(numberArray[i]);
-       testResults.push({Expected: Math.floor(parseFloat(numberArray[i])), Actual: result, Action: actionTaken, Description: (numberArray[i] + ' string to number')});
+       testResults.push({Expected: Math.floor(parseFloat(numberArray[i])), Actual: result, Description: actionTaken, Description: (numberArray[i] + ' string to number')});
    }
     result = normalSanitize(-1);
-    testResults.push({Expected: -1, Actual: result, Action: actionTaken, Description: '-1 string to number'});
+    testResults.push({Expected: -1, Actual: result, Description: actionTaken+': -1 string to number'});
     result = normalSanitize(-1.2);
-    testResults.push({Expected: -1, Actual: result, Action: actionTaken, Description: '-1.2 string to number'});
+    testResults.push({Expected: -1, Actual: result, Description: actionTaken+': -1.2 string to number'});
     result = normalSanitize(Number.MIN_SAFE_INTEGER);
-    testResults.push({Expected: -5, Actual: result, Action: actionTaken, Description: (Number.MIN_SAFE_INTEGER + ' string to number (min of -5)')});
+    testResults.push({Expected: -5, Actual: result, Description: actionTaken, Description: (Number.MIN_SAFE_INTEGER + ' string to number (min of -5)')});
     result = normalSanitize(-500);
-    testResults.push({Expected: -5, Actual: result, Action: actionTaken, Description: '-500 string to number (min of -5)'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    testResults.push({Expected: -5, Actual: result, Description: actionTaken+': -500 string to number (min of -5)'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.conversions.sanitizeNumber', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.conversions.sanitizeNumber', testResults, isFirst);
 };
-Tester.conversions.xmlToJson=function(isFirst)
+TestSuite.conversions.xmlToJson=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS. mostly just make sure it doesn't crash from invalid data
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS. mostly just make sure it doesn't crash from invalid data
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.conversions.xmlToJson', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.conversions.xmlToJson', testResults, isFirst);
 };
-Tester.conversions.jsonToXml=function(isFirst)
+TestSuite.conversions.jsonToXml=function(isFirst)
 {
-    return;  //remove this when actual tests exist. ADD TESTS. mostly just make sure it doesn't crash from invalid data
-    TesterUtility.clearResults(isFirst);
+    return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS. mostly just make sure it doesn't crash from invalid data
+    TestRunner.clearResults(isFirst);
 
     var testResults=[];
     var actionTaken='Initial';
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
     try{
-    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TesterUtility.changeValue('equipmentRank0', 5);
-    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Action: actionTaken, Description: 'Equipment Row is not created'});
-    } catch(e){testResults.push({Error: e, Action: actionTaken});}
+    actionTaken='Set Concentration'; SelectUtil.changeText('powerChoices0', 'Feature'); TestRunner.changeValue('equipmentRank0', 5);
+    testResults.push({Expected: true, Actual: Main.advantageSection.getRow(0).isBlank(), Description: actionTaken+': Equipment Row is not created'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
 
-    TesterUtility.displayResults('Tester.conversions.jsonToXml', testResults, isFirst);
+    return TestRunner.displayResults('TestSuite.conversions.jsonToXml', testResults, isFirst);
 };
