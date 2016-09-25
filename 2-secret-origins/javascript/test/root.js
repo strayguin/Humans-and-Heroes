@@ -58,9 +58,29 @@ function confirmAllXmls()
 
     return TestRunner.displayResults('confirmAllXmls', testResults, true);
 }
-//free javascript debugger: http://www.aptana.com/products/studio3
-    //it doesn't work (doesn't run) use chrome or firefox instead
-//http://docs.seleniumhq.org/ and http://www.eclipse.org/webtools/jsdt/
+/*
+What I want: rename, goto anything, goto definition, find all usages, stuff from np++
+Visual Studio Code: https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx rename (local only), goto anything (can't mix file@fun)
+Atom: https://atom.io/ has a fuzzy search (file name only) nothing else. although plugins probably have it all
+Brackets: http://brackets.io/ built in lint (not hint!). goto anything (can't mix file@fun), goto definition
+Sublime: goto anything (file@fun but not over all files), goto definition (via goto anything)
+
+Next:
+try webstorm if it looks good then try intelli-j with plug ins
+try atom with plug ins
+apparently sublime has plugins: http://stackoverflow.com/questions/18184207/ide-autocompletion-for-javascript-amd-loading-style
+
+NetBeans: https://netbeans.org/downloads/ open file. weak goto definition which works or fails, has very few warnings
+http://www.codelobster.com open file. goto definition which works or asks!
+Komodo Edit (free version of Komodo IDE): http://komodoide.com/komodo-edit/ has warnings. open file. goto definition of local functions
+Aptana Studio 3: http://www.aptana.com/products/studio3/download.html open file
+Not free: WebStorm: https://www.jetbrains.com/webstorm/
+NotePad++ has nothing
+"Free JavaScript Editor": http://www.yaldex.com/Free_JavaScript_Editor.htm has nothing
+
+http://docs.seleniumhq.org/ and http://www.eclipse.org/webtools/jsdt/
+http://www.slant.co/topics/1686/~javascript-ides-and-editors
+*/
 
 //TODO: make a test for loading quirks (per section) to test for things that onChange wouldn't allow
     //for example: loading action is based on duration which is based on range which is based on duration... range is also based on modifiers
