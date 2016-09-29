@@ -19,7 +19,7 @@ directories. Likewise there are a few pages that are not linked to, they exist f
 **H&H Version 4** (currently no plan of doing) would need to overhaul the ranks: linear and quadratic
 
 The minor version numbers originally represented the number of times I distributed it.
-Minor version numbers now count the number of commits. The commit hash could also be used as reference.
+Minor version numbers now count the number of commits which change rules. The commit hash could also be used as reference.
 
 As stated in the first paragraph of 1: The Basics (1-the-basics.html):
 This code was copied from [The d20 Hero SRD](www.d20herosrd.com) using the tool [HTTrack](http://www.httrack.com/).

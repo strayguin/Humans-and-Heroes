@@ -26,7 +26,7 @@ bio box: nothing: same as hero name
 function MainObject()
 {
    //private variable section:
-    const latestRuleset = new VersionObject(3, 0), latestVersion = 2;  //see bottom of this file for a version list
+    const latestRuleset = new VersionObject(3, latestMinorVersion), latestVersion = 2;  //see bottom of this file for a version list
     var characterPointsSpent = 0, transcendence = 0, minimumTranscendence = 0, previousGodHood = false;
     var powerLevelAttackEffect = 0, powerLevelPerceptionEffect = 0;
     var activeRuleset = latestRuleset.clone();
@@ -63,7 +63,7 @@ function MainObject()
              if(ruleset.major < 1) ruleset = new VersionObject(1, 0);  //easy way to change to the oldest version
              else if(ruleset.isGreaterThan(latestRuleset)) ruleset = latestRuleset.clone();  //easy way to change to the latest version
 
-            if (!ruleset.equals(activeRuleset))  //no change needed
+            if (!ruleset.equals(activeRuleset))  //if changed
             {
                 var jsonDoc = this.save();
                 this.setRuleset(ruleset.major, ruleset.minor);
@@ -510,10 +510,6 @@ function MainObject()
     this.constructor();
 }
 
-/*xml version list:
-1: original from rule set 2.5
-2: (added version and ruleset) name and skill attributes were added to both powers. old "name" was renamed to "effect"
-*/
 /*Map of objects that update others:
 everything (except modifier) calls Main.update();  //updates totals and power level
 Main.updateOffense(); is called by ability, advantages, power, and skills
@@ -541,4 +537,8 @@ power:
     Main.defenseSection.calculateValues();
 }
 skill: Main.updateOffense();
+*/
+/*xml version list:
+1: original from rule set 2.5
+2: (added version and ruleset) name and skill attributes were added to both powers. old "name" was renamed to "effect"
 */

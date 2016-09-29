@@ -80,16 +80,10 @@ TestSuite.main.changeRuleset=function(isFirst)
     } catch(e){testResults.push({Error: e, Description: 'Major doesn\'t default'});}
 
     try{
-    TestRunner.changeValue('ruleset', '3. 1');
-    testResults.push({Expected: '3.0', Actual: Main.getActiveRuleset().toString(), Description: 'Typo 3. 1: ActiveRuleset minor not changed'});
-    testResults.push({Expected: '3.0', Actual: rulesetElement.value, Description: 'Typo 3. 1: Element minor not changed'});
-    } catch(e){testResults.push({Error: e, Description: 'Typo 3. 1'});}
-
-    try{
-    TestRunner.changeValue('ruleset', '2,3');
-    testResults.push({Expected: '2.0', Actual: Main.getActiveRuleset().toString(), Description: 'Typo 2,3: ActiveRuleset minor not changed'});
-    testResults.push({Expected: '2.0', Actual: rulesetElement.value, Description: 'Typo 2,3: Element minor not changed'});
-    } catch(e){testResults.push({Error: e, Description: 'Typo 2,3'});}
+    TestRunner.changeValue('ruleset', '3,3');
+    testResults.push({Expected: '3.0', Actual: Main.getActiveRuleset().toString(), Description: 'Typo 3,3: ActiveRuleset minor not changed'});
+    testResults.push({Expected: '3.0', Actual: rulesetElement.value, Description: 'Typo 3,3: Element minor not changed'});
+    } catch(e){testResults.push({Error: e, Description: 'Typo 3,3'});}
 
     try{
     TestRunner.changeValue('ruleset', '2.5');  //this will work if above tests pass. so don't assert

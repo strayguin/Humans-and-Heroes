@@ -20,4 +20,4 @@ function VersionObject(major, minor)
         return (this.major === other.major && this.minor === other.minor);
     };
     //create functions only as needed
-};
+}

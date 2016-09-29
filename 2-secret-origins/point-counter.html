@@ -438,11 +438,8 @@ There are some bugs I am aware of. Hopefully they won't be an issue.<br />
 </select>
 </label>
 
-<br /><!--accept=".xml,.js,.json" isn't completely supported by any browser right now: http://www.w3.org/TR/html5/forms.html#attr-input-accept
-despite what https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#Browser_compatibility
-says. My attribute is valid (as far as I can tell) but it isn't being recognized by anything except IE10 (which can't load anything else and also has wrong choices)
-If I use semi-colons between them (which is wrong) chrome will recognize only the first. In any case it won't prevent using the wrong extension.-->
-<input type="file" id="fileChooser" /><br />
+<br />
+<input type="file" id="fileChooser" accept=".xml,.js,.json" /><br />
 <input type="button" value="Load from File" onClick="Main.loadFile();" />
 <input type="button" value="Load from Text Area" onClick="Main.loadFromTextArea();" id="load text button" /><br />
 <br />
@@ -462,6 +459,7 @@ If I use semi-colons between them (which is wrong) chrome will recognize only th
 </tr>
 </table>
 
+<script type="text/javascript" src="../minorVersion.js"></script>
 <script type="text/javascript">var Main;</script>
 <script type="text/javascript" src="javascript/main.js"></script>
 <script type="text/javascript">
