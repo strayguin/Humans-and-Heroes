@@ -21,7 +21,7 @@ directories. Likewise there are a few pages that are not linked to, they exist f
 The minor version numbers originally represented the number of times I distributed it.
 Minor version numbers now count the number of commits which change rules. The commit hash could also be used as reference.
 
-As stated in the first paragraph of 1: The Basics (1-the-basics.html):
+As stated in the first paragraph of The Basics (the-basics.html):
 This code was copied from [The d20 Hero SRD](www.d20herosrd.com) using the tool [HTTrack](http://www.httrack.com/).
 The original site is owned by John Reyst and the modifications were done by Ryan Worcester.
 I wasn't granted permission to use the CSS or the images.
@@ -64,7 +64,7 @@ How experienced was your GM in general?
 How many protagonists were there?
 What power level were your characters? (probably 10)
 Was there any point where a character (whose stats actually mattered) had a power level of at least 20? I hope transcendence wasn't involved: those rules need an overhaul.
-(Take a look at 9-gamemastering.html "CREATING A SERIES") what style was the game: Light (which is 4-color), Dark, or Grayscale?
+(Take a look at gamemastering.html "CREATING A SERIES") what style was the game: Light (which is 4-color), Dark, or Grayscale?
 Did you enjoy the game overall?
 
 Feel free to say anything else. Complain, compliment, suggest, or whatever.

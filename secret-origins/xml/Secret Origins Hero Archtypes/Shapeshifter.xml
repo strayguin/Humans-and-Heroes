@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Shapeshifter" transcendence="0" image="../images/Shapeshifter.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="1" />
+       <Agility value="2" />
+       <Fighting value="6" />
+       <Awareness value="2" />
+       <Stamina value="2" />
+       <Dexterity value="1" />
+       <Intellect value="2" />
+       <Presence value="3" />
+   </Abilities>
+   <Powers>
+      <Row effect="Variable" text="Shapeshift: 40 variable points for assuming different animals" action="Move" range="Personal" duration="Sustained" rank="8">
+          <Modifier name="Faster Action" applications="2" />
+      </Row>
+      <Row effect="Morph" text="For assuming any animal form" action="Move" range="Personal" duration="Sustained" rank="3">
+          <Modifier name="Slower Action" applications="1" />
+          <Modifier name="Linked" text="With above" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Defensive Roll" rank="3" />
+   </Advantages>
+   <Skills>
+       <Row name="Close Combat" subtype="Unarmed" rank="4" ability="Fighting" />
+       <Row name="Deception" subtype="" rank="6" ability="Presence" />
+       <Row name="Expertise" subtype="Zoology" rank="6" ability="Intellect" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="8" ability="Agility" />
+   </Skills>
+   <Defenses>
+       <Dodge value="6" />
+       <Fortitude value="6" />
+       <Parry value="2" />
+       <Will value="6" />
+   </Defenses>
+</Document>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Whale" transcendence="0" image="../images/Sirocco.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="0" />
+       <Fighting value="2" />
+       <Awareness value="1" />
+       <Stamina value="0" />
+       <Dexterity value="0" />
+       <Intellect value="-3" />
+       <Presence value="-3" />
+   </Abilities>
+   <Powers>
+      <Row effect="Growth" text="+3 Strength and Staminia not included above" action="None" range="Personal" duration="Permanent" rank="3">
+          <Modifier name="Increased Duration" applications="2" />
+          <Modifier name="Innate" />
+      </Row>
+       <Row effect="Protection" text="Actually Enhanced Defense" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="4" text="Accurate (4) All Auditory" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Ultra-hearing" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Athletics" subtype="" rank="2" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="2" ability="Fighting" />
+       <Row name="Perception" rank="10" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="1" />
+       <Parry value="2" />
+       <Will value="7" />
+   </Defenses>
+</Document>

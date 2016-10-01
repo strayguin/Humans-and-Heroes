@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Equipment List" transcendence="0" image="../images/Sirocco.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="0" />
+       <Fighting value="0" />
+       <Awareness value="0" />
+       <Stamina value="0" />
+       <Dexterity value="0" />
+       <Intellect value="0" />
+       <Presence value="0" />
+   </Abilities>
+    <Powers></Powers>
+   <Equipment>
+      <Row effect="Affliction" text="Resisted by Fortitude; Vision Impaired, Vision Disabled, Incapacitated" action="Standard" range="Ranged" duration="Instant" name="Tear Gas Pellets" skill="Grenades" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Rank Extra" applications="1" text="Extra Condition. Dazed, Stunned, (Incapacitated)" />
+          <Modifier name="Area" applications="1" text="Cloud" />
+      </Row>
+      <Row effect="Affliction" text="Hindered, Immobilized" action="Standard" range="Ranged" duration="Instant" name="Bolos" skill="Bolos" rank="3">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
+          <Modifier name="Alternate Resistance (Cost)" text="Sleight of Hand: Escaping instead of Fortitude or Will" />
+          <Modifier name="Other Rank Flaw" applications="1" text="Limited Degree (2 degrees)" />
+      </Row>
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Boomerang" skill="Boomerang" rank="1">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Free Modifier" text="Strength-based" />
+      </Row>
+      <Row effect="Damage" text="Explosives" action="Standard" range="Ranged" duration="Instant" name="Explosives" skill="Explosives" rank="5">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Burst" />
+      </Row>
+      <Row effect="Weaken" text="Weaken: Toughness" action="Standard" range="Close" duration="Instant" name="Cutting Torch" skill="Cutting Torch" rank="1">
+          <Modifier name="Affects Objects Only" />
+          <Modifier name="Other Flat Extra" applications="1" text="Linked to Damage 1" />
+      </Row>
+      <Row effect="Affliction" text="Flash-Bangs. Fortitude Dazzle (Impaired, Disabled, Unaware) Visual and Auditory" action="Standard" range="Ranged" duration="Instant" name="Flash-Bangs" skill="Grenades" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Other Rank Extra" applications="2" text="Cumulative, Extra Condition" />
+          <Modifier name="Area" applications="1" text="Burst" />
+      </Row>
+      <Row effect="Affliction" text="Pepper Spray. Chemical. Resisted by Fortitude; Visual Dazzle: Vision Impaired, Vision Disabled, Vision Unaware" action="Standard" range="Close" duration="Instant" name="Pepper Spray" skill="Pepper Spray" rank="4">
+          <Modifier name="Other Rank Extra" applications="1" text="Cumulative" />
+      </Row>
+      <Row effect="Damage" text="bludgeoning" action="Standard" range="Close" duration="Instant" name="Brass Knuckles" skill="Unarmed" rank="1">
+          <Modifier name="Other Free Modifier" text="Strength-based" />
+      </Row>
+      <Row effect="Affliction" text="Sleep Resisted by Fortitude; (Fatigued, Exhausted, Asleep)" action="Standard" range="Ranged" duration="Instant" name="Sleep Gas Pellets" skill="Grenades" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Cloud" />
+      </Row>
+      <Row effect="Concealment" cost="4" text="Smoke Pellets. Normal Vision" action="Free" range="Ranged" duration="Sustained" name="Smoke Pellets" skill="Grenades" rank="1">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Attack" />
+          <Modifier name="Area" applications="1" text="Cloud" />
+      </Row>
+       <Row effect="Damage" text="bludgeoning" action="Standard" range="Close" duration="Instant" name="Club" skill="Clubs" rank="2" />
+       <Row effect="Damage" text="piercing" action="Standard" range="Close" duration="Instant" name="Knife" skill="Knives" rank="1" />
+       <Row effect="Affliction" text="electrical. Resisted by Fortitude; daze, stun, incapacitate" action="Standard" range="Close" duration="Instant" name="Taser" skill="Taser" rank="5" />
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Shotgun solid slug" skill="Shotgun" rank="5">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+      <Row effect="Damage" text="" action="Standard" range="Ranged" duration="Instant" name="Shotgun buckshot" skill="Shotgun" rank="3">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Multiattack single target if close (adjacent). Cone Area 1 if short range." />
+          <Modifier name="Limited" applications="1" text="Can't do damage at medium or further range" />
+          <Modifier name="Alternate Effect" text="the 2 shotgun effects depend on shell loaded" />
+      </Row>
+      <Row effect="Affliction" text="electrical. Resisted by Fortitude; daze, stun, incapacitate" action="Standard" range="Ranged" duration="Instant" name="Stun Gun" skill="Pistols" rank="5">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+      <Row effect="Damage" text="Fire" action="Standard" range="Ranged" duration="Instant" name="Flamethrower" skill="Flamethrower" rank="6">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Cone or Line" />
+          <Modifier name="Feature" text="Adjustable area shape but only 1 is usable at a time" />
+      </Row>
+      <Row effect="Damage" text="Rocket launcher" action="Standard" range="Ranged" duration="Instant" name="Rocket launcher" skill="Rocket launcher" rank="10">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Area" applications="1" text="Burst" />
+      </Row>
+      <Row effect="Concealment" cost="4" text="Smoke Grenade. Normal Vision" action="Free" range="Ranged" duration="Sustained" name="Smoke Grenade" skill="Grenades" rank="4">
+          <Modifier name="Increased Range" applications="1" />
+          <Modifier name="Attack" />
+          <Modifier name="Area" applications="1" text="Cloud" />
+      </Row>
+   </Equipment>
+   <Advantages>
+       <Row name="Equipment" rank="40" />
+   </Advantages>
+    <Skills></Skills>
+   <Defenses>
+       <Dodge value="0" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="0" />
+   </Defenses>
+</Document>

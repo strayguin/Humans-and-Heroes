@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Martial Artist" transcendence="0" image="../images/Martial-Artist.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="8" />
+       <Agility value="6" />
+       <Fighting value="8" />
+       <Awareness value="5" />
+       <Stamina value="3" />
+       <Dexterity value="4" />
+       <Intellect value="0" />
+       <Presence value="5" />
+   </Abilities>
+   <Powers>
+       <Row effect="Senses" cost="1" text="Low-Light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Feature" cost="1" text="Trance" action="Full" range="Personal" duration="Concentration" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Accurate Attack" />
+       <Row name="All-out Attack" />
+       <Row name="Defensive Attack" />
+       <Row name="Defensive Roll" rank="4" />
+       <Row name="Evasion" rank="1" />
+       <Row name="Improved Defense" />
+       <Row name="Improved Disarm" />
+       <Row name="Improved Grab" />
+       <Row name="Improved Initiative" rank="2" />
+       <Row name="Improved Trip" />
+       <Row name="Instant Up" />
+       <Row name="Move-by Action" />
+       <Row name="Power Attack" />
+       <Row name="Prone Fighting" />
+       <Row name="Seize Initiative" />
+       <Row name="Skill Mastery" text="Acrobatics" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="9" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="9" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="3" ability="Fighting" />
+       <Row name="Expertise" subtype="Philosophy" rank="5" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="4" ability="Awareness" />
+       <Row name="Intimidation" subtype="" rank="7" ability="Presence" />
+       <Row name="Perception" rank="8" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="7" ability="Agility" />
+   </Skills>
+   <Defenses>
+       <Dodge value="7" />
+       <Fortitude value="8" />
+       <Parry value="5" />
+       <Will value="4" />
+   </Defenses>
+</Document>

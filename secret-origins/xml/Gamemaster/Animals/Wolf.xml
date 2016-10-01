@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Wolf" transcendence="0" image="../images/Sirocco.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="2" />
+       <Agility value="2" />
+       <Fighting value="3" />
+       <Awareness value="2" />
+       <Stamina value="2" />
+       <Dexterity value="0" />
+       <Intellect value="-4" />
+       <Presence value="-2" />
+   </Abilities>
+   <Powers>
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="2" text="Acute (2) All Olfactory" action="None" range="Personal" duration="Permanent" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Improved Trip" />
+   </Advantages>
+   <Skills>
+       <Row name="Perception" rank="4" ability="Awareness" />
+       <Row name="Stealth" subtype="" rank="4" ability="Agility" />
+       <Row name="Tracking" rank="2" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="2" />
+       <Parry value="1" />
+       <Will value="4" />
+   </Defenses>
+</Document>

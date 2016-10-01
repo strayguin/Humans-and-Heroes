@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Hawk" transcendence="0" image="../images/Sirocco.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="0" />
+       <Agility value="3" />
+       <Fighting value="3" />
+       <Awareness value="2" />
+       <Stamina value="0" />
+       <Dexterity value="0" />
+       <Intellect value="-4" />
+       <Presence value="0" />
+   </Abilities>
+   <Powers>
+      <Row effect="Flight" text="30 MPH" action="Free" range="Personal" duration="Sustained" rank="4">
+          <Modifier name="Other Rank Flaw" applications="1" text="Wings" />
+      </Row>
+       <Row effect="Senses" cost="1" text="Extended Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+       <Row effect="Senses" cost="1" text="Low-light Vision" action="None" range="Personal" duration="Permanent" rank="1" />
+      <Row effect="Shrinking" text="-2 strength and -2 stamina not included above" action="None" range="Personal" duration="Permanent" rank="2">
+          <Modifier name="Increased Duration" applications="2" />
+          <Modifier name="Innate" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+    <Advantages></Advantages>
+   <Skills>
+       <Row name="Close Combat" subtype="Unarmed" rank="4" ability="Fighting" />
+       <Row name="Perception" rank="6" ability="Awareness" />
+   </Skills>
+   <Defenses>
+       <Dodge value="2" />
+       <Fortitude value="4" />
+       <Parry value="2" />
+       <Will value="2" />
+   </Defenses>
+</Document>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Energy Controller" transcendence="0" image="../images/Energy-Controller.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="1" />
+       <Agility value="4" />
+       <Fighting value="4" />
+       <Awareness value="2" />
+       <Stamina value="2" />
+       <Dexterity value="3" />
+       <Intellect value="0" />
+       <Presence value="2" />
+   </Abilities>
+   <Powers>
+      <Row effect="Damage" text="Energy Aura" action="Triggered" range="Close" duration="Instant" name="Energy Aura" skill="Energy Aura" rank="3">
+          <Modifier name="Faster Action" applications="4" />
+          <Modifier name="Selective" />
+      </Row>
+      <Row effect="Damage" text="Energy Control" action="Standard" range="Ranged" duration="Instant" name="Energy Control" skill="Energy Control" rank="12">
+          <Modifier name="Increased Range" applications="1" />
+      </Row>
+       <Row effect="Resistance" text="Energy Resistance from Energy Control type" action="None" range="Personal" duration="Permanent" rank="2" />
+       <Row effect="Flight" text="120 MPH" action="Free" range="Personal" duration="Sustained" rank="6" />
+      <Row effect="Protection" text="Force Field" action="Free" range="Personal" duration="Sustained" rank="10">
+          <Modifier name="Decreased Duration" applications="2" />
+          <Modifier name="Impervious" applications="5" />
+      </Row>
+       <Row effect="Feature" cost="1" text="Quick Change: transform into costume" action="Free" range="Personal" duration="Instant" rank="1" />
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Accurate Attack" />
+       <Row name="All-out Attack" />
+       <Row name="Power Attack" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="6" ability="Agility" />
+       <Row name="Other" subtype="Demoralize" rank="7" ability="Presence" />
+       <Row name="Insight" subtype="" rank="4" ability="Awareness" />
+       <Row name="Perception" rank="4" ability="Awareness" />
+       <Row name="Persuasion" rank="4" ability="Presence" />
+       <Row name="Ranged Combat" subtype="Energy Control" rank="5" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="4" />
+       <Fortitude value="5" />
+       <Parry value="0" />
+       <Will value="6" />
+   </Defenses>
+</Document>

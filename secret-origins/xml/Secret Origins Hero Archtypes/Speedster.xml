@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Speedster" transcendence="0" image="../images/Speedster.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="2" />
+       <Agility value="4" />
+       <Fighting value="4" />
+       <Awareness value="1" />
+       <Stamina value="2" />
+       <Dexterity value="3" />
+       <Intellect value="0" />
+       <Presence value="2" />
+   </Abilities>
+   <Powers>
+      <Row effect="Damage" text="Fast Attack. Total of Damage 8 by default" action="Standard" range="Close" duration="Instant" name="Fast Attack" skill="Unarmed" rank="6">
+          <Modifier name="Other Free Modifier" text="Strength-based" />
+          <Modifier name="Multiattack" />
+          <Modifier name="Selective" />
+      </Row>
+      <Row effect="Damage" text="Cyclone" action="Full" range="Close" duration="Instant" name="Cyclone" skill="Cyclone" rank="2">
+          <Modifier name="Slower Action" applications="1" />
+          <Modifier name="Area" applications="1" text="Cylinder: 30 ft radius and height" />
+          <Modifier name="Limited" applications="1" text="Always points straight up" />
+      </Row>
+       <Row effect="Quickness" text="" action="Free" range="Personal" duration="Sustained" rank="10" />
+       <Row effect="Movement" cost="1" text="Gound Speed 15: 64,000 MPH" action="Free" range="Personal" duration="Sustained" rank="15" />
+      <Row effect="Movement" cost="2" text="Run On Water. Movement 1: Water Walking" action="Free" range="Personal" duration="Sustained" rank="1">
+          <Modifier name="Limited" applications="1" text="Only while running" />
+      </Row>
+      <Row effect="Movement" cost="2" text="Run Up Walls. Movement 2: Wall Crawling" action="Free" range="Personal" duration="Sustained" rank="2">
+          <Modifier name="Limited" applications="1" text="Only while running" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Defensive Roll" rank="3" />
+       <Row name="Improved Initiative" rank="5" />
+       <Row name="Instant Up" />
+       <Row name="Move-by Action" />
+   </Advantages>
+   <Skills>
+       <Row name="Acrobatics" subtype="" rank="4" ability="Agility" />
+       <Row name="Athletics" subtype="" rank="8" ability="Strength" />
+       <Row name="Close Combat" subtype="Unarmed" rank="6" ability="Fighting" />
+       <Row name="Deception" subtype="" rank="3" ability="Presence" />
+       <Row name="Expertise" subtype="(Choose One)" rank="6" ability="Intellect" />
+       <Row name="Perception" rank="8" ability="Awareness" />
+       <Row name="Technology" subtype="" rank="3" ability="Intellect" />
+   </Skills>
+   <Defenses>
+       <Dodge value="11" />
+       <Fortitude value="8" />
+       <Parry value="11" />
+       <Will value="8" />
+   </Defenses>
+</Document>

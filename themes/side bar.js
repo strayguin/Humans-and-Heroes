@@ -6,8 +6,8 @@ var currentPage = window.location.href.substring(absolutePrefix.length);
 
 var navigationJson = [
    {
-      "name":"1: The Basics",
-      "link":"1-the-basics.html",
+      "name":"The Basics",
+      "link":"the-basics.html",
       "children":[
          {
             "name":"Conditions",
@@ -20,156 +20,156 @@ var navigationJson = [
       ]
    },
    {
-      "name":"2: Secret Origins",
-      "link":"2-secret-origins.html",
+      "name":"Secret Origins",
+      "link":"secret-origins.html",
       "children":[
          {
             "name":"Battlesuit",
-            "link":"2-secret-origins/battlesuit.html"
+            "link":"secret-origins/battlesuit.html"
          },
          {
             "name":"Construct",
-            "link":"2-secret-origins/construct.html"
+            "link":"secret-origins/construct.html"
          },
          {
             "name":"Crime Fighter",
-            "link":"2-secret-origins/crime-fighter.html"
+            "link":"secret-origins/crime-fighter.html"
          },
          {
             "name":"Energy Controller",
-            "link":"2-secret-origins/energy-controller.html"
+            "link":"secret-origins/energy-controller.html"
          },
          {
             "name":"Gadgeteer",
-            "link":"2-secret-origins/gadgeteer.html"
+            "link":"secret-origins/gadgeteer.html"
          },
          {
             "name":"Martial Artist",
-            "link":"2-secret-origins/martial-artist.html"
+            "link":"secret-origins/martial-artist.html"
          },
          {
             "name":"Mimic",
-            "link":"2-secret-origins/mimic.html"
+            "link":"secret-origins/mimic.html"
          },
          {
             "name":"Mystic",
-            "link":"2-secret-origins/mystic.html"
+            "link":"secret-origins/mystic.html"
          },
          {
             "name":"Paragon",
-            "link":"2-secret-origins/paragon.html"
+            "link":"secret-origins/paragon.html"
          },
          {
             "name":"Powerhouse",
-            "link":"2-secret-origins/powerhouse.html"
+            "link":"secret-origins/powerhouse.html"
          },
          {
             "name":"Psychic",
-            "link":"2-secret-origins/psychic.html"
+            "link":"secret-origins/psychic.html"
          },
          {
             "name":"Shapeshifter",
-            "link":"2-secret-origins/shapeshifter.html"
+            "link":"secret-origins/shapeshifter.html"
          },
          {
             "name":"Speedster",
-            "link":"2-secret-origins/speedster.html"
+            "link":"secret-origins/speedster.html"
          },
          {
             "name":"Warrior",
-            "link":"2-secret-origins/warrior.html"
+            "link":"secret-origins/warrior.html"
          },
          {
             "name":"Weapon Master",
-            "link":"2-secret-origins/weapon-master.html"
+            "link":"secret-origins/weapon-master.html"
          },
          {
             "name":"Make Your Own",
-            "link":"2-secret-origins/point-counter.html"
+            "link":"secret-origins/point-counter.html"
          }
       ]
    },
    {
-      "name":"3: Abilities",
-      "link":"3-abilities.html"
+      "name":"Abilities",
+      "link":"abilities.html"
    },
    {
-      "name":"4: Skills",
-      "link":"4-skills.html"
+      "name":"Skills",
+      "link":"skills.html"
    },
    {
-      "name":"5: Advantages",
-      "link":"5-advantages.html"
+      "name":"Advantages",
+      "link":"advantages.html"
    },
    {
-      "name":"6: Powers",
-      "link":"6-powers.html",
+      "name":"Powers",
+      "link":"powers.html",
       "children":[
          {
             "name":"Effects",
-            "link":"6-powers/effects.html"
+            "link":"powers/effects.html"
          },
          {
             "name":"Descriptors",
-            "link":"6-powers/descriptors.html"
+            "link":"powers/descriptors.html"
          },
          {
             "name":"Modifiers",
-            "link":"6-powers/modifiers.html"
+            "link":"powers/modifiers.html"
          }
       ]
    },
    {
-      "name":"7: Gadgets &amp; Gear",
-      "link":"7-gadgets-gear.html",
+      "name":"Gadgets &amp; Gear",
+      "link":"gadgets-gear.html",
       "children":[
          {
             "name":"Constructs",
-            "link":"7-gadgets-gear/constructs.html",
+            "link":"gadgets-gear/constructs.html",
             "children":[
                {
                   "name":"Giant Robot",
-                  "link":"7-gadgets-gear/constructs/giant-robot.html"
+                  "link":"gadgets-gear/constructs/giant-robot.html"
                },
                {
                   "name":"Robot",
-                  "link":"7-gadgets-gear/constructs/robot.html"
+                  "link":"gadgets-gear/constructs/robot.html"
                },
                {
                   "name":"Zombie",
-                  "link":"7-gadgets-gear/constructs/zombie.html"
+                  "link":"gadgets-gear/constructs/zombie.html"
                }
             ]
          },
          {
             "name":"Headquarters",
-            "link":"7-gadgets-gear/headquarters.html"
+            "link":"gadgets-gear/headquarters.html"
          },
          {
             "name":"Vehicles",
-            "link":"7-gadgets-gear/vehicles.html"
+            "link":"gadgets-gear/vehicles.html"
          }
       ]
    },
    {
-      "name":"8: Action &amp; Adventure",
-      "link":"8-action-adventure.html"
+      "name":"Action &amp; Adventure",
+      "link":"action-adventure.html"
    },
    {
-      "name":"9: Gamemastering",
-      "link":"9-gamemastering.html"
+      "name":"Gamemastering",
+      "link":"gamemastering.html"
    },
    {
-      "name":"10: Commentary",
-      "link":"10-commentary.html"
+      "name":"Commentary",
+      "link":"commentary.html"
    },
    {
-      "name":"11: Supplementary Rules",
-      "link":"11-supplementary-rules.html"
+      "name":"Supplementary Rules",
+      "link":"supplementary-rules.html"
    },
    {
-      "name":"12: Examples",
-      "link":"12-examples.html"
+      "name":"Examples",
+      "link":"examples.html"
    },
    {
       "name":"Glossary of Terms",

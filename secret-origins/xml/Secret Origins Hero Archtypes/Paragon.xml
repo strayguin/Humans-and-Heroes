@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Document ruleset="3.0" version="2">
+    <Hero name="Paragon" transcendence="0" image="../images/Paragon.jpg" />
+    <Information>Complications, background and other information</Information>
+   <Abilities>
+       <Strength value="12" />
+       <Agility value="3" />
+       <Fighting value="8" />
+       <Awareness value="1" />
+       <Stamina value="12" />
+       <Dexterity value="3" />
+       <Intellect value="0" />
+       <Presence value="1" />
+   </Abilities>
+   <Powers>
+       <Row effect="Flight" text="500 MPH" action="Free" range="Personal" duration="Sustained" rank="8" />
+       <Row effect="Immunity" text="Life Support" action="None" range="Personal" duration="Permanent" rank="7" />
+       <Row effect="Feature" cost="2" text="Impervious Toughness 6" action="None" range="Personal" duration="Permanent" rank="6" />
+       <Row effect="Quickness" text="" action="Free" range="Personal" duration="Sustained" rank="3" />
+      <Row effect="Enhanced Trait" cost="2" text="Lifting Str 14; 400 tons" action="Free" range="Personal" duration="Sustained" rank="2">
+          <Modifier name="Limited" applications="1" text="to Lifting" />
+      </Row>
+   </Powers>
+    <Equipment></Equipment>
+   <Advantages>
+       <Row name="Power Attack" />
+   </Advantages>
+   <Skills>
+       <Row name="Expertise" subtype="(Choose One)" rank="7" ability="Intellect" />
+       <Row name="Insight" subtype="" rank="8" ability="Awareness" />
+       <Row name="Perception" rank="8" ability="Awareness" />
+       <Row name="Persuasion" rank="6" ability="Presence" />
+       <Row name="Ranged Combat" subtype="Throwing" rank="5" ability="Dexterity" />
+   </Skills>
+   <Defenses>
+       <Dodge value="5" />
+       <Fortitude value="0" />
+       <Parry value="0" />
+       <Will value="7" />
+   </Defenses>
+</Document>
