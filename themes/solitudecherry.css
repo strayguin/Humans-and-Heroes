@@ -433,6 +433,12 @@ body {
     padding: 15px 0 0;
 }
 
+.table-body {
+    margin: 25px;
+    border-spacing: 0px;
+    border-width: 0px;
+}
+
 .alt tr {
     text-align: center;
 }
@@ -575,6 +581,7 @@ All have border: solid thin #999999;
 I doubt the need for clear: both; and text-align: left;
 Look into fixing up the constructs like I did the example characters
 Write a script to inline classes that are only used once
+and create classes for styles that are used more than once (even if small)
 */
 
 .generated-class-0 {
