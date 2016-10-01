@@ -103,7 +103,7 @@ var navigationJson = [
    },
    {
       "name":"Powers",
-      "link":"powers.html",
+      "link":"powers/index.html",
       "children":[
          {
             "name":"Effects",
