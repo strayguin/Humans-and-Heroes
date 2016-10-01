@@ -121,7 +121,7 @@ var navigationJson = [
    },
    {
       "name":"Gadgets &amp; Gear",
-      "link":"gadgets-gear.html",
+      "link":"gadgets-gear/index.html",
       "children":[
          {
             "name":"Constructs",
