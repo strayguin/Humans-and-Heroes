@@ -160,8 +160,22 @@ var navigationJson = [
       "link":"gamemastering.html"
    },
    {
-      "name":"Commentary",
-      "link":"commentary.html"
+      "name":"Meta",
+      "link":"meta/index.html",
+      "children":[
+         {
+            "name":"Author Commentary",
+            "link":"meta/author-commentary.html"
+         },
+         {
+            "name":"Change Explanation",
+            "link":"meta/change-explanation.html"
+         },
+         {
+            "name":"Known Issues",
+            "link":"meta/known-issues.html"
+         }
+      ]
    },
    {
       "name":"Supplementary Rules",
