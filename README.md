@@ -64,7 +64,7 @@ How experienced was your GM in general?
 How many protagonists were there?
 What power level were your characters? (probably 10)
 Was there any point where a character (whose stats actually mattered) had a power level of at least 20? I hope transcendence wasn't involved: those rules need an overhaul.
-(Take a look at Chapter 9 "CREATING A SERIES") what style was the game: Light (which is 4-color), Dark, or Grayscale?
+(Take a look at 9-gamemastering.html "CREATING A SERIES") what style was the game: Light (which is 4-color), Dark, or Grayscale?
 Did you enjoy the game overall?
 
 Feel free to say anything else. Complain, compliment, suggest, or whatever.
