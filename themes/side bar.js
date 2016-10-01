@@ -21,7 +21,7 @@ var navigationJson = [
    },
    {
       "name":"Secret Origins",
-      "link":"secret-origins.html",
+      "link":"secret-origins/index.html",
       "children":[
          {
             "name":"Battlesuit",
