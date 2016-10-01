@@ -21,7 +21,7 @@ directories. Likewise there are a few pages that are not linked to, they exist f
 The minor version numbers originally represented the number of times I distributed it.
 Minor version numbers now count the number of commits which change rules. The commit hash could also be used as reference.
 
-As stated in the first paragraph of The Basics (the-basics.html):
+As stated in the first paragraph of The Basics (the-basics/index.html):
 This code was copied from [The d20 Hero SRD](www.d20herosrd.com) using the tool [HTTrack](http://www.httrack.com/).
 The original site is owned by John Reyst and the modifications were done by Ryan Worcester.
 I wasn't granted permission to use the CSS or the images.

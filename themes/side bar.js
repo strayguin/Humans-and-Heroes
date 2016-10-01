@@ -7,15 +7,15 @@ var currentPage = window.location.href.substring(absolutePrefix.length);
 var navigationJson = [
    {
       "name":"The Basics",
-      "link":"the-basics.html",
+      "link":"the-basics/index.html",
       "children":[
          {
             "name":"Conditions",
-            "link":"home/conditions.html"
+            "link":"the-basics/conditions.html"
          },
          {
             "name":"Ranks and Measures",
-            "link":"home/ranks-and-measures.html"
+            "link":"the-basics/ranks-and-measures.html"
          }
       ]
    },
