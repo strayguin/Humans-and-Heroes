@@ -125,7 +125,7 @@ var navigationJson = [
       "children":[
          {
             "name":"Constructs",
-            "link":"gadgets-gear/constructs.html",
+            "link":"gadgets-gear/constructs/index.html",
             "children":[
                {
                   "name":"Giant Robot",
