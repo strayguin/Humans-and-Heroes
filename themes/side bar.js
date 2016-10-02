@@ -114,7 +114,7 @@ var navigationJson = [
       "children":[
          {
             "name":"Effects",
-            "link":"powers/effects.html"
+            "link":"powers/effects/index.html"
          },
          {
             "name":"Descriptors",
