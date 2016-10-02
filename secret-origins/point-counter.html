@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="ASCII" />
 <link rel="stylesheet" type="text/css" href="../themes/solitudecherry.css" />
 <link rel="shortcut icon" type="image/x-icon" href="../images/google-default.ico" />
 <title>Point Counter - Humans &amp; Heroes SRD</title>
-
 </head>
 <body>
 <table class="table-body">
@@ -130,7 +128,6 @@
 </tr>
 </tbody>
 </table>
-
 <div class="character-sheet-point-totals">CHARACTER POINT TOTALS: ABILITIES <span id="ability total">0</span> &#8226; POWERS <span id="power total">0</span> &#8226; ADVANTAGES <span id="advantage total">0</span> &#8226; SKILLS <span id="skill total">0</span> &#8226; DEFENSES <span id="defense total">0</span> = <span id="grand total used">0</span> / <span id="grand total max">0</span></div>
 <br />
 <textarea id="bio box" rows="10" cols="100">Complications, background and other information</textarea>
@@ -138,7 +135,6 @@
 <!--ruleset's value is set at the bottom of this file-->
 <label>Rules: <input type="text" id="ruleset" size="1" onChange="Main.changeRuleset();" /></label>
 Note that only the <a href="../meta/versioning.html">most recent rules</a> are fully supported.
-
 <h2>Usage Notes</h2>
 <div>
 This page assumes you know all of the rules.<br />
@@ -179,7 +175,6 @@ There are some bugs I am aware of. Hopefully they won't be an issue.<br />
     <option>JSON</option>
 </select>
 </label>
-
 <br />
 <input type="file" id="fileChooser" accept=".xml,.js,.json" /><br />
 <input type="button" value="Load from File" onClick="Main.loadFile();" />
@@ -193,14 +188,12 @@ There are some bugs I am aware of. Hopefully they won't be an issue.<br />
 <a href="javascript:TestRunner.testAll();">Test All</a>, <a href="javascript:eval(document.getElementById('code box').value);">Eval Code Box</a>, and <a href="http://jsfiddle.net/" target="_new">jsfiddle</a><br /><br />
 <textarea id="testResults" rows="20" cols="100"></textarea>
 <!---->
-
 <br /><br />
 </div>
 </div>
 </td>
 </tr>
 </table>
-
 <script type="text/javascript" src="../minorVersion.js"></script>
 <script type="text/javascript">var Main;</script>
 <script type="text/javascript" src="javascript/main.js"></script>
@@ -211,6 +204,5 @@ Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
 document.getElementById('ruleset').value = Main.getActiveRuleset().toString();
 </script>
-
 </body>
 </html>
