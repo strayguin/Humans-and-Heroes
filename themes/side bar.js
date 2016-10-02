@@ -4,6 +4,13 @@ var absolutePrefix = window.location.href.replace(/(\/Humans(?:%20| |-)(?:%26|&|
 /**This is used to determine which link in the sidebar is my current page or a parent of current*/
 var currentPage = window.location.href.substring(absolutePrefix.length);
 
+currentPage = currentPage.replace(/\?.*$/, '').replace(/#.*$/, '');  //ignore query parameters and anchor
+if (!currentPage.endsWith('.html'))
+{
+   if(!currentPage.endsWith('/')) currentPage+='/';
+   currentPage+='index.html';
+}
+
 var navigationJson = [
    {
       "name":"The Basics",
@@ -115,7 +122,17 @@ var navigationJson = [
          },
          {
             "name":"Modifiers",
-            "link":"powers/modifiers.html"
+            "link":"powers/modifiers/index.html",
+            "children":[
+               {
+                  "name":"Extras",
+                  "link":"powers/modifiers/extras.html"
+               },
+               {
+                  "name":"Flaws",
+                  "link":"powers/modifiers/flaws.html"
+               }
+            ]
          }
       ]
    },
