@@ -174,6 +174,10 @@ var navigationJson = [
          {
             "name":"Known Issues",
             "link":"meta/known-issues.html"
+         },
+         {
+            "name":"Versioning",
+            "link":"meta/versioning.html"
          }
       ]
    },
