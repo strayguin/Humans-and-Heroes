@@ -114,7 +114,173 @@ var navigationJson = [
       "children":[
          {
             "name":"Effects",
-            "link":"powers/effects/index.html"
+            "link":"powers/effects/index.html",
+            "children":[
+               {
+                  "name":"Affliction",
+                  "link":"powers/effects/affliction-attack.html"
+               },
+               {
+                  "name":"Attain Knowledge",
+                  "link":"powers/effects/attain-knowledge-general.html"
+               },
+               {
+                  "name":"Communication",
+                  "link":"powers/effects/communication-sensory.html"
+               },
+               {
+                  "name":"Comprehend",
+                  "link":"powers/effects/comprehend-sensory.html"
+               },
+               {
+                  "name":"Concealment",
+                  "link":"powers/effects/concealment-sensory.html"
+               },
+               {
+                  "name":"Create",
+                  "link":"powers/effects/create-control.html"
+               },
+               {
+                  "name":"Damage",
+                  "link":"powers/effects/damage-attack.html"
+               },
+               {
+                  "name":"Enhanced Trait",
+                  "link":"powers/effects/enhanced-trait-general.html"
+               },
+               {
+                  "name":"Environment",
+                  "link":"powers/effects/environment-control.html"
+               },
+               {
+                  "name":"Feature",
+                  "link":"powers/effects/feature-general.html"
+               },
+               {
+                  "name":"Flight",
+                  "link":"powers/effects/flight-movement.html"
+               },
+               {
+                  "name":"Growth",
+                  "link":"powers/effects/growth-general.html"
+               },
+               {
+                  "name":"Healing",
+                  "link":"powers/effects/healing-general.html"
+               },
+               {
+                  "name":"Illusion",
+                  "link":"powers/effects/illusion-control.html"
+               },
+               {
+                  "name":"Immortality",
+                  "link":"powers/effects/immortality-defense.html"
+               },
+               {
+                  "name":"Immunity",
+                  "link":"powers/effects/immunity-defense.html"
+               },
+               {
+                  "name":"Insubstantial",
+                  "link":"powers/effects/insubstantial-general.html"
+               },
+               {
+                  "name":"Leaping",
+                  "link":"powers/effects/leaping-movement.html"
+               },
+               {
+                  "name":"Luck Control",
+                  "link":"powers/effects/luck-control-control.html"
+               },
+               {
+                  "name":"Mental Transform",
+                  "link":"powers/effects/mental-transform-attack.html"
+               },
+               {
+                  "name":"Mind Reading",
+                  "link":"powers/effects/mind-reading-sensory.html"
+               },
+               {
+                  "name":"Mind Switch",
+                  "link":"powers/effects/mind-switch-attack.html"
+               },
+               {
+                  "name":"Morph",
+                  "link":"powers/effects/morph-general.html"
+               },
+               {
+                  "name":"Move Object",
+                  "link":"powers/effects/move-object-control.html"
+               },
+               {
+                  "name":"Movement",
+                  "link":"powers/effects/movement-movement.html"
+               },
+               {
+                  "name":"Nullify",
+                  "link":"powers/effects/nullify-attack.html"
+               },
+               {
+                  "name":"Permeate",
+                  "link":"powers/effects/permeate-movement.html"
+               },
+               {
+                  "name":"Phantom Ranks",
+                  "link":"powers/effects/phantom-ranks-general.html"
+               },
+               {
+                  "name":"Protection",
+                  "link":"powers/effects/protection-defense.html"
+               },
+               {
+                  "name":"Quickness",
+                  "link":"powers/effects/quickness-general.html"
+               },
+               {
+                  "name":"Regeneration",
+                  "link":"powers/effects/regeneration-defense.html"
+               },
+               {
+                  "name":"Remote Sensing",
+                  "link":"powers/effects/remote-sensing-sensory.html"
+               },
+               {
+                  "name":"Resistance",
+                  "link":"powers/effects/resistance-defense.html"
+               },
+               {
+                  "name":"Senses",
+                  "link":"powers/effects/senses-sensory.html"
+               },
+               {
+                  "name":"Shrinking",
+                  "link":"powers/effects/shrinking-general.html"
+               },
+               {
+                  "name":"Summon Minion",
+                  "link":"powers/effects/summon-minion-control.html"
+               },
+               {
+                  "name":"Summon Object",
+                  "link":"powers/effects/summon-object-control.html"
+               },
+               {
+                  "name":"Teleport",
+                  "link":"powers/effects/teleport-movement.html"
+               },
+               {
+                  "name":"Transform",
+                  "link":"powers/effects/transform-control.html"
+               },
+               {
+                  "name":"Variable",
+                  "link":"powers/effects/variable-general.html"
+               },
+               {
+                  "name":"Weaken",
+                  "link":"powers/effects/weaken-attack.html"
+               }
+            ]
          },
          {
             "name":"Descriptors",
