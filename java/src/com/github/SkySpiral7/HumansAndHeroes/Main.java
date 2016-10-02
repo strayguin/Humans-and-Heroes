@@ -17,7 +17,7 @@ public class Main
 
    public static void main(String[] args) throws Exception
    {
-      FileMover.moveFile(new File("../powers/effects.html"), new File("../powers/effects/index.html"));
+      FileMover.batchMove();
    }
 
    public static void writeToFiles()

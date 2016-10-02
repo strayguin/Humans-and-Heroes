@@ -17,6 +17,16 @@ public class FileMover
 {
    private static final File sideBar = new File("../themes/side bar.js");
 
+   public static void batchMove() throws IOException
+   {
+      for (final File currentFile : Main.getAllHtmlFiles(new File("../powers/effects/effect-descriptions")))
+      {
+         System.out.print("Top: Looking at ");
+         System.out.println(currentFile);
+         moveFile(currentFile, Paths.get("../powers/effects", currentFile.getName()).toFile());
+      }
+   }
+
    public static void moveFile(final File oldFile, final File newFile) throws IOException
    {
       for (final File currentFile : Main.getAllHtmlFiles(Main.rootFolder))
@@ -49,6 +59,14 @@ public class FileMover
       final String pathToOld = linkBetween(fakeFile, oldFile);
       final String pathToNew = linkBetween(fakeFile, newFile);
       final String newContents = MyTools.StringLiteralReplaceFirst(originalContents, pathToOld, pathToNew);
+      try
+      {
+         Thread.sleep(10);
+      }
+      catch (InterruptedException e)
+      {
+         throw new RuntimeException(e);
+      }
       FileIoUtil.writeToFile(sideBar, newContents);
    }
 
@@ -56,7 +74,7 @@ public class FileMover
    {
       findAllLinks(currentFile).forEach(linkText ->
       {
-         if (!MyTools.regexFoundInString(linkText, "^(?:src|href)=\"http"))
+         if (!MyTools.regexFoundInString(linkText, "^(?:src|href)=\"http") && !linkText.startsWith("href=\"#"))
          {
             final Matcher matcher = Pattern.compile("^(?:src|href)=\"([^\"#?]+)").matcher(linkText);
             matcher.find();
@@ -68,6 +86,14 @@ public class FileMover
             final String pathToNew = linkBetween(newFile, oldFile);
             //don't include the end " in order to allow # etc
             final String newContents = originalContents.replaceAll("(src|href)=\"" + pathToOld, "$1=\"" + pathToNew);
+            try
+            {
+               Thread.sleep(10);
+            }
+            catch (InterruptedException e)
+            {
+               throw new RuntimeException(e);
+            }
             FileIoUtil.writeToFile(currentFile, newContents);
          }
       });
@@ -80,6 +106,14 @@ public class FileMover
       final String pathToNew = linkBetween(currentFile, newFile);
       //don't include the end " in order to allow # etc
       final String newContents = originalContents.replaceAll("(src|href)=\"" + pathToOld, "$1=\"" + pathToNew);
+      try
+      {
+         Thread.sleep(10);
+      }
+      catch (InterruptedException e)
+      {
+         throw new RuntimeException(e);
+      }
       FileIoUtil.writeToFile(currentFile, newContents);
    }
 

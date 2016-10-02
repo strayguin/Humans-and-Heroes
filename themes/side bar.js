@@ -233,7 +233,7 @@ function sideBarCreation(entry, depth)
    output+='<li';
    if (isParent || 0 === depth)
    {
-      output+=' class=\"';
+      output+=' class="';
       if(0 === depth) output+='topLevel';
       if(0 === expandIndex) output+=' nav-first';
       if (isParent)
@@ -242,9 +242,9 @@ function sideBarCreation(entry, depth)
          output+='parent';
          var containingFolderOfLink = entry.link.replace(/\/[^\/]*?$/, '/');
          if(depth > 0 && !currentPage.startsWith(containingFolderOfLink)) output+=' closed';
-         output+='\" id=\"expand' + expandIndex;
+         output+='" id="expand' + expandIndex;
       }
-      output+='\"';
+      output+='"';
    }
    output+='>\n';
 
