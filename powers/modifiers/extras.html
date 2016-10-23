@@ -222,18 +222,20 @@ modifier costs +1 cost per rank.</div>
 degree of success. At the GM's discretion, someone holding, carrying, or wearing an object can make a Dodge resistance
 check against the effect, representing pulling the object out of the way at the last moment.</div>
 <h3 class="generated-class-8" id="TOC-AFFECTS-OTHERS">AFFECTS OTHERS +0 OR +1 COST PER RANK</h3>
-<div style="padding:5px">This extra allows you to give someone else use of a personal effect. You must touch the subject
-as a standard action, and they have control over their use of the effect, although you can withdraw it when you wish as
-a free action. They may also dismiss it as a free action. If you are unable to maintain the effect, it stops working,
-even if someone else is using it. You may only use the power yourself if no one else is using it.</div>
-<div style="padding:5px">A target can only have a 1 affect others being applied to you at a time (excluding ones you
-own) this means only a single linked group of powers or a single device worth at most.</div>
+<div style="padding:5px">This can't be applied to a Permanent effect and can only be applied to a personal range effect.
+The range changes from personal to close in order to give someone else the trait (as long as he is within range).
+It takes a move action to give the power. The activation flaw is built in and can't be applied again.
+You may revoke the power at any time as a free action but do not need to take any action to maintain the effect.
+The target has control over the trait he gained and must maintain it.
+Since it still only affects 1 target: you may only use the power yourself if no one else is using it.
+The <a href="#TOC-AREA">Area</a> extra can't be applied to this power but <a href="#TOC-SPLIT">Split</a> can.
+You can't apply both <b>Affects Others</b> and <a href="#TOC-ATTACK">Attack</a> (since they both require the range to be personal when applied).</div>
 <div style="padding:5px">If a device is using this modifier to grant the user a power that has duration shorter than
 continuous then the device must be in use whenever the effect is maintained otherwise the duration ends. A device that
-uses a continuous effect will not end until the current user decides to end the duration, destoring the device will not
-end the duration (the duration will continue until the device is fixed or the effect is countered).</div>
-<div style="padding:5px">If you can never use the effect (<b>Affects Only Others</b> is has a built in flaw) it has a
-net modifier of +0. Otherwise this modifier costs +1 cost per rank.</div>
+uses a continuous effect will not end until the current device user decides to end the duration or the device is destroyed
+which will cause a power loss of the device thus ending the affect.</div>
+<div style="padding:5px">If you can never use the effect (aka <b>Affects Others Only</b>) this extra
+is free (+0 cost per rank). Otherwise (aka <b>Affects Others Also</b>) this modifier costs +1 cost per rank.</div>
 <h3 class="generated-class-8" id="TOC-ALTERNATE-RESISTANCE">ALTERNATE RESISTANCE +0 OR +1 COST PER RANK</h3>
 <div style="padding:5px">An effect with this modifier has a different resistance than usual. The resistance check
 difficulty class remains the same, only the resistance differs. If the change is to a generally lower (and therefore
@@ -243,10 +245,9 @@ Toughness to any other defense is +1 although this modifier is never a flaw even
 Toughness. The defense against an attack can't be changed, it is determined by range: Parry for Close range and Dodge
 for Ranged range. To add a resistance check for Perception range see the <b>Resistible</b> flaw below.</div>
 <h3 class="generated-class-8" id="TOC-AREA">AREA +1 COST PER RANK PER APPLICATION</h3>
-<div style="padding:5px">This extra allows an effect that normally works on a single target to affect an area. This
-modifier can't be applied to Enhanced Trait or powers with the Affects Others modifier, however the Attack modifier has
-no conflict due to the effect acting as one. In order to get Enhanced Trait or powers with the Affects Others to affect
-multiple targets see the Split modifier. No attack check is needed; the effect simply fills the designated area, based
+<div style="padding:5px">This can't be applied to personal range effects and can't be applied to powers with the <a href="#TOC-AFFECTS-OTHERS">Affects Others</a>
+or <a href="#TOC-ATTACK">Attack</a> extras. This extra allows an effect that normally works on a single target to affect an area.
+No attack check is needed; the effect simply fills the designated area, based
 on the type of modifier. Potential targets in the area are permitted a Dodge resistance check (DC is effect rank) to
 avoid some of the effect (reflecting ducking for cover, dodging out of the way, and so forth). Partial cover reduces the
 Area effect to half its normal rank against that target (round down, minimum of 1 rank) and total cover makes the target
@@ -293,6 +294,8 @@ with +2 cost per rank has a 60-foot radius (distance rank 1), a 120-foot radius 
 and so forth.</div>
 <h3 class="generated-class-3" id="TOC-AREA-RANGE">RANGE</h3>
 <div style="padding:5px">The Area modifier interacts with different ranges as follows:</div>
+<div style="padding:5px"><b>Personal</b>: Personal effects can't have the area modifier. Instead you'll have to use
+<a href="#TOC-SPLIT">Split</a> along with either <a href="#TOC-AFFECTS-OTHERS">Affects Others</a> or <a href="#TOC-ATTACK">Attack</a>.</div>
 <div style="padding:5px"><b>Close</b>: An effect must be at least close range in order to apply Area (personal range
 effects work only on the user by definition). A Close Area effect originates from the user and expands to fill the
 affected area; the user is not affected by it. So, for example, Close Burst Area Damage does not damage the user, who is
@@ -317,21 +320,17 @@ can perceive them. Conversely, Fright-Master has a Burst Area Affliction as well
 solid barrier (such as on the other side of that glass wall or invisible shield) are unaffected, but the unseen or concealed
 target is, even though Fright-Master can't perceive him, since the gas still reaches them.</div>
 <h3 class="generated-class-8" id="TOC-ATTACK">ATTACK +1 COST PER RANK</h3>
-<div style="padding:5px">This extra applies to personal range effects, making them into attack effects. Examples include
-Shrinking and Teleport, causing a target to shrink or teleport away, respectively. This modifier can't
-be applied to a power with Permanent duration.</div>
+<div style="padding:5px">This functions like <a href="#TOC-AFFECTS-OTHERS">Affect Others</a> above but is considered an attack.
+You control (if applicable) and maintain (if necessary) the trait of the target.</div>
 <div style="padding:5px">The effect still works on you (you are allowed to attack yourself) but still only affects a single target at a time.
-It affects one creature of any size or 50 lbs. of inanimate mass. The effect has close range and maintains the same duration and action.
-In addition to Parry/Dodge to avoid the attack, the target
-gets Fortitude or Will check (chosen when this modifier is applied) vs DC 0. A successful check negates the effect but
+It affects one creature of any size or 50 lbs. of inanimate mass. In addition to Parry/Dodge to avoid the attack, the target
+gets a Fortitude or Will check (chosen when this modifier is applied) vs DC = effect rank. A successful check negates the effect but
 failure means that the target is affected by a number of ranks equal to the difference of success with a maximum of the number
 of ranks you have in the effect. Note that if you are attacking yourself you may choose to fail a Will defense check
 but Fortitude must still be rolled.</div>
-<div style="padding:5px">You control the effect, and maintain it (if it has a duration longer than instant) unlike the
-Affects Others modifier in which the target controls the effect. You can't have Affects Others on an Attack.</div>
-<div style="padding:5px">Also see <b>Affects Others</b>, <b>Alternate Effect</b>, and <b>Increased Mass</b>.</div>
 <h3 class="generated-class-8" id="TOC-CONTAGIOUS">CONTAGIOUS +1 COST PER RANK</h3>
-<div style="padding:5px">Contagious effects work on both the target and anyone coming into contact with the target. New
+<div style="padding:5px">This can't be applied to personal range effects.
+Contagious effects work on both the target and anyone coming into contact with the target. New
 targets resist the effect normally. They also become contagious, and the effect lingers until all traces of it have been
 eliminated. A Contagious effect is also eliminated if its duration expires. Examples of effects with this extra include
 "sticky" Afflictions trapping anyone touching them, disease- or toxin-based Weaken effects, or even a Nullify effect
@@ -416,7 +415,8 @@ can't exceed half your defense score (rounded up).</div>
 <div style="padding:5px">The duration for an effect is grouped in order as follows: Concentration, Sustained,
 Continuous, then Permanent. See <b>Duration </b>for details. This modifier increases an effect's duration from left to
 right. Each duration increase cost +1 except going from Continuous to Permanent which is -1 therefore going from
-Sustained to Permanent is free. Effects must have their base action type before becoming Permanent duration. Effects
+Sustained to Permanent is free. Effects must have their base action type before becoming Permanent duration and only
+personal range effects can become Permanent. Effects
 that have a base duration of Instant can't have their durations changed. Also see <b>Decreased Duration</b>
 modifier.</div>
 <h3 class="generated-class-3">Going from Continuous to Permanent</h3>
