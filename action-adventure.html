@@ -33,7 +33,7 @@ opportunity to do something. A character has an allotment of <b>actions</b>, use
 decide what their characters do on their turns, while the GM handles everyone else's turn.</div>
 <h2 style="font-size:28px" id="TOC-INITIATIVE">INITIATIVE</h2>
 <div style="padding:5px">The order in which characters take their turns is determined by <b>initiative</b>. Base
-initiative bonus is equal to the character's Agility rank. Many characters have advantages or powers that modify their
+initiative bonus is equal to the character's Agility rank. Characters may have advantages or powers that modify their
 initiative, such as Improved Initiative. At the start of a conflict, roll an initiative check for each character:</div>
 <div class="generated-class-5">3dF + initiative modifier</div>
 <div style="padding:5px">The initiative check determines what order characters act in, counting down from highest check
@@ -43,7 +43,10 @@ to fit the initiative order. If two characters have the same initiative result, 
 first, then highest Agility and highest Awareness. If there is still a tie, each tied player should roll dice, with the
 highest roll going first. The GM may roll just once for an entire group of minions, giving them all the same
 initiative.</div>
-<div style="padding:5px">If characters enter a conflict after it's begun, they roll initiative when they join-in and act
+<div style="padding:5px">After the first turn has started the initiative numbers still exist but only matter if someone
+joins the conflict afterward. A round is defined as the time it takes to get back to that same character's next turn,
+it is not defined as going from the lowest initiative number back to the highest.
+If characters enter a conflict after it's begun, they roll initiative when they join-in and act
 when their turn comes up in the existing order.</div>
 <h3 class="generated-class-8" id="TOC-SURPRISE">SURPRISE</h3>
 <div style="padding:5px">Some conflicts begin with one or more characters caught unaware or <b>surprised</b>. This is
@@ -53,13 +56,13 @@ characters on a side can be surprised while others are not.</div>
 until their turn (see <b>Conditions</b> in <a href="the-basics/index.html">The Basics</a>).</div>
 <h2 style="font-size:28px" id="TOC-ACTION-TYPES">ACTION TYPES</h2>
 <div style="padding:5px">The seven types of actions that effects require from slowest to fastest are slow, full,
-standard, move, free, reaction, and triggered. In a normal round, you can perform a standard action and a move action,
-or one full round action. A standard action can be traded for a move action instead. You can also perform as many free,
+standard, move, free, reaction, and triggered. Normally during your turn you can perform a standard action and a move action,
+or one full turn action. A standard action can be traded for a move action instead. You can also perform as many free,
 reactions, and triggered actions as your GM allows. But slow actions are not possible to use in combat.</div>
-<div style="padding:5px">Some situations (like the being surprised) and conditions (like being dazed) limit the actions
+<div style="padding:5px">Some situations and conditions (like being dazed) limit the actions
 you can take during your turn.</div>
 <h3 class="generated-class-8" id="TOC-SLOW-ACTION">SLOW ACTION</h3>
-<div style="padding:5px">This can't effectively be done in combat because it would take more than 10 rounds to perform.
+<div style="padding:5px">This can't effectively be done in combat because it would take more than 10 rounds (1 minute) to perform.
 These effects take various amounts of long time so that it can't be done during combat always taking at least a minute
 but it could be an hour or more. The GM sets the specific time in cases where it matters, but it should be short enough
 that you can do it between scenes in a game, but long enough that you effectively cannot do it during action time.
@@ -72,24 +75,28 @@ concentration duration then you might need to continue using any needed supplies
 no powers that are slow by default and thus this would be a result of the flaw <a
 href="powers/modifiers/flaws.html#TOC-SLOWER-ACTION">Slower Action</a>. Some effects, like <b>Affliction</b>, tend to be
 worthless when slow.</div>
-<h3 class="generated-class-8" id="TOC-FULL-ROUND-ACTION">FULL ROUND ACTION</h3>
-<div style="padding:5px">You may trade a standard action and a move action for a full round action. <b>Variable</b> is
-the only effect that takes a full round action by default but other effects may be slowed down to this action with the
+<h3 class="generated-class-8" id="TOC-FULL-TURN-ACTION">FULL TURN ACTION</h3>
+<div style="padding:5px">A full turn action requires your entire turn. Therefore it requires both a standard action and a
+move action to do. If you can't spend both a standard and move action for any reason (such as being <b>Dazed</b>)
+then you can't perform a full turn action (because you are unable to utilize your full turn).
+<b>Variable</b> is
+the only effect that takes a full turn action by default but other effects may be slowed down to this action with the
 flaw <a href="powers/modifiers/flaws.html#TOC-SLOWER-ACTION">Slower Action</a>.</div>
 <h3 class="generated-class-8" id="TOC-STANDARD-ACTION">STANDARD ACTION</h3>
 <div style="padding:5px">A standard action allows you to do something. You can make an attack, use a skill, advantage,
-or power, or perform other similar actions. During a combat round, you can take a standard action and a move
-action.</div>
+or power, or perform other similar actions. A standard action represents 3/5ths of your turn therefore you can only use 1 standard
+action during your turn. Normally during your turn, you can take a standard action and a move action.</div>
 <h3 class="generated-class-8" id="TOC-MOVE-ACTION">MOVE ACTION</h3>
 <div style="padding:5px">A move action allows you to move your speed or perform an action taking a similar amount of
 time, such as draw or stow a weapon or other object, stand up, pick up an object, or perform some equivalent action (see
 the <b>Actions in Combat Table</b>).</div>
-<div style="padding:5px">You can take a move action in place of a standard action. For example, rather than moving your
+<div style="padding:5px">A move action represents 2/5ths of your turn therefore a standard can be traded down for a move action
+in order to take 2 move actions. For example, rather than moving your
 speed and attacking you can stand up and move your speed (two move actions), draw a weapon and climb (two move actions),
 or pick up an object and stow it (two move actions). You can also make a DC 5 Athletics check as a free action to run
 faster: one or more degree of success increases your ground speed rank by +1 for one round.</div>
 <h3 class="generated-class-8" id="TOC-FREE-ACTION">FREE ACTION</h3>
-<div style="padding:5px">Free actions consume very little time and, over the span of the round, their impact is so minor
+<div style="padding:5px">Free actions consume very little time and, over the span of the turn, their impact is so small
 they are considered to take no real time at all. You can perform one or more free actions while taking another action.
 For instance, dropping an object, dropping to a prone position, speaking a sentence or two, and ceasing to concentrate
 on maintaining a power are all free actions.</div>
@@ -116,33 +123,50 @@ characters. Thinking takes No Action if the character is able to do so (must be 
 <div style="padding:5px">There are certain limitations for balance reasons that ignore what actions are taken to perform
 a task. They are as follows:</div>
 <ul>
-<li><div style="padding:5px">After you attack you can't attack again until your next turn. This includes any effect with the <b>Attack</b> modifier but <b>Affects Others</b> and <b>Enhanced Trait</b> have no limitation.</div></li>
-<li><div style="padding:5px">After a character is revived (from <b>Immortality</b> or <b>Healing</b>) they can't be revived again until 8 minutes have passed (time rank 7). This would be 80 turns so that it can't be done in combat.</div></li>
-<li><div style="padding:5px">After you have moved twice you can't move again until your next turn. This includes movement type effects and the natural ability to walk etc.</div></li>
-<li><div style="padding:5px">After a character is targeted by <b>Healing</b> and recovers at least 1 HP they can't recover any more HP by any other <b>Healing</b> effects until their next turn. <b>Regeneration</b>, natural healing, and other forms of healing are not limited.</div></li>
+<li><div style="padding:5px">After you attack you can't attack again until your next turn. This includes any effect with
+the <b>Attack</b> modifier but <b>Affects Others</b> and <b>Enhanced Trait</b> have no limitation.</div></li>
+<li><div style="padding:5px">After a character is revived (from <b>Immortality</b> or <b>Healing</b>) they can't be revived
+again until 8 minutes have passed (time rank 7). This would be 80 turns so that it can't be done in combat.</div></li>
+<li><div style="padding:5px">After you have moved twice you can't move again until your next turn. This includes movement
+type effects and the natural ability to walk etc.</div></li>
+<li><div style="padding:5px">After a character is targeted by <b>Healing</b> and recovers at least 1 HP they can't recover
+any more HP by any other <b>Healing</b> effects until their next turn. <b>Regeneration</b>, natural healing, and other forms
+of healing are not limited.</div></li>
 </ul>
 <h2 style="font-size:28px" id="TOC-TAKING-YOUR-TURN">TAKING YOUR TURN</h2>
 <div style="padding:5px">When it is your turn in the initiative order, you declare what actions your character will
 perform, and they are resolved in order.</div>
+<div style="padding:5px">Note that even if you are incapacitated or dead you still get a turn in order to keep track
+of any ongoing effects that still apply. For example if you are killed while using Sustained <a href="powers/effects/flight-movement.html">Flight</a>
+then you will stay in the air until your turn at which point you will fall (this happens right away if it is currently your turn).</div>
 <h3 class="generated-class-8" id="TOC-STARTING-YOUR-TURN">STARTING YOUR TURN</h3>
 <div style="padding:5px">The Gamemaster informs you when it is your turn. When you start your turn, you should:</div>
 <div style="padding:5px">End effects that last "until the start of your next turn".</div>
+<div style="padding:5px">Gain ongoing beneficial effects such as gaining HP from <a href="powers/effects/regeneration-defense.html">Regeneration</a>.</div>
 <h3 class="generated-class-8" id="TOC-TAKING-ACTIONS">TAKING ACTIONS</h3>
 <div style="padding:5px">You get a standard and a move action each turn. You can exchange your standard action for an
 additional move action, allowing you to perform two move actions. You can also perform as many free actions on your turn
 as you wish.</div>
-<h3 class="generated-class-8" id="TOC-ORDER-OF-ACTIONS">ORDER OF ACTIONS</h3>
+<h3 class="generated-class-3" id="TOC-ORDER-OF-ACTIONS">ORDER OF ACTIONS</h3>
 <div style="padding:5px">You perform your actions in any order that you wish, but you cannot normally "split" your
 actions. So, for example, although you can move (move action) and then attack (standard action) or attack and then move,
 you cannot move half your distance, attack, and then move the other half unless you have some special trait that allows
 you to do so.</div>
-<h3 class="generated-class-8" id="TOC-EXTRA-ACTION">EXTRA ACTION</h3>
+<h3 class="generated-class-3" id="TOC-MAINTAINING-EFFECTS">MAINTAINING EFFECTS</h3>
+<div style="padding:5px">You may take the action required to maintain an effect as normal or you can choose to end the effect.
+Choosing to end an effect you are maintaining is a free action (including Continuous duration). Likewise deactivating a power
+that has the <a href="powers/modifiers/flaws.html#TOC-ACTIVATION">Activation</a> flaw is a free action.</div>
+<h3 class="generated-class-3" id="TOC-EXTRA-ACTION">EXTRA ACTION</h3>
 <div style="padding:5px">You can use extra effort in order to take an additional standard or move action on your turn
 (see <b>Extra Effort</b>).</div>
 <h3 class="generated-class-8" id="TOC-ENDING-YOUR-TURN">ENDING YOUR TURN</h3>
 <div style="padding:5px">At the end of your turn, you should:</div>
 <div style="padding:5px">End any effects that last "until the end of your turn".</div>
-<div style="padding:5px">Make any necessary resistance checks to recover from ongoing effects.</div>
+<div style="padding:5px">End any Concentration or Sustained duration effects that you have not maintained (if
+they haven't already been ended).</div>
+<div style="padding:5px">Make any necessary resistance checks to recover from a condition.</div>
+<div style="padding:5px">Suffer from any harmful ongoing effects such as from a condition (assuming you didn't recover from it)
+or from circumstances like taking damage each turn that you are standing in a fire.</div>
 <div style="padding:5px">Inform the Gamemaster and other players that your turn is finished, allowing the next character
 in the initiative order to go.</div>
 <div class="blue-box-header">CHALLENGES</div>
@@ -163,7 +187,7 @@ the Gamemaster can dispense with initiative for the challenge. For example, if t
 chasm, then it is a challenge they must all complete, and it does not particularly matter which of them goes first or
 last in doing so (since their actions are all virtually simultaneous).</div>
 <div style="padding:5px">With other challenges, it does matter who goes first, particular when the challenge is timed in
-some fashion. So, for example, if the GM determines that part of a burning building will collapse after the first round,
+some fashion. So, for example, if the GM determines that part of a burning building will collapse after the second turn,
 initiative may be checked to see which heroes go before the collapse and who does not quite act fast enough. The same
 may be true of other traps or hazards, which can have initiative ranks of their own.</div>
 <h3 class="generated-class-8" id="TOC-CHALLENGE-SEQUENCES">CHALLENGE SEQUENCES</h3>
@@ -226,8 +250,8 @@ Failing one check will affect the other since it will make you fatigued. Some fo
 <h3 class="generated-class-8" id="TOC-SUFFOCATION">SUFFOCATION</h3>
 <div style="padding:5px">Characters can hold their breath for ten rounds (one minute) plus a number of rounds equal to
 twice their Stamina. After that time they must make a Fortitude check (DC 0) each round to continue holding their
-breath. The DC increases by +1 for each previous success. Failure on the Fortitude check means the character becomes
-incapacitated and on the following round the character is dying. A dying character cannot stabilize until able to breathe
+breath. The DC increases by +1 for each previous success. Failure on the Fortitude check means the character is forced to breath
+and if he is unable then he becomes incapacitated and on the following round he is dying. A dying character cannot stabilize until able to breathe
 again. Heroes with <b>Immunity</b> to Suffocation can go an unlimited time without air.</div>
 <h3 class="generated-class-8" id="TOC-FALLING">FALLING</h3>
 <div style="padding:5px">A fall inflicts damage rank equal to (fallen distance - your size)*2 with a maximum of 18. A
@@ -630,7 +654,7 @@ complication description. If you have a group of powers with an activation flaw 
 Loss</b> to each power within that group. If the duration of <a
 href="powers/effects/variable-general.html">Variable</a> power ends (or is countered) then there
 is <b>Power Loss</b> for all powers that it provided. A permanent effect goes through <b>Power Loss</b> when it is
-countered (the power will automatically come back during the owner's next turn).</div>
+countered (the power will automatically come back 1 round later).</div>
 <div style="padding:5px">The most notable <b>Power Loss</b> is from a
 <a href="secret-origins/index.html#TOC-OTHER-COMPLICATIONS">complication</a> because it prevents the use of the
 power for as long as the complication dictates.</div>
@@ -704,7 +728,11 @@ anything, happens.</div>
 represent how fast the target is able to "shake off" the effect. Make a resistance check for the target of an ongoing
 effect at the end of each of the target's turns. A successful check ends the effect and removes conditions imposed by
 it. A failure means the effect's conditions persist, as given in the effect's description.</div>
-<div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: Your hero was hit by a Affliction effect, leaving him blinded. At the end of his turn, he makes a Fortitude resistance check against the effect's DC to try and shake it off, but missed the check by 2. His next turn, still blind, he stumbles and tries to strike the foe taunting him. At the end of his turn, he makes another resistance check. success! He ends the Affliction effect and removes the blinded condition. Next turn, the villain had better watch out!</div>
+<div style="padding:5px;margin-left:40px;font-style:italic"><b>Example</b>: Your hero was hit by a Affliction effect,
+leaving him blinded. At the end of his turn, he makes a Fortitude resistance check against the effect's DC to try and
+shake it off, but missed the check by 2. His next turn, still blind, he stumbles and tries to strike the foe taunting
+him. At the end of his turn, he makes another resistance check. success! He ends the Affliction effect and removes the
+blinded condition. Next round, the villain had better watch out!</div>
 <h3 class="generated-class-8" id="TOC-CONDITIONS">CONDITIONS</h3>
 <div style="padding:5px">A failed resistance check against an attack imposes one or more <b>conditions</b> on the
 target, depending on the type of effect and the degree of failure. See the effect description and the <b>Conditions</b>
@@ -713,7 +741,7 @@ section of <a href="the-basics/index.html">The Basics</a> for more on the variou
 <div style="padding:5px">The most common actions characters take during conflicts are listed and described here. The GM
 should use these as guidelines for dealing with unusual actions players may choose for their characters, basing them on
 the existing action descriptions. The actions listed can have modifiers applied just like strength's damaging attack in
-both cases you still have a copy of the original after buying and appling modifiers. However the only two actions listed
+both cases you still have a copy of the original after buying and applying modifiers. However the only two actions listed
 below that can have modifiers are: Grab and Trip. You can't make these actions any faster (via the <b>Faster Action</b>
 extra) and the Gamemaster has the final say on which modifiers are allowed to be used for those actions.</div>
 <h3 class="generated-class-8" id="TOC-AID---STANDARD-ACTION">AID - STANDARD ACTION</h3>
@@ -721,7 +749,7 @@ extra) and the Gamemaster has the final say on which modifiers are allowed to be
 melee with that opponent as a standard action. This is like a team check (see <b>Team Checks</b> in <a
 href="the-basics/index.html">The Basics</a>): You make an attack check against DC 0. If you succeed, you don't actually hit or
 affect the opponent, but success grants your ally gains a +1 circumstance bonus on an attack check against that opponent
-or a +1 circumstance bonus to Defense against that opponent (your choice) until the end of your ally's next turn. Three
+or a +1 circumstance bonus to Defense against that opponent (your choice) for 1 round. Three
 or more degrees of success grant a +2 bonus. Failure does nothing but two or more degrees of failure (if possible)
 forces the ally to take a -1 penalty.</div>
 <h3 class="generated-class-8" id="TOC-AIM---STANDARD-ACTION">AIM - STANDARD ACTION</h3>
@@ -730,14 +758,14 @@ the attack against that target. If you're making a close attack, or a ranged att
 attack check. If you're making a ranged attack from a greater distance, you get a +1 circumstance bonus.
 You can't attack the target the same turn you start aiming even if you have enough actions left.</div>
 <div style="padding:5px">You are vulnerable while aiming and you must take a free action to maintain your aim
-each turn (before you make your attack). To start and maintain an aim you must be able to accurately sense your target.
+each round (before you make your attack). To start and maintain an aim you must be able to accurately sense your target.
 If you are unable to maintain the aim, you lose its benefit.</div>
 <div style="padding:5px">Once you aim, your next action that is a move action or slower must be to attack that target. Taking a
 different action or attacking a different target spoils your aim and you lose the bonus.</div>
 <h3 class="generated-class-8" id="TOC-ATTACK---STANDARD-ACTION">ATTACK - STANDARD ACTION</h3>
 <div style="padding:5px">With a standard action, you can make an attack check against any opponent within the attack's
 range. This action represents the using of a power that is an attack, for using other effects see their required action.
-Only one attack can be made per turn. If the attack is an area effect or perception range, no attack check is needed. It
+You can only make one attack per round. If the attack is an area effect or perception range, no attack check is needed. It
 affects the area or target automatically.</div>
 <h3 class="generated-class-8" id="TOC-CHARGE---STANDARD-ACTION">CHARGE - STANDARD ACTION</h3>
 <div style="padding:5px">You rush forward to attack. You move your speed rank in a mode of movement available to you in
@@ -759,23 +787,17 @@ just as though this counted as an attack. Choose an active defense, until your n
 results. If the dice sum is less than 1 (before adding defense ranks) then use 1 instead, just as if you spent a victory
 point. The attacker must equal or exceed your opposed check result in order to hit you (as normal). The active defense
 that you did not choose to defend with functions normally.</div>
-<h3 class="generated-class-8" id="TOC-DELAY---NO-ACTION">DELAY - NO ACTION</h3>
+<h3 class="generated-class-8" id="TOC-DELAY---FREE-ACTION">DELAY - FREE ACTION</h3>
 <div style="padding:5px">When you delay, you choose to take your turn later in the initiative order. You must delay your
 entire turn. You cannot delay if you have already taken an action on your turn, or if you are unable to take
-actions.</div>
+actions. A delay action can't be <a href="#TOC-READY---STANDARD-ACTION">readied</a> because that doesn't make sense.</div>
 <div style="padding:5px">At any point after any other character in the conflict has acted, you can choose to take your
-turn. Your initiative moves into the new place in the order where you act, and you take your normal allocation of
-actions. If you do not act before your initiative comes up in the next round, your turn ends, you lose your delayed
-turn, and your initiative remains where it is.</div>
-<div style="padding:5px">Beneficial effects lasting until the end of your turn end when you choose to delay, but harmful
-effects that last until the end of your turn in which you act. Like-wise, you do not make resistance checks until after
-you have taken your turn, so delaying can draw out some effects.</div>
-<div style="padding:5px">However you can't delay your turn indefinitely: if initiative is rolled each round then you
-must take your turn before the next initiative is rolled. If initiative is only rolled once at the start of combat and
-you delay your turn so that it ends up in the same initiative order then you have two turns in a row but the first one
-is special because it can't be delayed and you can't take any actions (not even free ones). The special turn occurs so
-that effects that trigger each turn, such as overcoming an <b>Affliction</b>, will trigger the same number of times. The
-turn that follows the special turn is ordinary in every way and it can be delayed.</div>
+turn (you can't interrupt a turn). Your initiative moves into the new place in the order where you act, and you take your normal allocation of
+actions. If you do not act before your turn would come up again then you are forced to have a turn that can't be delayed
+(you may choose to do nothing). Therefore you can't delay your turn indefinitely but you can skip every other turn.</div>
+<div style="padding:5px">Beneficial effects lasting until the end of your turn will end when you choose to delay, but harmful
+effects that last until the end of your turn will wait until after you act.
+Like-wise, you do not make resistance checks until after you have taken your turn, so delaying can draw out some effects.</div>
 <h3 class="generated-class-8" id="TOC-DISARM---STANDARD-ACTION">DISARM - STANDARD ACTION</h3>
 <div style="padding:5px">You attempt to knock a loosely attached or held item--such as a weapon or device--off of the
 opponent or out of an opponent's grasp. You may Disarm using any attack at the Gamemaster's discretion based on
@@ -805,12 +827,12 @@ substitute. This effective Strength is used whenever Strength is referenced in r
 normal (with Parry or Dodge if using a ranged grab effect). If successful, make an opposed check with the target's
 Strength against your Strength. If you win by 1, the target is restrained (immobile and vulnerable). If you win by 2 or
 more your opponent becomes bound (defenseless, immobile, and impaired). You can attempt to improve an existing hold with
-another grab action on a following turn, doing so does not use an attack check but still requires a Strength check. If
+another grab action on one of your following turns, doing so does not use an attack check but still requires a Strength check. If
 you win the target becomes bound, if you tie nothing happens, but if you lose the target escapes.</div>
 <div style="padding:5px">You are hindered and vulnerable while grabbing and holding an opponent. You can maintain a
-successful grab as a free action each turn, but cannot perform other actions requiring the use of your grabbing limb(s)
+successful grab as a free action during each of your turns, but cannot perform other actions requiring the use of your grabbing limb(s)
 while doing so. Since maintaining a grab is a free action, you can take a standard action to inflict your Strength
-damage to a grabbed target on subsequent turns after the grab is established.</div>
+damage to a grabbed target on one of your subsequent turns after the grab is established.</div>
 <div style="padding:5px">You can drag a restrained or bound target along with you when you move. The target gets a
 Strength resistance check against your Strength. If you win, you move and the target moves along with you but your
 normal ground speed is reduced by 1 rank. If the target resists, you are immobilized that turn (and lose the move action
@@ -824,14 +846,26 @@ is speed rank 0 (up to 30 feet per action). If you choose to move twice on your 
 move your speed rank each time. You can make a DC 5 Sprinting (Str) check as a free action to run faster, if you succeed
 your ground speed rank increases by 1 during this round only.</div>
 <h3 class="generated-class-8" id="TOC-READY---STANDARD-ACTION">READY - STANDARD ACTION</h3>
-<div style="padding:5px">Readying lets you prepare to take an action later, after you would normally act on your
-initiative, but before your initiative on your next turn. Readying is a standard action, so you can move as well.</div>
-<div style="padding:5px">You can ready a single standard, move, or free action. To do so, specify the action you will
+<div style="padding:5px">Readying lets you prepare to take an action later in order to respond to circumstances even
+when it isn't your turn. Readying is a standard action even if the action you prepare is smaller. However you may also
+Ready as a full turn action in order to prepare any full turn action.</div>
+<div style="padding:5px">You can ready a single standard, move, or free action (or a full turn action but only if you readied
+as a full turn action). To do so, specify the action you will
 take and the circumstances under which you will take it. Then, any time before your next turn, you may take the readied
 action as a reaction to those circumstances.</div>
-<div style="padding:5px">If you come to your next turn and have not yet performed your readied action, you don't get to
-take the readied action, you just lose your previous turn. You can ready the same action again on your next turn, if you
+<div style="padding:5px">The readied action will expire during your next turn if it still hasn't been used.
+The action expires at the start of your turn unless you choose to <a href="#TOC-DELAY---FREE-ACTION">Delay</a> in which case
+it expires when you stop delaying. Even if it expires you can ready the same action again on your turn, if you
 wish, continuing to wait for the right circumstances.</div>
+<div style="padding:5px">Unlike <a href="#TOC-DELAY---FREE-ACTION">Delay</a>, Readying an action doesn't affect the turn order.
+Your turn starts, you ready an action, your turn ends, someone does the thing you were waiting for, you use your readied action,
+the target finishes his turn, it comes back around to your turn in the normal order.</div>
+<div style="padding:5px">Readying is specifically useful for <a href="powers/effects/index.html#TOC-COUNTERING-EFFECTS">countering</a>
+but can be used for other things as well. For example you may ready a <a href="powers/effects/healing-general.html">Healing</a> action
+and state that you would like to heal the first ally who gets hurt.
+Ending an ongoing effect is a free action and can be readied accordingly. For example if
+you use <a href="powers/effects/create-control.html">create</a> to make a bridge, you can ready an action to end the effect
+when a villain is halfway across.</div>
 <h3 class="generated-class-8" id="TOC-SMASH---STANDARD-ACTION">SMASH - STANDARD ACTION</h3>
 <div style="padding:5px">You attempt to damage or break an object held or worn by an opponent. This may be done with any
 damaging attack. Make an attack check against the defense (Parry or Dodge) of the character with the object, with a -1
@@ -865,11 +899,11 @@ attack check and only apply for this one action.</div>
 <h3 class="generated-class-8" id="TOC-ALL-OUT-ATTACK">ALL-OUT ATTACK</h3>
 <div style="padding:5px">When you make an attack you can take a -1 penalty on your active defenses (Dodge and Parry) and
 get a +1 bonus to your attack. You can't use this if either defense bonuses would be reduced to 0 or below. The changes to attack and defense bonus
-are declared before you make the attack check and last until the start of your next turn.</div>
+are declared before you make the attack check and last for 1 round.</div>
 <h3 class="generated-class-8" id="TOC-DEFENSIVE-ATTACK">DEFENSIVE ATTACK</h3>
 <div style="padding:5px">When you make an attack you can take a -1 penalty on your attack bonus and get a +1 to your
 active defenses (Dodge and Parry). You can't use this if your attack bonus would be reduced to 0 or below. The changes to attack and defense bonus
-last until the start of your next turn. This maneuver can't be used for a Perception range attack (because it doesn't
+last for 1 round. This maneuver can't be used for a Perception range attack (because it doesn't
 have an attack check).</div>
 <h3 class="generated-class-8" id="TOC-DEMORALIZE">DEMORALIZE</h3>
 <div style="padding:5px">You can perform an <a href="skills.html#TOC-DEMORALIZING">Intimidation</a> skill check in
@@ -877,7 +911,7 @@ combat as a standard action to undermine an opponent's confidence (see skill pag
 <h3 class="generated-class-8" id="TOC-FEINT">FEINT</h3>
 <div style="padding:5px">You can use Deception as a standard action to mislead an opponent in combat. Make a Deception
 check as a standard action opposed by the better of your target's Deception or Insight. If your Deception check
-succeeds, the target is vulnerable against your next attack or until the end of your next round (see <b>Vulnerable</b>
+succeeds, the target is vulnerable against your next attack or until the end of your next turn (see <b>Vulnerable</b>
 in the <b>Conditions</b> section of <a href="the-basics/index.html">The Basics</a>).</div>
 <h3 class="generated-class-8" id="TOC-FINISHING-ATTACK">FINISHING ATTACK</h3>
 <div style="padding:5px">A finishing attack is a non-routine attack against a defenseless target at close range, with
