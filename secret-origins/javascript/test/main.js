@@ -138,6 +138,39 @@ TestSuite.main.clear=function(isFirst)
 
     return TestRunner.displayResults('TestSuite.main.clear', testResults, isFirst);
 };
+TestSuite.main.loadFile=function(isFirst)
+{
+    TestRunner.clearResults(isFirst);
+
+    var testResults=[];
+    try{
+    document.getElementById('fileChooser').value = '';  //clear the input
+    SelectUtil.changeText('powerChoices0', 'Damage');
+    Main.loadFile();
+    testResults.push({Expected: 'Damage', Actual: Main.powerSection.getRow(0).getEffect(), Description: 'Loading no file does nothing'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
+
+    //this test is complete since I can't set the file chooser to anything else
+
+    return TestRunner.displayResults('TestSuite.main.loadFile', testResults, isFirst);
+};
+TestSuite.main.loadImageFromFile=function(isFirst)
+{
+    TestRunner.clearResults(isFirst);
+
+    var testResults=[];
+    try{
+    document.getElementById('imgFileChooser').value = '';  //clear the input
+    document.getElementById('characterImage').src = '../images/Construct.jpg';
+    var expected = document.getElementById('characterImage').src;  //will be converted to absolute path
+    Main.loadImageFromFile();
+    testResults.push({Expected: expected, Actual: document.getElementById('characterImage').src, Description: 'Loading no file does nothing'});
+    } catch(e){testResults.push({Error: e, Description: actionTaken});}
+
+    //this test is complete since I can't set the file chooser to anything else
+
+    return TestRunner.displayResults('TestSuite.main.loadImageFromFile', testResults, isFirst);
+};
 TestSuite.main.getProtectionTotal=function(isFirst)
 {
     return {tableName: 'unmade', testResults: []};  //remove this when actual tests exist. ADD TESTS

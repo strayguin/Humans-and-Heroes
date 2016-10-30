@@ -323,7 +323,7 @@ TestSuite.powerRow.validateActivationInfo=function(isFirst)
     testResults.push({Expected: 'Personal', Actual: Main.powerSection.getRow(0).getRange(), Description: 'Feature Change action 2: getRange'});
     testResults.push({Expected: 'Instant', Actual: Main.powerSection.getRow(0).getDuration(), Description: 'Feature Change action 2: getDuration'});
     testResults.push({Expected: true, Actual: Messages.isOnlyErrorCodes('PowerObjectAgnostic.validateActivationInfo.notNone'), Description: 'Feature Change action 2: error'});
-    } catch(e){testResults.push({Error: e, Description: 'Feature Change action 2'}});}
+    } catch(e){testResults.push({Error: e, Description: 'Feature Change action 2'});}
 
     try{
     dataToLoad = Loader.resetData();

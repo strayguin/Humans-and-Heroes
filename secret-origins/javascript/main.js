@@ -107,6 +107,7 @@ function MainObject()
    this.loadFile=function()
    {
        var filePath=document.getElementById('fileChooser').files[0];
+       if(undefined === filePath) return;  //no file to load
        var oFReader=new FileReader();  //reference: https://developer.mozilla.org/en-US/docs/DOM/FileReader
        oFReader.readAsText(filePath);
        oFReader.onload=function(oFREvent){Main.loadFromString(oFREvent.target.result);};  //Main has been defined in order to use Main.loadFile() button
@@ -115,6 +116,7 @@ function MainObject()
    this.loadImageFromFile=function()
    {
        var filePath=document.getElementById('imgFileChooser').files[0];  //there's only ever 1 file
+       if(undefined === filePath) return;  //no file to load
        var oFReader=new FileReader();  //reference: https://developer.mozilla.org/en-US/docs/DOM/FileReader
        oFReader.readAsDataURL(filePath);
        oFReader.onload=function(oFREvent){document.getElementById('characterImage').src = oFREvent.target.result;};
