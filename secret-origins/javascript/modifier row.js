@@ -3,7 +3,7 @@ Select Modifier: select();
 Rank: changeRank();
 Text: changeText();
 */
-function ModifierObject(modifierListParent, totalIndex, sectionName)
+function ModifierObject(modifierListParent, powerRowIndex, modifierRowIndex, sectionName)
 {
    //private variable section:
     var name, modifierType, costPerRank, hasRank, maxRank, rank, hasText, text, hasAutoTotal, rawTotal, autoTotal;
@@ -26,6 +26,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
     this.getText=function(){return text;};
 
    //Single line function section
+    this.getModifierRowIndex=function(){return modifierRowIndex;};
     this.getPower=function(){return modifierListParent.getParent();};
     /**True if this row has no data*/
     this.isBlank=function(){return (name === undefined);};
@@ -39,15 +40,16 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
     this.isFree=function(){return (modifierType === 'Free');};
     /**True if this modifier changes the cost per rank*/
     this.isRank=function(){return (modifierType === 'Rank');};
-    this.setTotalIndex=function(indexGiven){totalIndex=indexGiven;};
+    this.setPowerRowIndex=function(newPowerRowIndex){powerRowIndex=newPowerRowIndex;};
+    this.setModifierRowIndex=function(newModifierRowIndex){modifierRowIndex=newModifierRowIndex;};
 
    //Onchange section
     /**Onchange function for selecting a modifier*/
-    this.select=function(){CommonsLibrary.select.call(this, this.setModifier, (sectionName+'ModifierChoices'+totalIndex), modifierListParent);};
+    this.select=function(){CommonsLibrary.select.call(this, this.setModifier, (sectionName+'ModifierChoices'+powerRowIndex+'.'+modifierRowIndex), modifierListParent);};
     /**Onchange function for changing the rank*/
-    this.changeRank=function(){CommonsLibrary.change.call(this, this.setRank, (sectionName+'ModifierRank'+totalIndex), modifierListParent);};
+    this.changeRank=function(){CommonsLibrary.change.call(this, this.setRank, (sectionName+'ModifierRank'+powerRowIndex+'.'+modifierRowIndex), modifierListParent);};
     /**Onchange function for changing the text*/
-    this.changeText=function(){CommonsLibrary.change.call(this, this.setText, (sectionName+'ModifierText'+totalIndex), modifierListParent);};
+    this.changeText=function(){CommonsLibrary.change.call(this, this.setText, (sectionName+'ModifierText'+powerRowIndex+'.'+modifierRowIndex), modifierListParent);};
 
    //Value setting section
    /**Populates data of the modifier by using the name (which is validated).
@@ -118,8 +120,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    /**This creates the page's html (for the row). called by modifier section only*/
    this.generate=function()
    {
-       var powerRowIndex = Number(totalIndex.split('.')[0]);
-       var modifierRowIndex = Number(totalIndex.split('.')[1]);
+       var totalIndex = powerRowIndex+'.'+modifierRowIndex;
        var htmlString='';
        htmlString+='   <tr>\n';  //TODO: confirm
        htmlString+='      <td width="34%" style="text-align:right;">\n';
@@ -218,6 +219,7 @@ function ModifierObject(modifierListParent, totalIndex, sectionName)
    this.setValues=function()
    {
        if(this.isBlank()) return;  //already set (to default)
+       var totalIndex = powerRowIndex+'.'+modifierRowIndex;
        if (document.getElementById(sectionName+'ModifierChoices'+totalIndex) !== null)
           SelectUtil.setText((sectionName+'ModifierChoices'+totalIndex), name);
        else document.getElementById(sectionName+'ModifierName'+totalIndex).innerHTML = name;

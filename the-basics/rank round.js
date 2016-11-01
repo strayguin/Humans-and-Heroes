@@ -10,9 +10,7 @@ function round(target)
     var above = findNextUp(target);
     var below = findNextDown(above);
 
-    var aboveDistance = Math.abs(0 - above);
-    var belowDistance = Math.abs(0 - below);
-    if(aboveDistance > belowDistance) return above;
+    if(Math.abs(above) > Math.abs(below)) return above;
     return below;
 }
 function findNextUp(target)

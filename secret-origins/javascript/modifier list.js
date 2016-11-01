@@ -50,7 +50,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    {
        this.sanitizeRows();
        rowArray.sort(this.sortOrder);
-       this.setSectionRowIndex(sectionRowIndex);  //used to correct all indexing
+       this.reindex();
        autoModifierNameToRowIndex.clear();
        rankTotal=0; flatTotal=0;
       for (var i=0; i < rowArray.length-1; i++)  //the last row is always blank
@@ -135,9 +135,9 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    /**Needs to be updated for document reasons. This will update all dependent indexing*/
    this.setSectionRowIndex=function(sectionRowIndexGiven)
    {
-       sectionRowIndex=sectionRowIndexGiven;
+      sectionRowIndex=sectionRowIndexGiven;
       for(var i=0; i < rowArray.length; i++)  //even blank row
-         {rowArray[i].setTotalIndex(sectionRowIndex+'.'+i);}  //correct all indexing
+         {rowArray[i].setPowerRowIndex(sectionRowIndex);}  //correct all indexing. ModifierRowIndex is still correct
    };
    /**Does each step for an onChange*/
    this.update=function()
@@ -148,7 +148,7 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
 
    //'private' functions section. Although all public none of these should be called from outside of this object
     /**Creates a new row at the end of the array*/
-    this.addRow=function(){rowArray.push(new ModifierObject(this, (sectionRowIndex+'.'+rowArray.length), sectionName));};
+    this.addRow=function(){rowArray.push(new ModifierObject(this, sectionRowIndex, rowArray.length, sectionName));};
    /**Section level validation. Such as remove blank and redundant rows and add a final blank row*/
    this.sanitizeRows=function()
    {
@@ -192,14 +192,23 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        if('Increased Duration' === a.getName() || 'Decreased Duration' === a.getName()) return aFirst;
        if('Increased Duration' === b.getName() || 'Decreased Duration' === b.getName()) return bFirst;
 
-       //TODO: also needs to be made stable. doing so will require refactoring totalIndex
-       return 0;  //else maintain the current order
+       //TODO: test
+       //else maintain the current order
+       //using rowIndex to force sort to be stable (since it might not be)
+       if(a.getModifierRowIndex() < b.getModifierRowIndex()) return aFirst;
+       return bFirst;
+   };
+   /**This will re-index all modifier rows. PowerRowIndex is not affected.*/
+   this.reindex=function()
+   {
+      for(var i=0; i < rowArray.length; i++)  //even blank row
+         {rowArray[i].setModifierRowIndex(i);}  //correct all indexing. PowerRowIndex is still correct
    };
    /**Removes the row from the array and updates the index of all others in the list.*/
    this.removeRow=function(rowIndexToRemove)
    {
        rowArray.remove(rowIndexToRemove);
-       this.setSectionRowIndex(sectionRowIndex);  //used to correct all indexing
+       this.reindex();
    };
    //constructor:
     this.addRow();

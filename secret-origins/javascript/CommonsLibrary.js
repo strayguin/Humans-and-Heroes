@@ -68,7 +68,7 @@ CommonsLibrary.generate=function(rowArray, sectionName)
 CommonsLibrary.removeRow=function(rowArray, rowIndex)
 {
     rowArray.remove(rowIndex);
-   for(var i=0; i < rowArray.length; i++)
+   for(var i=0; i < rowArray.length; i++)  //even blank row
       {rowArray[i].setRowIndex(i);}  //correct all indexing
 };
 /**Section level validation. The common version only removes blank and redundant rows and adds a final blank row*/
