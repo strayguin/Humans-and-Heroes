@@ -45,11 +45,23 @@ public class DeadLinkDetector
    {
       findAllLocalLinks(currentFile).forEach(linkText ->
       {
-         if (!linkText.startsWith("href=\"#"))  //TODO: ignore for now
+         if (linkText.startsWith("href=\"#"))
          {
-            final String pathToFile = linkText.replaceFirst("^(?:src|href)=\"([^\"#?]+).*$", "$1");
+            final String contents = FileIoUtil.readTextFile(currentFile);
+            final String anchor = linkText.replaceFirst("^href=\"#([^\"]+)\"$", "$1");
+            if (!contents.contains("id=\"" + anchor + "\"")) System.out.println("   Broken link to: #" + anchor);
+         }
+         else
+         {
+            final String pathToFile = linkText.replaceFirst("^(?:src|href)=\"([^\"#?]+).*\"$", "$1");
             final File linkedFile = Paths.get(currentFile.getParentFile().getAbsolutePath(), pathToFile).toFile();
             if (!linkedFile.exists()) System.out.println("   Broken link to: " + pathToFile);
+            else if (linkText.contains("#"))
+            {
+               final String contents = FileIoUtil.readTextFile(linkedFile);
+               final String anchor = linkText.replaceFirst("^href=\"[^\"#]+#([^\"]+)\"$", "$1");
+               if (!contents.contains("id=\"" + anchor + "\"")) System.out.println("   Broken link to: " + pathToFile + "#" + anchor);
+            }
          }
       });
    }
