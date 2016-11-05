@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.github.SkySpiral7.Java.util.FileIoUtil;
 import empty.MyTools;
@@ -51,7 +47,7 @@ public class FileMover
       Files.move(oldFile.toPath(), newFile.toPath());
    }
 
-   public static void updateSideBar(final File oldFile, final File newFile)
+   private static void updateSideBar(final File oldFile, final File newFile)
    {
       final String originalContents = FileIoUtil.readTextFile(sideBar);
       //need to reference a file inside root so that linkBetween can get the parent of it
@@ -70,15 +66,13 @@ public class FileMover
       FileIoUtil.writeToFile(sideBar, newContents);
    }
 
-   public static void updateAllMyLinks(final File currentFile, final File newFile)
+   private static void updateAllMyLinks(final File currentFile, final File newFile)
    {
-      findAllLinks(currentFile).forEach(linkText ->
+      DeadLinkDetector.findAllLocalLinks(currentFile).forEach(linkText ->
       {
-         if (!MyTools.regexFoundInString(linkText, "^(?:src|href)=\"http") && !linkText.startsWith("href=\"#"))
+         if (!linkText.startsWith("href=\"#"))
          {
-            final Matcher matcher = Pattern.compile("^(?:src|href)=\"([^\"#?]+)").matcher(linkText);
-            matcher.find();
-            final String pathToOld = matcher.group(1);
+            final String pathToOld = linkText.replaceFirst("^(?:src|href)=\"([^\"#?]+).*$", "$1");
             final File oldFile = Paths.get(currentFile.getParentFile().getAbsolutePath(), pathToOld).toFile();
 
             final String originalContents = FileIoUtil.readTextFile(currentFile);
@@ -99,7 +93,7 @@ public class FileMover
       });
    }
 
-   public static void updateSingleLink(final File currentFile, final File oldFile, final File newFile)
+   private static void updateSingleLink(final File currentFile, final File oldFile, final File newFile)
    {
       final String originalContents = FileIoUtil.readTextFile(currentFile);
       final String pathToOld = linkBetween(currentFile, oldFile);
@@ -115,18 +109,6 @@ public class FileMover
          throw new RuntimeException(e);
       }
       FileIoUtil.writeToFile(currentFile, newContents);
-   }
-
-   public static Set<String> findAllLinks(final File currentFile)
-   {
-      final String contents = FileIoUtil.readTextFile(currentFile);
-      final Matcher matcher = Pattern.compile("(?:src|href)=\"[^\"]+?\"").matcher(contents);
-      final Set<String> linkSet = new HashSet<>();
-      while (matcher.find())
-      {
-         linkSet.add(matcher.group());
-      }
-      return linkSet;
    }
 
    public static String linkBetween(final File currentFile, final File destinationFile)

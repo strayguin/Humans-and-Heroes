@@ -17,7 +17,7 @@ public class Main
 
    public static void main(String[] args) throws Exception
    {
-      FileMover.batchMove();
+      DeadLinkDetector.detect();
    }
 
    public static void writeToFiles()
