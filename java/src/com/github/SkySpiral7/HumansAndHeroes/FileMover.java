@@ -11,8 +11,6 @@ import empty.MyTools;
 
 public class FileMover
 {
-   private static final File sideBar = new File("../themes/side bar.js");
-
    public static void batchMove() throws IOException
    {
       for (final File currentFile : Main.getAllHtmlFiles(new File("../powers/effects/effect-descriptions")))
@@ -25,7 +23,7 @@ public class FileMover
 
    public static void moveFile(final File oldFile, final File newFile) throws IOException
    {
-      for (final File currentFile : Main.getAllHtmlFiles(Main.rootFolder))
+      for (final File currentFile : Main.getAllHtmlFiles())
       {
          System.out.print("Looking at ");
          System.out.println(currentFile);
@@ -33,7 +31,7 @@ public class FileMover
          else updateSingleLink(currentFile, oldFile, newFile);
       }
       System.out.print("Looking at ");
-      System.out.println(sideBar);
+      System.out.println(Main.sideBar);
       updateSideBar(oldFile, newFile);
       try
       {
@@ -49,7 +47,7 @@ public class FileMover
 
    private static void updateSideBar(final File oldFile, final File newFile)
    {
-      final String originalContents = FileIoUtil.readTextFile(sideBar);
+      final String originalContents = FileIoUtil.readTextFile(Main.sideBar);
       //need to reference a file inside root so that linkBetween can get the parent of it
       final File fakeFile = new File(Main.rootFolder + "/fake.txt");
       final String pathToOld = linkBetween(fakeFile, oldFile);
@@ -63,7 +61,7 @@ public class FileMover
       {
          throw new RuntimeException(e);
       }
-      FileIoUtil.writeToFile(sideBar, newContents);
+      FileIoUtil.writeToFile(Main.sideBar, newContents);
    }
 
    private static void updateAllMyLinks(final File currentFile, final File newFile)

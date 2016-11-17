@@ -14,24 +14,22 @@ import empty.MyTools;
 
 public class DeadLinkDetector
 {
-   private static final File sideBar = new File("../themes/side bar.js");
-
    public static void detect() throws IOException
    {
-      for (final File currentFile : Main.getAllHtmlFiles(Main.rootFolder))
+      for (final File currentFile : Main.getAllHtmlFiles())
       {
          System.out.print("Looking at ");
          System.out.println(currentFile);
          readLinks(currentFile);
       }
       System.out.print("Looking at ");
-      System.out.println(sideBar);
+      System.out.println(Main.sideBar);
       readSideBar();
    }
 
    private static void readSideBar()
    {
-      final String contents = FileIoUtil.readTextFile(sideBar);
+      final String contents = FileIoUtil.readTextFile(Main.sideBar);
       final Matcher matcher = Pattern.compile("\"link\":\"([^\"]+)\"").matcher(contents);
       while (matcher.find())
       {

@@ -1,8 +1,10 @@
 package com.github.SkySpiral7.HumansAndHeroes;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
+import java.lang.annotation.Annotation;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.github.SkySpiral7.Java.pojo.FileGatherer;
 import com.github.SkySpiral7.Java.util.FileIoUtil;
@@ -14,15 +16,16 @@ import empty.MyTools;
 public class Main
 {
    public static final File rootFolder = new File("..");
+   public static final File sideBar = new File("../themes/side bar.js");
 
    public static void main(String[] args) throws Exception
    {
-      DeadLinkDetector.detect();
+      SiteMapCreator.generate();
    }
 
    public static void writeToFiles()
    {
-      File[] myFileArray = getAllHtmlFiles(rootFolder);
+      File[] myFileArray = getAllHtmlFiles();
       for (int i = 0; i < myFileArray.length; i++)
       {
          String originalContents = FileIoUtil.readTextFile(myFileArray[i]);
@@ -69,7 +72,7 @@ public class Main
 
    public static void searchForText(String searchingFor, boolean ignoreCase, boolean removeTags)
    {
-      File[] myFileArray = getAllHtmlFiles(rootFolder);
+      File[] myFileArray = getAllHtmlFiles();
       List<File> foundList = new ArrayList<>();
       List<File> remainingList = new ArrayList<>();
       if (ignoreCase) searchingFor = searchingFor.toLowerCase();
@@ -82,7 +85,7 @@ public class Main
          else remainingList.add(myFileArray[i]);
       }
       System.out.println("Done.\r\n");
-      if (foundList.size() == 0)
+      if (foundList.isEmpty())
       {
          System.out.println("Not found.");
          return;
@@ -97,7 +100,7 @@ public class Main
 
    public static void searchForRegex(String searchingFor)
    {
-      File[] myFileArray = getAllHtmlFiles(rootFolder);
+      File[] myFileArray = getAllHtmlFiles();
       List<File> results = new ArrayList<>();
       for (int i = 0; i < myFileArray.length; i++)
       {
@@ -105,7 +108,7 @@ public class Main
          if (MyTools.regexFoundInString(contents, searchingFor)) results.add(myFileArray[i]);
       }
       System.out.println("Done.\r\n");
-      if (results.size() == 0)
+      if (results.isEmpty())
       {
          System.out.println("Not found.");
          return;
@@ -117,7 +120,7 @@ public class Main
 
    public static void searchForSymbols()
    {
-      File[] myFileArray = getAllHtmlFiles(rootFolder);
+      File[] myFileArray = getAllHtmlFiles();
       //		FileGatherer.Builder builder = new FileGatherer.Builder();
       //		builder.subFolderCriteria((File file)->{
       //			if(file.equals(new File("../.git"))) return false;
@@ -137,7 +140,7 @@ public class Main
       for (int i = 0; i < myFileArray.length; i++)
       {
          int lineCount = 1, colCount = 0;
-         String newContents = FileIoUtil.readTextFile(myFileArray[i], StandardCharsets.UTF_8);
+         String newContents = FileIoUtil.readTextFile(myFileArray[i]);
          for (int j = 0; j < newContents.length(); j++)
          {
             if (newContents.charAt(j) == '\n')
@@ -161,7 +164,7 @@ public class Main
          }
       }
       System.out.println("Done.\r\n");
-      if (results.size() == 0)
+      if (results.isEmpty())
       {
          System.out.println("All 7 bit ASCII (and on the keyboard).");
          return;
@@ -170,7 +173,12 @@ public class Main
       for (String item : results) { System.out.println(item); }
    }
 
-   public static File[] getAllHtmlFiles(File containingFolder)
+   public static File[] getAllHtmlFiles()
+   {
+      return getAllHtmlFiles(rootFolder);
+   }
+
+   public static File[] getAllHtmlFiles(final File containingFolder)
    {
       return FileGatherer.searchForFiles(containingFolder, FileGatherer.Filters.acceptExtensions("html")).toArray(new File[0]);
    }

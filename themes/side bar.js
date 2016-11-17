@@ -13,6 +13,10 @@ if (!currentPage.endsWith('.html'))
 
 var navigationJson = [
    {
+      "name":"Site Map",
+      "link":"site-map.html"
+   },
+   {
       "name":"The Basics",
       "link":"the-basics/index.html",
       "children":[

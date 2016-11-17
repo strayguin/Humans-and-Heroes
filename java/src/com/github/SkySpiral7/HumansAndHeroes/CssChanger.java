@@ -16,7 +16,7 @@ public class CssChanger
 
    public static void detectAllStyle()
    {
-      File[] myFileArray = Main.getAllHtmlFiles(Main.rootFolder);
+      File[] myFileArray = Main.getAllHtmlFiles();
       Set<String> results = new HashSet<>();
 
       for (int fileIndex = 0; fileIndex < myFileArray.length; fileIndex++)
@@ -33,7 +33,7 @@ public class CssChanger
          }
       }
       System.out.println("Done.\r\n");
-      if (results.size() == 0)
+      if (results.isEmpty())
       {
          System.out.println("None found.");
          return;
@@ -47,7 +47,7 @@ public class CssChanger
 
    public static void combineClasses()
    {
-      File[] myFileArray = Main.getAllHtmlFiles(Main.rootFolder);
+      File[] myFileArray = Main.getAllHtmlFiles();
       for (int fileIndex = 0; fileIndex < myFileArray.length; fileIndex++)
       {
          String contents = FileIoUtil.readTextFile(myFileArray[fileIndex]);
@@ -76,7 +76,7 @@ public class CssChanger
 
    public static void replaceLongStyles()
    {
-      File[] myFileArray = Main.getAllHtmlFiles(Main.rootFolder);
+      File[] myFileArray = Main.getAllHtmlFiles();
       Set<String> styleSet = new HashSet<>();
       final int offset = 77;
 
@@ -94,7 +94,7 @@ public class CssChanger
          }
       }
       System.out.println("Found them.");
-      if (styleSet.size() == 0)
+      if (styleSet.isEmpty())
       {
          System.out.println("None found.");
          return;
@@ -150,7 +150,7 @@ public class CssChanger
    {
       Set<String> allCssNames = getAllCssSelectors();
 
-      if (allCssNames.size() == 0)
+      if (allCssNames.isEmpty())
       {
          System.out.println("Error: Css not parsed.");
          return;
@@ -165,7 +165,7 @@ public class CssChanger
          if (!searchHtmlForCss(name)) unusedCss.add(name);
       }
 
-      if (unusedCss.size() == 0)
+      if (unusedCss.isEmpty())
       {
          System.out.println("Got all them suckers");
          return;
@@ -200,7 +200,7 @@ public class CssChanger
 
    private static boolean searchHtmlForCss(String cssName)
    {
-      File[] myFileArray = Main.getAllHtmlFiles(Main.rootFolder);
+      File[] myFileArray = Main.getAllHtmlFiles();
       Pattern cssPattern = Pattern.compile("(?:class|id)=\"(?:|[^\"]+ )\\Q" + cssName + "\\E(?:| [^\"]+)\"");
       for (int i = 0; i < myFileArray.length; i++)
       {
