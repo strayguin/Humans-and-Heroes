@@ -203,6 +203,43 @@ Main = new MainObject();
 Object.freeze(Main);
 Main.clear();  //in case the browser has cached some fields (wrong totals and onChange won't work) all other fields can stay as is
 document.getElementById('ruleset').value = Main.getActiveRuleset().toString();
+
+if (window.location.search.startsWith('?uploadPath='))
+{(function(){
+   var url = window.location.search.substring('?uploadPath='.length);
+   var ajaxRequest = new XMLHttpRequest();
+   ajaxRequest.onerror = function(messageOrEvent, source, lineNumber, columnNumber, error)
+   {
+      alert('Failed to load file:\n' + error);
+      console.error('onerror:', messageOrEvent, error, ajaxRequest.status);
+   };
+   ajaxRequest.onreadystatechange = function()
+   {
+      try {
+          if (ajaxRequest.readyState === XMLHttpRequest.DONE) {
+            if (ajaxRequest.status === 404) {
+              alert('Upload file not found.');
+              console.error('onreadystatechange 404:', ajaxRequest, ajaxRequest.responseText);
+            }
+            else if (ajaxRequest.status >= 400) {
+              alert('Failed to load file:\n' + ajaxRequest.status + '\n' + ajaxRequest.responseText);
+              console.error('onreadystatechange 400+:', ajaxRequest, ajaxRequest.responseText);
+            }
+            //else is handled by onload
+            else{
+              console.log('onreadystatechange else:', ajaxRequest, ajaxRequest.status, ajaxRequest.responseText);
+            }
+          }
+        }
+        catch( error ) {
+            alert('Failed to load file:\n' + error);
+            console.error('onreadystatechange catch:', ajaxRequest, error);
+        }
+   };
+   ajaxRequest.onload = function(progressEvent){Main.loadFromString(progressEvent.target.responseText);};
+   ajaxRequest.open('GET', url, true);
+   ajaxRequest.send();
+})();}
 </script>
 </body>
 </html>
