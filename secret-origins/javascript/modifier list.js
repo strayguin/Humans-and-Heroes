@@ -147,8 +147,8 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
    };
 
    //'private' functions section. Although all public none of these should be called from outside of this object
-    /**Creates a new row at the end of the array*/
-    this.addRow=function(){rowArray.push(new ModifierObject(this, sectionRowIndex, rowArray.length, sectionName));};
+   /**Creates a new row at the end of the array*/
+   this.addRow=function(){rowArray.push(new ModifierObject(this, sectionRowIndex, rowArray.length, sectionName));};
    /**Section level validation. Such as remove blank and redundant rows and add a final blank row*/
    this.sanitizeRows=function()
    {
@@ -192,12 +192,13 @@ function ModifierList(powerRowParent, sectionRowIndex, sectionName)
        if('Increased Duration' === a.getName() || 'Decreased Duration' === a.getName()) return aFirst;
        if('Increased Duration' === b.getName() || 'Decreased Duration' === b.getName()) return bFirst;
 
-       //TODO: test
        //else maintain the current order
        //using rowIndex to force sort to be stable (since it might not be)
        if(a.getModifierRowIndex() < b.getModifierRowIndex()) return aFirst;
        return bFirst;
    };
+   /**This is only for testing. Calling it otherwise will throw. This simply re-sorts with an unstable algorithm.*/
+   this.testSortStability=function(){unstableBubbleSort(rowArray, this.sortOrder);};  //throws if doesn't exist
    /**This will re-index all modifier rows. PowerRowIndex is not affected.*/
    this.reindex=function()
    {

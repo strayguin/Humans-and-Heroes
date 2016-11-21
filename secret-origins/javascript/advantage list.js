@@ -120,6 +120,8 @@ function AdvantageList()
        if(a.getRowIndex() < b.getRowIndex()) return aFirst;
        return bFirst;
    };
+   /**This is only for testing. Calling it otherwise will throw. This simply re-sorts with an unstable algorithm.*/
+   this.testSortStability=function(){unstableBubbleSort(rowArray, this.sortOrder);};  //throws if doesn't exist
    /**Updates other sections which depend on advantage section*/
    this.notifyDependent=function()
    {

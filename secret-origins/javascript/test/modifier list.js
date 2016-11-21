@@ -97,20 +97,46 @@ TestSuite.modifierList.sortOrder=function(isFirst)
 
     try{
     SelectUtil.changeText('powerChoices0', 'Create');
-    SelectUtil.changeText('powerSelectAction0', 'Slow');
-    SelectUtil.changeText('powerModifierChoices0.1', 'Selective');
+    SelectUtil.changeText('powerModifierChoices0.0', 'Selective');
+    SelectUtil.changeText('powerSelectRange0', 'Close');
+    SelectUtil.changeText('powerModifierChoices0.2', 'Precise');
+    Main.powerSection.getRow(0).getModifierList().testSortStability();
+    //this test proves that the sort order forces stability
+
+    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0,0).getName(), Description: 'Stability: Modifier 1'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0,1).getName(), Description: 'Stability: Modifier 2'});
+    testResults.push({Expected: 'Precise', Actual: Main.powerSection.getModifierRowShort(0,2).getName(), Description: 'Stability: Modifier 3'});
+    } catch(e){testResults.push({Error: e, Description: 'Stability'});}
+
+    try{
+    Main.clear();
+    SelectUtil.changeText('powerChoices0', 'Create');
+    SelectUtil.changeText('powerModifierChoices0.0', 'Selective');
+    SelectUtil.changeText('powerSelectRange0', 'Perception');
+    SelectUtil.changeText('powerSelectDuration0', 'Continuous');
+    SelectUtil.changeText('powerSelectAction0', 'Free');
+    //this test proves that these are in the right order: Faster Action, Increased Range, Increased Duration, else
+
+    testResults.push({Expected: 'Faster Action', Actual: Main.powerSection.getModifierRowShort(0,0).getName(), Description: 'Auto Extras: Modifier 1'});
+    testResults.push({Expected: 'Increased Range', Actual: Main.powerSection.getModifierRowShort(0,1).getName(), Description: 'Auto Extras: Modifier 2'});
+    testResults.push({Expected: 'Increased Duration', Actual: Main.powerSection.getModifierRowShort(0,2).getName(), Description: 'Auto Extras: Modifier 3'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0,3).getName(), Description: 'Auto Extras: Modifier 4'});
+    } catch(e){testResults.push({Error: e, Description: 'Auto Extras'});}
+
+    try{
+    Main.clear();
+    SelectUtil.changeText('powerChoices0', 'Create');
+    SelectUtil.changeText('powerModifierChoices0.0', 'Selective');
     SelectUtil.changeText('powerSelectRange0', 'Close');
     SelectUtil.changeText('powerSelectDuration0', 'Concentration');
-    SelectUtil.changeText('powerModifierChoices0.4', 'Precise');
+    SelectUtil.changeText('powerSelectAction0', 'Slow');
+    //this test proves that these are in the right order: Slower Action, Reduced Range, Decreased Duration, else
 
-    testResults.push({Expected: 'Create', Actual: Main.powerSection.getRow(0).getEffect(), Description: 'power row'});
-    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0,0).getName(), Description: 'Modifier 1'});
-    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0,1).getName(), Description: 'Modifier 2'});
-    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0,2).getName(), Description: 'Modifier 3'});
-    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0,3).getName(), Description: 'Modifier 4'});
-    testResults.push({Expected: 'Precise', Actual: Main.powerSection.getModifierRowShort(0,4).getName(), Description: 'Modifier 5'});
-    testResults.push({Expected: true, Actual: Main.powerSection.getModifierRowShort(0,5).isBlank(), Description: 'No more modifiers'});
-    } catch(e){testResults.push({Error: e, Description: 'sortOrder'});}
+    testResults.push({Expected: 'Slower Action', Actual: Main.powerSection.getModifierRowShort(0,0).getName(), Description: 'Auto Flaws: Modifier 1'});
+    testResults.push({Expected: 'Reduced Range', Actual: Main.powerSection.getModifierRowShort(0,1).getName(), Description: 'Auto Flaws: Modifier 2'});
+    testResults.push({Expected: 'Decreased Duration', Actual: Main.powerSection.getModifierRowShort(0,2).getName(), Description: 'Auto Flaws: Modifier 3'});
+    testResults.push({Expected: 'Selective', Actual: Main.powerSection.getModifierRowShort(0,3).getName(), Description: 'Auto Flaws: Modifier 4'});
+    } catch(e){testResults.push({Error: e, Description: 'Auto Flaws'});}
 
     return TestRunner.displayResults('TestSuite.modifierList.sortOrder', testResults, isFirst);
 };

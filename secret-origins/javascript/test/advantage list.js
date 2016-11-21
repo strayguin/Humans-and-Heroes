@@ -179,6 +179,8 @@ TestSuite.advantageList.sortOrder=function(isFirst)
     SelectUtil.changeText('advantageChoices0', 'Connected');
     SelectUtil.changeText('equipmentChoices0', 'Damage');
     SelectUtil.changeText('advantageChoices2', 'Benefit');
+    Main.advantageSection.testSortStability();
+    //this test proves that the sort order forces stability and that equipment comes first
 
     testResults.push({Expected: 'Damage', Actual: Main.equipmentSection.getRow(0).getEffect(), Description: 'equipment section row'});
     testResults.push({Expected: 'Equipment', Actual: Main.advantageSection.getRow(0).getName(), Description: 'Advantage 1'});

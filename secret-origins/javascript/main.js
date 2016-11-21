@@ -1,3 +1,4 @@
+(function(){
 //include everything else because I'm cool like that
 var jsFileNamesUsed = ['MapDefault', 'data', 'abilities', 'advantage list', 'advantage row', 'CommonsLibrary',
     'conversions', 'defenses', 'modifier list', 'modifier row', 'power list', 'power row', 'prototypes', 'SelectUtil',
@@ -9,7 +10,7 @@ if (null !== document.getElementById('testResults'))  //false in production to s
    jsFileNamesUsed = jsFileNamesUsed.concat([runnerPath, 'test/root', 'test/abilities', 'test/advantage list',
       'test/advantage row', 'test/CommonsLibrary', 'test/conversions', 'test/defenses',
       'test/main', 'test/modifier list', 'test/modifier row', 'test/power list', 'test/power row',
-      'test/SelectUtil', 'test/skill list', 'test/skill row']);
+      'test/SelectUtil', 'test/skill list', 'test/skill row', 'test/test tools']);
 }
 for(var i=0; i < jsFileNamesUsed.length; i++){includeJsFile(jsFileNamesUsed[i]);}
 function includeJsFile(jsName)
@@ -17,6 +18,7 @@ function includeJsFile(jsName)
     document.write('<script type="text/javascript" src="javascript/'+jsName+'.js"></script>');
     //document write is not a problem since this is ran only once
 }
+})();
 
 /**Call List onChange
 Hero Name: Nothing (only need to look at it when saving or loading)
